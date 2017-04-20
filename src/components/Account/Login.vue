@@ -1,42 +1,59 @@
 <template>
-  <Row style="padding-top: 100px">
-    <Col span="14" offset="5">
-    <div class="login-form">
-      <h2 class="title">{{systemName}}</h2>
-      <Form ref="formInline" :model="loginform" :rules="loginRule">
-        <Form-item prop="username">
-          <Input type="text" v-model="loginform.username" size="large" placeholder="用户名">
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
-        </Form-item>
-        <Form-item prop="password">
-          <Input type="password" v-model="loginform.password" size="large" placeholder="密码">
-          <Icon type="ios-locked-outline" slot="prepend"></Icon>
-          </Input>
-        </Form-item>
-        <Form-item prop="verifyCode">
-          <Row>
-            <Col span="8">
-            <Input type="text" v-model="loginform.verifyCode" size="large" placeholder="验证码">
-            <Icon type="images" slot="prepend"></Icon>
+  <div>
+    <Row>
+      <Col span="14" offset="5">
+      <div class="alert-title">
+        <Alert type="success" show-icon v-show="successShow">
+          {{successMsg}}
+          <span slot="desc"> </span>
+        </Alert>
+        <Alert type="warning" show-icon v-show="warningShow">
+          {{warningMsg}}
+          <span slot="desc"> </span>
+        </Alert>
+      </div>
+      </Col>
+    </Row>
+    <Row>
+      <Col span="14" offset="5">
+      <div class="login-form">
+        <h2 class="title">{{systemName}}</h2>
+        <Form ref="loginform" :model="loginform" :rules="loginRule">
+          <Form-item prop="user_name">
+            <Input type="text" v-model="loginform.user_name" size="large" placeholder="用户名">
+            <Icon type="ios-person-outline" slot="prepend"></Icon>
             </Input>
-            </Col>
-            <Col span="12">
-            <img :src="verifyUrl" @click="refreshVerify()" class="verify-pos"/>
-            </Col>
-          </Row>
-        </Form-item>
-        <Form-item>
-          <Checkbox v-model="loginform.rememberMe">记住我</Checkbox>
-        </Form-item>
-        <Form-item>
-          <Button type="primary" @click="handleSubmit('loginform')" size="large" :loading="loading" long icon="log-in">登录
-          </Button>
-        </Form-item>
-      </Form>
-    </div>
-    </Col>
-  </Row>
+          </Form-item>
+          <Form-item prop="pwd">
+            <Input type="password" v-model="loginform.pwd" size="large" placeholder="密码">
+            <Icon type="ios-locked-outline" slot="prepend"></Icon>
+            </Input>
+          </Form-item>
+          <Form-item prop="verifyCode">
+            <Row>
+              <Col span="8">
+              <Input type="text" v-model="loginform.verifyCode" size="large" placeholder="验证码">
+              <Icon type="images" slot="prepend"></Icon>
+              </Input>
+              </Col>
+              <Col span="12">
+              <img :src="verifyUrl" @click="refreshVerify()" class="verify-pos"/>
+              </Col>
+            </Row>
+          </Form-item>
+          <Form-item>
+            <Checkbox v-model="rememberMe">记住我</Checkbox>
+          </Form-item>
+          <Form-item>
+            <Button type="primary" @click="handleSubmit('loginform')" size="large" :loading="loading" long
+                    icon="log-in">登录
+            </Button>
+          </Form-item>
+        </Form>
+      </div>
+      </Col>
+    </Row>
+  </div>
 </template>
 <script>
   import http from '../../assets/js/http.js'
@@ -44,55 +61,50 @@
     data () {
       return {
         loginform: {
-          username: '',
-          password: '',
+          user_name: '',
+          pwd: '',
           verifyCode: '',
-          rememberMe: true
         },
         loginRule: {
-          username: [
+          user_name: [
             {required: true, message: '请填写用户名', trigger: 'blur'}
           ],
-          password: [
+          pwd: [
             {required: true, message: '请填写密码', trigger: 'blur'},
             {type: 'string', min: 6, message: '密码长度不能小于6位', trigger: 'blur'}
           ],
           verifyCode: [
-            {required: false, message: '请输入验证码', trigger: 'blur'}
+            {required: true, message: '请输入验证码', trigger: 'blur'}
           ]
         },
         title: '',
         systemName: '',
         loading: false,
-        requireVerify: false,
         verifyUrl: '',
         verifyImg: window.HOST + 'captcha.html',
+        successMsg: '',
+        successShow: false,
+        warningMsg: '',
+        warningShow: false,
+        rememberMe: true
       }
     },
-    created(){
-      //第一次如果是记住密码的话  会到本地存储中取出相关数据 然后自动登录
-      this.checkIsRememberPwd()
-      //没有设置记住密码 的话 或者是第一次登陆的情况下 会到后台获取基本的配置数据
-      this.apiPost('index/common/getConfigInfo').then((res) => {
-        this.handelResponse(res, (data) => {
-          axios.defaults.headers.sessionId = data.session_id;
-          Lockr.set('session_id', data.session_id)
-          document.title = data.SYSTEM_NAME
-          this.systemName = data.SYSTEM_NAME
-          if (!parseInt(data.IDENTIFYING_CODE)) {
-            this.requireVerify = true
-            this.loginRule.verifyCode[0].required = true
-          }
-        })
-      })
-      this.apiPost('index/common/getCaptcha').then((res) => {
-        this.handelResponse(res, (data) => {
-          console.log(data);
-        })
-      })
-      this.verifyUrl = this.verifyImg
-    },
     methods: {
+      showTitle(data){
+        this.systemName = data.SYSTEM_NAME;
+        document.title = data.SYSTEM_NAME;
+      },
+      showMsg(type, msg){
+        switch (type) {
+          case 'warning':
+            this.warningMsg = msg;
+            this.warningShow = true;
+            break;
+          case 'success':
+            this.successMsg = msg;
+            this.successShow = true;
+        }
+      },
       refreshVerify() {
         this.verifyUrl = ''
         setTimeout(() => {
@@ -100,28 +112,70 @@
         }, 300)
       },
       checkIsRememberPwd() {
-        if (Cookies.get('rememberPwd')) {
+        if (Cookies.get('rememberMe')) {
           let data = {
-            rememberKey: Lockr.get('rememberKey')
+            remember: Lockr.get('rememberKey'),
+            user_id: Lockr.get('user_id')
           }
-          this.apiPost('index/login/relogin', data).then((res) => {
-            this.handelResponse(res, (data) => {
-              this.resetCommonData(data)
+          this.apiPost('common/login/autoLogin', data).then((res) => {
+            this.handelResponse(res, (data, msg) => {
+              //成功的操作
+              this.resetCommonData(data, msg)
+            }, (data, msg) => {
+              //失败的操作
+              this.showMsg('warning', '自动登录失败，请重新登陆')
+              Cookies.set('rememberMe', false)
             })
           })
         }
       },
       handleSubmit(form) {
         if (this.loading) return
-        this.$refs.form.validate((valid) => {
+        this.$refs.loginform.validate((valid) => {
           if (valid) {
+            let data = {}
+            data.user_name = this.loginform.user_name
+            data.pwd = this.loginform.pwd
+            data.verifyCode = this.loginform.verifyCode
             this.loading = !this.loading
-            this.resetCommonData()
+            console.log(data);
+            this.apiPost('common/login/login', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                if (this.rememberMe) {
+                  Cookies.set('rememberMe', true, {expires: 7})
+                  Cookies.set('code', data.remember, {expire: 7});
+                }
+                this.resetCommonData(data)
+              }, (data, msg) => {
+                //根据状态来判断登陆状态
+                this.refreshVerify()
+                this.loading = !this.loading
+                this.showMsg('warning', msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.showMsg('warning', '网络异常，请稍后重试');
+            })
           } else {
             return false
           }
         })
       },
+    },
+    created(){
+      //第一次如果是记住密码的话  会到本地存储中取出相关数据 然后自动登录
+      this.checkIsRememberPwd()
+      //没有设置记住密码 的话 或者是第一次登陆的情况下 会到后台获取基本的配置数据
+      this.apiGet('common/login/getNoauth').then((res) => {
+        this.handelResponse(res, (data, msg) => {
+          this.showTitle(data)
+        }, (data, msg) => {
+          this.showMsg('warning', msg);
+        })
+      }, (data) => {
+        this.showMsg('warning', '网络异常，请稍后重试');
+      })
+      this.verifyUrl = this.verifyImg
     },
     mixins: [http]
   }
@@ -136,9 +190,14 @@
     background-clip: padding-box;
     margin-bottom: 20px;
     background-color: #F9FAFC;
-    margin: 120px auto;
+    margin: 20px auto;
     width: 450px;
     border: 2px solid #8492A6;
+  }
+
+  .alert-title {
+    width: 450px;
+    margin: 30px auto;
   }
 
   .title {
