@@ -15,7 +15,7 @@ Vue.use(iView);
 Vue.use(router);
 
 
-var HOST = 'http://local.sitegroup.com/index.php/'
+var HOST = 'http://sitegroup.youdao.so/index.php/'
 
 axios.defaults.baseURL = HOST
 axios.defaults.timeout = 1000 * 15
