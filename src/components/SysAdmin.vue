@@ -16,7 +16,6 @@
   .layout-content {
     min-height: 200px;
     margin: 15px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
   }
@@ -66,7 +65,9 @@
   }
 
   .layout-content {
-    height: 75%;
+    /*height: 85%;*/
+    height: auto;
+    min-height: 63%;
   }
 
   .layout-ceiling {
@@ -94,21 +95,25 @@
       <i-col :span="spanLeft" class="layout-menu-left">
         <Menu active-name="activeName" :theme="theme" width="auto">
           <div class="layout-logo-left"></div>
-          <Menu-item name="1">
+          <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/demo','1')">选项 1</span>
+            <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
           </Menu-item>
-          <Menu-item name="2">
+          <Menu-item name="节点管理">
             <Icon type="ios-keypad" :size="iconSize"></Icon>
-            <span class="layout-text">选项 2</span>
+            <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
           </Menu-item>
-          <Menu-item name="修改密码">
-            <Icon type="ios-analytics" :size="iconSize"></Icon>
-            <span class="layout-text" @click="changePwd()">修改密码</span>
+          <Menu-item name="重置密码">
+            <Icon type="ios-analytics" :size="iconSize" @click="changePwd()"></Icon>
+            <span class="layout-text" @click="changePwd()">重置密码</span>
+          </Menu-item>
+          <Menu-item name="退出系统">
+            <Icon type="log-out" :size="iconSize" @click="logOut()"></Icon>
+            <span class="layout-text" @click="logOut()">退出系统</span>
           </Menu-item>
         </Menu>
       </i-col>
-      <i-col :span="spanRight">
+      <i-col :span="spanRight" style="overflow: auto">
         <div class="layout-header">
           <i-button type="text" @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
@@ -130,10 +135,12 @@
       </i-col>
     </Row>
     <changepwd ref="changePwd"></changepwd>
+    <logout ref="logout"></logout>
   </div>
 </template>
 <script>
   import changepwd from './Account/Changepwd.vue';
+  import logout from './Account/Logout.vue';
   export default {
     data () {
       return {
@@ -147,6 +154,7 @@
     },
     components: {
       changepwd,
+      logout
     },
     computed: {
       iconSize () {
@@ -156,6 +164,9 @@
     methods: {
       changePwd () {
         this.$refs.changePwd.modal = true
+      },
+      logOut(){
+        this.$refs.logout.modal = true
       },
       toggleClick () {
         if (this.spanLeft === 4) {
