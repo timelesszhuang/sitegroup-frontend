@@ -7,7 +7,6 @@
   <div>
     <Modal
       v-model="modal"
-      title="重置密码"
       ok-text="保存" width="600">
       <p slot="header">
         <Icon type="person-add"></Icon>
@@ -126,13 +125,14 @@
                 this.form = {};
                 this.$Message.success(msg);
                 this.modal_loading = false;
+                this.$refs.useradd.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
               })
             }, (res) => {
               //处理错误信息
-              this.modal_loading = true;
+              this.modal_loading = false;
               this.$Message.error('网络异常，请稍后重试。');
             })
           } else {

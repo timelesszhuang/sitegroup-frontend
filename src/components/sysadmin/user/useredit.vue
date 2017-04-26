@@ -6,8 +6,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal"
-      title="修改账号信息">
+      v-model="modal">
       <p slot="header" style="color:#f60;">
         <Icon type="information-circled"></Icon>
         <span>修改账号信息</span>
@@ -42,6 +41,7 @@
             <Input type="text" v-model="form.wechat" placeholder="请输入微信账号"></Input>
           </Form-item>
           <Alert type="error">账号类型不允许修改</Alert>
+          <Alert type="error">密码留空不修改</Alert>
         </Form>
       </div>
       <div slot="footer">
@@ -109,6 +109,7 @@
                 this.form = {};
                 this.$Message.success(msg);
                 this.modal_loading = false;
+                this.$refs.useredit.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);

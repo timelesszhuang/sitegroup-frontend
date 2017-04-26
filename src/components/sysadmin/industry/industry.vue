@@ -1,35 +1,30 @@
 <template>
   <div>
     <div style="margin: 10px">
-      用户类型：
-      <Radio-group v-model="usertype" type="button">
-        <Radio label="all">全部</Radio>
-        <Radio label="1">系统管理员</Radio>
-        <Radio label="2">节点管理员</Radio>
-      </Radio-group>
-      公司名：
-      <Input v-model="name" placeholder="要查询的公司名" style="width: 300px"></Input>
+      行业：
+      <Input v-model="name" placeholder="行业" style="width: 300px"></Input>
       <Button type="primary" icon="ios-search" @click="queryData">搜索</Button>
-      <Button type="success" shape="circle" icon="plus" @click="add">添加用户</Button>
+      <Button type="success" shape="circle" icon="plus" @click="add">添加行业</Button>
     </div>
     <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-           :size="size" :data="userlist" :columns="tableColumns3" style="width: 100%">
+           :size="size" :data="industrylist" :columns="tableColumns" style="width: 100%">
     </Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
-        <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize" show-total
-              show-elevator show-sizer></Page>
+        <Page :total="total" :current="current" @on-change="changePage" show-total
+              show-elevator >
+        </Page>
       </div>
     </div>
     <!--用户添加操作-->
-    <Useradd ref="add"></Useradd>
-    <Useredit ref="edit" :form="editinfo"></Useredit>
+    <Industryadd ref="add"></Industryadd>
+    <Industryedit ref="edit" :form="editinfo"></Industryedit>
   </div>
 </template>
 <script>
   import http from '../../../assets/js/http.js';
-  import Useradd from './useradd.vue';
-  import Useredit from './useredit.vue';
+  import Industryadd from './industryadd.vue';
+  import Industryedit from './industryedit.vue';
   export default {
     data () {
       return {
@@ -42,33 +37,28 @@
         current: 1,
         pagesize: 10,
         name: '',
-        userlist: [],
-        usertype: 'all',
+        industrylist: [],
         editinfo: {},
       }
     },
-    components: {Useradd, Useredit},
+    components: {Industryadd, Industryedit},
     created () {
       this.getData();
     },
     methods: {
       //获取数据
       getData(){
-        let usertype = '';
-        if (this.usertype != 'all') {
-          usertype = this.usertype;
-        }
         let data = {
           params: {
             'page': this.current,
             'rows': this.pagesize,
-            'type': usertype,
             'name': this.name
           }
         };
-        this.apiGet('User', data).then((data) => {
+        this.apiGet('industry', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            this.userlist = data.rows
+//            console.log(data)
+            this.industrylist = data.rows
             this.total = data.total;
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -94,11 +84,10 @@
       edit(index){
         //　需要删除确认
         //　获取资源信息
-        let editid = this.userlist[index].id
-        this.apiGet('user/' + editid).then((res) => {
+        let editid = this.industrylist[index].id
+        console.log(this.industrylist[index])
+        this.apiGet('industry/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            data.pwd = '';
-            data.pwd2 = '';
             this.editinfo = data
             this.modal = false;
             this.$refs.edit.modal = true
@@ -112,15 +101,15 @@
       },
       remove (index) {
         //需要删除确认
-        let id = this.userlist[index].id
-        let _this=this
+        let id = this.industrylist[index].id
+        let _this = this
         this.$Modal.confirm({
           title: '确认删除',
           content: '您确定删除该记录?',
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('user/' + id).then((res) => {
+            _this.apiDelete('industry/' + id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -140,89 +129,25 @@
     }
     ,
     computed: {
-      tableColumns3()
+      tableColumns()
       {
-        let columns = [];
-        if (this.showCheckbox) {
-          columns.push({
-            type: 'selection',
-            width: 60,
-            align: 'center'
-          })
-        }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
-            width: 60,
-            align: 'center'
-          })
-        }
-        columns.push({
-          title: '登录名',
-          key: 'user_name',
-          sortable: true
-        });
-        columns.push({
-          title: '公司名',
-          key: 'name'
-        });
-        columns.push({
-          title: '类型',
-          key: 'type_name',
-          sortable: true,
-          filters: [
-            {
-              label: '系统管理员',
-              value: 1
-            },
-            {
-              label: '节点管理员',
-              value: 2
-            }
-          ],
-          filterMultiple: false,
-          filterMethod (value, row) {
-            if (value === 1) {
-              return row.type == 1;
-            } else if (value === 2) {
-              return row.type == 2;
-            }
-          }
-        });
-        columns.push(
+        let columns = [
           {
-            title: '联系人',
-            key: 'contacts',
-          }
-        );
-        columns.push(
+            type: 'index', width: 60, align: 'center'
+          },
           {
-            title: '手机号码',
-            key: 'mobile',
-          }
-        );
-        columns.push(
+            title: '行业名', key: 'name', sortable: true
+          },
           {
-            title: '固话',
-            key: 'tel',
-          }
-        );
-        columns.push(
+            title: '行业详情', key: 'detail'
+          },
           {
-            title: '微信号',
-            key: 'wechat',
-          }
-        );
-        columns.push(
+            title: '排序',key: 'sort',
+          },
           {
-            title: '邮箱',
-            key: 'email',
+            title: '添加时间',key: 'create_time',
           }
-        );
-        columns.push({
-          title: '创建时间',
-          key: 'create_time'
-        });
+        ];
         columns.push(
           {
             title: '操作',

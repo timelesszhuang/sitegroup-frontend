@@ -99,8 +99,12 @@
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
           </Menu-item>
+          <Menu-item name="友商库">
+            <Icon type="android-apps" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
+          </Menu-item>
           <Menu-item name="节点管理">
-            <Icon type="ios-keypad" :size="iconSize"></Icon>
+            <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
           </Menu-item>
           <Menu-item name="重置密码">

@@ -4,6 +4,7 @@ import Login from '../components/Account/Login.vue'
 import Sysadmin from '../components/SysAdmin.vue'
 import Changepwd from '../components/Account/Changepwd.vue'
 import User from '../components/sysadmin/user/user.vue'
+import Company from '../components/sysadmin/industry/tab.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +20,7 @@ export default new Router({
       component: Sysadmin,
       children: [
         {path: 'user', component: User, name: 'user'},
+        {path: 'company', component: Company, name: 'company'},
         {path: 'changepwd', component: Changepwd, name: 'changepwd'}
       ]
     },
