@@ -7,7 +7,7 @@
   <div>
     <Modal
       v-model="modal">
-      <p slot="header" style="color:#f60;">
+      <p slot="header">
         <Icon type="information-circled"></Icon>
         <span>修改账号信息</span>
       </p>

@@ -2,9 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../components/Account/Login.vue'
 import Sysadmin from '../components/SysAdmin.vue'
+import Admin from '../components/Admin.vue'
 import Changepwd from '../components/Account/Changepwd.vue'
 import User from '../components/sysadmin/user/user.vue'
+import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
+
+
+import Keyword from '../components/admin/keyword/keyword.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -21,15 +27,16 @@ export default new Router({
       children: [
         {path: 'user', component: User, name: 'user'},
         {path: 'company', component: Company, name: 'company'},
-        {path: 'changepwd', component: Changepwd, name: 'changepwd'}
+        {path: 'node', component: Node, name: 'node'},
+        {path: 'changepwd', component: Changepwd, name: 'changepwd'},
       ]
     },
     {
       path: '/admin',
       name: 'admin',
-      component: Sysadmin,
+      component: Admin,
       children: [
-        // {path: 'leftmenu', component: Leftmenu, name: 'menu1'}
+        {path: 'keyword', component: Keyword, name: 'keyword'}
       ]
     }
   ]

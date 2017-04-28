@@ -8,8 +8,8 @@
     <Modal
       v-model="modal"
       title="修改账号信息">
-      <p slot="header">
-        <!--<Icon type="information-circled"></Icon>-->
+      <p slot="header" style="color:#f60;">
+        <Icon type="information-circled"></Icon>
         <span>修改账号信息</span>
       </p>
       <div>

@@ -16,7 +16,7 @@
     </Row>
     <Row>
       <Col span="14" offset="5">
-      <div class="login-form">
+      <div class="login-form" v-show="showlogin">
         <h2 class="title">{{systemName}}</h2>
         <Form ref="loginform" :model="loginform" :rules="loginRule">
           <Form-item prop="user_name">
@@ -60,6 +60,7 @@
   export default {
     data () {
       return {
+        showlogin: false,
         loginform: {
           user_name: '',
           pwd: '',
@@ -113,6 +114,7 @@
       },
       checkIsRememberPwd() {
         if (Cookies.get('rememberMe')) {
+          this.$Message.success('正在尝试自动登录......');
           let data = {
             remember: Lockr.get('rememberKey'),
             user_id: Lockr.get('user_id')
@@ -120,13 +122,17 @@
           this.apiPost('common/login/autoLogin', data).then((res) => {
             this.handelResponse(res, (data, msg) => {
               //成功的操作
+//              console.log(data);
               this.resetCommonData(data, msg)
             }, (data, msg) => {
               //失败的操作
               this.showMsg('warning', '自动登录失败，请重新登陆')
               Cookies.set('rememberMe', false)
+              this.showlogin = true
             })
           })
+        } else {
+          this.showlogin = true;
         }
       },
       handleSubmit(form) {

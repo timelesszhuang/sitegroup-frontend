@@ -7,8 +7,8 @@
   <div>
     <Modal
       v-model="modal" width="600">
-      <p slot="header">
-        <Icon type="person-add"></Icon>
+      <p slot="header"><!--
+        <Icon type="person-add"></Icon>-->
         <span>添加公司</span>
       </p>
       <div>
@@ -81,18 +81,6 @@
       changeIndustry(value){
         this.form.industry_name = value.label;
         this.form.industry_id = value.value;
-      },
-      getIndustry(){
-        this.apiGet('industry/getIndustry').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.industry = data;
-          }, (data, msg) => {
-            this.$Message.error('没有获取到');
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
       },
       add()
       {

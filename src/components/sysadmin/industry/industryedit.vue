@@ -8,7 +8,7 @@
     <Modal
       v-model="modal"
       title="修改行业">
-      <p slot="header" style="color:#f60;">
+      <p slot="header">
         <Icon type="information-circled"></Icon>
         <span>修改行业</span>
       </p>

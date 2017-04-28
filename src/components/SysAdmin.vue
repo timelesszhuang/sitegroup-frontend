@@ -190,7 +190,8 @@
     created () {
       let rememberKey = Lockr.get('rememberKey')
       let user_id = Lockr.get('user_id')
-      if (!rememberKey || !user_id) {
+      let type = Lockr.get('type');
+      if (!rememberKey || !user_id || type != 1) {
         //表示没有登陆
         setTimeout(() => {
           router.replace('/')

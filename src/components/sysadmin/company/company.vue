@@ -79,6 +79,7 @@
         };
         this.apiGet('company', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
+//            console.log(data)
             this.companylist = data.rows
             this.total = data.total;
           }, (data, msg) => {
@@ -163,6 +164,9 @@
             title: '公司简称', key: 'short_name'
           },
           {
+            title: '行业', key: 'industry_name',
+          },
+          {
             title: 'url', key: 'url',
           },
           {
@@ -171,6 +175,7 @@
           {
             title: '主营', key: 'manbusiness',
           },
+
           {
             title: '添加时间', key: 'create_time',
           }

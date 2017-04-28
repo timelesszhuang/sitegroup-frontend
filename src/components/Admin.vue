@@ -3,25 +3,27 @@
     border: 1px solid #d7dde4;
     background: #f5f7f9;
     position: relative;
-    border-radius: 4px;
-    overflow: hidden;
     height: 100%;
   }
 
-  .layout-pagetitle {
-    padding: 10px 15px 5px 15px;
+  .layout-breadcrumb {
+    padding: 10px 15px 0;
   }
 
   .layout-content {
-    min-height: 200px;
+    min-height: 63%;
+    height: auto;
     margin: 15px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
   }
 
   .layout-content-main {
     padding: 10px;
+  }
+
+  .ivu-row-flex {
+    height: 100%;
   }
 
   .layout-copy {
@@ -47,95 +49,51 @@
     border-radius: 3px;
     margin: 15px auto;
   }
-
-  .layout-ceiling-main a {
-    color: #9ba7b5;
-  }
-
-  .layout-hide-text .layout-text {
-    display: none;
-  }
-
-  .ivu-col {
-    transition: width .2s ease-in-out;
-  }
-
-  .ivu-row-flex {
-    height: 100%;
-  }
-
-  .layout-content {
-    height: 75%;
-  }
-
-  .layout-ceiling {
-    background: #464c5b;
-    padding: 10px 0;
-  }
-
-  .layout-ceiling-main {
-    float: right;
-    margin-right: 15px;
-  }
-
-  .layout-ceiling-main a {
-    color: #9ba7b5;
-  }
 </style>
 <template>
-  <div class="layout" :class="{'layout-hide-text': spanLeft < 4}">
+  <div class="layout">
     <Row type="flex">
-      <i-col :span="spanLeft" class="layout-menu-left">
-        <Menu active-name="1" :theme="theme" width="auto">
-          <div class="layout-logo-left"></div>
-          <Menu-item name="1">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/home/menu1','1')">选项 1</span>
-          </Menu-item>
-          <Menu-item name="2">
-            <Icon type="ios-keypad" :size="iconSize"></Icon>
-            <span class="layout-text">选项 2</span>
-          </Menu-item>
-          <Menu-item name="3">
-            <Icon type="ios-analytics" :size="iconSize"></Icon>
-            <span class="layout-text">选项 3</span>
-          </Menu-item>
+      <i-col span="4" class="layout-menu-left">
+        <Menu active-name="activename" theme="dark" width="auto" :open-names="['1']">
+          <div class="layout-logo-left">
+            {{sysname}}
+          </div>
+          <Submenu name="1">
+            <template slot="title">
+              <Icon type="ios-navigate"></Icon>
+              关键词
+            </template>
+            <Menu-item name="关键词管理">
+              <Icon type="ios-navigate"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">关键词管理</span>
+            </Menu-item>
+            <Menu-item name="1-2">选项 2</Menu-item>
+            <Menu-item name="1-3">选项 3</Menu-item>
+          </Submenu>
+          <Submenu name="2">
+            <template slot="title">
+              <Icon type="ios-keypad"></Icon>
+              导航二
+            </template>
+            <Menu-item name="2-1">选项 1</Menu-item>
+            <Menu-item name="2-2">选项 2</Menu-item>
+          </Submenu>
+          <Submenu name="3">
+            <template slot="title">
+              <Icon type="ios-analytics"></Icon>
+              导航三
+            </template>
+            <Menu-item name="3-1">选项 1</Menu-item>
+            <Menu-item name="3-2">选项 2</Menu-item>
+          </Submenu>
         </Menu>
       </i-col>
-      <i-col :span="spanRight">
-        <div class="layout-ceiling">
-          <Menu mode="horizontal" :theme="theme" active-name="1">
-            <Menu-item name="1">
-              <Icon type="ios-paper"></Icon>
-              内容管理
-            </Menu-item>
-            <Menu-item name="2">
-              <Icon type="ios-people"></Icon>
-              用户管理
-            </Menu-item>
-            <Submenu name="3">
-              <template slot="title">
-                <Icon type="stats-bars"></Icon>
-                切换主题
-              </template>
-              <Menu-group title="左侧菜单">
-                <Menu-item name="3-1"><span @click="changeThemes('light')">LIGHT</span></Menu-item>
-                <Menu-item name="3-2"><span @click="changeThemes('dark')">DARK</span></Menu-item>
-              </Menu-group>
-            </Submenu>
-            <Menu-item name="4">
-              <Icon type="settings"></Icon>
-              综合设置
-            </Menu-item>
-          </Menu>
-        </div>
-        <div class="layout-header">
-          <i-button type="text" @click="toggleClick">
-            <Icon type="navicon" size="32"></Icon>
-          </i-button>
-          <h3 style="display: inline-block; padding-top: 10px">
-            <Icon type="chevron-right"></Icon>&nbsp;&nbsp;&nbsp;{{containerTitle}}菜单1
-          </h3>
+      <i-col span="20">
+        <div class="layout-header"></div>
+        <div class="layout-breadcrumb">
+          <Breadcrumb>
+            <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
+          </Breadcrumb>
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
@@ -151,38 +109,32 @@
 </template>
 <script>
   export default {
-    data () {
+    data(){
       return {
-        spanLeft: 4,
-        spanRight: 20,
         activeName: '',
-        theme: 'dark',
-        containerTitle: ''
-      }
-    },
-    computed: {
-      iconSize () {
-        return this.spanLeft === 4 ? 14 : 24;
+        sysname: ''
       }
     },
     methods: {
-      changeThemes(theme){
-        console.log(theme);
-//        this.theme = theme;
-      },
-      toggleClick () {
-        if (this.spanLeft === 4) {
-          this.spanLeft = 2;
-          this.spanRight = 22;
-        } else {
-          this.spanLeft = 4;
-          this.spanRight = 20;
-        }
-      },
-      routerChange(path, activeName){
+      routerChange (path, activeName) {
         this.activeName = activeName;
         router.push(path);
+      },
+    },
+    //created 是函数
+    created () {
+      this.sysname = Lockr.get('userInfo').node_name
+      document.title = this.sysname
+      let rememberKey = Lockr.get('rememberKey')
+      let user_id = Lockr.get('user_id')
+      let type = Lockr.get('type');
+      if (!rememberKey || !user_id || type != 2) {
+        //表示没有登陆
+        setTimeout(() => {
+          router.replace('/')
+        }, 1500)
+        return
       }
-    }
+    },
   }
 </script>

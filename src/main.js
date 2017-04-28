@@ -5,14 +5,21 @@ import App from './App'
 import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+
 import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
 
+
+
 Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
+Vue.use(ElementUI)
 
 
 var HOST = 'http://sitegroup.youdao.so/index.php/'
