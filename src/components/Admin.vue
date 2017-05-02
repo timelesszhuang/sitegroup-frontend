@@ -57,11 +57,13 @@
         <Menu active-name="activename" theme="dark" width="auto" :open-names="['1']">
           <div class="layout-logo-left">
             {{sysname}}
+
           </div>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
               关键词
+
             </template>
             <Menu-item name="关键词管理">
               <Icon type="ios-navigate"></Icon>
@@ -73,15 +75,20 @@
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
-              导航二
+              文章管理
+
             </template>
-            <Menu-item name="2-1">选项 1</Menu-item>
+            <Menu-item name="文章分类">
+                <Icon type="ios-navigate"></Icon>
+                <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
+            </Menu-item>
             <Menu-item name="2-2">选项 2</Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-analytics"></Icon>
               导航三
+
             </template>
             <Menu-item name="3-1">选项 1</Menu-item>
             <Menu-item name="3-2">选项 2</Menu-item>
@@ -102,6 +109,7 @@
         </div>
         <div class="layout-copy">
           2015-2017 &copy; 山东强比信息技术有限公司
+
         </div>
       </i-col>
     </Row>
