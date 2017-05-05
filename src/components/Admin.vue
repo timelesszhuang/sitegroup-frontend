@@ -82,7 +82,10 @@
                 <Icon type="ios-navigate"></Icon>
                 <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
             </Menu-item>
-            <Menu-item name="2-2">选项 2</Menu-item>
+            <Menu-item name="文章">
+              <Icon type="ios-navigate"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
