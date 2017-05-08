@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top">
-      文章:
-      <Input v-model="title" placeholdr="文章查询" style="width:300px;"></Input>
+      栏目:
+      <Input v-model="name" placeholdr="栏目" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <articleadd ref="add" :articletype="articletypelist"></articleadd>
-    <articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>
+    <articleadd ref="add"></articleadd>
+    <articlesave ref="save" :form="editinfo"></articlesave>
   </div>
 
 </template>
@@ -38,16 +38,14 @@
         total: 0,
         page: 1,
         rows: 10,
-        title: '',
+        name: '',
         datas: [],
-        editinfo: [],
-        articletypelist:[]
+        editinfo: []
       }
     },
     components: {articleadd,articlesave},
     created () {
       this.getData();
-      this.getArticleType();
     },
     methods: {
       getData() {
@@ -55,10 +53,10 @@
           params: {
             page: this.page,
             rows: this.rows,
-            title: this.title
+            name: this.name
           }
         }
-        this.apiGet('article', data).then((data) => {
+        this.apiGet('menu', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -85,7 +83,7 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('article/' + editid).then((res) => {
+        this.apiGet('articletype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -98,18 +96,6 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getArticleType() {
-        this.apiGet('articletype/gettype').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.articletypelist = data;
-          }, (data, msg) => {
-            this.$Message.error('没有获取到');
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
       remove(index){
         //需要删除确认
         let id = this.datas[index].id
@@ -120,7 +106,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('article/',id).then((res) => {
+            _this.apiDelete('articletype/' + id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -157,19 +143,13 @@
           })
         }
         columns.push({
-          title: '标题',
-          key: 'title',
+          title: '栏目',
+          key: 'name',
           sortable: true
         });
         columns.push({
-          title: '分类名称',
-          key: 'articletype_name',
-          sortable: true
-        });
-        columns.push({
-          title: '作者',
-          key: 'auther',
-          sortable: true
+          title: '描述',
+          key: 'detail'
         });
         columns.push(
           {

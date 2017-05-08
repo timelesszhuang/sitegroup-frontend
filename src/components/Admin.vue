@@ -86,12 +86,15 @@
               <Icon type="ios-navigate"></Icon>
               <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
             </Menu-item>
+            <Menu-item name="栏目">
+              <Icon type="ios-navigate"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-analytics"></Icon>
               导航三
-
             </template>
             <Menu-item name="3-1">选项 1</Menu-item>
             <Menu-item name="3-2">选项 2</Menu-item>
