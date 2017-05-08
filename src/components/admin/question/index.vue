@@ -12,7 +12,7 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total"  @on-change="changePage" @on-page-size-change="changePageSize" show-total
+          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize" show-total
                 show-elevator show-sizer></Page>
         </div>
       </div>
@@ -53,7 +53,7 @@
           params: {
             page: this.page,
             rows: this.rows,
-            content: this.content,
+            content:this.content,
           }
         }
         this.apiGet('question', data).then((data) => {

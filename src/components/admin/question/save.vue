@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="900">
         <p slot="header">
           <span>修改问答</span>
         </p>
@@ -12,9 +12,13 @@
               <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
             </Form-item>
             <Form-item label="详情" prop="content_paragraph">
-              <textarea v-model="form.content_paragraph" placeholder="请填写文章详情" cols="30" rows="10">
-
-              </textarea>
+              <quill-editor  ref="myTextEditor"
+                             v-model="form.content_paragraph"
+                             :config="editorOption"
+                             @blur="onEditorBlur($event)"
+                             @focus="onEditorFocus($event)"
+                             @ready="onEditorReady($event)">
+              </quill-editor>
             </Form-item>
           </Form>
         </div>
@@ -54,8 +58,9 @@
               if(valid){
                 this.modal_loading = true;
                 let data={
-                    question:this.form.question,
-                   content_paragraph:this.form.content_paragraph
+                    id:this.form.id,
+                  question:this.form.question,
+                  content_paragraph:this.form.content_paragraph
                 }
                 let id = data.id;
                 this.apiPut('question/'+ id, data).then((res) => {

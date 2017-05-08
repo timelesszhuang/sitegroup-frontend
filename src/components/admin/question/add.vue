@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="900">
         <p slot="header">
           <span>添加问答</span>
         </p>
@@ -12,7 +12,14 @@
               <Input type="text" v-model="form.question" placeholder="请填写问题名"></Input>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">
-              <Input type="text" v-model="form.content_paragraph" placeholder="请填写答案"></Input>
+              <quill-editor  ref="myTextEditor"
+                             v-model="form.content_paragraph"
+                             :config="editorOption"
+                             @blur="onEditorBlur($event)"
+                             @focus="onEditorFocus($event)"
+                             @ready="onEditorReady($event)">
+              </quill-editor>
+
             </Form-item>
           </Form>
         </div>
