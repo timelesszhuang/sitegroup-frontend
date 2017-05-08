@@ -13,6 +13,7 @@ import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
 import Navigation from '../components/admin/navigation/index.vue'
+import Question from '../components/admin/question/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -41,7 +42,8 @@ export default new Router({
         {path: 'keyword', component: Keyword, name: 'keyword'},
         {path:'articletype',component:Articletype,name:'articletype'},
         {path:'article',component:Article,name:'article'},
-        {path:'navigation',component:Navigation,name:'navigation'}
+        {path:'navigation',component:Navigation,name:'navigation'},
+        {path:'question',component:Question,name:'question'}
       ]
     }
   ]

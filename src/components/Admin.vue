@@ -86,6 +86,10 @@
               <Icon type="ios-navigate"></Icon>
               <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
             </Menu-item>
+            <Menu-item name="问答">
+              <Icon type="ios-navigate"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/question','问答')">问答</span>
+            </Menu-item>
             <Menu-item name="栏目">
               <Icon type="ios-navigate"></Icon>
               <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
