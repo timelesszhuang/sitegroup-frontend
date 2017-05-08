@@ -13,14 +13,13 @@ import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
-
-
+import VueQuillEditor from 'vue-quill-editor'
 
 Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
-
+Vue.use(VueQuillEditor)
 
 var HOST = 'http://sitegroup.youdao.so/index.php/'
 

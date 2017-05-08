@@ -46,6 +46,7 @@
     },
     components: {articleadd,articlesave},
     created () {
+
       this.getData();
       this.getArticleType();
     },

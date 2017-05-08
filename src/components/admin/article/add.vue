@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="600">
+      v-model="modal" width="900">
       <p slot="header">
         <span>添加文章</span>
       </p>
@@ -19,8 +19,14 @@
               </Option>
             </Select>
           </Form-item>
-          <Form-item label="内容" prop="content">
-            <textarea v-model="form.content" cols="30" rows="10"></textarea>
+          <Form-item label="内容" prop="content" style="height:100%;">
+            <quill-editor  ref="myTextEditor"
+                          v-model="form.content"
+                          :config="editorOption"
+                          @blur="onEditorBlur($event)"
+                          @focus="onEditorFocus($event)"
+                          @ready="onEditorReady($event)">
+            </quill-editor>
           </Form-item>
         </Form>
       </div>
@@ -47,6 +53,7 @@
       return {
         modal: false,
         modal_loading: false,
+        editorOption: {},
         form: {
           title: "",
           articletype_id: 0,
@@ -63,7 +70,23 @@
         }
       }
     },
+    created() {
+    },
     methods: {
+      computed: {
+        editor() {
+          return this.$refs.myTextEditor.quillEditor
+        }
+      },
+      onEditorBlur(editor) {
+        console.log('editor blur!', editor)
+      },
+      onEditorFocus(editor) {
+        console.log('editor focus!', editor)
+      },
+      onEditorReady(editor) {
+        console.log('editor ready!', editor)
+      },
       changeArticletype(value) {
         this.form.articletype_name = value.label
         this.form.articletype_id = value.value
@@ -104,6 +127,11 @@
 
 </script>
 <style>
+  .ql-container .ql-editor {
+    min-height: 20em;
+    padding-bottom: 1em;
+    max-height: 25em;
+  }
 
 
 </style>
