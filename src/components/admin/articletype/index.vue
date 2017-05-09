@@ -20,7 +20,6 @@
     <articleadd ref="add"></articleadd>
     <articlesave ref="save" :form="editinfo"></articlesave>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -35,6 +34,7 @@
         stripe: true,
         showheader: true,
         size: 'small',
+        current: 1,
         total: 0,
         page: 1,
         rows: 10,
@@ -168,9 +168,4 @@
     },
     mixins: [http]
   }
-
 </script>
-<style>
-
-
-</style>

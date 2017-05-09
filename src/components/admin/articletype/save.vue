@@ -32,10 +32,6 @@
       return {
         modal: false,
         modal_loading: false,
-        form: {
-          name: "",
-          detail: ""
-        },
         AddRule: {
           name: [
             {required: true, message: '请填写文章分类', trigger: 'blur'},
@@ -84,9 +80,4 @@
     },
     mixins: [http]
   }
-
 </script>
-<style>
-
-
-</style>

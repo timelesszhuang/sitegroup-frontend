@@ -75,9 +75,4 @@
     },
     mixins: [http]
   }
-
 </script>
-<style>
-
-
-</style>

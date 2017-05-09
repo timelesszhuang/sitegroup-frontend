@@ -38,10 +38,6 @@
       return {
         modal: false,
         modal_loading: false,
-        form: {
-          question: "",
-          content_paragraph: ""
-        },
         AddRule: {
           question: [
             {required: true, message: '请填写问题名', trigger: 'blur'},
@@ -96,7 +92,3 @@
   }
 
 </script>
-<style>
-
-
-</style>

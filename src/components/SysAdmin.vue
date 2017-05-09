@@ -108,7 +108,7 @@
             <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
           </Menu-item>
           <Menu-item name="重置密码">
-            <Icon type="ios-analytics" :size="iconSize" @click="changePwd()"></Icon>
+            <Icon type="android-lock" :size="iconSize" @click="changePwd()"></Icon>
             <span class="layout-text" @click="changePwd()">重置密码</span>
           </Menu-item>
           <Menu-item name="退出系统">

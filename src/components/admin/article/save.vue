@@ -21,12 +21,12 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <quill-editor  ref="myTextEditor"
-                           v-model="form.content"
-                           :config="editorOption"
-                           @blur="onEditorBlur($event)"
-                           @focus="onEditorFocus($event)"
-                           @ready="onEditorReady($event)">
+            <quill-editor ref="myTextEditor"
+                          v-model="form.content"
+                          :config="editorOption"
+                          @blur="onEditorBlur($event)"
+                          @focus="onEditorFocus($event)"
+                          @ready="onEditorReady($event)">
             </quill-editor>
           </Form-item>
         </Form>
@@ -54,12 +54,6 @@
       return {
         modal: false,
         modal_loading: false,
-        form: {
-          title: "",
-          articletype_id: 0,
-          articletype_name: '',
-          content: ''
-        },
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -86,7 +80,7 @@
             this.modal_loading = true;
             let data = this.form;
             let id = data.id;
-            this.apiPut('article/'+id, data).then((res) => {
+            this.apiPut('article/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();
@@ -113,11 +107,15 @@
         default: []
       },
       form: {
-        default: []
+        default: {
+          title: "",
+          articletype_id: 0,
+          articletype_name: '',
+          content: ''
+        }
       }
     }
   }
-
 </script>
 <style>
   .ql-container .ql-editor {
@@ -125,5 +123,4 @@
     padding-bottom: 1em;
     max-height: 25em;
   }
-
 </style>

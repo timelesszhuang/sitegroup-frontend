@@ -57,44 +57,41 @@
         <Menu active-name="activename" theme="dark" width="auto" :open-names="['1']">
           <div class="layout-logo-left">
             {{sysname}}
-
           </div>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
               关键词
-
             </template>
             <Menu-item name="关键词管理">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="key"></Icon>
               <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">关键词管理</span>
             </Menu-item>
-            <Menu-item name="1-2">选项 2</Menu-item>
-            <Menu-item name="1-3">选项 3</Menu-item>
+<!--            <Menu-item name="1-2">选项 2</Menu-item>
+            <Menu-item name="1-3">选项 3</Menu-item>-->
           </Submenu>
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               文章管理
-
             </template>
             <Menu-item name="文章分类">
-                <Icon type="ios-navigate"></Icon>
-                <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
+              <Icon type="gear-b"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
             </Menu-item>
             <Menu-item name="文章">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="document"></Icon>
               <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
             </Menu-item>
             <Menu-item name="问答">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="help"></Icon>
               <span class="layout-text" @click="routerChange('/admin/question','问答')">问答</span>
             </Menu-item>
-            <Menu-item name="栏目">
-              <Icon type="ios-navigate"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
-            </Menu-item>
           </Submenu>
+          <Menu-item name="栏目">
+            <Icon type="drag"></Icon>
+            <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
+          </Menu-item>
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-analytics"></Icon>
@@ -103,6 +100,14 @@
             <Menu-item name="3-1">选项 1</Menu-item>
             <Menu-item name="3-2">选项 2</Menu-item>
           </Submenu>
+          <Menu-item name="重置密码">
+            <Icon type="android-lock" @click="changePwd()"></Icon>
+            <span class="layout-text" @click="changePwd()">重置密码</span>
+          </Menu-item>
+          <Menu-item name="退出系统">
+            <Icon type="log-out" @click="logOut()"></Icon>
+            <span class="layout-text" @click="logOut()">退出系统</span>
+          </Menu-item>
         </Menu>
       </i-col>
       <i-col span="20">
@@ -119,13 +124,16 @@
         </div>
         <div class="layout-copy">
           2015-2017 &copy; 山东强比信息技术有限公司
-
         </div>
       </i-col>
     </Row>
+    <logout ref="logout"></logout>
+    <changepwd ref="changePwd"></changepwd>
   </div>
 </template>
 <script>
+  import logout from './Account/Logout.vue';
+  import changepwd from './Account/Changepwd.vue';
   export default {
     data(){
       return {
@@ -133,10 +141,20 @@
         sysname: ''
       }
     },
+    components: {
+      changepwd,
+      logout
+    },
     methods: {
       routerChange (path, activeName) {
         this.activeName = activeName;
         router.push(path);
+      },
+      changePwd () {
+        this.$refs.changePwd.modal = true
+      },
+      logOut(){
+        this.$refs.logout.modal = true
       },
     },
     //created 是函数

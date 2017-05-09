@@ -20,7 +20,7 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <quill-editor  ref="myTextEditor"
+            <quill-editor ref="myTextEditor"
                           v-model="form.content"
                           :config="editorOption"
                           @blur="onEditorBlur($event)"
@@ -58,7 +58,7 @@
           title: "",
           articletype_id: 0,
           articletype_name: '',
-          content:''
+          content: ''
         },
         AddRule: {
           title: [
@@ -124,7 +124,6 @@
       }
     }
   }
-
 </script>
 <style>
   .ql-container .ql-editor {
@@ -132,6 +131,4 @@
     padding-bottom: 1em;
     max-height: 25em;
   }
-
-
 </style>
