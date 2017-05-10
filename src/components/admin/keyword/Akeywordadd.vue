@@ -51,9 +51,6 @@
             this.apiPost('keyword/insertA', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
-                this.form = {
-                  name: ''
-                };
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.akeywordadd.resetFields();

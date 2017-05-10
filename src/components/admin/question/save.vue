@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="900">
+        v-model="modal" width="600">
         <p slot="header">
           <span>修改问答</span>
         </p>
@@ -12,13 +12,9 @@
               <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
             </Form-item>
             <Form-item label="详情" prop="content_paragraph">
-              <quill-editor  ref="myTextEditor"
-                             v-model="form.content_paragraph"
-                             :config="editorOption"
-                             @blur="onEditorBlur($event)"
-                             @focus="onEditorFocus($event)"
-                             @ready="onEditorReady($event)">
-              </quill-editor>
+              <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
+                     placeholder="请输入答案">
+              </Input>
             </Form-item>
           </Form>
         </div>
@@ -28,7 +24,6 @@
       </Modal>
     </div>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -63,7 +58,6 @@
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
-                    this.form = {};
                     this.$Message.success(msg);
                     this.modal_loading = false;
                     this.$refs.questionadd.resetFields();
@@ -90,5 +84,4 @@
     },
     mixins: [http]
   }
-
 </script>

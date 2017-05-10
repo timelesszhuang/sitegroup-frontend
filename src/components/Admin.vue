@@ -83,6 +83,10 @@
               <Icon type="document"></Icon>
               <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
             </Menu-item>
+            <Menu-item name="零散文章">
+              <Icon type="social-dropbox-outline"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/scatteredarticle','零散文章')">零散文章</span>
+            </Menu-item>
             <Menu-item name="问答">
               <Icon type="help"></Icon>
               <span class="layout-text" @click="routerChange('/admin/question','问答')">问答</span>

@@ -28,7 +28,6 @@ const ajaxMethods = {
     },
     apiDelete(url, id) {
       return new Promise((resolve, reject) => {
-        console.log(url)
         axios.delete(url + id).then((response) => {
           resolve(response.data)
         }, (response) => {

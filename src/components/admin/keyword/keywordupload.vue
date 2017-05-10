@@ -73,11 +73,9 @@
         this.apiPost('keyword/insertKeyword', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.modal = false;
-            this.form = {
-              path: ''
-            };
             this.$Message.success(msg);
             this.modal_loading = false;
+            this.$refs.keywordadd.resetFields();
             setTimeout(function () {
               location.reload();
             }, 1000);

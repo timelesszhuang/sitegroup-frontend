@@ -2,24 +2,19 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="900">
+        v-model="modal" width="600">
         <p slot="header">
           <span>添加问答</span>
         </p>
         <div>
           <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="问题名" prop="question">
-              <Input type="text" v-model="form.question" placeholder="请填写问题名"></Input>
+              <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">
-              <quill-editor  ref="myTextEditor"
-                             v-model="form.content_paragraph"
-                             :config="editorOption"
-                             @blur="onEditorBlur($event)"
-                             @focus="onEditorFocus($event)"
-                             @ready="onEditorReady($event)">
-              </quill-editor>
-
+              <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
+                     placeholder="请输入答案">
+              </Input>
             </Form-item>
           </Form>
         </div>
@@ -63,7 +58,6 @@
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
-                    this.form = {};
                     this.$Message.success(msg);
                     this.modal_loading = false;
                     this.$refs.questionadd.resetFields();

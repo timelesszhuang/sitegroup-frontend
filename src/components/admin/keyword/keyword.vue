@@ -78,9 +78,11 @@
             okText: '删除',
             cancelText: '取消',
             onOk: () => {
-              _this.apiDelete('keyword/' + node[0].id).then((res) => {
+              _this.apiDelete('keyword/' , node[0].id).then((res) => {
                 _this.handelResponse(res, (data, msg) => {
-//                  _this.getData()
+                  setTimeout(function () {
+                    location.reload();
+                  }, 1000);
                   // 删除数据库中信息
                   _this.$Message.success(msg);
                 }, (data, msg) => {

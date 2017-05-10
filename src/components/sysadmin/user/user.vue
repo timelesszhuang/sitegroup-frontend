@@ -99,6 +99,8 @@
           this.handelResponse(res, (data, msg) => {
             data.pwd = '';
             data.pwd2 = '';
+            delete  data.create_time;
+            delete  data.update_time;
             this.editinfo = data
             this.modal = false;
             this.$refs.edit.modal = true
@@ -113,14 +115,14 @@
       remove (index) {
         //需要删除确认
         let id = this.userlist[index].id
-        let _this=this
+        let _this = this
         this.$Modal.confirm({
           title: '确认删除',
           content: '您确定删除该记录?',
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('user/' + id).then((res) => {
+            _this.apiDelete('user/', id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);

@@ -12,7 +12,7 @@
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page :total="total" :current="current" @on-change="changePage" show-total
-              show-elevator >
+              show-elevator>
         </Page>
       </div>
     </div>
@@ -57,7 +57,6 @@
         };
         this.apiGet('industry', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
-//            console.log(data)
             this.industrylist = data.rows
             this.total = data.total;
           }, (data, msg) => {
@@ -85,9 +84,10 @@
         //　需要删除确认
         //　获取资源信息
         let editid = this.industrylist[index].id
-        console.log(this.industrylist[index])
         this.apiGet('industry/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            delete  data.create_time;
+            delete  data.update_time;
             this.editinfo = data
             this.modal = false;
             this.$refs.edit.modal = true
@@ -109,7 +109,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('industry/' + id).then((res) => {
+            _this.apiDelete('industry/', id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -142,10 +142,10 @@
             title: '行业详情', key: 'detail'
           },
           {
-            title: '排序',key: 'sort',
+            title: '排序', key: 'sort',
           },
           {
-            title: '添加时间',key: 'create_time',
+            title: '添加时间', key: 'create_time',
           }
         ];
         columns.push(

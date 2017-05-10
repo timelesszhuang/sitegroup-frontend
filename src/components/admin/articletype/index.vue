@@ -12,7 +12,8 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize" show-total
+          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+                show-total
                 show-elevator show-sizer></Page>
         </div>
       </div>
@@ -40,10 +41,10 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: []
+        editinfo: {}
       }
     },
-    components: {articleadd,articlesave},
+    components: {articleadd, articlesave},
     created () {
       this.getData();
     },
@@ -72,7 +73,7 @@
         this.getData();
       },
       changePageSize(pagesize){
-        this.page = pagesize;
+        this.rows = pagesize;
         this.getData();
       },
       queryData(){
@@ -96,33 +97,6 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
-        //需要删除确认
-        let id = this.datas[index].id
-        let _this=this
-        this.$Modal.confirm({
-          title: '确认删除',
-          content: '您确定删除该记录?',
-          okText: '删除',
-          cancelText: '取消',
-          onOk: (index) => {
-            _this.apiDelete('articletype/' + id).then((res) => {
-              _this.handelResponse(res, (data, msg) => {
-                _this.getData()
-                _this.$Message.success(msg);
-              }, (data, msg) => {
-                _this.$Message.error(msg);
-              })
-            }, (res) => {
-              //处理错误信息
-              _this.$Message.error('网络异常，请稍后重试');
-            })
-          },
-          onCancel: () => {
-            return false
-          }
-        })
-      }
     },
     computed: {
       tableColumns()
@@ -159,7 +133,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
             }
           }
         );

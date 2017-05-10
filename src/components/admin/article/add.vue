@@ -10,12 +10,17 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="来源" prop="come_from">
+            <Input type="text" v-model="form.come_from" placeholder="请输入来源" style="width: 200px;"></Input>
+          </Form-item>
+          <Form-item label="作者" prop="auther">
+            <Input type="text" v-model="form.auther" placeholder="请输入作者" style="width: 200px;"></Input>
+          </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left"
+            <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
-
               </Option>
             </Select>
           </Form-item>
@@ -56,6 +61,8 @@
         editorOption: {},
         form: {
           title: "",
+          auther: '',
+          come_from: '',
           articletype_id: 0,
           articletype_name: '',
           content: ''
@@ -63,6 +70,12 @@
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
+          ],
+          come_from: [
+            {required: true, message: '请填写文章来源', trigger: 'blur'},
+          ],
+          auther: [
+            {required: true, message: '请填写文章作者', trigger: 'blur'},
           ],
           articletype_id: [
             {validator: checkarticletype, trigger: 'blur'}

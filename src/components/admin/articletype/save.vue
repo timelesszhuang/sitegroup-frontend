@@ -7,7 +7,7 @@
           <span>添加文章分类</span>
         </p>
         <div>
-          <Form ref="articleadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <Form ref="articlesave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="分类名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入节点名"></Input>
             </Form-item>
@@ -44,7 +44,7 @@
     },
     methods: {
         add() {
-          this.$refs.articleadd.validate((valid) => {
+          this.$refs.articlesave.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
@@ -53,10 +53,9 @@
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
-                    this.form = {};
                     this.$Message.success(msg);
                     this.modal_loading = false;
-                    this.$refs.articleadd.resetFields();
+                    this.$refs.articlesave.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);

@@ -12,8 +12,10 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize" show-total
-                show-elevator show-sizer></Page>
+          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+                show-total
+                show-elevator show-sizer>
+          </Page>
         </div>
       </div>
     </div>
@@ -34,17 +36,22 @@
         border: true,
         stripe: true,
         showheader: true,
+        showIndex: true,
         size: 'small',
         total: 0,
         page: 1,
+        current: 1,
         rows: 10,
         content: '',
         datas: [],
-        editinfo: []
+        editinfo: {},
       }
     },
-    components: {questionadd,questionsave},
+    components: {questionadd, questionsave},
     created () {
+/*      this.getArticleType((data) => {
+        this.articletypelist = data
+      });*/
       this.getData();
     },
     methods: {
@@ -53,7 +60,7 @@
           params: {
             page: this.page,
             rows: this.rows,
-            content:this.content,
+            content: this.content,
           }
         }
         this.apiGet('question', data).then((data) => {
@@ -72,7 +79,7 @@
         this.getData();
       },
       changePageSize(pagesize){
-        this.page = pagesize;
+        this.rows = pagesize;
         this.getData();
       },
       queryData(){
@@ -85,6 +92,8 @@
         let editid = this.datas[index].id
         this.apiGet('question/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            delete  data.create_time;
+            delete  data.update_time;
             this.editinfo = data
             this.modal = false;
             this.$refs.save.modal = true
@@ -99,14 +108,14 @@
       remove(index){
         //需要删除确认
         let id = this.datas[index].id
-        let _this=this
+        let _this = this
         this.$Modal.confirm({
           title: '确认删除',
           content: '您确定删除该记录?',
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('question/' + id).then((res) => {
+            _this.apiDelete('question/', id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);

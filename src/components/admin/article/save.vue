@@ -10,23 +10,21 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="作者" prop="title">
+            <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
+          </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left"
+            <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
-
-
               </Option>
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditor"
                           v-model="form.content"
-                          :config="editorOption"
-                          @blur="onEditorBlur($event)"
-                          @focus="onEditorFocus($event)"
-                          @ready="onEditorReady($event)">
+                          :config="editorOption">
             </quill-editor>
           </Form-item>
         </Form>
@@ -36,8 +34,6 @@
       </div>
     </Modal>
   </div>
-
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -52,6 +48,7 @@
         }
       };
       return {
+        editorOption: {},
         modal: false,
         modal_loading: false,
         AddRule: {
@@ -104,11 +101,12 @@
     mixins: [http],
     props: {
       articletype: {
-        default: []
+        default: {}
       },
       form: {
         default: {
           title: "",
+          auther: '',
           articletype_id: 0,
           articletype_name: '',
           content: ''
