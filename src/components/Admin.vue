@@ -87,6 +87,10 @@
               <Icon type="social-dropbox-outline"></Icon>
               <span class="layout-text" @click="routerChange('/admin/scatteredarticle','零散文章')">零散文章</span>
             </Menu-item>
+            <Menu-item name="问答分类">
+              <Icon type="help"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/questiontype','问答分类')">问答分类</span>
+            </Menu-item>
             <Menu-item name="问答">
               <Icon type="help"></Icon>
               <span class="layout-text" @click="routerChange('/admin/question','问答')">问答</span>

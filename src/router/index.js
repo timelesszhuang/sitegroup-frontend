@@ -14,7 +14,7 @@ import Article from '../components/admin/article/index.vue'
 import Navigation from '../components/admin/navigation/index.vue'
 import Question from '../components/admin/question/index.vue'
 import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
-
+import Questiontype from '../components/admin/questiontype/questiontype.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +46,7 @@ export default new Router({
         {path:'navigation',component:Navigation,name:'navigation'},
         {path:'question',component:Question,name:'question'},
         {path:'scatteredarticle',component:Scatteredarticle,name:'scatteredarticle'},
+        {path:'questiontype',component:Questiontype,name:'questiontype'}
       ]
     }
   ]

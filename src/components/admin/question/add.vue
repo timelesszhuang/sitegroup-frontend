@@ -8,6 +8,15 @@
         </p>
         <div>
           <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <Form-item label="文章分类" prop="articletype_id">
+              <Select v-model="form.type_id" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeArticletype">
+                <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.name }}
+
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="问题名" prop="question">
               <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
@@ -31,12 +40,21 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkquestiontype = (rule, value, callback) => {
+        if (value === 0) {
+          callback(new Error('请选择问答分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
         form: {
           question: "",
-          content_paragraph: ""
+          content_paragraph: "",
+          type_id:0,
+          type_name:''
         },
         AddRule: {
           question: [
@@ -44,37 +62,48 @@
           ],
           content_paragraph: [
             {required: true, message: '请填写答案', trigger: 'blur'},
+          ],
+          questiontype_id: [
+            {validator: checkquestiontype, trigger: 'blur'}
           ]
         }
       }
     },
     methods: {
-        add() {
-          this.$refs.questionadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('question', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.questionadd.resetFields();
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+      changeArticletype(type) {
+          this.form.type_name=type.label;
+      },
+      add() {
+        this.$refs.questionadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('question', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.questionadd.resetFields();
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
-    mixins: [http]
+    mixins: [http],
+    props: {
+      questiontype: {
+        default: []
+      }
+    }
   }
 
 </script>
