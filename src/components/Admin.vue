@@ -67,8 +67,8 @@
               <Icon type="key"></Icon>
               <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">关键词管理</span>
             </Menu-item>
-<!--            <Menu-item name="1-2">选项 2</Menu-item>
-            <Menu-item name="1-3">选项 3</Menu-item>-->
+            <!--            <Menu-item name="1-2">选项 2</Menu-item>
+                        <Menu-item name="1-3">选项 3</Menu-item>-->
           </Submenu>
           <Submenu name="2">
             <template slot="title">
@@ -76,19 +76,35 @@
               文章管理
             </template>
             <Menu-item name="文章分类">
-              <Icon type="gear-b"></Icon>
+              <Icon type="settings"></Icon>
               <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
             </Menu-item>
             <Menu-item name="文章">
               <Icon type="document"></Icon>
               <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
             </Menu-item>
+          </Submenu>
+          <Submenu name="3">
+            <template slot="title">
+              <Icon type="scissors"></Icon>
+              零散文章段落
+            </template>
             <Menu-item name="零散文章">
               <Icon type="social-dropbox-outline"></Icon>
               <span class="layout-text" @click="routerChange('/admin/scatteredarticle','零散文章')">零散文章</span>
             </Menu-item>
+            <Menu-item name="零散文章标题">
+              <Icon type="flag"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/title','零散文章标题')">零散文章标题</span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="4">
+            <template slot="title">
+              <Icon type="chatbox-working"></Icon>
+              问答管理
+            </template>
             <Menu-item name="问答分类">
-              <Icon type="help"></Icon>
+              <Icon type="settings"></Icon>
               <span class="layout-text" @click="routerChange('/admin/questiontype','问答分类')">问答分类</span>
             </Menu-item>
             <Menu-item name="问答">
@@ -96,19 +112,47 @@
               <span class="layout-text" @click="routerChange('/admin/question','问答')">问答</span>
             </Menu-item>
           </Submenu>
-          <Menu-item name="栏目">
-            <Icon type="drag"></Icon>
-            <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
-          </Menu-item>
-          <Submenu name="3">
+          <Submenu name="5">
             <template slot="title">
-              <Icon type="ios-analytics"></Icon>
-              导航三
+              <Icon type="briefcase"></Icon>
+              基础元素设置
             </template>
-            <Menu-item name="3-1">选项 1</Menu-item>
-            <Menu-item name="3-2">选项 2</Menu-item>
+            <Menu-item name="栏目">
+              <Icon type="drag"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
+            </Menu-item>
+            <Menu-item name="域名管理">
+              <Icon type="android-globe"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/domain','域名管理')">域名管理</span>
+            </Menu-item>
+            <Menu-item name="公共代码管理">
+              <Icon type="social-javascript"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/code','公共代码管理')">公共代码管理</span>
+            </Menu-item>
+            <Menu-item name="联系方式管理">
+              <Icon type="ios-telephone"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/contact','联系方式管理')">联系方式管理</span>
+            </Menu-item>
+            <Menu-item name="活动">
+              <Icon type="beer"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/acticvity','活动')">主题/活动创意</span>
+            </Menu-item>
           </Submenu>
-          <Menu-item name="重置密码">
+          <Submenu name="6">
+            <template slot="title">
+              <Icon type="pinpoint"></Icon>
+              节点/用户管理
+            </template>
+            <Menu-item name="节点管理">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/navigation','节点管理')">节点管理</span>
+            </Menu-item>
+            <Menu-item name="用户管理">
+              <Icon type="person"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/domain','用户管理')">用户管理</span>
+            </Menu-item>
+          </Submenu>
+          <Menu-item name="重置密码" >
             <Icon type="android-lock" @click="changePwd()"></Icon>
             <span class="layout-text" @click="changePwd()">重置密码</span>
           </Menu-item>

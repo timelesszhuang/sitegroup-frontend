@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="top">
-      文章:
-      <Input v-model="title" placeholdr="文章查询" style="width:300px;"></Input>
+      标题:
+      <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
+      文章分类:
+      <Select v-model="article_type" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
+          {{ item.name }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -27,6 +33,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import common from '../../../assets/js/common.js';
   import articleadd from './add.vue';
   import articlesave from './save.vue';
   import articleshow from './show.vue';
@@ -45,6 +52,7 @@
         page: 1,
         rows: 10,
         title: '',
+        article_type: 0,
         datas: [],
         editinfo: {},
         articletypelist: []
@@ -53,7 +61,9 @@
     components: {articleadd, articlesave, articleshow},
     created () {
       this.getData();
-      this.getArticleType();
+      this.getArticleType((data) => {
+        this.articletypelist = data
+      });
     },
     methods: {
       getData() {
@@ -61,7 +71,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            title: this.title
+            title: this.title,
+            article_type: this.article_type
           }
         }
         this.apiGet('article', data).then((data) => {
@@ -109,18 +120,6 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
-      },
-      getArticleType() {
-        this.apiGet('articletype/gettype').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.articletypelist = data;
-          }, (data, msg) => {
-            this.$Message.error('没有获取到');
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
       },
       remove(index){
         //需要删除确认
@@ -187,7 +186,6 @@
           {
             title: '操作',
             key: 'action',
-            width: 150,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
@@ -200,7 +198,7 @@
         return columns;
       }
     },
-    mixins: [http]
+    mixins: [http, common]
   }
 
 </script>

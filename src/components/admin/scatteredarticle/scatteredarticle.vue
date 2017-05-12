@@ -2,9 +2,9 @@
   <div>
     <div class="top">
       查询:
-      <Input v-model="content" placeholdr="问答" style="width:300px;"></Input>
+      <Input v-model="content" placeholder="问答" style="width:300px;"></Input>
       文章分类:
-      <Select v-model="articletype_id" style="width: 200px;"
+      <Select v-model="article_type" style="width: 200px;"
               label-in-value filterable clearable>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
@@ -42,7 +42,7 @@
         border: true,
         stripe: true,
         showheader: true,
-        articletype_id: 0,
+        article_type: 0,
         showIndex: true,
         size: 'small',
         current: 1,
@@ -70,6 +70,7 @@
             page: this.page,
             rows: this.rows,
             content: this.content,
+            article_type: this.article_type
           }
         }
         this.apiGet('scatteredArticle', data).then((data) => {

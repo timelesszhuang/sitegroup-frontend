@@ -8,18 +8,16 @@
         </p>
         <div>
           <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="文章分类" prop="articletype_id">
+            <Form-item label="问题名称" prop="question">
+              <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
+            </Form-item>
+            <Form-item label="问答分类" prop="articletype_id">
               <Select v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
-
-
                 </Option>
               </Select>
-            </Form-item>
-            <Form-item label="问题名称" prop="question">
-              <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
             </Form-item>
             <Form-item label="详情" prop="content_paragraph">
               <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
@@ -50,12 +48,6 @@
       return {
         modal: false,
         modal_loading: false,
-        form: {
-          question: "",
-          content_paragraph: "",
-          type_id:0,
-          type_name:''
-        },
         AddRule: {
           question: [
             {required: true, message: '请填写问题名', trigger: 'blur'},
@@ -100,7 +92,7 @@
       }
     },
     props: {
-      forms: {
+      form: {
         default: {
           question: '',
           content_paragraph: '',

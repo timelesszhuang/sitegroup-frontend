@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top">
-      文章分类:
-      <Input v-model="name" placeholdr="文章分类" style="width:300px;"></Input>
+      分类名:
+      <Input v-model="name" placeholder="文章分类名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -34,6 +34,7 @@
         border: true,
         stripe: true,
         showheader: true,
+        showIndex: true,
         size: 'small',
         current: 1,
         total: 0,

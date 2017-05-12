@@ -19,6 +19,18 @@ const commonMethods = {
         this.$Message.error('网络异常，请稍后重试。');
       });
     },
+    getQuestionType(func) {
+      this.apiGet('questionType/list').then((res) => {
+        this.handelResponse(res, (data, msg) => {
+          func(data)
+        }, (data, msg) => {
+          this.$Message.error('没有获取到');
+        })
+      }, (res) => {
+        //处理错误信息
+        this.$Message.error('网络异常，请稍后重试。');
+      });
+    },
   }
 }
 export default commonMethods

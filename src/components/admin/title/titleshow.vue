@@ -16,7 +16,7 @@
         <Row style="border-bottom:1px solid #e3e8ee;margin:20px;padding-bottom: 10px">
           <Col span="24">
           <div style="width: 60%;margin: 0 auto;text-align: center">
-            <div>作者：{{form.auther}} | 来源：{{form.come_from}} | 分类：{{form.articletype_name}} | 阅读：{{form.readcount}}</div>
+            <div> 分类：{{form.articletype_name}} | 发布时间：{{form.create_time}}</div>
           </div>
           </Col>
         </Row>

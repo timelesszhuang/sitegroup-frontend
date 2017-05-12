@@ -14,7 +14,9 @@ import Article from '../components/admin/article/index.vue'
 import Navigation from '../components/admin/navigation/index.vue'
 import Question from '../components/admin/question/index.vue'
 import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
+import Title from '../components/admin/title/title.vue'
 import Questiontype from '../components/admin/questiontype/questiontype.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -41,12 +43,13 @@ export default new Router({
       component: Admin,
       children: [
         {path: 'keyword', component: Keyword, name: 'keyword'},
-        {path:'articletype',component:Articletype,name:'articletype'},
-        {path:'article',component:Article,name:'article'},
-        {path:'navigation',component:Navigation,name:'navigation'},
-        {path:'question',component:Question,name:'question'},
-        {path:'scatteredarticle',component:Scatteredarticle,name:'scatteredarticle'},
-        {path:'questiontype',component:Questiontype,name:'questiontype'}
+        {path: 'articletype', component: Articletype, name: 'articletype'},
+        {path: 'article', component: Article, name: 'article'},
+        {path: 'navigation', component: Navigation, name: 'navigation'},
+        {path: 'question', component: Question, name: 'question'},
+        {path: 'scatteredarticle', component: Scatteredarticle, name: 'scatteredarticle'},
+        {path: 'title', component: Title, name: 'title'},
+        {path: 'questiontype', component: Questiontype, name: 'questiontype'}
       ]
     }
   ]

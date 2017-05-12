@@ -1,11 +1,12 @@
 <template>
+  <!--该文件是零散的段落的 标题-->
   <div>
     <div class="top">
-      问答:
-      <Input v-model="content" placeholder="问答" style="width:300px;"></Input>
-      问答分类:
-      <Select v-model="type_id" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in questiontypelist" :value="item.id" :label="item.name" :key="item">
+      标题:
+      <Input v-model="title" placeholder="标题" style="width:300px;"></Input>
+      <Select v-model="article_type" style="width: 200px;"
+              label-in-value filterable clearable>
+        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
         </Option>
       </Select>
@@ -25,17 +26,18 @@
         </div>
       </div>
     </div>
-    <questionadd ref="add" :questiontype="questiontypelist"></questionadd>
-    <questionsave ref="save" :form="editinfo" :questiontype="questiontypelist"></questionsave>
+    <titleadd ref="add" :articletype="articletypelist"></titleadd>
+    <titlesave ref="save" :form="editinfo" :articletype="articletypelist"></titlesave>
+    <titleshow ref="show" :form="editinfo"></titleshow>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import common from '../../../assets/js/common';
-  import questionadd from './add.vue';
-  import questionsave from './save.vue';
+  import common from '../../../assets/js/common.js';
+  import titleadd from './titleAdd.vue';
+  import titlesave from './titleSave.vue';
+  import titleshow from './titleshow.vue';
   export default {
     data () {
       return {
@@ -44,23 +46,22 @@
         stripe: true,
         showheader: true,
         showIndex: true,
+        article_type: 0,
         size: 'small',
         total: 0,
         page: 1,
         current: 1,
         rows: 10,
-        content: '',
-        type_id: 0,
+        title: '',
         datas: [],
         editinfo: {},
-        questiontypelist: []
+        articletypelist: []
       }
     },
-    components: {questionadd, questionsave},
+    components: {titleadd, titlesave, titleshow},
     created () {
-      //该 函数封装在 common 中
-      this.getQuestionType((data) => {
-        this.questiontypelist = data
+      this.getArticleType((data) => {
+        this.articletypelist = data
       });
       this.getData();
     },
@@ -70,11 +71,11 @@
           params: {
             page: this.page,
             rows: this.rows,
-            content: this.content,
-            type_id: this.type_id
+            title: this.title,
+            article_type: this.article_type
           }
         }
-        this.apiGet('question', data).then((data) => {
+        this.apiGet('scatteredTitle', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -101,13 +102,29 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('question/' + editid).then((res) => {
+        this.apiGet('scatteredTitle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             delete  data.create_time;
             delete  data.update_time;
             this.editinfo = data
             this.modal = false;
             this.$refs.save.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      show(index){
+        //获取单条数据
+        let editid = this.datas[index].id
+        this.apiGet('scatteredTitle/getArrticleJoinTitle?id=' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.show.modal = true
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -126,7 +143,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('question/', id).then((res) => {
+            _this.apiDelete('scatteredTitle/', id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -163,17 +180,16 @@
           })
         }
         columns.push({
-          title: '问题',
-          key: 'question',
+          title: '标题',
+          key: 'title',
           sortable: true
         });
         columns.push({
-          title: '分类',
-          key: 'type_name',
-          sortable: true
+          title: '所属分类',
+          key: 'articletype_name'
         });
         columns.push({
-          title: '添加时间',
+          title: '时间',
           key: 'create_time'
         });
         columns.push(
@@ -183,7 +199,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button> <i-button type="info" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
             }
           }
         );
