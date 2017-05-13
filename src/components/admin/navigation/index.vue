@@ -4,7 +4,10 @@
       栏目:
       <Input v-model="name" placeholdr="栏目" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="add">添加</Button>
+      <Button type="success" @click="adddetails">添加详情型</Button>
+      <Button type="success" @click="addquestion">添加问答型</Button>
+      <Button type="success" @click="addarticle">添加文章型</Button>
+      <Button type="success" @click="addtitle">添加段落标题</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -12,21 +15,34 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
+<<<<<<< Updated upstream
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize" show-total
+=======
+          <Page :total="total" @on-change="changePage" @on-page-size-change="changePageSize"
+                show-total
+>>>>>>> Stashed changes
                 show-elevator show-sizer></Page>
         </div>
       </div>
     </div>
-    <articleadd ref="add"></articleadd>
-    <articlesave ref="save" :form="editinfo"></articlesave>
+    <detailadd :form="editinfo" ref="adddetails"></detailadd>
+    <questionadd ref="addquestion" :articletype="articletypelist"></questionadd>
+    <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
+    <!--<detailsave ref="savedetails" :form="editinfo"></detailsave>-->
+    <articleadd ref="addarticle":articletype="articletypelist" ></articleadd>
+    <titleadd ref="addtitle":articletype="articletypelist" ></titleadd>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
+  import common from '../../../assets/js/common.js';
   import http from '../../../assets/js/http.js';
-  import articleadd from './add.vue';
-  import articlesave from './save.vue';
+  import detailadd from './adddetails.vue';
+  import questionadd from './addquestion.vue';
+  import articleadd from './addarticle.vue';
+  import titleadd from './addtitle.vue';
+  import articlesave from './savedetails.vue';
   export default {
     data () {
       return {
@@ -34,18 +50,28 @@
         border: true,
         stripe: true,
         showheader: true,
+        showIndex: true,
         size: 'small',
         total: 0,
         page: 1,
         rows: 10,
         name: '',
         datas: [],
-        editinfo: []
+        editinfo: [],
+        articletypelist: []
       }
     },
+<<<<<<< Updated upstream
     components: {articleadd,articlesave},
+=======
+    components: {detailadd,questionadd,articleadd,titleadd,articlesave},
+>>>>>>> Stashed changes
     created () {
       this.getData();
+      this.getArticleType((data) => {
+        this.articletypelist = data
+      });
+
     },
     methods: {
       getData() {
@@ -53,7 +79,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            name: this.name,
+            article_type: this.article_type
           }
         }
         this.apiGet('menu', data).then((data) => {
@@ -78,8 +105,17 @@
       queryData(){
         this.getData();
       },
-      add(){
-        this.$refs.add.modal = true
+      adddetails(){
+        this.$refs.adddetails.modal = true
+      },
+      addquestion(){
+        this.$refs.addquestion.modal = true
+      },
+      addarticle(){
+        this.$refs.addarticle.modal = true
+      },
+      addtitle(){
+        this.$refs.addtitle.modal = true
       },
       edit(index){
         let editid = this.datas[index].id
@@ -135,7 +171,7 @@
             align: 'center'
           })
         }
-        if (this.showIndex) {
+        if (this.showheader) {
           columns.push({
             type: 'index',
             width: 60,
@@ -148,8 +184,16 @@
           sortable: true
         });
         columns.push({
-          title: '描述',
-          key: 'detail'
+          title: '类型',
+          key: 'flag_name'
+        });
+        columns.push({
+          title: '分类',
+          key: 'type_name'
+        });
+        columns.push({
+          title: '创建时间',
+          key: 'create_time'
         });
         columns.push(
           {
@@ -159,14 +203,14 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button> `;
             }
           }
         );
         return columns;
       }
     },
-    mixins: [http]
+    mixins: [http, common]
   }
 
 </script>

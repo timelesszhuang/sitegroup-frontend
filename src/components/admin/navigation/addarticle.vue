@@ -4,20 +4,28 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>添加文章分类</span>
+          <span>添加文章型栏目</span>
         </p>
         <div>
           <Form ref="articleadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="分类名称" prop="name">
-              <Input type="text" v-model="form.name" placeholder="请输入节点名"></Input>
+              <Input type="text" v-model="form.name" placeholder="请填写菜单名字"></Input>
             </Form-item>
-            <Form-item label="详情" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入节点相关信息"></Input>
+            <Form-item label="详情" prop="title">
+              <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
+            </Form-item>
+            <Form-item label="文章分类" prop="type_id">
+              <Select v-model="form.type_id" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeArticletype">
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.name }}
+                </Option>
+              </Select>
             </Form-item>
           </Form>
         </div>
         <div slot="footer">
-          <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
+          <Button type="success" size="large" :loading="modal_loading" @click="addarticle">保存</Button>
         </div>
       </Modal>
     </div>
@@ -29,30 +37,47 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkarticletype = (rule, value, callback) => {
+        if (value === 0) {
+          callback(new Error('请选择文章分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
+
         form: {
           name: "",
-          detail: ""
+          title: "",
+          flag:"1",
+          flag_name:"详情型",
         },
         AddRule: {
           name: [
-            {required: true, message: '请填写文章分类', trigger: 'blur'},
+            {required: true, message: '请填写菜单名字', trigger: 'blur'},
           ],
-          detail: [
-            {required: true, message: '请填写文章详情', trigger: 'blur'},
+          title: [
+            {required: true, message: '请填写栏目的详情', trigger: 'blur'},
+          ],
+          type_name: [
+            {required: true, message: '请选择问答分类', trigger: 'blur'},
           ]
         }
       }
     },
     methods: {
-        add() {
+      changeArticletype(value) {
+        this.form.type_name = value.label
+        this.form.type_id = value.value
+      },
+      addarticle() {
           this.$refs.articleadd.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
-                this.apiPost('articletype', data).then((res) => {
+                this.apiPost('menu', data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
@@ -73,7 +98,12 @@
           })
         }
     },
-    mixins: [http]
+    mixins: [http],
+    props: {
+      articletype: {
+        default: []
+      }
+    }
   }
 
 </script>
