@@ -22,7 +22,7 @@
       </div>
     </div>
     <detailadd :form="editinfo" ref="adddetails"></detailadd>
-    <questionadd ref="addquestion" :articletype="articletypelist"></questionadd>
+    <questionadd ref="addquestion" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <!--<detailsave ref="savedetails" :form="editinfo"></detailsave>-->
     <articleadd ref="addarticle":articletype="articletypelist" ></articleadd>
@@ -54,7 +54,8 @@
         name: '',
         datas: [],
         editinfo: [],
-        articletypelist: []
+        articletypelist: [],
+        questiontypelist: []
       }
     },
     components: {detailadd,questionadd,articleadd,titleadd,articlesave},
@@ -62,6 +63,9 @@
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
+      });
+      this.getQuestionType((data) => {
+        this.questiontypelist = data
       });
 
     },
@@ -72,7 +76,8 @@
             page: this.page,
             rows: this.rows,
             name: this.name,
-            article_type: this.article_type
+            article_type: this.article_type,
+            question_type:this.question_type,
           }
         }
         this.apiGet('menu', data).then((data) => {
