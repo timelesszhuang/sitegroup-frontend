@@ -3,7 +3,7 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>修改详情型</span>
+        <span>修改详情型栏目</span>
       </p>
       <div>
         <Form ref="detailadd" :model="detail" :label-width="90" :rules="AddRule" class="node-add-form">

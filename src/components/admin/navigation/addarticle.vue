@@ -51,7 +51,7 @@
         form: {
           name: "",
           title: "",
-          flag:"2",
+          flag:"3",
           flag_name:"文章型",
         },
         AddRule: {

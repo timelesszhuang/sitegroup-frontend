@@ -26,9 +26,10 @@
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :questiontype="questiontypelist" :form="editinfo"></questionsave>
-    <!--<articlesave ref="savearticle" :articletype="articletypelist" :form="editinfo"></articlesave>-->
+    <articlesave ref="savearticle" :articletype="articletypelist" :form="editinfo"></articlesave>
     <articleadd ref="addarticle":articletype="articletypelist" ></articleadd>
     <titleadd ref="addtitle":articletype="articletypelist" ></titleadd>
+    <titlesave ref="savetitle":articletype="articletypelist" :form="editinfo"></titlesave>
   </div>
 
 </template>
@@ -42,7 +43,8 @@
   import titleadd from './addtitle.vue';
   import detailssave from './savedetails.vue';
   import questionsave from './savequestion.vue';
-//  import articlesave from './savearticle.vue';
+  import articlesave from './savearticle.vue';
+  import titlesave from './savetitle.vue';
   export default {
     data () {
       return {
@@ -62,7 +64,7 @@
         questiontypelist: []
       }
     },
-    components: {detailadd,questionadd,articleadd,titleadd,detailssave,questionsave},
+    components: {detailadd,questionadd,articleadd,titleadd,detailssave,questionsave,articlesave,titlesave},
     created () {
       this.getData();
       this.getArticleType((data) => {
@@ -132,6 +134,9 @@
               this.$refs.savequestion.modal = true
             }else if(data.flag == 3){
               this.$refs.savearticle.modal = true
+            }
+            else if(data.flag == 4){
+              this.$refs.savetitle.modal = true
             }
           }, (data, msg) => {
             this.$Message.error(msg);

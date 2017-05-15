@@ -6,7 +6,7 @@
         <span>修改文章型栏目</span>
       </p>
       <div>
-        <Form ref="data" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+        <Form ref="title" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="分类名称" prop="name">
             <Input type="text"
                    v-model="form.name" placeholder="请填写菜单名字"></Input>
@@ -25,7 +25,7 @@
         </Form>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="savearticle">保存</Button>
+        <Button type="success" size="large" :loading="modal_loading" @click="savetitle">保存</Button>
       </div>
     </Modal>
   </div>
@@ -65,8 +65,8 @@
         this.type_name = value.label
         this.form.type_id = value.value
       },
-      savearticle() {
-        this.$refs.data.validate((valid) => {
+      savetitle() {
+        this.$refs.title.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
             let data = this.form;
@@ -78,7 +78,7 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.$refs.data.resetFields();
+                this.$refs.title.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
