@@ -19,7 +19,7 @@
             with-credentials
             name="file_name"
             :format="['csv']"
-            :on-success="getReponse"
+            :on-success="getResponse"
             :on-error="getErrorInfo"
             :on-format-error="formatError"
             :action="action">
@@ -51,7 +51,7 @@
       }
     },
     methods: {
-      getReponse(response, file, filelist){
+      getResponse(response, file, filelist){
         this.form.path = response.data;
         this.$Message.success(response.msg);
       },
