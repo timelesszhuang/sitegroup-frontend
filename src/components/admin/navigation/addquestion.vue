@@ -14,10 +14,10 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
-            <Form-item label="文章分类" prop="type_id">
+            <Form-item label="问答分类" prop="type_id">
               <Select v-model="form.type_id" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                      label-in-value filterable　@on-change="changeQuestiontype">
+                <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
                 </Option>
               </Select>
@@ -38,7 +38,7 @@
 
   export default {
     data() {
-      const checkarticletype = (rule, value, callback) => {
+      const checkquestiontype = (rule, value, callback) => {
         if (value === 0) {
           callback(new Error('请选择文章分类'));
         } else {
@@ -70,9 +70,10 @@
       }
     },
     methods: {
-      changeArticletype(value) {
-        this.form.type_name = value.label
-        this.form.type_id = value.value
+
+      changeQuestiontype(value) {
+        this.form.question_name = value.label
+        this.form.question_id = value.value
       },
       addquestion() {
           this.$refs.questionadd.validate((valid) => {
@@ -101,7 +102,7 @@
     },
     mixins: [http],
     props: {
-      articletype: {
+      questiontype: {
         default: []
       }
     }
