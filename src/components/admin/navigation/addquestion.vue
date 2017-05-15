@@ -14,7 +14,7 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
-            <Form-item label="问答分类" prop="type_id">
+            <Form-item label="问答分类" prop="type_name">
               <Select v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeQuestiontype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
@@ -40,7 +40,7 @@
     data() {
       const checkquestiontype = (rule, value, callback) => {
         if (value === 0) {
-          callback(new Error('请选择文章分类'));
+          callback(new Error('请选择问答分类'));
         } else {
           callback();
         }
@@ -65,6 +65,9 @@
           ],
           type_name: [
             {required: true, message: '请选择问答分类', trigger: 'blur'},
+          ],
+          type_id: [
+            {validator: checkquestiontype, trigger: 'blur'}
           ]
         }
       }
@@ -72,8 +75,8 @@
     methods: {
 
       changeQuestiontype(value) {
-        this.form.question_name = value.label
-        this.form.question_id = value.value
+        this.form.type_name= value.label
+        this.form.type_id = value.value
       },
       addquestion() {
           this.$refs.questionadd.validate((valid) => {
@@ -86,7 +89,7 @@
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-                    this.$refs.detailadd.resetFields();
+                    this.$refs.questionadd.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);

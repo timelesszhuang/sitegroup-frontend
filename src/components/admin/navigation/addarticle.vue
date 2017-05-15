@@ -51,8 +51,8 @@
         form: {
           name: "",
           title: "",
-          flag:"1",
-          flag_name:"详情型",
+          flag:"2",
+          flag_name:"文章型",
         },
         AddRule: {
           name: [
@@ -62,7 +62,10 @@
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
           type_name: [
-            {required: true, message: '请选择问答分类', trigger: 'blur'},
+            {required: true, message: '请选择文章分类', trigger: 'blur'},
+          ],
+          type_id: [
+            {validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }

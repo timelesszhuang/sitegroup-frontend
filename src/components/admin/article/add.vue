@@ -25,7 +25,7 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <quill-editor ref="myTextEditor"
+            <quill-editor ref="myTextEditoradd"
                           v-model="form.content"
                           :config="editorOption"
                           @blur="onEditorBlur($event)"
@@ -88,7 +88,7 @@
     methods: {
       computed: {
         editor() {
-          return this.$refs.myTextEditor.quillEditor
+          return this.$refs.myTextEditoradd.quillEditor
         }
       },
       onEditorBlur(editor) {
@@ -113,7 +113,6 @@
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();
-                this.form = {};
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.add.resetFields();
