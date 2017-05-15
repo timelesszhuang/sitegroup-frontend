@@ -26,6 +26,7 @@
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :questiontype="questiontypelist" :form="editinfo"></questionsave>
+    <!--<articlesave ref="savearticle" :articletype="articletypelist" :form="editinfo"></articlesave>-->
     <articleadd ref="addarticle":articletype="articletypelist" ></articleadd>
     <titleadd ref="addtitle":articletype="articletypelist" ></titleadd>
   </div>
@@ -41,6 +42,7 @@
   import titleadd from './addtitle.vue';
   import detailssave from './savedetails.vue';
   import questionsave from './savequestion.vue';
+//  import articlesave from './savearticle.vue';
   export default {
     data () {
       return {
@@ -128,6 +130,8 @@
             else if(data.flag == 2)
             {
               this.$refs.savequestion.modal = true
+            }else if(data.flag == 3){
+              this.$refs.savearticle.modal = true
             }
           }, (data, msg) => {
             this.$Message.error(msg);
