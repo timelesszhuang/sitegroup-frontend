@@ -24,7 +24,8 @@
     <detailadd :form="editinfo" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
-    <!--<detailsave ref="savedetails" :form="editinfo"></detailsave>-->
+    <detailssave ref="savedetails" :detail="editinfo"></detailssave>
+    <questionsave ref="savequestion" :questiontype="questiontypelist" :form="editinfo"></questionsave>
     <articleadd ref="addarticle":articletype="articletypelist" ></articleadd>
     <titleadd ref="addtitle":articletype="articletypelist" ></titleadd>
   </div>
@@ -38,7 +39,8 @@
   import questionadd from './addquestion.vue';
   import articleadd from './addarticle.vue';
   import titleadd from './addtitle.vue';
-  import articlesave from './savedetails.vue';
+  import detailssave from './savedetails.vue';
+  import questionsave from './savequestion.vue';
   export default {
     data () {
       return {
@@ -53,12 +55,12 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: [],
+        editinfo: {},
         articletypelist: [],
         questiontypelist: []
       }
     },
-    components: {detailadd,questionadd,articleadd,titleadd,articlesave},
+    components: {detailadd,questionadd,articleadd,titleadd,detailssave,questionsave},
     created () {
       this.getData();
       this.getArticleType((data) => {
@@ -116,13 +118,17 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('articletype/' + editid).then((res) => {
+        this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            delete  data.create_time;
-            delete  data.update_time;
             this.editinfo = data
             this.modal = false;
-            this.$refs.save.modal = true
+            if(data.flag == 1){
+              this.$refs.savedetails.modal = true
+            }
+            else if(data.flag == 2)
+            {
+              this.$refs.savequestion.modal = true
+            }
           }, (data, msg) => {
             this.$Message.error(msg);
           })

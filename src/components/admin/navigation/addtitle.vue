@@ -51,8 +51,8 @@
         form: {
           name: "",
           title: "",
-          flag:"2",
-          flag_name:"问答型",
+          flag:"4",
+          flag_name:"段落标题",
           type_id:'',
           type_name:'',
         },
@@ -65,6 +65,9 @@
           ],
           type_name: [
             {required: true, message: '请选择问答分类', trigger: 'blur'},
+          ],
+          articletype_id: [
+            {validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }
