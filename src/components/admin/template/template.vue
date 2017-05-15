@@ -18,15 +18,15 @@
         </div>
       </div>
     </div>
-    <questiontypeadd ref="add"></questiontypeadd>
-    <questiontypesave ref="save" :form="editinfo"></questiontypesave>
+    <templateadd ref="add"></templateadd>
+    <!--<questiontypesave ref="save" :form="editinfo"></questiontypesave>-->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import questiontypeadd from './questiontypeadd.vue';
-  import questiontypesave from './questiontypesave.vue';
+  import templateadd from './templateadd.vue';
+  import templatesave from './temlatesave.vue';
   export default {
     data () {
       return {
@@ -44,7 +44,7 @@
         editinfo: {}
       }
     },
-    components: {questiontypeadd, questiontypesave},
+    components: {templateadd, templatesave},
     created () {
       this.getData();
     },
