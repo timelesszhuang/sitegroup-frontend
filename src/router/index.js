@@ -17,6 +17,7 @@ import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarti
 import Title from '../components/admin/title/title.vue'
 import Questiontype from '../components/admin/questiontype/questiontype.vue'
 import Template from '../components/admin/template/template.vue'
+import Activity from '../components/admin/activity/activity.vue'
 
 Vue.use(Router)
 
@@ -51,7 +52,8 @@ export default new Router({
         {path: 'scatteredarticle', component: Scatteredarticle, name: 'scatteredarticle'},
         {path: 'title', component: Title, name: 'title'},
         {path: 'questiontype', component: Questiontype, name: 'questiontype'},
-        {path: 'template', component: Template, name: 'template'}
+        {path: 'template', component: Template, name: 'template'},
+        {path: 'activity', component: Activity, name: 'activity'}
       ]
     }
   ]

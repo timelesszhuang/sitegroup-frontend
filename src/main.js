@@ -22,6 +22,7 @@ Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
 
 var HOST = 'http://sitegroup.youdao.so/index.php/'
+var ROOTHOST = 'http://sitegroup.youdao.so/'
 
 axios.defaults.baseURL = HOST
 axios.defaults.timeout = 1000 * 15
@@ -30,6 +31,7 @@ axios.defaults.withCredentials = true
 
 //变为全局的变量
 window.HOST = HOST
+window.ROOTHOST = ROOTHOST
 window.router = router
 window.axios = axios
 window.moment = moment
@@ -41,5 +43,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

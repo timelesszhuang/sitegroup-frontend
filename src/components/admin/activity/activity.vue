@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top">
-      模板名
-      <Input v-model="name" placeholdr="模板名" style="width:300px;"></Input>
+      活动:
+      <Input v-model="title" placeholder="请输入活动名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -13,41 +13,51 @@
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-                show-total show-elevator show-sizer>
-          </Page>
+                show-total
+                show-elevator show-sizer></Page>
         </div>
       </div>
     </div>
-    <templateadd ref="add"></templateadd>
-    <templatesave ref="save" :form="editinfo"></templatesave>
+    <activityadd ref="add"></activityadd>
+<!--    <activitysave ref="save" :form="editinfo"></activitysave>
+    <activityshow ref="show" :form="editinfo"></activityshow>-->
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import templateadd from './templateadd.vue';
-  import templatesave from './temlatesave.vue';
+  import common from '../../../assets/js/common.js';
+  import activityadd from './activityadd.vue';
+  import activitysave from './save.vue';
+  import activityshow from './show.vue';
+
   export default {
     data () {
       return {
         self: this,
         border: true,
         stripe: true,
+        current: 1,
         showheader: true,
         showIndex: true,
         size: 'small',
-        current: 1,
         total: 0,
         page: 1,
         rows: 10,
-        name: '',
+        title: '',
+        activity_type: 0,
         datas: [],
-        editinfo: {}
+        editinfo: {},
+        activitytypelist: []
       }
     },
-    components: {templateadd, templatesave},
+    components: {activityadd, activitysave, activityshow},
     created () {
       this.getData();
+      this.getArticleType((data) => {
+        this.articletypelist = data
+      });
     },
     methods: {
       getData() {
@@ -55,10 +65,11 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            title: this.title,
+            article_type: this.article_type
           }
         }
-        this.apiGet('template', data).then((data) => {
+        this.apiGet('activity', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -84,20 +95,39 @@
         this.$refs.add.modal = true
       },
       edit(index){
-        let editid = this.datas[index].id
-        this.apiGet('template/' + editid).then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.editinfo = data
-            this.modal = false;
-            this.$refs.save.modal = true
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        })
+        this.$refs.save.modal = true
       },
+      show(index){
+        this.getArticle(activity);
+        this.$refs.show.modal = true
+      },
+      remove(index){
+        //需要删除确认
+        let id = this.datas[activity].id
+        let _this = this
+        this.$Modal.confirm({
+          title: '确认删除',
+          content: '您确定删除该记录?',
+          okText: '删除',
+          cancelText: '取消',
+          onOk: (index) => {
+            _this.apiDelete('activity/', id).then((res) => {
+              _this.handelResponse(res, (data, msg) => {
+                _this.getData()
+                _this.$Message.success(msg);
+              }, (data, msg) => {
+                _this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              _this.$Message.error('网络异常，请稍后重试');
+            })
+          },
+          onCancel: () => {
+            return false
+          }
+        })
+      }
     },
     computed: {
       tableColumns()
@@ -118,35 +148,41 @@
           })
         }
         columns.push({
-          title: '分类名',
-          key: 'name',
+          title: '标题',
+          key: 'title',
           sortable: true
         });
         columns.push({
-          title: '详情',
-          key: 'detail',
+          title: '分类名称',
+          key: 'activitytype_name',
           sortable: true
         });
         columns.push({
-          title: '创建时间',
-          key: 'create_time',
+          title: '作者',
+          key: 'auther',
           sortable: true
         });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 150,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${activity})">修改</i-button>
+                      <i-button type="info" size="small" @click="show(${activity})">预览</i-button>
+                      <i-button type="error" size="small" @click="remove(${activity})">删除</i-button>`;
             }
           }
         );
         return columns;
       }
     },
-    mixins: [http]
+    mixins: [http, common]
   }
+
 </script>
+<style>
+
+
+</style>

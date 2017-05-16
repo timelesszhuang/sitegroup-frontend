@@ -133,9 +133,9 @@
               <Icon type="ios-telephone"></Icon>
               <span class="layout-text" @click="routerChange('/admin/contact','联系方式管理')">联系方式管理</span>
             </Menu-item>
-            <Menu-item name="活动">
+            <Menu-item name="主题/活动创意">
               <Icon type="beer"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/acticvity','活动')">主题/活动创意</span>
+              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">主题/活动创意</span>
             </Menu-item>
             <Menu-item name="模板管理">
               <Icon type="map"></Icon>
