@@ -131,7 +131,7 @@
             </Menu-item>
             <Menu-item name="联系方式管理">
               <Icon type="ios-telephone"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/contact','联系方式管理')">联系方式管理</span>
+              <span class="layout-text" @click="routerChange('/admin/contactway','联系方式管理')">联系方式管理</span>
             </Menu-item>
             <Menu-item name="主题/活动创意">
               <Icon type="beer"></Icon>
