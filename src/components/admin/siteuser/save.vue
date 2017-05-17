@@ -7,15 +7,15 @@
           <span>修改</span>
         </p>
         <div>
-          <Form ref="contactwaysave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="描述" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入名称"></Input>
+          <Form ref="siteusersave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <Form-item label="名称" prop="detail">
+              <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="html" prop="html" style="height:100%;">
-              <quill-editor ref="myTextEditor"
-                            v-model="form.html"
-                            :config="editorOption">
-              </quill-editor>
+            <Form-item label="名称" prop="account">
+              <Input type="text" v-model="form.account" placeholder="请输入昵称"></Input>
+            </Form-item>
+            <Form-item label="密码" prop="pwd">
+              <Input type="text" v-model="form.pwd" placeholder="请输入密码"></Input>
             </Form-item>
           </Form>
         </div>
@@ -33,39 +33,36 @@
   export default {
     data() {
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
         AddRule: {
-          detail: [
-            {required: true, message: '请填写描述', trigger: 'blur'},
+          name: [
+            {required: true, message: '请输入名称', trigger: 'blur'},
           ],
-          html: [
-            {required: true, message: '请填写html', trigger: 'blur'},
+          account: [
+            {required: true, message: '请输入昵称', trigger: 'blur'},
+          ],
+          pwd: [
+            {required: true, message: '请输入密码', trigger: 'blur'},
           ]
 
         }
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
-      },
         add() {
-          this.$refs.contactwaysave.validate((valid) => {
+          this.$refs.siteusersave.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
                 let id = data.id;
-                this.apiPut('contactway/'+ id, data).then((res) => {
+                this.apiPut('siteuser/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-//                    this.$refs.contactsave.resetFields();
+//                    this.$refs.siteusersave.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
@@ -82,8 +79,9 @@
     props: {
       form: {
         default: {
-          detail: '',
-          html:'',
+          name: '',
+          pwd:'',
+          account:''
         }
       }
     },

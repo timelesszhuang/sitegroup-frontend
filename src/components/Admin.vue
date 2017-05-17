@@ -153,7 +153,7 @@
             </Menu-item>
             <Menu-item name="用户管理">
               <Icon type="person"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/domain','用户管理')">用户管理</span>
+              <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
           </Submenu>
           <Menu-item name="重置密码" >
