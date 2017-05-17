@@ -145,9 +145,13 @@
           <Submenu name="6">
             <template slot="title">
               <Icon type="pinpoint"></Icon>
-              节点/用户管理
+              站点/用户管理
             </template>
-            <Menu-item name="节点管理">
+            <Menu-item name="站点分类">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">站点分类</span>
+            </Menu-item>
+            <Menu-item name="站点管理">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/navigation','节点管理')">节点管理</span>
             </Menu-item>
@@ -156,7 +160,7 @@
               <span class="layout-text" @click="routerChange('/admin/domain','用户管理')">用户管理</span>
             </Menu-item>
           </Submenu>
-          <Menu-item name="重置密码" >
+          <Menu-item name="重置密码">
             <Icon type="android-lock" @click="changePwd()"></Icon>
             <span class="layout-text" @click="changePwd()">重置密码</span>
           </Menu-item>
