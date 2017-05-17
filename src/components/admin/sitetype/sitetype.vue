@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top">
-     用户管理:
-      <Input v-model="name" placeholder="联系方式描述" style="width:300px;"></Input>
+     站点分类管理:
+      <Input v-model="name" placeholder="站点分类名称" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -18,15 +18,15 @@
         </div>
       </div>
     </div>
-    <siteuseradd ref="add"></siteuseradd>
-    <siteusersave ref="save" :form="editinfo"></siteusersave>
+    <sitetypeadd ref="add"></sitetypeadd>
+    <sitetypesave ref="save" :form="editinfo"></sitetypesave>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import siteuseradd from './add.vue';
-  import siteusersave from './save.vue';
+  import sitetypeadd from './add.vue';
+  import sitetypesave from './save.vue';
   export default {
     data () {
       return {
@@ -45,7 +45,7 @@
         editinfo: {}
       }
     },
-    components: {siteuseradd,siteusersave},
+    components: {sitetypeadd, sitetypesave},
     created () {
       this.getData();
     },
@@ -58,7 +58,7 @@
             name: this.name
           }
         }
-        this.apiGet('siteuser', data).then((data) => {
+        this.apiGet('sitetype', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -85,7 +85,7 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('siteuser/' + editid).then((res) => {
+        this.apiGet('sitetype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -97,64 +97,6 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
-      },
-      changeStatus(index, is_on){
-        //需要删除确认
-        let id = this.datas[index].id
-        let _this = this
-        let data = {
-          'is_on': is_on,
-           id:id
-        }
-        if(data.is_on == 20){
-          this.$Modal.confirm({
-            title: '确认禁用',
-            content: '您确定禁用该活动?',
-            okText: '禁用',
-            cancelText: '取消',
-            onOk: (index) => {
-              _this.apiPut('siteuser/enable', data).then((res) => {
-                _this.handelResponse(res, (data, msg) => {
-                  _this.getData();
-                  _this.$Message.success(msg);
-                }, (data, msg) => {
-                  _this.$Message.error(msg);
-                })
-              }, (res) => {
-                //处理错误信息
-                _this.$Message.error('网络异常，请稍后重试。');
-              })
-            },
-            onCancel: () => {
-              return false
-            }
-          })
-        }else if(is_on==10){
-          this.$Modal.confirm({
-            title: '确认启用',
-            content: '您确定启用该活动?',
-            okText: '启用',
-            cancelText: '取消',
-            onOk: (index) => {
-              _this.apiPut('siteuser/enable', data).then((res) => {
-                _this.handelResponse(res, (data, msg) => {
-                  _this.getData();
-                  _this.$Message.success(msg);
-                }, (data, msg) => {
-                  _this.$Message.error(msg);
-                })
-              }, (res) => {
-                //处理错误信息
-                _this.$Message.error('网络异常，请稍后重试。');
-              })
-            },
-            onCancel: () => {
-              return false
-            }
-          })
-        }
-
-
       },
     },
     computed: {
@@ -175,28 +117,16 @@
             align: 'center'
           })
         }
-
         columns.push({
-          title: '名称',
+          title: '站点分类名',
           key: 'name',
           sortable: true
         });
-
-        columns.push(
-        {
-          title: '状态',
-            key: 'action',
-          align: 'center',
-          fixed: 'center',
-          render (row, column, index) {
-          if (row.is_on == '20') {
-            //20 表示禁用 按钮应该为启用
-            return '禁用'
-          }
-          return '启用'
-        }
-        }
-        );
+        columns.push({
+          title: '描述',
+          key: 'detail',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
@@ -205,12 +135,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">禁用</i-button>`;
-              if (row.is_on == '20') {
-                //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">启用</i-button>`;
-              }
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
             }
           }
         );

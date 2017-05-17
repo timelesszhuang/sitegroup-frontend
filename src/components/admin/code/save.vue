@@ -11,11 +11,10 @@
             <Form-item label="分类名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入节点名"></Input>
             </Form-item>
-            <Form-item label="公共模板" prop="code" style="height:100%;">
-              <quill-editor ref="myTextEditor"
-                            v-model="form.code"
-                            :config="editorOption">
-              </quill-editor>
+            <Form-item label="公共模板" prop="code">
+              <Input v-model="form.code" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
+                     placeholder="请输入代码">
+              </Input>
             </Form-item>
           </Form>
         </div>
@@ -33,7 +32,6 @@
   export default {
     data() {
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
         AddRule: {
@@ -47,11 +45,6 @@
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
-      },
         add() {
           this.$refs.codesave.validate((valid) => {
               if(valid){
@@ -82,7 +75,7 @@
       form: {
         default: {
           name: '',
-          detail: ''
+          code: ''
         }
       }
     },

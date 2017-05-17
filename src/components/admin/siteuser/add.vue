@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="900">
         <p slot="header">
-          <span>添加代码</span>
+          <span>添加用户</span>
         </p>
         <div>
           <Form ref="siteuser" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">

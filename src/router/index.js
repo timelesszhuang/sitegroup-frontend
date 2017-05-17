@@ -22,6 +22,7 @@ import Domain from '../components/admin/domain/index.vue'
 import Contactway from '../components/admin/contactway/contactway.vue'
 import Activity from '../components/admin/activity/activity.vue'
 import Siteuser from '../components/admin/siteuser/siteuser.vue'
+import Sitetype from '../components/admin/sitetype/sitetype.vue'
 
 Vue.use(Router)
 
@@ -62,6 +63,7 @@ export default new Router({
         {path: 'domain', component: Domain, name: 'doamin'},
         {path: 'activity', component: Activity, name: 'activity'},
         {path: 'siteuser', component: Siteuser, name: 'siteuser'},
+        {path: 'sitetype', component: Sitetype, name: 'sitetype'},
       ]
     }
   ]

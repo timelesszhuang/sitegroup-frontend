@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>修改</span>
+          <span>修改用户</span>
         </p>
         <div>
           <Form ref="siteusersave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
