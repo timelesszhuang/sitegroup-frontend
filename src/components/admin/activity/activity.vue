@@ -108,15 +108,20 @@
         let id = this.datas[index].id
         let _this = this
         let data = {
-          'status': status
+          'status': status,
+          'id': id
+        }
+        let msg = '启用'
+        if (status == '20') {
+          msg = '禁用'
         }
         this.$Modal.confirm({
-          title: '确认禁用',
-          content: '您确定禁用该活动?',
-          okText: '禁用',
+          title: '确认' + msg,
+          content: '您确定' + msg + '该活动?',
+          okText: msg,
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiPut('activity/' + id, data).then((res) => {
+            _this.apiPut('activity/changeActivityStatus/', data).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData();
                 _this.$Message.success(msg);
@@ -162,6 +167,21 @@
           key: 'detail',
           sortable: true
         });
+        columns.push(
+          {
+            title: '状态',
+            key: 'action',
+            align: 'center',
+            fixed: 'center',
+            render (row, column, index) {
+              if (row.status == '20') {
+                //20 表示禁用 按钮应该为启用
+                return '禁用'
+              }
+              return '启用'
+            }
+          }
+        );
         columns.push({
           title: '创建时间',
           key: 'create_time',
