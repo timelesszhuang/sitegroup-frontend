@@ -49,7 +49,8 @@
         form: {
           name: "",
           detail: '',
-          path: '',
+          demo_path: '',
+          code_path: '',
         },
         AddRule: {
           name: [
@@ -63,7 +64,8 @@
     },
     methods: {
       getResponse(response, file, filelist){
-        this.form.path = response.data;
+        this.form.code_path = response.data.code_path;
+        this.form.demo_path = response.data.demo_path;
         this.$Message.success(response.msg);
       },
       getErrorInfo(error, file, filelist){
@@ -73,7 +75,11 @@
         this.$Message.error('文件格式只支持 zip格式。');
       },
       add() {
-        if (!this.form.path) {
+        if (!this.form.code_path) {
+          this.$Message.error('请首先上传活动/创意文件。');
+          return
+        }
+        if (!this.form.demo_path) {
           this.$Message.error('请首先上传活动/创意文件。');
           return
         }

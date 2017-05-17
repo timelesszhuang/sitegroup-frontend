@@ -21,8 +21,9 @@ Vue.use(router);
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
 
-var HOST = 'http://sitegroup.youdao.so/index.php/'
-var ROOTHOST = 'http://sitegroup.youdao.so/'
+let domain = 'sitegroup.youdao.so'
+var HOST = 'http://' + domain + '/index.php/'
+var ROOTHOST = 'http://' + domain + '/'
 
 axios.defaults.baseURL = HOST
 axios.defaults.timeout = 1000 * 15

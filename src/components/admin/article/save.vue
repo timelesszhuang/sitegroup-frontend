@@ -33,7 +33,7 @@
         </Form>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
+        <Button type="success" size="large" :loading="modal_loading" @click="activitysave">保存</Button>
       </div>
     </Modal>
   </div>
