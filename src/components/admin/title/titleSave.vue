@@ -37,7 +37,7 @@
   export default {
     data() {
       const checkarticetype = (rule, value, callback) => {
-        if (value === 0) {
+        if (!value) {
           callback(new Error('请选择所属文章分类'));
         } else {
           callback();

@@ -23,6 +23,7 @@ import Contactway from '../components/admin/contactway/contactway.vue'
 import Activity from '../components/admin/activity/activity.vue'
 import Siteuser from '../components/admin/siteuser/siteuser.vue'
 import Sitetype from '../components/admin/sitetype/sitetype.vue'
+import Site from '../components/admin/site/site.vue'
 
 Vue.use(Router)
 
@@ -64,6 +65,7 @@ export default new Router({
         {path: 'activity', component: Activity, name: 'activity'},
         {path: 'siteuser', component: Siteuser, name: 'siteuser'},
         {path: 'sitetype', component: Sitetype, name: 'sitetype'},
+        {path: 'site', component: Site, name: 'site'},
       ]
     }
   ]

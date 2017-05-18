@@ -44,7 +44,7 @@
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
-        if (value === 0) {
+        if (!value) {
           callback(new Error('请选择文章分类'));
         } else {
           callback();

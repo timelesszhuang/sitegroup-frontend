@@ -153,7 +153,7 @@
             </Menu-item>
             <Menu-item name="站点管理">
               <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/navigation','节点管理')">节点管理</span>
+              <span class="layout-text" @click="routerChange('/admin/site','站点管理')">站点管理</span>
             </Menu-item>
             <Menu-item name="用户管理">
               <Icon type="person"></Icon>

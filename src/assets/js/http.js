@@ -19,7 +19,7 @@ const ajaxMethods = {
     apiPost(url, data){
       return new Promise(function (resolve, reject) {
         axios.post(url, data).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           resolve(response.data)
         }).catch(function (response) {
           reject(response)

@@ -1,0 +1,228 @@
+<template>
+  <div>
+    <div>
+      <Modal
+        v-model="modal" width="600">
+        <p slot="header">
+          <span>添加站点</span>
+        </p>
+        <div>
+          <Form ref="site" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <Form-item label="名称" prop="site_name">
+              <Input type="text" v-model="form.site_name" placeholder="请输入名称"></Input>
+            </Form-item>
+            <Form-item label="栏目" prop="menu">
+              <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-change="changeMenutype">
+                <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="模板" prop="template_id">
+              <Select v-model="form.template_id" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeTemptype">
+                <Option v-for="item in temptype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="联系方式" prop="support_hotline">
+              <Select v-model="form.support_hotline" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeHotline">
+                <Option v-for="item in hotline" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="网站分类" prop="site_type">
+              <Select v-model="form.site_type" style="text-align: left;width:200px;"
+                      label-in-value filterable on-blur=""　@on-change="changeSitetype">
+                <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="域名选择" prop="domain_id">
+              <Select v-model="form.domain_id" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeDomainlist">
+                <Option v-for="item in domainlist" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="ec代码" prop="ec">
+              <Input v-model="form.ec" type="textarea" :rows="3"
+                     placeholder="请输入ec代码">
+              </Input>
+            </Form-item>
+          </Form>
+        </div>
+        <div slot="footer">
+          <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
+        </div>
+      </Modal>
+    </div>
+  </div>
+
+</template>
+
+<script type="text/ecmascript-6">
+  import http from '../../../assets/js/http.js';
+  export default {
+    data() {
+      const checkmenutype = (rule, value, callback) => {
+        if (value=="") {
+          callback(new Error('请选择栏目分类'));
+        } else {
+          callback();
+        }
+      };
+      const checktemptype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择模板分类'));
+        } else {
+          callback();
+        }
+      };
+      const checkhotlinetype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择联系方式'));
+        } else {
+          callback();
+        }
+      };
+      const checksitetype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择网站分类'));
+        } else {
+          callback();
+        }
+      };
+      const checkdomain = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择域名'));
+        } else {
+          callback();
+        }
+      };
+
+      return {
+        editorOption: {},
+        modal: false,
+        modal_loading: false,
+        form: {
+          site_name: "",
+          menu: [],
+          template_id:"",
+          support_hotline:"",
+          site_type:"",
+          domain_id:"",
+          ec:""
+        },
+        AddRule: {
+          site_name: [
+            {required: true, message: '请输入名称', trigger: 'blur'},
+          ],
+          menu: [
+            {required: true,validator: checkmenutype, trigger: 'blur'},
+          ],
+          template_id: [
+            {required: true,validator: checktemptype, trigger: 'blur'},
+          ],
+          support_hotline: [
+            {required: true,validator: checkhotlinetype, trigger: 'blur'},
+          ],
+          site_type: [
+            {required: true,validator: checksitetype, trigger: 'blur'},
+          ],
+          domain_id: [
+            {required: true,validator: checkdomain, trigger: 'blur'},
+          ],
+          ec: [
+            {required: true, message: '请输入ec代码', trigger: 'blur'},
+          ],
+
+        }
+      }
+    },
+    methods: {
+      computed: {
+        editor() {
+          return this.$refs.myTextEditor.quillEditor
+        }
+      },
+      changeMenutype() {
+      },
+
+      changeHotline(value) {
+        this.form.support_hotline = value.value
+      },
+      changeSitetype(value) {
+        this.form.site_type = value.value
+      },
+
+      changeTemptype(value) {
+        this.form.template_id = value.value
+      },
+      changeDomainlist(value) {
+        this.form.domain = value.label
+        this.form.domain_id = value.value
+      },
+      add() {
+        this.$refs.site.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            data.menu= this.form.menu.join(",")
+            this.apiPost('site', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.site.resetFields();
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
+  }
+  ,
+  mixins: [http],
+    props
+  :
+  {
+    menutype: {
+    default:
+      []
+    }
+  ,
+    temptype: {
+    default:
+      []
+    }
+  ,
+    sitetype: {
+    default:
+      []
+    }
+  ,
+    hotline: {
+    default:
+      []
+    }
+  ,
+    domainlist:{
+    default:
+      []
+    }
+  }
+  }
+</script>

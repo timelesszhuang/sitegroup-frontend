@@ -53,11 +53,8 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_name: [
-            {required: true, message: '请选择问答分类', trigger: 'blur'},
-          ],
           type_id: [
-            {validator: checkquestiontype, trigger: 'blur'}
+            {required: true,validator: checkquestiontype, trigger: 'blur'}
           ]
         }
       }

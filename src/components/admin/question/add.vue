@@ -41,7 +41,7 @@
   export default {
     data() {
       const checkquestiontype = (rule, value, callback) => {
-        if (value === 0) {
+        if (!value) {
           callback(new Error('请选择问答分类'));
         } else {
           callback();
@@ -64,7 +64,7 @@
             {required: true, message: '请填写答案', trigger: 'blur'},
           ],
           questiontype_id: [
-            {validator: checkquestiontype, trigger: 'blur'}
+            {required: true,validator: checkquestiontype, trigger: 'blur'}
           ]
         }
       }

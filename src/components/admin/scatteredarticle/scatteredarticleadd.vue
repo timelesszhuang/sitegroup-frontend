@@ -38,6 +38,14 @@
   import http from '../../../assets/js/http.js'
   export default {
     data () {
+      const checkarticletype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择文章分类'));
+        } else {
+          callback();
+        }
+      };
+
       return {
         modal: false,
         modal_loading: false,
@@ -51,6 +59,11 @@
           content_paragraph: [
             {required: true, message: '请填写段落', trigger: 'blur'},
           ],
+          articletype_id: [
+            {required: true,validator: checkarticletype, trigger: 'blur'}
+          ]
+
+
         }
       }
     },
@@ -61,10 +74,6 @@
       },
       add()
       {
-        if (!this.form.articletype_id) {
-          this.$Message.error('请选择所属分类');
-          return
-        }
         this.$refs.scatteredarticleadd.validate((valid) => {
           if (valid) {
             this.modal_loading = true;

@@ -49,7 +49,7 @@
       getUser(){
         this.apiGet('user/getAll').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            console.log(data)
+//            console.log(data)
             this.userlist = data;
           }, (data, msg) => {
             this.$Message.error('没有获取到');
@@ -83,7 +83,7 @@
         };
         this.apiGet('node', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            console.log(data)
+//            console.log(data)
             this.nodelist = data.rows
             this.total = data.total;
           }, (data, msg) => {

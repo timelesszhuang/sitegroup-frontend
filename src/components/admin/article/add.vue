@@ -49,7 +49,7 @@
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
-        if (value === 0) {
+        if (!value) {
           callback(new Error('请选择文章分类'));
         } else {
           callback();
@@ -78,7 +78,7 @@
             {required: true, message: '请填写文章作者', trigger: 'blur'},
           ],
           articletype_id: [
-            {validator: checkarticletype, trigger: 'blur'}
+            {required: true,validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }
