@@ -118,7 +118,7 @@
           })
         }
         columns.push({
-          title: '分类名',
+          title: '模板名',
           key: 'name',
           sortable: true
         });
