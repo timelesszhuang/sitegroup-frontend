@@ -11,11 +11,11 @@
             <Input type="text"
                    v-model="form.name" placeholder="请填写菜单名字"></Input>
           </Form-item>
+          <Form-item label="英文名" prop="generate_name">
+            <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
+          </Form-item>
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
-          </Form-item>
-          <Form-item label="生成文件名" prop="generate_name">
-            <Input type="text" v-model="form.generate_name" placeholder="请填写生成的文件名"></Input>
           </Form-item>
           <Form-item label="问答分类" prop="type_id">
             <Select v-model="form.type_id" style="text-align: left;width:200px;"
