@@ -145,6 +145,7 @@
             data.verifyCode = this.loginform.verifyCode
             this.loading = !this.loading
             console.log(data);
+
             this.apiPost('common/login/login', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 if (this.rememberMe) {

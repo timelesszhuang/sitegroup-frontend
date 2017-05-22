@@ -11,6 +11,14 @@
             <Form-item label="名称" prop="site_name">
               <Input type="text" v-model="form.site_name" placeholder="请输入名称"></Input>
             </Form-item>
+            <Form-item label="用户选择" prop="user_id">
+              <Select v-model="form.user_id" style="text-align: left;width:200px;"
+                      label-in-value filterable　@on-change="changeUser">
+                <Option v-for="item in userlist" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="栏目" prop="menu">
               <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-click="changeMenutype">
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
@@ -104,6 +112,13 @@
         } else {
           callback();
         }
+      }
+      const checkuser = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择用户'));
+        } else {
+          callback();
+        }
       };
 
       return {
@@ -128,6 +143,9 @@
           domain_id: [
             {required: true,validator: checkdomain, trigger: 'blur'},
           ],
+          user_id: [
+            {required: true,validator: checkuser, trigger: 'blur'},
+          ],
           ec: [
             {required: true, message: '请输入ec代码', trigger: 'blur'},
           ],
@@ -143,6 +161,10 @@
       },
       changeSitetype(value) {
         this.form.site_type = value.value
+      },
+      changeUser(value){
+        this.form.user_name = value.label
+        this.form.user_id = value.value
       },
 
       changeTemptype(value) {
@@ -204,6 +226,11 @@
         default:
           []
       },
+      userlist:{
+        default:
+          []
+      },
+
       form: {
         default: {
           site_name: "",
@@ -213,6 +240,7 @@
           site_type:"",
           domain_id:"",
           ec:""
+
         }
       }
     },

@@ -11,7 +11,7 @@
             <Form-item label="名称" prop="detail">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="名称" prop="account">
+            <Form-item label="账号" prop="account">
               <Input type="text" v-model="form.account" placeholder="请输入昵称"></Input>
             </Form-item>
             <Form-item label="密码" prop="pwd">

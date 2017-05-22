@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <siteadd ref="add"   :domainlist="domainlist"   :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
-    <sitesave ref="save" :domainlist="domainlist"   :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" ></sitesave>
+    <siteadd ref="add"   :domainlist="domainlist"   :userlist="userlist"  :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
+    <sitesave ref="save" :domainlist="domainlist"   :userlist="userlist" :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" ></sitesave>
   </div>
 </template>
 
@@ -47,7 +47,8 @@
         temptype:[],
         sitetype:[],
         hotline:[],
-        domainlist:[]
+        domainlist:[],
+        userlist:[]
       }
     },
     components: {siteadd,sitesave},
@@ -67,6 +68,9 @@
       });
       this.getDomain((data) => {
         this.domainlist = data
+      });
+      this.getUserType((data) => {
+        this.userlist = data
       });
 
     },
@@ -127,6 +131,19 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
+      getUserType(func) {
+        this.apiGet('siteuser/getUsers').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error('没有获取到');
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
+
       getTempType(func) {
         this.apiGet('template/getTemplate').then((res) => {
           this.handelResponse(res, (data, msg) => {
