@@ -11,11 +11,11 @@
             <Form-item label="分类名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请填写菜单名字"></Input>
             </Form-item>
+            <Form-item label="英文名" prop="generate_name">
+              <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
+            </Form-item>
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
-            </Form-item>
-            <Form-item label="生成文件名" prop="generate_name">
-              <Input type="text" v-model="form.generate_name" placeholder="请填写生成的文件名"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="type_id">
               <Select v-model="form.type_id" style="text-align: left;width:200px;"
@@ -54,11 +54,11 @@
         form: {
           name: "",
           title: "",
-          flag:"4",
-          flag_name:"段落标题",
-          type_id:'',
-          type_name:'',
-          generate_name:''
+          flag: "4",
+          flag_name: "段落标题",
+          type_id: '',
+          type_name: '',
+          generate_name: ''
         },
         AddRule: {
           name: [
@@ -70,7 +70,7 @@
           type_id: [
             {validator: checkarticletype, trigger: 'blur'}
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ]
         }
@@ -82,29 +82,29 @@
         this.form.type_id = value.value
       },
       addtitle() {
-          this.$refs.titleadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('menu', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.titleadd.resetFields();
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+        this.$refs.titleadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('menu', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.titleadd.resetFields();
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
     mixins: [http],
     props: {
