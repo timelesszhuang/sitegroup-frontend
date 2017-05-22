@@ -14,6 +14,9 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
+          <Form-item label="生成文件名" prop="generate_name">
+            <Input type="text" v-model="detail.generate_name" placeholder="请填写生成的文件名"></Input>
+          </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
             <quill-editor ref="myTextEditor"
                           v-model="detail.content"
@@ -46,7 +49,9 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
+          ]
         }
       }
     },
@@ -91,7 +96,8 @@
         default: {
           name: "",
           title: '',
-          content: ''
+          content: '',
+          generate_name:''
         }
       }
     }

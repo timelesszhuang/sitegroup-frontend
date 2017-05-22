@@ -14,6 +14,9 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
+            <Form-item label="生成文件名" prop="generate_name">
+              <Input type="text" v-model="form.generate_name" placeholder="请填写生成的文件名"></Input>
+            </Form-item>
             <Form-item label="内容" prop="content" style="height:100%;">
               <quill-editor ref="myTextEditor"
                             v-model="form.content"
@@ -47,6 +50,7 @@
           title: "",
           flag:"1",
           flag_name:"详情型",
+          generate_name:'',
           content:''
         },
         AddRule: {
@@ -58,6 +62,9 @@
           ],
           type_name: [
             {required: true, message: '请选择问答分类', trigger: 'blur'},
+          ],
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ]
         }
       }

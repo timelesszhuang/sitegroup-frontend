@@ -14,6 +14,9 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
+          <Form-item label="生成文件名" prop="generate_name">
+            <Input type="text" v-model="form.generate_name" placeholder="请填写生成的文件名"></Input>
+          </Form-item>
           <Form-item label="文章分类" prop="type_id">
             <Select v-model="form.type_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeArticletype">
@@ -56,6 +59,9 @@
           ],
           type_id: [
             {equired: true,validator: checkarticletype, trigger: 'blur'}
+          ],
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ]
         }
       }

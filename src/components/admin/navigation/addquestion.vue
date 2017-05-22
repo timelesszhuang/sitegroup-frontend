@@ -14,6 +14,9 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
+            <Form-item label="生成文件名" prop="generate_name">
+              <Input type="text" v-model="form.generate_name" placeholder="请填写生成的文件名"></Input>
+            </Form-item>
             <Form-item label="问答分类" prop="type_name">
               <Select v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeQuestiontype">
@@ -55,6 +58,7 @@
           flag_name:"问答型",
           type_id:'',
           type_name:'',
+          generate_name:''
         },
         AddRule: {
           name: [
@@ -66,11 +70,13 @@
           type_name: [
             {required: true,validator: checkquestiontype, trigger: 'blur'}
           ],
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
+          ]
         }
       }
     },
     methods: {
-
       changeQuestiontype(value) {
         this.form.type_name= value.label
         this.form.type_id = value.value
