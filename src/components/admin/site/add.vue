@@ -65,6 +65,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="url" prop="url">
+                <Input v-model="form.url" placeholder="请输入url"></Input>
+            </Form-item>
             <Form-item label="head前代码" prop="before_header_jscode">
               <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
                      placeholder="请输入head前代码">
@@ -158,7 +161,8 @@
           before_header_jscode:"",
           other_jscode:"",
           keyword_ids:[],
-          user_id:""
+          user_id:"",
+          url:''
         },
         AddRule: {
           site_name: [
@@ -184,8 +188,10 @@
           ],
           keyword_ids:[
             {required: true,validator: checkkeyword, trigger: 'blur'},
+          ],
+          url:[
+            {required: true, message: '请输入url', trigger: 'blue'}
           ]
-
         }
       }
     },

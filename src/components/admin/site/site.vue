@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top">
-     站点管理:
-      <Input v-model="site_name" placeholder="站点名字" style="width:300px;"></Input>
+      站点管理:
+       <Input v-model="site_name" placeholder="站点名字" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -18,8 +18,35 @@
         </div>
       </div>
     </div>
-    <siteadd ref="add"   :domainlist="domainlist"  :keyword="keyword" :userlist="userlist"  :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
-    <sitesave ref="save" :domainlist="domainlist"  :keyword="keyword"  :userlist="userlist" :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" ></sitesave>
+    <siteadd ref="add" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+             :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
+    <sitesave ref="save" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
+    <Modal v-model="ftpModel" title="ftp信息">
+      <Form ref="ftp" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+        <Form-item label="cdn品牌" prop="cdn_type">
+          <Input type="text" v-model="form.cdn_type" placeholder="请输入cdn品牌"></Input>
+        </Form-item>
+        <Form-item label="cdn绑定ip" prop="cdn_ip">
+          <Input type="text" v-model="form.cdn_ip" placeholder="请输入cdn绑定ip"></Input>
+        </Form-item>
+        <Form-item label="ftp平台" prop="ftp_place">
+          <Input type="text" v-model="form.ftp_place" placeholder="请输入ftp平台"></Input>
+        </Form-item>
+        <Form-item label="ftp host" prop="ftp_host">
+          <Input type="text" v-model="form.ftp_host" placeholder="请输入ftp host"></Input>
+        </Form-item>
+        <Form-item label="ftp 用户" prop="ftp_user">
+          <Input type="text" v-model="form.ftp_user" placeholder="请输入ftp用户名"></Input>
+        </Form-item>
+        <Form-item label="ftp 密码" prop="ftp_pwd">
+          <Input type="password" v-model="form.ftp_pwd" placeholder="请输入ftp密码"></Input>
+        </Form-item>
+      </Form>
+      <div slot="footer">
+        <Button type="success" size="large" :loading="modal_loading" @click="submitFtp">保存</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -30,6 +57,8 @@
   export default {
     data () {
       return {
+        modal_loading: false,
+        ftpModel: false,
         self: this,
         border: true,
         stripe: true,
@@ -43,16 +72,45 @@
         site_name: '',
         datas: [],
         editinfo: {},
-        menutype:[],
-        temptype:[],
-        sitetype:[],
-        hotline:[],
-        domainlist:[],
-        userlist:[],
-        keyword:[]
+        menutype: [],
+        temptype: [],
+        sitetype: [],
+        hotline: [],
+        domainlist: [],
+        userlist: [],
+        keyword: [],
+        ftp_id:0,
+        form: {
+          cdn_type: '',
+          cdn_ip: '',
+          ftp_place: '',
+          ftp_host: '',
+          ftp_user: '',
+          ftp_pwd: ''
+        },
+        AddRule: {
+          cdn_type: [
+            {required: true, message: '请输入名称', trigger: 'blur'},
+          ],
+          cdn_ip: [
+            {required: true, message: '请输入cdn ip地址', trigger: 'blur'},
+          ],
+          ftp_place: [
+            {required: true, message: '请输入ftp平台', trigger: 'blur'},
+          ],
+          ftp_host: [
+            {required: true, message: '请输入ftp host', trigger: 'blur'},
+          ],
+          ftp_user: [
+            {required: true, message: '请输入ftp用户', trigger: 'blur'},
+          ],
+          ftp_pwd: [
+            {required: true, message: '请输入ftp密码', trigger: 'blur'},
+          ]
+        }
       }
     },
-    components: {siteadd,sitesave},
+    components: {siteadd, sitesave},
     created () {
       this.getData();
       this.getMenuType((data) => {
@@ -79,6 +137,28 @@
 
     },
     methods: {
+      submitFtp() {
+        this.$refs.ftp.validate((valid) => {
+            if (valid) {
+              let data = this.form;
+              let id = this.ftp_id;
+              this.apiPut('Site/saveFtp/'+ id, data).then((res) => {
+                this.handelResponse(res, (data, msg) => {
+                  this.modal_loading = false;
+                  this.ftpModel = false;
+                  this.$Message.success(msg);
+                  this.$refs.ftp.resetFields();
+                }, (data, msg) => {
+                  this.$Message.error(msg);
+                })
+              }, (res) => {
+                //处理错误信息
+                this.modal_loading = false;
+                this.$Message.error('网络异常，请稍后重试。');
+              })
+            }
+        })
+      },
       getData() {
         let data = {
           params: {
@@ -111,18 +191,18 @@
         });
       },
 
-    getDomain(func) {
-      this.apiGet('domain/getDomain').then((res) => {
-        this.handelResponse(res, (data, msg) => {
-          func(data)
-        }, (data, msg) => {
-          this.$Message.error('没有获取到');
-        })
-      }, (res) => {
-        //处理错误信息
-        this.$Message.error('网络异常，请稍后重试。');
-      });
-    },
+      getDomain(func) {
+        this.apiGet('domain/getDomain').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error('没有获取到');
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
       getSiteType(func) {
         this.apiGet('sitetype/getSiteType').then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -204,16 +284,16 @@
         this.apiGet('site/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            let tempNUmber=[];
-            let keyAar=[];
-            this.editinfo.menu.split(",").map(function(key){
+            let tempNUmber = [];
+            let keyAar = [];
+            this.editinfo.menu.split(",").map(function (key) {
               tempNUmber.push(Number(key))
             })
-            this.editinfo.keyword_ids.split(",").map(function(key){
+            this.editinfo.keyword_ids.split(",").map(function (key) {
               keyAar.push(Number(key))
             })
-            this.editinfo.menu=tempNUmber
-            this.editinfo.keyword_ids=keyAar
+            this.editinfo.menu = tempNUmber
+            this.editinfo.keyword_ids = keyAar
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {
@@ -230,9 +310,9 @@
         let _this = this
         let data = {
           'main_site': main_site,
-           id:id
+          id: id
         }
-        if(data.main_site == 20){
+        if (data.main_site == 20) {
           this.$Modal.confirm({
             title: '设为主站',
             content: '您确定设为主站?',
@@ -255,8 +335,8 @@
               return false
             }
           })
-        }else if(data.main_site == 10){
-           this.$Modal.confirm({
+        } else if (data.main_site == 10) {
+          this.$Modal.confirm({
             title: '确认取消',
             content: '您确定取消主站?',
             okText: '确认',
@@ -279,9 +359,17 @@
             }
           })
         }
-
-
       },
+      ftpInfo(index) {
+        this.ftpModel = true
+        this.ftp_id = this.datas[index].id;
+        this.form.cdn_type = this.datas[index].cdn_type
+        this.form.cdn_ip = this.datas[index].cdn_ip
+        this.form.ftp_place = this.datas[index].ftp_place
+        this.form.ftp_host = this.datas[index].ftp_host
+        this.form.ftp_user = this.datas[index].ftp_user
+        this.form.ftp_pwd = this.datas[index].ftp_pwd
+      }
     },
     computed: {
       tableColumns()
@@ -330,7 +418,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消</i-button>`;
               }
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
+              return `<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
             }
           }
         );

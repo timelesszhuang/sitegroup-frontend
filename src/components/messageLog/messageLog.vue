@@ -13,9 +13,9 @@
       </div>
     </div>
     <Modal v-model="errorMessage" title="错误信息">
-      <p>{{message}}</p>
-      <p>{{operator}}</p>
-      <p>{{site_name}}</p>
+      <p>错误信息: {{message}}</p>
+      <p>操作: {{operator}}</p>
+      <p>站点: {{site_name}}</p>
     </Modal>
   </div>
 
@@ -40,7 +40,7 @@
         datas: [],
         message: '',
         operator: '',
-        site_name:''
+        site_name:'',
       }
     },
     created() {
