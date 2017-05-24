@@ -167,7 +167,7 @@
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
             <Col span="2" align="center" >
             <Badge  count="3" >
-              <span @click="routerChange('/admin/messageLog','错误日志')" style="cursor:pointer;">
+              <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
                 <Icon type="ios-bell-outline" size="26" ></Icon>
               </span>
             </Badge>
