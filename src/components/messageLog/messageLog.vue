@@ -52,6 +52,18 @@
         this.operator = item[0].operator;
         this.message = item[0].msg
         this.site_name=item[0].site_name
+        this.changeStatus(item[0].id)
+      },
+      changeStatus(id){
+        this.apiPost('article/changeErrorStatus/'+id).then((data) => {
+          this.handelResponse(data, (data, msg) => {
+            console.log(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
       },
       changePage(page){
         this.page = page;

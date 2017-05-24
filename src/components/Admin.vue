@@ -57,11 +57,13 @@
         <Menu active-name="activename" theme="dark" width="auto" :open-names="['1']">
           <div class="layout-logo-left">
             {{sysname}}
+
           </div>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
               关键词
+
             </template>
             <Menu-item name="关键词管理">
               <Icon type="key"></Icon>
@@ -74,6 +76,7 @@
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               文章管理
+
             </template>
             <Menu-item name="文章分类">
               <Icon type="settings"></Icon>
@@ -88,6 +91,7 @@
             <template slot="title">
               <Icon type="scissors"></Icon>
               零散文章段落
+
             </template>
             <Menu-item name="零散文章">
               <Icon type="social-dropbox-outline"></Icon>
@@ -102,6 +106,7 @@
             <template slot="title">
               <Icon type="chatbox-working"></Icon>
               问答管理
+
             </template>
             <Menu-item name="问答分类">
               <Icon type="settings"></Icon>
@@ -116,6 +121,7 @@
             <template slot="title">
               <Icon type="briefcase"></Icon>
               基础元素设置
+
             </template>
             <Menu-item name="栏目">
               <Icon type="drag"></Icon>
@@ -146,6 +152,7 @@
             <template slot="title">
               <Icon type="pinpoint"></Icon>
               站点/用户管理
+
             </template>
             <Menu-item name="站点分类">
               <Icon type="android-cloud-circle"></Icon>
@@ -166,9 +173,9 @@
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
             <Col span="2">
-            <Badge  count="3" >
+            <Badge :count="count">
               <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
-                <Icon type="ios-bell-outline" size="26" ></Icon>
+                <Icon type="ios-bell-outline" size="26"></Icon>
               </span>
             </Badge>
             </Col>
@@ -194,6 +201,7 @@
         </div>
         <div class="layout-copy">
           2015-2017 &copy; 山东强比信息技术有限公司
+
         </div>
       </i-col>
     </Row>
@@ -204,12 +212,13 @@
 <script>
   import logout from './Account/Logout.vue';
   import changepwd from './Account/Changepwd.vue';
-
+  import http from '../assets/js/http.js';
   export default {
     data(){
       return {
         activeName: '',
-        sysname: ''
+        sysname: '',
+        count:'无'
       }
     },
     components: {
@@ -217,6 +226,18 @@
       logout
     },
     methods: {
+      checkAlert() {
+        this.apiGet('article/getErrorStatus').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.count=data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       routerChange (path, activeName) {
         this.activeName = activeName;
         router.push(path);
@@ -233,6 +254,10 @@
     },
     //created 是函数
     created () {
+        let _this = this;
+        setInterval(function(){
+          _this.checkAlert();
+        },5000);
       this.sysname = Lockr.get('userInfo').node_name
       document.title = this.sysname
       let rememberKey = Lockr.get('rememberKey')
@@ -246,5 +271,6 @@
         return
       }
     },
+    mixins: [http]
   }
 </script>
