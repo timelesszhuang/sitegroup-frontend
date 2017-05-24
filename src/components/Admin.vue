@@ -160,18 +160,28 @@
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
           </Submenu>
-          <Menu-item name="重置密码">
-            <Icon type="android-lock" @click="changePwd()"></Icon>
-            <span class="layout-text" @click="changePwd()">重置密码</span>
-          </Menu-item>
-          <Menu-item name="退出系统">
-            <Icon type="log-out" @click="logOut()"></Icon>
-            <span class="layout-text" @click="logOut()">退出系统</span>
-          </Menu-item>
         </Menu>
       </i-col>
       <i-col span="20">
-        <div class="layout-header"></div>
+        <div class="layout-header">
+          <Row type="flex" justify="end" align="middle" class="code-row-bg">
+            <Col span="2" align="center" >
+            <Badge  count="3" >
+              <span @click="routerChange('/admin/messageLog','错误日志')" style="cursor:pointer;">
+                <Icon type="ios-bell-outline" size="26" ></Icon>
+              </span>
+            </Badge>
+            </Col>
+            <Col span="2">
+            <Icon type="android-lock" @click="changePwd()"></Icon>
+            <span class="layout-text" @click="changePwd()">重置密码</span>
+            </Col>
+            <Col span="2">
+            <Icon type="log-out" @click="logOut()"></Icon>
+            <span class="layout-text" @click="logOut()">退出系统</span>
+            </Col>
+          </Row>
+        </div>
         <div class="layout-breadcrumb">
           <Breadcrumb>
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
@@ -194,6 +204,7 @@
 <script>
   import logout from './Account/Logout.vue';
   import changepwd from './Account/Changepwd.vue';
+
   export default {
     data(){
       return {
@@ -216,6 +227,11 @@
       logOut(){
         this.$refs.logout.modal = true
       },
+      messageLog(){
+          alert(333)
+//        router.replace('/admin/messageLog');
+        router.replace('/')
+      }
     },
     //created 是函数
     created () {
