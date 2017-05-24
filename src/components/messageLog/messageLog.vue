@@ -2,7 +2,7 @@
   <div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" :on-row-click="showMessage"  style="width: 100%">
+             :size="size" :data="datas" :columns="tableColumns" @on-row-click="showMessage(datas)" style="width: 100%">
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
@@ -12,6 +12,11 @@
         </div>
       </div>
     </div>
+    <Modal v-model="errorMessage" title="错误信息">
+      <p>{{message}}</p>
+      <p>{{operator}}</p>
+      <p>{{site_name}}</p>
+    </Modal>
   </div>
 
 </template>
@@ -20,7 +25,8 @@
   import http from '../../assets/js/http.js';
   export default {
     data() {
-      return{
+      return {
+        errorMessage: false,
         self: this,
         border: true,
         stripe: true,
@@ -32,14 +38,20 @@
         page: 1,
         rows: 10,
         datas: [],
+        message: '',
+        operator: '',
+        site_name:''
       }
     },
     created() {
       this.getData();
     },
     methods: {
-      showMessage(){
-        alert(333)
+      showMessage(item){
+        this.errorMessage = true
+        this.operator = item[0].operator;
+        this.message = item[0].msg
+        this.site_name=item[0].site_name
       },
       changePage(page){
         this.page = page;
