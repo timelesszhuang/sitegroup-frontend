@@ -294,13 +294,12 @@
             align: 'center'
           })
         }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
-            width: 60,
-            align: 'center'
-          })
-        }
+
+        columns.push({
+          title: '站点id',
+          key: 'id',
+          sortable: true
+        });
 
         columns.push({
           title: '名称',
@@ -309,7 +308,7 @@
         });
         columns.push({
           title: '网站分类',
-          key: 'site_type',
+          key: 'site_type_name',
           sortable: true
         });
         columns.push({
