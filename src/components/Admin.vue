@@ -165,14 +165,14 @@
       <i-col span="20">
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
-            <Col span="2" align="center" >
+            <Col span="2">
             <Badge  count="3" >
               <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
                 <Icon type="ios-bell-outline" size="26" ></Icon>
               </span>
             </Badge>
             </Col>
-            <Col span="2">
+            <Col span="2" >
             <Icon type="android-lock" @click="changePwd()"></Icon>
             <span class="layout-text" @click="changePwd()">重置密码</span>
             </Col>
