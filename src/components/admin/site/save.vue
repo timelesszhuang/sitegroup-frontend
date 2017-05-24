@@ -19,6 +19,13 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="关键词" prop="keyword_ids">
+              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;" 　@on-change="changekeyword">
+                <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
+                  {{ item.label }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="栏目" prop="menu">
               <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-click="changeMenutype">
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
@@ -58,9 +65,14 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="ec代码" prop="ec">
-              <Input v-model="form.ec" type="textarea" :rows="3"
-                     placeholder="请输入ec代码">
+            <Form-item label="head前代码" prop="before_header_jscode">
+              <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
+                     placeholder="请输入head前代码">
+              </Input>
+            </Form-item>
+            <Form-item label="head后代码" prop="other_jscode">
+              <Input v-model="form.other_jscode" type="textarea" :rows="3"
+                     placeholder="请输入head后代码">
               </Input>
             </Form-item>
           </Form>
@@ -84,6 +96,16 @@
         } else {
           callback();
         }
+      };
+      const checkkeyword = (rule, value, callback) => {
+        if (value=="") {
+          callback(new Error('请选择关键词'));
+        } else if(value.length>5){
+          callback(new Error('关键词不能超过5个'));
+        }else {
+          callback();
+        }
+
       };
       const checktemptype = (rule, value, callback) => {
         if (!value) {
@@ -131,6 +153,9 @@
           menu: [
             {required: true,validator: checkmenutype, trigger: 'blur'},
           ],
+          keyword_ids: [
+            {required: true,validator: checkkeyword, trigger: 'blur'},
+          ],
           template_id: [
             {required: true,validator: checktemptype, trigger: 'blur'},
           ],
@@ -145,9 +170,6 @@
           ],
           user_id: [
             {required: true,validator: checkuser, trigger: 'blur'},
-          ],
-          ec: [
-            {required: true, message: '请输入ec代码', trigger: 'blur'},
           ],
 
         }
@@ -166,6 +188,9 @@
         this.form.user_name = value.label
         this.form.user_id = value.value
       },
+      changekeyword(){
+
+      },
 
       changeTemptype(value) {
         this.form.template_id = value.value
@@ -180,6 +205,7 @@
                 this.modal_loading = true;
                 let data = this.form;
                 data.menu= this.form.menu.join(",")
+                data.keyword_ids= this.form.keyword_ids.join(",")
                 let id = data.id;
                 this.apiPut('site/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
@@ -230,6 +256,10 @@
         default:
           []
       },
+      keyword:{
+        default:
+          []
+      },
 
       form: {
         default: {
@@ -239,7 +269,9 @@
           support_hotline:"",
           site_type:"",
           domain_id:"",
-          ec:""
+          before_header_jscode:"",
+          other_jscode:"",
+          keyword_ids:"",
 
         }
       }

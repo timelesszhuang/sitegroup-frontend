@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <siteadd ref="add"   :domainlist="domainlist"   :userlist="userlist"  :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
-    <sitesave ref="save" :domainlist="domainlist"   :userlist="userlist" :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" ></sitesave>
+    <siteadd ref="add"   :domainlist="domainlist"  :keyword="keyword" :userlist="userlist"  :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
+    <sitesave ref="save" :domainlist="domainlist"  :keyword="keyword"  :userlist="userlist" :hotline="hotline"   :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" ></sitesave>
   </div>
 </template>
 
@@ -48,7 +48,8 @@
         sitetype:[],
         hotline:[],
         domainlist:[],
-        userlist:[]
+        userlist:[],
+        keyword:[]
       }
     },
     components: {siteadd,sitesave},
@@ -71,6 +72,9 @@
       });
       this.getUserType((data) => {
         this.userlist = data
+      });
+      this.getKeyword((data) => {
+        this.keyword = data
       });
 
     },
@@ -143,6 +147,19 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
+//      获取关键词
+      getKeyword(func) {
+        this.apiGet('keyword').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error('没有获取到');
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
 
       getTempType(func) {
         this.apiGet('template/getTemplate').then((res) => {
@@ -188,10 +205,15 @@
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             let tempNUmber=[];
+            let keyAar=[];
             this.editinfo.menu.split(",").map(function(key){
               tempNUmber.push(Number(key))
             })
+            this.editinfo.keyword_ids.split(",").map(function(key){
+              keyAar.push(Number(key))
+            })
             this.editinfo.menu=tempNUmber
+            this.editinfo.keyword_ids=keyAar
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {
