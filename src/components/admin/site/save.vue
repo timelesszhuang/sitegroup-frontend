@@ -100,7 +100,7 @@
       const checkkeyword = (rule, value, callback) => {
         if (value=="") {
           callback(new Error('请选择关键词'));
-        } else if(value.length>5){
+        } else if(value.length>=5){
           callback(new Error('关键词不能超过5个'));
         }else {
           callback();
@@ -217,6 +217,7 @@
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
+//                    console.log(data)
                   })
                 }, (res) => {
                   //处理错误信息
