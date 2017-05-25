@@ -145,8 +145,6 @@
           callback();
         }
       };
-
-
       return {
         editorOption: {},
         modal: false,
