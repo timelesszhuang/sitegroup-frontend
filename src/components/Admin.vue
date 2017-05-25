@@ -201,7 +201,6 @@
         </div>
         <div class="layout-copy">
           2015-2017 &copy; 山东强比信息技术有限公司
-
         </div>
       </i-col>
     </Row>
