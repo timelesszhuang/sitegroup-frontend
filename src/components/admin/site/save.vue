@@ -192,7 +192,7 @@
         this.form.user_id = value.value
       },
       changekeyword(){
-        this.form.keyword_ids = value.label
+
       },
 
       changeTemptype(value) {
