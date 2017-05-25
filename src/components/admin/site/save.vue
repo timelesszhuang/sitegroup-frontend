@@ -176,20 +176,22 @@
       }
     },
     methods: {
-      changeMenutype() {
+      changeMenutype(value) {
+          this.form.menu = value.label
       },
       changeHotline(value) {
         this.form.support_hotline = value.value
       },
       changeSitetype(value) {
         this.form.site_type = value.value
+        this.form.site_type_name = value.label
       },
       changeUser(value){
         this.form.user_name = value.label
         this.form.user_id = value.value
       },
       changekeyword(){
-
+        this.form.keyword_ids = value.label
       },
 
       changeTemptype(value) {
