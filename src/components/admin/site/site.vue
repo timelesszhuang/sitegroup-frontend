@@ -404,6 +404,11 @@
           key: 'domain',
           sortable: true
         });
+        columns.push({
+          title: 'url',
+          key: 'url',
+          sortable: true
+        });
 
         columns.push(
           {
