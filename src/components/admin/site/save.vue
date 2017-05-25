@@ -126,6 +126,7 @@
           callback(new Error('请选择网站分类'));
         } else {
           callback();
+
         }
       };
       const checkdomain = (rule, value, callback) => {
