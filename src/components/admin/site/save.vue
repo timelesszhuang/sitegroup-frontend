@@ -103,7 +103,7 @@
       const checkkeyword = (rule, value, callback) => {
         if (value=="") {
           callback(new Error('请选择关键词'));
-        } else if(value.length>=5){
+        } else if(value.length>5){
           callback(new Error('关键词不能超过5个'));
         }else {
           callback();
@@ -198,7 +198,7 @@
         this.form.user_id = value.value
       },
       changekeyword(){
-
+        this.form.keyword_ids = value.label
       },
 
       changeTemptype(value) {
@@ -213,8 +213,6 @@
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
-                data.menu= this.form.menu.join(",")
-                data.keyword_ids= this.form.keyword_ids.join(",")
                 let id = data.id;
                 this.apiPut('site/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {

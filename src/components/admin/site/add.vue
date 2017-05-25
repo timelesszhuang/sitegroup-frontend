@@ -145,6 +145,8 @@
           callback();
         }
       };
+
+
       return {
         editorOption: {},
         modal: false,
@@ -228,8 +230,8 @@
           if (valid) {
             this.modal_loading = true;
             let data = this.form;
-            data.menu= this.form.menu.join(",")
-            data.keyword_ids= this.form.keyword_ids.join(",")
+//            data.menu= this.form.menu.join(",")
+//            data.keyword_ids= this.form.keyword_ids.join(",")
             this.apiPost('site', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
