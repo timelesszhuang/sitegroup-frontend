@@ -115,9 +115,15 @@
           key: 'msg',
           sortable: true
         });
+
         columns.push({
           title: '操作过程',
           key: 'operator',
+          sortable: true
+        });
+        columns.push({
+          title: '出错时间',
+          key: 'create_time',
           sortable: true
         });
         return columns;
