@@ -19,6 +19,27 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="网站应用" prop="is_mobile">
+              <Radio-group v-model="form.is_mobile">
+                <Radio label="0">
+                  <Icon type="social-windows"></Icon>
+                  <span>PC机</span>
+                </Radio>
+                <Radio label="1">
+                  <Icon type="social-apple"></Icon>
+                  <span>手机</span>
+                </Radio>
+              </Radio-group>
+            </Form-item>
+            <Form-item label="手机网站" prop="m_site_id">
+              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
+                      label-in-value filterable>
+                <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+
             <Form-item label="关键词" prop="keyword_ids">
               <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;">
                 <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
@@ -66,7 +87,7 @@
               </Select>
             </Form-item>
             <Form-item label="友链选择" prop="link">
-              <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-change="changeLink">
+              <Select v-model="form.link" multiple style="text-align: left;width:200px;" 　@on-change="changeLink">
                 <Option v-for="item in link" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -86,26 +107,7 @@
                      placeholder="请输入head后代码">
               </Input>
             </Form-item>
-            <Form-item label="网站应用" prop="is_mobile">
-              <Radio-group v-model="form.is_mobile">
-                <Radio label="0">
-                  <Icon type="social-windows"></Icon>
-                  <span>PC机</span>
-                </Radio>
-                <Radio label="1">
-                  <Icon type="social-apple"></Icon>
-                  <span>手机</span>
-                </Radio>
-              </Radio-group>
-            </Form-item>
-            <Form-item label="手机网站" prop="m_site_id">
-              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
-                      label-in-value filterable>
-                <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
-                  {{ item.text }}
-                </Option>
-              </Select>
-            </Form-item>
+
           </Form>
         </div>
         <div slot="footer">
