@@ -21,7 +21,7 @@
     <siteadd ref="add" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
     <sitesave ref="save" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
-              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
+              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" :mobileSite="mobileSite"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
   </div>
@@ -245,14 +245,19 @@
             this.editinfo = data
             let tempNUmber = [];
             let keyAar = [];
+            let link_id = [];
             this.editinfo.menu.split(",").map(function (key) {
               tempNUmber.push(Number(key))
             })
             this.editinfo.keyword_ids.split(",").map(function (key) {
               keyAar.push(Number(key))
             })
+            this.editinfo.link_id.split(",").map(function (key) {
+              link_id.push(Number(key))
+            })
             this.editinfo.menu = tempNUmber
             this.editinfo.keyword_ids = keyAar
+            this.editinfo.link_id = link_id
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {

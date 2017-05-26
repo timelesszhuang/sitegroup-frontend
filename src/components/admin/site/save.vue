@@ -19,6 +19,26 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="网站应用" prop="is_mobile">
+              <Radio-group v-model="form.is_mobile">
+                <Radio label=10>
+                  <Icon type="social-windows"></Icon>
+                  <span>PC机</span>
+                </Radio>
+                <Radio label=20>
+                  <Icon type="social-apple"></Icon>
+                  <span>手机</span>
+                </Radio>
+              </Radio-group>
+            </Form-item>
+            <Form-item label="手机网站" prop="m_site_id">
+              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
+                      label-in-value filterable>
+                <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="关键词" prop="keyword_ids">
               <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;" 　@on-change="changekeyword">
                 <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
@@ -61,6 +81,13 @@
               <Select v-model="form.domain_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeDomainlist">
                 <Option v-for="item in domainlist" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="友链选择" prop="link_id">
+              <Select v-model="form.link_id" multiple  style="text-align: left;width:200px;">
+                <Option v-for="item in link" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
@@ -220,11 +247,9 @@
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-//                    this.$refs.siteusersave.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
-//                    console.log(data)
                   })
                 }, (res) => {
                   //处理错误信息
@@ -268,11 +293,18 @@
         default:
           []
       },
+      mobileSite:{
 
+      },
+      link:{
+        default:
+          []
+      },
       form: {
         default: {
           site_name: "",
           menu: "",
+          link_id: "",
           template_id:"",
           support_hotline:"",
           site_type:"",
@@ -280,7 +312,6 @@
           before_header_jscode:"",
           other_jscode:"",
           keyword_ids:"",
-
         }
       }
     },

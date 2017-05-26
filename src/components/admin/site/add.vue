@@ -21,15 +21,13 @@
             </Form-item>
             <Form-item label="网站应用" prop="is_mobile">
               <Radio-group v-model="form.is_mobile">
-                <Radio label="10">
+                <Radio label=10>
                   <Icon type="social-windows"></Icon>
                   <span>PC机</span>
                 </Radio>
-                <Radio label="20">
+                <Radio label=20>
                   <Icon type="social-apple"></Icon>
                   <span>手机</span>
-
-
                 </Radio>
               </Radio-group>
             </Form-item>
@@ -193,7 +191,7 @@
           link_id:[],
           user_id:"",
           url:'',
-          is_mobile:'0',
+          is_mobile:10,
           m_site_id:0
         },
         AddRule: {
