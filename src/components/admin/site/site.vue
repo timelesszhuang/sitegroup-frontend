@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <siteadd ref="add" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+    <siteadd ref="add" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
     <sitesave ref="save" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
@@ -57,6 +57,7 @@
         domainlist: [],
         userlist: [],
         keyword: [],
+        link:[],
         ftp_id:0,
         ftp_info:{},
         cdn_info:{},
@@ -85,6 +86,9 @@
       });
       this.getKeyword((data) => {
         this.keyword = data
+      });
+      this.getLink((data) => {
+        this.link = data
       });
 
     },
@@ -184,6 +188,18 @@
         });
       },
       getHotline(func) {
+        this.apiGet('contactway/getContactway').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error('没有获取到');
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
+      getLink(func) {
         this.apiGet('contactway/getContactway').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)

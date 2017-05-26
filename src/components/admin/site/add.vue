@@ -65,6 +65,14 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="友链选择" prop="link">
+              <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-change="changeLink">
+                <Option v-for="item in link" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+
             <Form-item label="url" prop="url">
                 <Input v-model="form.url" placeholder="请输入url"></Input>
             </Form-item>
@@ -181,6 +189,7 @@
           before_header_jscode:"",
           other_jscode:"",
           keyword_ids:[],
+          link:[],
           user_id:"",
           url:'',
           is_mobile:'0',
@@ -237,6 +246,9 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
+      },
+      changeLink(){
+
       },
       changeUser(value){
         this.form.user_name = value.label
@@ -318,7 +330,12 @@
     keyword:{
       default:
         []
-    }
+    },
+    link:{
+      default:
+        []
+    },
+
   }
   }
 </script>
