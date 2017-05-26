@@ -19,7 +19,7 @@
       </div>
     </div>
     <siteadd ref="add" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
-             :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
+             :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
     <sitesave ref="save" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
@@ -61,6 +61,7 @@
         ftp_id:0,
         ftp_info:{},
         cdn_info:{},
+        mobileSite:[]
       }
     },
     components: {siteadd, sitesave,ftpsave,cdnsave},
@@ -90,9 +91,21 @@
       this.getLink((data) => {
         this.link = data
       });
-
+      this.getMobileSite();
     },
     methods: {
+      getMobileSite() {
+        this.apiGet('Site/mobileSite').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.mobileSite=data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       getData() {
         let data = {
           params: {
