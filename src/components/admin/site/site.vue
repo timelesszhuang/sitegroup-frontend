@@ -22,32 +22,8 @@
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype"></siteadd>
     <sitesave ref="save" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
-    <ftpsave ref="ftpsave" :form="ftp_info" :data="123"></ftpsave>
-    <!--<Modal v-model="ftpModel" title="ftp信息">-->
-      <!--<Form ref="ftp" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">-->
-        <!--<Form-item label="cdn品牌" prop="cdn_type">-->
-          <!--<Input type="text" v-model="form.cdn_type" placeholder="请输入cdn品牌"></Input>-->
-        <!--</Form-item>-->
-        <!--<Form-item label="cdn绑定ip" prop="cdn_ip">-->
-          <!--<Input type="text" v-model="form.cdn_ip" placeholder="请输入cdn绑定ip"></Input>-->
-        <!--</Form-item>-->
-        <!--<Form-item label="ftp平台" prop="ftp_place">-->
-          <!--<Input type="text" v-model="form.ftp_place" placeholder="请输入ftp平台"></Input>-->
-        <!--</Form-item>-->
-        <!--<Form-item label="ftp host" prop="ftp_host">-->
-          <!--<Input type="text" v-model="form.ftp_host" placeholder="请输入ftp host"></Input>-->
-        <!--</Form-item>-->
-        <!--<Form-item label="ftp 用户" prop="ftp_user">-->
-          <!--<Input type="text" v-model="form.ftp_user" placeholder="请输入ftp用户名"></Input>-->
-        <!--</Form-item>-->
-        <!--<Form-item label="ftp 密码" prop="ftp_pwd">-->
-          <!--<Input type="password" v-model="form.ftp_pwd" placeholder="请输入ftp密码"></Input>-->
-        <!--</Form-item>-->
-      <!--</Form>-->
-      <!--<div slot="footer">-->
-        <!--<Button type="success" size="large" :loading="modal_loading" @click="submitFtp">保存</Button>-->
-      <!--</div>-->
-    <!--</Modal>-->
+    <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
+    <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
   </div>
 </template>
 
@@ -56,11 +32,11 @@
   import siteadd from './add.vue';
   import sitesave from './save.vue';
   import ftpsave from './ftp.vue';
+  import cdnsave from './cdn.vue';
   export default {
     data () {
       return {
         modal_loading: false,
-//        ftpModel: false,
         self: this,
         border: true,
         stripe: true,
@@ -82,38 +58,11 @@
         userlist: [],
         keyword: [],
         ftp_id:0,
-        ftp_info:[],
-        form: {
-          cdn_type: '',
-          cdn_ip: '',
-          ftp_place: '',
-          ftp_host: '',
-          ftp_user: '',
-          ftp_pwd: ''
-        },
-        AddRule: {
-          cdn_type: [
-            {required: true, message: '请输入名称', trigger: 'blur'},
-          ],
-          cdn_ip: [
-            {required: true, message: '请输入cdn ip地址', trigger: 'blur'},
-          ],
-          ftp_place: [
-            {required: true, message: '请输入ftp平台', trigger: 'blur'},
-          ],
-          ftp_host: [
-            {required: true, message: '请输入ftp host', trigger: 'blur'},
-          ],
-          ftp_user: [
-            {required: true, message: '请输入ftp用户', trigger: 'blur'},
-          ],
-          ftp_pwd: [
-            {required: true, message: '请输入ftp密码', trigger: 'blur'},
-          ]
-        }
+        ftp_info:{},
+        cdn_info:{},
       }
     },
-    components: {siteadd, sitesave,ftpsave},
+    components: {siteadd, sitesave,ftpsave,cdnsave},
     created () {
       this.getData();
       this.getMenuType((data) => {
@@ -140,28 +89,6 @@
 
     },
     methods: {
-      submitFtp() {
-        this.$refs.ftp.validate((valid) => {
-            if (valid) {
-              let data = this.form;
-              let id = this.ftp_id;
-              this.apiPut('Site/saveFtp/'+ id, data).then((res) => {
-                this.handelResponse(res, (data, msg) => {
-                  this.modal_loading = false;
-//                  this.ftpModel = false;
-                  this.$Message.success(msg);
-                  this.$refs.ftp.resetFields();
-                }, (data, msg) => {
-                  this.$Message.error(msg);
-                })
-              }, (res) => {
-                //处理错误信息
-                this.modal_loading = false;
-                this.$Message.error('网络异常，请稍后重试。');
-              })
-            }
-        })
-      },
       getData() {
         let data = {
           params: {
@@ -364,15 +291,18 @@
         }
       },
       ftpInfo(index) {
-//        this.ftpModel = true
-        this.ftp_info.id = this.datas[index].id;
-//        this.ftp_info.cdn_type = this.datas[index].cdn_type
-//        this.ftp_info.cdn_ip = this.datas[index].cdn_ip
+        this.ftp_id = this.datas[index].id;
         this.ftp_info.ftp_place = this.datas[index].ftp_place
         this.ftp_info.ftp_host = this.datas[index].ftp_host
         this.ftp_info.ftp_user = this.datas[index].ftp_user
         this.ftp_info.ftp_pwd = this.datas[index].ftp_pwd
         this.$refs.ftpsave.modal = true
+      },
+      changeCdn(index){
+        this.ftp_id = this.datas[index].id;
+        this.cdn_info.cdn_type = this.datas[index].cdn_type
+        this.cdn_info.cdn_ip = this.datas[index].cdn_ip
+        this.$refs.cdnsave.modal = true
       }
     },
     computed: {
