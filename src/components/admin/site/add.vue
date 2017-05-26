@@ -20,14 +20,14 @@
               </Select>
             </Form-item>
             <Form-item label="关键词" prop="keyword_ids">
-              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;" 　@on-change="changekeyword">
+              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;">
                 <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
                   {{ item.label }}
                 </Option>
               </Select>
             </Form-item>
             <Form-item label="栏目" prop="menu">
-              <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-change="changeMenutype">
+              <Select v-model="form.menu" multiple style="text-align: left;width:200px;">
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -77,6 +77,26 @@
               <Input v-model="form.other_jscode" type="textarea" :rows="3"
                      placeholder="请输入head后代码">
               </Input>
+            </Form-item>
+            <Form-item label="网站应用" prop="is_mobile">
+              <Radio-group v-model="form.is_mobile">
+                <Radio label="0">
+                  <Icon type="social-windows"></Icon>
+                  <span>PC机</span>
+                </Radio>
+                <Radio label="1">
+                  <Icon type="social-apple"></Icon>
+                  <span>手机</span>
+                </Radio>
+              </Radio-group>
+            </Form-item>
+            <Form-item label="手机网站" prop="m_site_id">
+              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
+                      label-in-value filterable>
+                <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
             </Form-item>
           </Form>
         </div>
@@ -146,11 +166,11 @@
         }
       };
 
-
       return {
         editorOption: {},
         modal: false,
         modal_loading: false,
+        mobileSite:[],
         form: {
           site_name: "",
           menu: [],
@@ -162,7 +182,9 @@
           other_jscode:"",
           keyword_ids:[],
           user_id:"",
-          url:''
+          url:'',
+          is_mobile:'0',
+          m_site_id:0
         },
         AddRule: {
           site_name: [
@@ -195,16 +217,26 @@
         }
       }
     },
+    after_created() {
+      this.getMobileSite();
+    },
     methods: {
       computed: {
         editor() {
           return this.$refs.myTextEditor.quillEditor
         }
       },
-      changeMenutype() {
-      },
-      changekeyword(){
-
+      getMobileSite() {
+        this.apiGet('Site/mobileSite').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+          this.mobileSite=data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
       },
       changeUser(value){
         this.form.user_name = value.label
@@ -230,8 +262,6 @@
           if (valid) {
             this.modal_loading = true;
             let data = this.form;
-//            data.menu= this.form.menu.join(",")
-//            data.keyword_ids= this.form.keyword_ids.join(",")
             this.apiPost('site', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;

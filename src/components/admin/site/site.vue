@@ -349,7 +349,7 @@
             title: '操作',
             key: 'action',
 //            width: 150,
-            align: 'center',
+            align: 'left',
             fixed: 'right',
             render (row, column, index) {
               var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
