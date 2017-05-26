@@ -40,7 +40,7 @@
         datas: [],
         message: '',
         operator: '',
-        site_name: '',
+        site_name:'',
       }
     },
     created() {
@@ -51,14 +51,13 @@
         this.errorMessage = true
         this.operator = item[0].operator;
         this.message = item[0].msg
-        this.site_name = item[0].site_name
+        this.site_name=item[0].site_name
         this.changeStatus(item[0].id)
       },
       changeStatus(id){
-        let _this = this;
-        this.apiPost('article/changeErrorStatus/' + id).then((data) => {
+        this.apiPost('article/changeErrorStatus/'+id).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            _this.getData();
+            console.log(data)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -117,11 +116,6 @@
           sortable: true
         });
 
-        columns.push({
-          title: '状态',
-          key: 'status',
-          sortable: true
-        });
         columns.push({
           title: '操作过程',
           key: 'operator',
