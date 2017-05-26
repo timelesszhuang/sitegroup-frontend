@@ -127,6 +127,10 @@
               <Icon type="drag"></Icon>
               <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
             </Menu-item>
+            <Menu-item name="友情链接">
+              <Icon type="drag"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/link','友情链接')">友情链接</span>
+            </Menu-item>
             <Menu-item name="域名管理">
               <Icon type="android-globe"></Icon>
               <span class="layout-text" @click="routerChange('/admin/domain','域名管理')">域名管理</span>
