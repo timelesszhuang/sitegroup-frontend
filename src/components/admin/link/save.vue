@@ -11,7 +11,7 @@
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="域名" prop="domain">
+            <Form-item label="url" prop="domain">
               <Input type="text" v-model="form.domain" placeholder="请输入域名"></Input>
             </Form-item>
             <Form-item label="详情" prop="detail">
@@ -42,7 +42,7 @@
             {required: true, message: '请输入名称', trigger: 'blur'},
           ],
           domain: [
-            {required: true, message: '请输入域名', trigger: 'blur'},
+            {required: true, message: '请输入url', trigger: 'blur'},
           ],
           detail: [
             {required: true, message: '请输入详情', trigger: 'blur'},
@@ -57,7 +57,7 @@
                 this.modal_loading = true;
                 let data = this.form;
                 let id = data.id;
-                this.apiPut('link/'+ id, data).then((res) => {
+                this.apiPut('links/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
