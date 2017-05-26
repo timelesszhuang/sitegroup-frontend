@@ -21,13 +21,15 @@
             </Form-item>
             <Form-item label="网站应用" prop="is_mobile">
               <Radio-group v-model="form.is_mobile">
-                <Radio label="0">
+                <Radio label="10">
                   <Icon type="social-windows"></Icon>
                   <span>PC机</span>
                 </Radio>
-                <Radio label="1">
+                <Radio label="20">
                   <Icon type="social-apple"></Icon>
                   <span>手机</span>
+
+
                 </Radio>
               </Radio-group>
             </Form-item>
@@ -86,14 +88,13 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="友链选择" prop="link">
-              <Select v-model="form.link" multiple style="text-align: left;width:200px;" 　@on-change="changeLink">
+            <Form-item label="友链选择" prop="link_id">
+              <Select v-model="form.link_id" multiple style="text-align: left;width:200px;" 　@on-change="changeLink">
                 <Option v-for="item in link" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
             </Form-item>
-
             <Form-item label="url" prop="url">
                 <Input v-model="form.url" placeholder="请输入url"></Input>
             </Form-item>
@@ -138,7 +139,6 @@
         }else {
           callback();
         }
-
       };
       const checktemptype = (rule, value, callback) => {
         if (!value) {
@@ -190,7 +190,7 @@
           before_header_jscode:"",
           other_jscode:"",
           keyword_ids:[],
-          link:[],
+          link_id:[],
           user_id:"",
           url:'',
           is_mobile:'0',

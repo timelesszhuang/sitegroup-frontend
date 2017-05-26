@@ -20,7 +20,7 @@
     </div>
     <siteadd ref="add" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+    <sitesave ref="save" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
@@ -213,7 +213,7 @@
         });
       },
       getLink(func) {
-        this.apiGet('contactway/getContactway').then((res) => {
+        this.apiGet('links/getLinks').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
@@ -377,7 +377,7 @@
           {
             title: '操作',
             key: 'action',
-//            width: 150,
+            width: 300,
             align: 'left',
             fixed: 'right',
             render (row, column, index) {
