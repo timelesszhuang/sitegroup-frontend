@@ -65,6 +65,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="url" prop="url">
+              <Input v-model="form.url" placeholder="请输入url"></Input>
+            </Form-item>
             <Form-item label="head前代码" prop="before_header_jscode">
               <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
                      placeholder="请输入head前代码">
@@ -100,7 +103,7 @@
       const checkkeyword = (rule, value, callback) => {
         if (value=="") {
           callback(new Error('请选择关键词'));
-        } else if(value.length>=5){
+        } else if(value.length>5){
           callback(new Error('关键词不能超过5个'));
         }else {
           callback();
@@ -172,6 +175,9 @@
           user_id: [
             {required: true,validator: checkuser, trigger: 'blur'},
           ],
+          url:[
+            {required: true, message: '请输入url', trigger: 'blue'}
+          ]
 
         }
       }
@@ -192,7 +198,7 @@
         this.form.user_id = value.value
       },
       changekeyword(){
-        this.form.keyword_ids = value.label
+
       },
 
       changeTemptype(value) {
@@ -207,8 +213,6 @@
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
-                data.menu= this.form.menu.join(",")
-                data.keyword_ids= this.form.keyword_ids.join(",")
                 let id = data.id;
                 this.apiPut('site/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {

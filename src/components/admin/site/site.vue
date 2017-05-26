@@ -408,6 +408,11 @@
           key: 'domain',
           sortable: true
         });
+        columns.push({
+          title: 'url',
+          key: 'url',
+          sortable: true
+        });
 
         columns.push(
           {
@@ -420,7 +425,7 @@
               var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
               if (row.main_site == '20') {
                 //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消</i-button>`;
+                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
               return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
             }
