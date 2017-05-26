@@ -11,7 +11,7 @@
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="域名" prop="domain">
+            <Form-item label="url" prop="domain">
               <Input type="text" v-model="form.domain" placeholder="请输入域名"></Input>
             </Form-item>
             <Form-item label="详情" prop="detail">
