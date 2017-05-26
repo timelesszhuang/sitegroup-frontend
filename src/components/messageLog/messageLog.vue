@@ -40,7 +40,7 @@
         datas: [],
         message: '',
         operator: '',
-        site_name:'',
+        site_name: '',
       }
     },
     created() {
@@ -51,13 +51,14 @@
         this.errorMessage = true
         this.operator = item[0].operator;
         this.message = item[0].msg
-        this.site_name=item[0].site_name
+        this.site_name = item[0].site_name
         this.changeStatus(item[0].id)
       },
       changeStatus(id){
-        this.apiPost('article/changeErrorStatus/'+id).then((data) => {
+        let _this = this;
+        this.apiPost('article/changeErrorStatus/' + id).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            console.log(data)
+            _this.getData();
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -113,6 +114,11 @@
         columns.push({
           title: '信息',
           key: 'msg',
+          sortable: true
+        });
+        columns.push({
+          title: '状态',
+          key: 'status',
           sortable: true
         });
         columns.push({
