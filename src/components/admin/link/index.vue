@@ -2,7 +2,7 @@
   <div>
     <div class="top">
      友情链接管理:
-      <Input v-model="name" placeholder="友情链接" style="width:300px;"></Input>
+      <Input v-model="domain" placeholder="请输入url" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -40,7 +40,7 @@
         total: 0,
         page: 1,
         rows: 10,
-        name: '',
+        domain: '',
         datas: [],
         editinfo: {}
       }
@@ -55,7 +55,7 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            domain: this.domain
           }
         }
         this.apiGet('links', data).then((data) => {

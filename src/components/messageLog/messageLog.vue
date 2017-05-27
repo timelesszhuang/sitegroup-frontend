@@ -115,7 +115,11 @@
           key: 'msg',
           sortable: true
         });
-
+        columns.push({
+          title: '状态',
+          key: 'status',
+          sortable: true
+        });
         columns.push({
           title: '操作过程',
           key: 'operator',
