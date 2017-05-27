@@ -94,6 +94,18 @@
       this.getMobileSite();
     },
     methods: {
+      sendTemp(index) {
+        this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.mobileSite=data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       getMobileSite() {
         this.apiGet('Site/mobileSite').then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -382,7 +394,7 @@
           {
             title: '操作',
             key: 'action',
-            width: 300,
+            width: 350,
             align: 'left',
             fixed: 'right',
             render (row, column, index) {
@@ -391,7 +403,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
+              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> ` + btn;
             }
           }
         );
