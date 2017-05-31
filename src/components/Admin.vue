@@ -234,7 +234,7 @@
           this.handelResponse(res, (data, msg) => {
             this.count=data;
           }, (data, msg) => {
-            this.$Message.error(msg);
+//            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -261,18 +261,20 @@
         setInterval(function(){
           _this.checkAlert();
         },5000);
-      this.sysname = Lockr.get('userInfo').node_name
-      document.title = this.sysname
-      let rememberKey = Lockr.get('rememberKey')
-      let user_id = Lockr.get('user_id')
-      let type = Lockr.get('type');
-      if (!rememberKey || !user_id || type != 2) {
+      if (!Lockr.get('userInfo')) {
+        this.$Message.error("请先登录");
+
         //表示没有登陆
         setTimeout(() => {
           router.replace('/')
         }, 1500)
         return
       }
+      this.sysname = Lockr.get('userInfo').node_name;
+      document.title = this.sysname
+      let rememberKey = Lockr.get('rememberKey')
+      let user_id = Lockr.get('user_id')
+      let type = Lockr.get('type');
     },
     mixins: [http]
   }
