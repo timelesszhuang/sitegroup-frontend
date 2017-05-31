@@ -28,6 +28,7 @@
               <p>点击或将文件拖拽到这里上传</p>
             </div>
           </Upload>
+          <Alert show-icon>文件格式:&nbsp;&nbsp;一行一个关键词</Alert>
         </Form>
       </div>
       <div slot="footer">
