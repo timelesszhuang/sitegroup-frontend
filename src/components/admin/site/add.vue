@@ -268,7 +268,7 @@
                 this.$refs.site.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
-                this.$Message.error(msg);
+                this.$Message.error(msg,5);
               })
             }, (res) => {
               //处理错误信息
