@@ -416,7 +416,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="primary" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn;
+              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn;
             }
           }
         );

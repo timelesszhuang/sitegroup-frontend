@@ -162,6 +162,10 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">站点分类</span>
             </Menu-item>
+            <Menu-item name="流量采集">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/flow','流量采集')">流量采集</span>
+            </Menu-item>
             <Menu-item name="站点管理">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">站点管理</span>

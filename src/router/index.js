@@ -26,6 +26,7 @@ import Sitetype from '../components/admin/sitetype/sitetype.vue'
 import Site from '../components/admin/site/site.vue'
 import Link from '../components/admin/link/index.vue'
 import MessageLog from '../components/messageLog/messageLog.vue';
+import Flow from '../components/admin/flow/index.vue';
 Vue.use(Router)
 
 export default new Router({
@@ -68,7 +69,8 @@ export default new Router({
         {path: 'sitetype', component: Sitetype, name: 'sitetype'},
         {path: 'site', component: Site, name: 'site'},
         {path: 'link', component: Link, name: 'link'},
-        {path: 'messageLog',component: MessageLog,name: 'messageLog'}
+        {path: 'messageLog',component: MessageLog,name: 'messageLog'},
+        {path: 'flow',component:Flow,name: 'flow'}
       ]
     }
   ]
