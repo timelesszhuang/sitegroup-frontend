@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>添加段落标题栏目</span>
+          <span>添加零散文章型</span>
         </p>
         <div>
           <Form ref="titleadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">

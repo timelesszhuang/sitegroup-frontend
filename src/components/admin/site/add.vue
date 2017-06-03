@@ -11,6 +11,9 @@
             <Form-item label="名称" prop="site_name">
               <Input type="text" v-model="form.site_name" placeholder="请输入名称"></Input>
             </Form-item>
+            <Form-item label="公司名" prop="com_name">
+              <Input type="text" v-model="form.com_name" placeholder="请输入公司名,关键词配置"></Input>
+            </Form-item>
             <Form-item label="用户选择" prop="user_id">
               <Select v-model="form.user_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeUser">
@@ -186,6 +189,7 @@
         modal: false,
         modal_loading: false,
         form: {
+          com_name:"",
           site_name: "",
           menu: [],
           template_id:"",
@@ -205,6 +209,9 @@
         AddRule: {
           site_name: [
             {required: true, message: '请输入名称', trigger: 'blur'},
+          ],
+          com_name: [
+            {required: true, message: '请输入公司名', trigger: 'blur'},
           ],
           menu: [
             {required: true,validator: checkmenutype, trigger: 'blur'},
@@ -276,7 +283,7 @@
                 this.$refs.site.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
-                this.$Message.error(msg);
+                this.$Message.error(msg,5);
               })
             }, (res) => {
               //处理错误信息

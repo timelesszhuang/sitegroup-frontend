@@ -55,7 +55,7 @@ const ajaxMethods = {
     },
     resetCommonData(data) {
       //salt
-      // console.log(data)
+      console.log(data)
       Lockr.set('salt', data.salt)            // 权限认证
       //记住我
       Lockr.set('rememberKey', data.remember)      // 记住密码的加密字符串

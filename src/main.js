@@ -8,6 +8,9 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
+import Highcharts from 'highcharts'
+Drilldown(Highcharts);
 
 import axios from 'axios'
 import Lockr from 'lockr'
