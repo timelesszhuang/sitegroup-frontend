@@ -96,6 +96,13 @@
             <Form-item label="url" prop="url">
                 <Input v-model="form.url" placeholder="请输入url"></Input>
             </Form-item>
+            <Form-item label="公共代码" prop="public_code">
+              <Select v-model="form.public_code" multiple style="text-align: left;width:200px;">
+                <Option v-for="item in code" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="head前代码" prop="before_header_jscode">
               <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
                      placeholder="请输入head前代码">
@@ -189,6 +196,7 @@
           other_jscode:"",
           keyword_ids:[],
           link_id:[],
+          public_code:[],
           user_id:"",
           url:'',
           is_mobile:10,
@@ -284,6 +292,9 @@
     props
   :
   {
+    code: {
+      default:[]
+    },
     menutype: {
     default:
       []
