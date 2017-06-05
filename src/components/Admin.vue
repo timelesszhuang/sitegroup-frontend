@@ -171,9 +171,13 @@
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
-            <Menu-item name="统计">
+            <Menu-item name="搜索引擎统计">
               <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/flow','统计')">统计</span>
+              <span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>
+            </Menu-item>
+            <Menu-item name="搜索关键词统计">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>
             </Menu-item>
           </Submenu>
         </Menu>

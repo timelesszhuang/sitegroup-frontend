@@ -8,12 +8,9 @@
         &nbsp;
         <Button type="primary" @click="queryData">查询</Button>
       </Row>
-
     </div>
-    <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
-    <!--<button @click="load">load</button>-->
+    <vue-highcharts :options="options" :data="data" ref="lineCharts"></vue-highcharts>
   </div>
-
 </template>
 <script>
   import VueHighcharts from 'vue2-highcharts';
@@ -27,13 +24,17 @@
     },
     data(){
       return{
+        legend: {
+          enabled: false
+        },
         time:"",
+        data:[],
         options: {
           chart: {
             type: 'pie'
           },
           title: {
-            text: '搜索引擎占比'
+            text: '搜索关键词占比'
           },
           subtitle: {
             text: ''
@@ -57,6 +58,7 @@
             }
           },
           series: []
+
         }
       }
     },
@@ -64,10 +66,12 @@
       getData() {
         let data = {
           params: {
-            time:this.time
+            time: this.time
+          }
+
         }
-        }
-        this.apiGet('count',data).then((data) => {
+//        console.log(this.time)
+        this.apiGet('countkeyword',data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.load(data)
           }, (data, msg) => {
@@ -81,11 +85,10 @@
       load(data){
         let lineCharts = this.$refs.lineCharts;
         lineCharts.delegateMethod('showLoading', 'Loading...');
-        setTimeout(function(){
-          lineCharts.addSeries({"name":"搜索引擎",data:data});
+        setTimeout(() => {
+          lineCharts.addSeries({"name":"关键词",data:data});
           lineCharts.hideLoading();
-        },4000)
-
+        }, 1000)
       }
     },
     mixins: [http]
