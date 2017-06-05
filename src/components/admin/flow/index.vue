@@ -1,52 +1,43 @@
 <template>
   <div>
-  <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
-  <button @click="load">load</button>
+    <div style="margin-left: 35%;padding-top:1%;padding-bottom: 5%">
+    <Row>
+      <Col span="6">
+      <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
+      </Col>
+      &nbsp;
+      <Button type="primary" @click="queryData">查询</Button>
+    </Row>
+
+    </div>
+  <vue-highcharts :options="options" :data="data" ref="lineCharts"></vue-highcharts>
+  <!--<button @click="load">load</button>-->
   </div>
+
 </template>
 <script>
-  import VueHighcharts from 'vue2-highcharts'
-  const asyncData = {
-    name: 'keyword',
-    marker: {
-      symbol: 'square'
-    },
-    data: [0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, {
-      y: 26.5,
-      marker: {
-        symbol: 'url(http://www.highcharts.com/demo/gfx/sun.png)'
-      }
-    }, 23.3, 18.3, 13.9, 9.6]
-  }
+  import VueHighcharts from 'vue2-highcharts';
+  import http from '../../../assets/js/http.js';
   export default{
     components: {
       VueHighcharts
     },
+    created () {
+      this.getData();
+    },
     data(){
       return{
+          time:"",
+        data:[],
         options: {
           chart: {
-            type: 'spline'
+            type: 'pie'
           },
           title: {
-            text: 'Monthly Average Temperature'
+            text: '搜索引擎占比'
           },
           subtitle: {
-            text: 'Source: WorldClimate.com'
-          },
-          xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-          },
-          yAxis: {
-            title: {
-              text: 'Temperature'
-            },
-            labels: {
-              formatter: function () {
-                return this.value + '°';
-              }
-            }
+            text: ''
           },
           tooltip: {
             crosshairs: true,
@@ -69,14 +60,34 @@
     }
     },
     methods:{
-      load(){
+      getData() {
+        let data = {
+          params: {
+            time: this.time
+          }
+
+        }
+//        console.log(this.time)
+      this.apiGet('count',data).then((data) => {
+      this.handelResponse(data, (data, msg) => {
+        this.load(data)
+      }, (data, msg) => {
+        this.$Message.error(msg);
+      })
+    },)
+  },
+      queryData(){
+        this.getData();
+      },
+      load(data){
         let lineCharts = this.$refs.lineCharts;
         lineCharts.delegateMethod('showLoading', 'Loading...');
         setTimeout(() => {
-          lineCharts.addSeries(asyncData);
+          lineCharts.addSeries({data:data});
           lineCharts.hideLoading();
         }, 1000)
       }
-    }
+    },
+    mixins: [http]
   }
 </script>
