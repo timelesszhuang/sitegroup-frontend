@@ -286,18 +286,26 @@
             let keyAar = [];
             let link_id = [];
             let code = [];
-            this.editinfo.menu.split(",").map(function (key) {
-              tempNUmber.push(Number(key))
-            })
-            this.editinfo.keyword_ids.split(",").map(function (key) {
-              keyAar.push(Number(key))
-            })
-            this.editinfo.link_id.split(",").map(function (key) {
-              link_id.push(Number(key))
-            })
-            this.editinfo.public_code.split(",").map(function (key) {
-              code.push(Number(key))
-            })
+            if(this.editinfo.menu!=="") {
+              this.editinfo.menu.split(",").map(function (key) {
+                tempNUmber.push(Number(key))
+              })
+            }
+            if(this.editinfo.keyword_ids!=="") {
+              this.editinfo.keyword_ids.split(",").map(function (key) {
+                keyAar.push(Number(key))
+              })
+            }
+            if(this.editinfo.link_id!=="") {
+              this.editinfo.link_id.split(",").map(function (key) {
+                link_id.push(Number(key))
+              })
+            }
+            if(this.editinfo.public_code!==""){
+              this.editinfo.public_code.split(",").map(function (key) {
+                code.push(Number(key))
+              })
+            }
             this.editinfo.menu = tempNUmber
             this.editinfo.keyword_ids = keyAar
             this.editinfo.link_id = link_id
