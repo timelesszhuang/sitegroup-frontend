@@ -18,9 +18,9 @@
         </div>
       </div>
     </div>
-    <siteadd ref="add" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+    <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+    <sitesave ref="save" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" :mobileSite="mobileSite"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
@@ -61,11 +61,13 @@
         ftp_id:0,
         ftp_info:{},
         cdn_info:{},
-        mobileSite:[]
+        mobileSite:[],
+        code:[]
       }
     },
     components: {siteadd, sitesave,ftpsave,cdnsave},
     created () {
+      this.getCode();
       this.getData();
       this.getMenuType((data) => {
         this.menutype = data
@@ -94,6 +96,18 @@
       this.getMobileSite();
     },
     methods: {
+        getCode() {
+          this.apiGet('code/getAll').then((res) => {
+            this.handelResponse(res, (data, msg) => {
+              this.code=data;
+            }, (data, msg) => {
+              this.$Message.error(msg);
+            })
+          }, (res) => {
+            //处理错误信息
+            this.$Message.error('网络异常，请稍后重试。');
+          })
+        },
       sendTemp(index) {
         this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -271,6 +285,7 @@
             let tempNUmber = [];
             let keyAar = [];
             let link_id = [];
+            let code = [];
             this.editinfo.menu.split(",").map(function (key) {
               tempNUmber.push(Number(key))
             })
@@ -280,9 +295,13 @@
             this.editinfo.link_id.split(",").map(function (key) {
               link_id.push(Number(key))
             })
+            this.editinfo.public_code.split(",").map(function (key) {
+              code.push(Number(key))
+            })
             this.editinfo.menu = tempNUmber
             this.editinfo.keyword_ids = keyAar
             this.editinfo.link_id = link_id
+            this.editinfo.public_code=code
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {
