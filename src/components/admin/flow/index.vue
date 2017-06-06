@@ -1,93 +1,68 @@
 <template>
-  <div>
-    <div style="margin-left: 35%;padding-top:1%;padding-bottom: 5%">
-      <Row>
-        <Col span="6">
-        <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
-        </Col>
-        &nbsp;
-        <Button type="primary" @click="queryData">查询</Button>
-      </Row>
-
-    </div>
-    <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
-    <!--<button @click="load">load</button>-->
+  <div class="echarts">
+    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <button @click="doRandom">Random</button>
   </div>
-
 </template>
-<script>
-  import VueHighcharts from 'vue2-highcharts';
+
+<script type="text/babel">
+  import IEcharts from 'vue-echarts-v3/src/full.vue';
   import http from '../../../assets/js/http.js';
-  export default{
+  export default {
+    name: 'view',
     components: {
-      VueHighcharts
+      IEcharts
     },
-    created () {
-      this.getData();
+    props: {
     },
-    data(){
-      return{
-        time:"",
-        options: {
-          chart: {
-            type: 'pie'
-          },
-          title: {
-            text: '搜索引擎占比'
-          },
-          subtitle: {
-            text: ''
-          },
-          tooltip: {
-            crosshairs: true,
-            shared: true,
-            headerFormat: '{series.name}<br>',
-            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
-          },
-          credits: {
-            enabled: false
-          },
-          plotOptions: {
-            spline: {
-              marker: {
-                radius: 4,
-                lineColor: '#666666',
-                lineWidth: 1
-              }
-            }
-          },
-          series: []
-        }
+    data: () => ({
+      loading: false,
+      bar: {
+        title: {
+          text: 'ECharts Hello World'
+        },
+        tooltip: {},
+        series: [{
+          name: 'Sales',
+          type: 'pie',
+          data: [
+//            {value:335, name:'直接访问'},
+//            {value:310, name:'邮件营销'},
+          ]
+        }]
       }
-    },
-    methods:{
-      getData() {
-        let data = {
-          params: {
-            time:this.time
-        }
-        }
-        this.apiGet('count',data).then((data) => {
+    }),
+    methods: {
+      doRandom() {
+        const that = this;
+        let data = [];
+        this.apiGet('count').then((data) => {
           this.handelResponse(data, (data, msg) => {
-            this.load(data)
+            that.bar.series[0].data = [
+            {value:335, name:'直接访问'},
+            {value:310, name:'邮件营销'},
+            ];
           }, (data, msg) => {
             this.$Message.error(msg);
           })
         },)
+//        that.loading = !that.loading;
       },
-      queryData(){
-        this.getData();
+      onReady(instance) {
+        console.log(instance);
       },
-      load(data){
-        let lineCharts = this.$refs.lineCharts;
-        lineCharts.delegateMethod('showLoading', 'Loading...');
-        setTimeout(function(){
-          lineCharts.addSeries({"name":"搜索引擎",data:data});
-          lineCharts.hideLoading();
-        },4000)
-
+      onClick(event, instance, echarts) {
+        console.log(arguments);
       }
     },
     mixins: [http]
-  }
+
+  };
 </script>
+
+<style scoped>
+  .echarts {
+    width: 800px;
+    height: 400px;
+  }
+</style>
