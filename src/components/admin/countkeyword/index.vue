@@ -27,7 +27,7 @@
     data: () => ({
       loading: false,
       bar: {
-        color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8"],
+        color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8","#BBFFFF","#FF1493","#FF34B3","#FF00FF",'#FFDAB9'],
         tooltip: {
           trigger: 'item',
           formatter: "{a} <br/>{b}: {c} ({d}%)"
