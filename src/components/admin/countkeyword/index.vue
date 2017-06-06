@@ -1,96 +1,97 @@
 <template>
-  <div>
-    <div style="margin-left: 35%;padding-top:1%;padding-bottom: 5%">
+  <div class="echarts">
+    <div style="margin-left: 35%;padding-top:1%;padding-bottom:2%">
       <Row>
-        <Col span="6">
+        <Col span="12">
         <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
         </Col>
-        &nbsp;
-        <Button type="primary" @click="queryData">查询</Button>
+        &nbsp;<Button type="primary" @click="queryData">查询</Button>
       </Row>
+
     </div>
-    <vue-highcharts :options="options" :data="data" ref="lineCharts"></vue-highcharts>
+    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <!--<button @click="doRandom">Random</button>-->
   </div>
 </template>
-<script>
-  import VueHighcharts from 'vue2-highcharts';
+
+<script type="text/babel">
+  import IEcharts from 'vue-echarts-v3/src/full.vue';
   import http from '../../../assets/js/http.js';
-  export default{
+  export default {
+    name: 'view',
     components: {
-      VueHighcharts
+      IEcharts
     },
-    created () {
-      this.getData();
+    props: {
     },
-    data(){
-      return{
-        legend: {
-          enabled: false
+    data: () => ({
+      loading: false,
+      bar: {
+        color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8"],
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-        time:"",
-        data:[],
-        options: {
-          chart: {
-            type: 'pie'
-          },
-          title: {
-            text: '搜索关键词占比'
-          },
-          subtitle: {
-            text: ''
-          },
-          tooltip: {
-            crosshairs: true,
-            shared: true,
-            headerFormat: '{series.name}<br>',
-            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
-          },
-          credits: {
-            enabled: false
-          },
-          plotOptions: {
-            spline: {
-              marker: {
-                radius: 4,
-                lineColor: '#666666',
-                lineWidth: 1
+
+        series: [{
+          name:'搜索关键词',
+          type:'pie',
+          radius: ['40%', '55%'],
+          label: {
+            emphasis: {
+              show: false,
+              textStyle: {
+                fontSize: '12',
+                fontWeight: 'bold'
               }
             }
           },
-          series: []
+          data: [
 
-        }
-      }
+          ]
+        }]
+      },
+
+    }),
+    created() {
+      this.doRandom();
     },
-    methods:{
-      getData() {
+    methods: {
+      queryData() {
+        this.doRandom();
+      },
+      doRandom() {
+        const that = this;
         let data = {
           params: {
-            time: this.time
-          }
-
-        }
-//        console.log(this.time)
+            time:this.time
+          }}
         this.apiGet('countkeyword',data).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            this.load(data)
+            that.bar.series[0].data = data;
           }, (data, msg) => {
             this.$Message.error(msg);
           })
         },)
+
+//        that.loading = !that.loading;
       },
-      queryData(){
-        this.getData();
+      onReady(instance) {
+        console.log(instance);
       },
-      load(data){
-        let lineCharts = this.$refs.lineCharts;
-        lineCharts.delegateMethod('showLoading', 'Loading...');
-        setTimeout(() => {
-          lineCharts.addSeries({"name":"关键词",data:data});
-          lineCharts.hideLoading();
-        }, 1000)
+      onClick(event, instance, echarts) {
+        console.log(arguments);
       }
     },
     mixins: [http]
-  }
+
+  };
 </script>
+
+<style scoped>
+  .echarts {
+    width: 900px;
+    margin: 0 auto;
+    height: 500px;
+  }
+</style>
