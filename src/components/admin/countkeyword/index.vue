@@ -2,16 +2,17 @@
   <div class="echarts">
     <div style="margin-left: 35%;padding-top:1%;padding-bottom:2%">
       <Row>
-        <Col span="12">
+        <Col span="9">
         <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
         </Col>
+        <Select v-model="site_id" style="width:150px;" label-in-value filterable clearable>
+          <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
+            {{ item.text }}
+          </Option>
+        </Select>
         &nbsp;<Button type="primary" @click="queryData">查询</Button>
       </Row>
-      <Select v-model="site_id" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
-          {{ item.text }}
-        </Option>
-      </Select>
+
     </div>
     <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
   </div>
