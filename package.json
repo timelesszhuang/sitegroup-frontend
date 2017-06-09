@@ -10,6 +10,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "iview": "^2.0.0-rc.16",
+    "js-cookie": "^2.1.4",
+    "lockr": "^0.8.4",
+    "moment": "^2.18.1",
     "vue": "^2.2.2",
     "vue-router": "^2.3.0"
   },
