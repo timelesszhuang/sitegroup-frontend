@@ -5,17 +5,31 @@ import App from './App'
 import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
+import Highcharts from 'highcharts'
+Drilldown(Highcharts);
+
 import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
+import VueQuillEditor from 'vue-quill-editor'
 
 Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
+Vue.use(ElementUI)
+Vue.use(VueQuillEditor)
 
+// let domain = 'sitegroup.youdao.so'
+let domain = 'api.mypc.com.cn'
 
-var HOST = 'http://local.sitegroup.com/index.php/'
+// let domain = 'www.sitegroupback.com'
+var HOST = 'http://' + domain + '/index.php/'
+var ROOTHOST = 'http://' + domain + '/'
 
 axios.defaults.baseURL = HOST
 axios.defaults.timeout = 1000 * 15
@@ -24,6 +38,7 @@ axios.defaults.withCredentials = true
 
 //变为全局的变量
 window.HOST = HOST
+window.ROOTHOST = ROOTHOST
 window.router = router
 window.axios = axios
 window.moment = moment
@@ -35,5 +50,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

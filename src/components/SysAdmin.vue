@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <style scoped>
   .layout {
     border: 1px solid #d7dde4;
@@ -15,7 +16,6 @@
   .layout-content {
     min-height: 200px;
     margin: 15px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
   }
@@ -65,7 +65,9 @@
   }
 
   .layout-content {
-    height: 75%;
+    /*height: 85%;*/
+    height: auto;
+    min-height: 63%;
   }
 
   .layout-ceiling {
@@ -81,61 +83,50 @@
   .layout-ceiling-main a {
     color: #9ba7b5;
   }
+
+  .layout-breadcrumb {
+    padding: 10px 15px 0;
+  }
+
 </style>
 <template>
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}">
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
-        <Menu active-name="1" :theme="theme" width="auto">
+        <Menu active-name="activeName" :theme="theme" width="auto">
           <div class="layout-logo-left"></div>
-          <Menu-item name="1">
+          <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/home/menu1','1')">选项 1</span>
+            <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
           </Menu-item>
-          <Menu-item name="2">
-            <Icon type="ios-keypad" :size="iconSize"></Icon>
-            <span class="layout-text">选项 2</span>
+          <Menu-item name="友商库">
+            <Icon type="android-apps" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
           </Menu-item>
-          <Menu-item name="3">
-            <Icon type="ios-analytics" :size="iconSize"></Icon>
-            <span class="layout-text">选项 3</span>
+          <Menu-item name="节点管理">
+            <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
+          </Menu-item>
+          <Menu-item name="重置密码">
+            <Icon type="android-lock" :size="iconSize" @click="changePwd()"></Icon>
+            <span class="layout-text" @click="changePwd()">重置密码</span>
+          </Menu-item>
+          <Menu-item name="退出系统">
+            <Icon type="log-out" :size="iconSize" @click="logOut()"></Icon>
+            <span class="layout-text" @click="logOut()">退出系统</span>
           </Menu-item>
         </Menu>
       </i-col>
-      <i-col :span="spanRight">
-        <div class="layout-ceiling">
-          <Menu mode="horizontal" :theme="theme" active-name="1">
-            <Menu-item name="1">
-              <Icon type="ios-paper"></Icon>
-              内容管理
-            </Menu-item>
-            <Menu-item name="2">
-              <Icon type="ios-people"></Icon>
-              用户管理
-            </Menu-item>
-            <Submenu name="3">
-              <template slot="title">
-                <Icon type="stats-bars"></Icon>
-                切换主题
-              </template>
-              <Menu-group title="左侧菜单">
-                <Menu-item name="3-1"><span @click="changeThemes('light')">LIGHT</span></Menu-item>
-                <Menu-item name="3-2"><span @click="changeThemes('dark')">DARK</span></Menu-item>
-              </Menu-group>
-            </Submenu>
-            <Menu-item name="4">
-              <Icon type="settings"></Icon>
-              综合设置
-            </Menu-item>
-          </Menu>
-        </div>
+      <i-col :span="spanRight" style="overflow: auto">
         <div class="layout-header">
           <i-button type="text" @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
           </i-button>
-          <h3 style="display: inline-block; padding-top: 10px">
-            <Icon type="chevron-right"></Icon>&nbsp;&nbsp;&nbsp;{{containerTitle}}菜单1
-          </h3>
+        </div>
+        <div class="layout-breadcrumb">
+          <Breadcrumb>
+            <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
+          </Breadcrumb>
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
@@ -147,9 +138,13 @@
         </div>
       </i-col>
     </Row>
+    <changepwd ref="changePwd"></changepwd>
+    <logout ref="logout"></logout>
   </div>
 </template>
 <script>
+  import changepwd from './Account/Changepwd.vue';
+  import logout from './Account/Logout.vue';
   export default {
     data () {
       return {
@@ -157,8 +152,13 @@
         spanRight: 20,
         activeName: '',
         theme: 'dark',
-        containerTitle: ''
+        containerTitle: '',
+        showChangepwdModal: false
       }
+    },
+    components: {
+      changepwd,
+      logout
     },
     computed: {
       iconSize () {
@@ -166,9 +166,11 @@
       }
     },
     methods: {
-      changeThemes(theme){
-        console.log(theme);
-//        this.theme = theme;
+      changePwd () {
+        this.$refs.changePwd.modal = true
+      },
+      logOut(){
+        this.$refs.logout.modal = true
       },
       toggleClick () {
         if (this.spanLeft === 4) {
@@ -179,10 +181,23 @@
           this.spanRight = 20;
         }
       },
-      routerChange(path, activeName){
+      routerChange (path, activeName) {
         this.activeName = activeName;
         router.push(path);
+      },
+    },
+    //created 是函数
+    created () {
+      let rememberKey = Lockr.get('rememberKey')
+      let user_id = Lockr.get('user_id')
+      let type = Lockr.get('type');
+      if (!rememberKey || !user_id || type != 1) {
+        //表示没有登陆
+        setTimeout(() => {
+          router.replace('/')
+        }, 1500)
+        return
       }
-    }
+    },
   }
 </script>
