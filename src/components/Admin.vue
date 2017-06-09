@@ -162,10 +162,7 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">站点分类</span>
             </Menu-item>
-            <Menu-item name="流量采集">
-              <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/flow','流量采集')">流量采集</span>
-            </Menu-item>
+
             <Menu-item name="站点管理">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">站点管理</span>
@@ -173,6 +170,14 @@
             <Menu-item name="用户管理">
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
+            </Menu-item>
+            <Menu-item name="搜索引擎统计">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>
+            </Menu-item>
+            <Menu-item name="搜索关键词统计">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>
             </Menu-item>
           </Submenu>
         </Menu>

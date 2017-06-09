@@ -7,7 +7,7 @@
       <Button type="success" @click="adddetails">添加详情型</Button>
       <Button type="success" @click="addquestion">添加问答型</Button>
       <Button type="success" @click="addarticle">添加文章型</Button>
-      <Button type="success" @click="addtitle">添加段落标题</Button>
+      <Button type="success" @click="addtitle">添加零散文章</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
