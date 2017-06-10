@@ -114,7 +114,7 @@
       sendTemp(index) {
         this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.mobileSite=data;
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
