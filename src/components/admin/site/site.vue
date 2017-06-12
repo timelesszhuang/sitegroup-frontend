@@ -124,8 +124,8 @@
         })
       },
       removeCache(index){
-        let link = this.datas[index].url
-        this.apiGet(link+'/index.php/clearcache').then((res) => {
+        let linkid = this.datas[index].id
+        this.apiGet('Site/clearCache/'+linkid).then((res) => {
           this.handelResponse(res, (data, msg) => {
           }, (data, msg) => {
             this.$Message.error(msg);
