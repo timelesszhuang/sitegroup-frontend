@@ -1,5 +1,8 @@
 <template>
   <div>
+    <p ref="isBrowser" v-show="boswer_show" style="font-size:20px;position:absolute;left:45%;top:45%;">
+      请使用chrome或火狐浏览器
+    </p>
     <Row>
       <Col span="14" offset="5">
       <div class="alert-title">
@@ -87,7 +90,8 @@
         successShow: false,
         warningMsg: '',
         warningShow: false,
-        rememberMe: true
+        rememberMe: true,
+        boswer_show: false
       }
     },
     methods: {
@@ -144,7 +148,6 @@
             data.pwd = this.loginform.pwd
             data.verifyCode = this.loginform.verifyCode
             this.loading = !this.loading
-            console.log(data);
 
             this.apiPost('common/login/login', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -170,6 +173,14 @@
       },
     },
     created(){
+      let userAgent  = navigator.userAgent;
+      let isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+      let isFF = userAgent.indexOf("Firefox") > -1;
+      if(!isChrome & !isFF){
+        this.boswer_show =true
+        return;
+      }
+
       //第一次如果是记住密码的话  会到本地存储中取出相关数据 然后自动登录
       this.checkIsRememberPwd()
       //没有设置记住密码 的话 或者是第一次登陆的情况下 会到后台获取基本的配置数据

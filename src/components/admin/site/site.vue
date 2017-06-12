@@ -24,6 +24,7 @@
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" :mobileSite="mobileSite"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
+    <win ref="windows" :genaraterId="genarate_id"></win>
   </div>
 </template>
 
@@ -33,6 +34,7 @@
   import sitesave from './save.vue';
   import ftpsave from './ftp.vue';
   import cdnsave from './cdn.vue';
+  import win from './window.vue';
   export default {
     data () {
       return {
@@ -62,10 +64,11 @@
         ftp_info:{},
         cdn_info:{},
         mobileSite:[],
-        code:[]
+        code:[],
+        genarate_id:0
       }
     },
-    components: {siteadd, sitesave,ftpsave,cdnsave},
+    components: {siteadd, sitesave,ftpsave,cdnsave,win},
     created () {
       this.getCode();
       this.getData();
@@ -111,7 +114,7 @@
       sendTemp(index) {
         this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.mobileSite=data;
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -389,6 +392,10 @@
         this.cdn_info.cdn_type = this.datas[index].cdn_type
         this.cdn_info.cdn_ip = this.datas[index].cdn_ip
         this.$refs.cdnsave.modal = true
+      },
+      generateStatic(index){
+          this.genarate_id=index;
+          this.$refs.windows.modal2=true
       }
     },
     computed: {
@@ -434,8 +441,8 @@
           {
             title: '操作',
             key: 'action',
-            width: 420,
-            align: 'left',
+            width: 480,
+            align: 'center',
             fixed: 'right',
             render (row, column, index) {
               var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
@@ -443,7 +450,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn;
+              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn+`&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
             }
           }
         );

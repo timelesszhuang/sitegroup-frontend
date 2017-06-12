@@ -269,7 +269,7 @@
         let _this = this;
         setInterval(function(){
           _this.checkAlert();
-        },5000);
+        },12000);
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
 
