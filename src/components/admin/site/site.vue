@@ -114,7 +114,7 @@
       sendTemp(index) {
         this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.mobileSite=data;
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -124,8 +124,8 @@
         })
       },
       removeCache(index){
-        let link = this.datas[index].url
-        this.apiGet(link+'/index.php/clearcache').then((res) => {
+        let linkid = this.datas[index].id
+        this.apiGet('Site/clearCache/'+linkid).then((res) => {
           this.handelResponse(res, (data, msg) => {
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -329,7 +329,7 @@
         let _this = this
         let data = {
           'main_site': main_site,
-          id: id
+           id: id
         }
         if (data.main_site == 20) {
           this.$Modal.confirm({

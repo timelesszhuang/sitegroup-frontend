@@ -103,7 +103,7 @@
       generatMenu() {
         this.$Modal.confirm({
           title: '更新栏目',
-          content: '是否更新文章?',
+          content: '是否更新栏目?',
           okText: '更新',
           cancelText: '取消',
           onOk: (index) => {
