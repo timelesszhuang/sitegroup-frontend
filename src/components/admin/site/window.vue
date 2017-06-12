@@ -6,9 +6,9 @@
     </p>
     <div style="text-align:center">
       <Button type="info" @click="aKeyGeneration">一键生成</Button>
-      <Button type="success" @click="generatIndex">生成首页</Button>
-      <Button type="warning" @click="generatArticle">文章同步</Button>
-      <Button type="error" @click="generatMenu">更新栏目</Button>
+      <Button type="warning" @click="generatArticle">文章更新</Button>
+      <Button type="error" @click="generatMenu">栏目更新</Button>
+      <Button type="success" @click="generatIndex">首页更新</Button>
     </div>
     <div slot="footer">
     </div>
@@ -28,22 +28,22 @@
       aKeyGeneration() {
         this.$Modal.confirm({
           title: '一键生成',
-          content: '是否一键生成?',
-          okText: '生成',
+          content: '是否一键生成站点?',
+          okText: '更新',
           cancelText: '取消',
           onOk: (index) => {
-          let id = this.genaraterId;
-        this.apiGet('site/' + id).then((res) => {
-          this.handelResponse(res, (data, msg) => {
-          }, (data, msg) => {
-            this.modal_loading = false;
-            this.$Message.error(msg, 5);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.modal_loading = false;
-          this.$Message.error('网络异常，请稍后重试。');
-        })
+            let id = this.genaraterId;
+            this.apiGet('site/' + id).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg, 5);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
           },
           onCancel: () => {
             return false
@@ -52,9 +52,9 @@
       },
       generatIndex() {
         this.$Modal.confirm({
-          title: '生成首页',
-          content: '是否生成首页?',
-          okText: '生成',
+          title: '更新首页',
+          content: '是否更新首页?',
+          okText: '更新',
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
@@ -77,9 +77,9 @@
       },
       generatArticle() {
         this.$Modal.confirm({
-          title: '文章同步',
-          content: '是否同步文章?',
-          okText: '同步',
+          title: '文章更新',
+          content: '是否更新文章?',
+          okText: '更新',
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
