@@ -326,7 +326,7 @@
         let _this = this
         let data = {
           'main_site': main_site,
-          id: id
+           id: id
         }
         if (data.main_site == 20) {
           this.$Modal.confirm({
