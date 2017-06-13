@@ -51,7 +51,7 @@
   }
 </style>
 <template>
-  <div class="layout">
+  <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col span="4" class="layout-menu-left">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
@@ -229,6 +229,10 @@
       logout
     },
     methods: {
+      menuClick(e) {
+          console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
+        console.log(e.srcElement.parentElement)
+      },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
           this.handelResponse(res, (data, msg) => {

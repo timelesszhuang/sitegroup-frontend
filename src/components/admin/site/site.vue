@@ -125,7 +125,7 @@
       },
       removeCache(index){
         let linkid = this.datas[index].id
-        this.apiGet('Site/clearCache/'+linkid).then((res) => {
+        this.apiGet('Site/siteGetCurl/'+linkid+"/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
           }, (data, msg) => {
             this.$Message.error(msg);
