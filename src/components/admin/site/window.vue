@@ -33,8 +33,11 @@
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
-            this.apiGet('site/' + id).then((res) => {
+            this.apiGet('Site/siteGetCurl/' + id + '/aKeyGeneration').then((res) => {
               this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.modal_loading = false;
+                this.$Message.success(msg);
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg, 5);
@@ -58,8 +61,11 @@
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
-            this.apiGet('site/' + id).then((res) => {
+            this.apiGet('Site/siteGetCurl/' + id + '/generatIndex').then((res) => {
               this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.modal_loading = false;
+                this.$Message.success(msg);
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg, 5);
@@ -83,8 +89,11 @@
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
-            this.apiGet('site/' + id).then((res) => {
+            this.apiGet('Site/siteGetCurl/' + id + '/generatArticle').then((res) => {
               this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.modal_loading = false;
+                this.$Message.success(msg);
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg, 5);
@@ -108,8 +117,11 @@
           cancelText: '取消',
           onOk: (index) => {
             let id = this.genaraterId;
-            this.apiGet('site/' + id).then((res) => {
+            this.apiGet('Site/siteGetCurl/' + id + '/generatMenu').then((res) => {
               this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.modal_loading = false;
+                this.$Message.success(msg);
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg, 5);

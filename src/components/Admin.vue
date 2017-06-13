@@ -51,32 +51,27 @@
   }
 </style>
 <template>
-  <div class="layout">
+  <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col span="4" class="layout-menu-left">
-        <Menu active-name="activename" theme="dark" width="auto" :open-names="['1']">
+        <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left">
             {{sysname}}
-
           </div>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
               关键词
-
             </template>
             <Menu-item name="关键词管理">
               <Icon type="key"></Icon>
               <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">关键词管理</span>
             </Menu-item>
-            <!--            <Menu-item name="1-2">选项 2</Menu-item>
-                        <Menu-item name="1-3">选项 3</Menu-item>-->
           </Submenu>
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               文章管理
-
             </template>
             <Menu-item name="文章分类">
               <Icon type="settings"></Icon>
@@ -91,7 +86,6 @@
             <template slot="title">
               <Icon type="scissors"></Icon>
               零散文章段落
-
             </template>
             <Menu-item name="零散文章">
               <Icon type="social-dropbox-outline"></Icon>
@@ -106,7 +100,6 @@
             <template slot="title">
               <Icon type="chatbox-working"></Icon>
               问答管理
-
             </template>
             <Menu-item name="问答分类">
               <Icon type="settings"></Icon>
@@ -121,7 +114,6 @@
             <template slot="title">
               <Icon type="briefcase"></Icon>
               基础元素设置
-
             </template>
             <Menu-item name="栏目">
               <Icon type="drag"></Icon>
@@ -156,13 +148,11 @@
             <template slot="title">
               <Icon type="pinpoint"></Icon>
               站点/用户管理
-
             </template>
             <Menu-item name="站点分类">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">站点分类</span>
             </Menu-item>
-
             <Menu-item name="站点管理">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">站点管理</span>
@@ -230,7 +220,8 @@
       return {
         activeName: '',
         sysname: '',
-        count:'无'
+        count: '无',
+        opennames: ['1'],
       }
     },
     components: {
@@ -238,10 +229,14 @@
       logout
     },
     methods: {
+      menuClick(e) {
+          console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
+        console.log(e.srcElement.parentElement)
+      },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.count=data;
+            this.count = data;
           }, (data, msg) => {
 //            this.$Message.error(msg);
           })
@@ -266,10 +261,10 @@
     },
     //created 是函数
     created () {
-        let _this = this;
-        setInterval(function(){
-          _this.checkAlert();
-        },12000);
+      let _this = this;
+      setInterval(function () {
+        _this.checkAlert();
+      }, 12000);
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
 
