@@ -269,13 +269,13 @@
     },
     //created 是函数
     created () {
-      let _this = this;
-      setInterval(function () {
-        _this.checkAlert();
-      }, 12000);
+        let _this = this;
+      _this.checkAlert();
+        setInterval(function(){
+          _this.checkAlert();
+        },12000);
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
-
         //表示没有登陆
         setTimeout(() => {
           router.replace('/')
