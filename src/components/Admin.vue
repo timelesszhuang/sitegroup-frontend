@@ -33,7 +33,7 @@
   }
 
   .layout-menu-left {
-    background: #464c5b;
+    background: #1c2438;
   }
 
   .layout-header {
@@ -47,8 +47,10 @@
     height: 30px;
     background: #5b6270;
     border-radius: 3px;
-    margin: 15px auto;
+    padding-top: 10px;
+    margin: 0px auto;
   }
+
 </style>
 <template>
   <div class="layout" @click="menuClick" ref="menuClickEle">
@@ -161,6 +163,12 @@
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
+          </Submenu>
+          <Submenu name="7">
+            <template slot="title">
+              <Icon type="ios-analytics"></Icon>
+              数据统计
+            </template>
             <Menu-item name="搜索引擎统计">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>
@@ -230,7 +238,7 @@
     },
     methods: {
       menuClick(e) {
-          console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
+        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
         console.log(e.srcElement.parentElement)
       },
       checkAlert() {
