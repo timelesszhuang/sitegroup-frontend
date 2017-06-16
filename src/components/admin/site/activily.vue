@@ -22,10 +22,8 @@
             modal_loading: false,
           }
       },
-    methods: {
-      sendTemp(index){
-          alert(index)
-      }
+    beforeCreate() {
+          alert(3343)
     },
     computed: {
       columns() {
@@ -51,18 +49,16 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="sendTemp(${row.id})">sdfsd</i-button>`;
+            render (row) {
+                  return `<i-button type="info" size="small" @click="sendTemp(${row.id})">cdn信息</i-button>`;
             }
-          })
-//        columns.push({
-//          title:'操作',
-//          key:'action',
-//          render(row,column){
-//              return `<i-button type="primary" size="small" @click="sendTemp(${row.id})">sdfsd</i-button>`;
-//          }
-//        })
+          });
         return columns;
+      }
+    },
+    methods: {
+      sendTemp(index){
+        alert(index)
       }
     },
     props:{
