@@ -15,7 +15,7 @@
     data: () => ({
       loading: false,
       bar: {
-        color: ["#FF34B3"],
+        color: ["#13CE66","#F7BA2A","#FF4949"],
         tooltip: {
           trigger: 'axis',
           formatter: '{b} <br/>{a}:{c}个',
@@ -56,6 +56,7 @@
         ],
         series: [
           {
+            color: ["#13CE66","#F7BA2A","#FF4949"],
             name: '共',
             type: 'bar',
             barWidth: '17%',

@@ -181,6 +181,10 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>
             </Menu-item>
+            <Menu-item name="pv统计">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/pv','pv统计')">pv统计</span>
+            </Menu-item>
           </Submenu>
         </Menu>
       </i-col>

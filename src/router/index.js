@@ -32,6 +32,7 @@ import Flow from '../components/admin/flow/index.vue';
 import Countkeyword from '../components/admin/countkeyword/index.vue'
 import Count from '../components/admin/count/index.vue'
 import Crawler from '../components/admin/crawler/crawler.vue'
+import Pv from '../components/admin/pv/pv.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -78,7 +79,8 @@ export default new Router({
         {path: 'messageLog',component: MessageLog,name: 'messageLog'},
         {path: 'flow',component:Flow,name: 'flow'},
         {path: 'countkeyword',component:Countkeyword,name: 'countkeyword'},
-        {path: 'crawler',component:Crawler,name: 'crawler'}
+        {path: 'crawler',component:Crawler,name: 'crawler'},
+        {path: 'pv',component:Pv,name: 'pv'}
       ]
     }
   ]

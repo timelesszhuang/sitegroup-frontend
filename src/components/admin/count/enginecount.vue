@@ -29,7 +29,7 @@
           data:[]
         },
         grid: {
-          left: '5%',
+          left: '20%',
           right: '25%',
           bottom: '20%',
           containLabel: true
@@ -68,11 +68,16 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('enginecount').then((data) => {
+        this.apiGet('count/enginecount').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;
             that.bar.series = data.type;
+            that.bar.series[0].areaStyle = {normal: {}};
+            that.bar.series[1].areaStyle = {normal: {}};
+            that.bar.series[2].areaStyle = {normal: {}};
+            that.bar.series[3].areaStyle = {normal: {}};
+            that.bar.series[4].areaStyle = {normal: {}};
           }, (data, msg) => {
 
             this.$Message.error(msg);

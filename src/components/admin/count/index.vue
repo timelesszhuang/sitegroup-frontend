@@ -3,7 +3,7 @@
     <Row>
       <Col span="8"><sitetype ref="sitetype"></sitetype></Col>
       <Col span="8"> <engine ref="engine"></engine></Col>
-      <Col span="8"> <questiontype ref="questiontype"></questiontype></Col>
+      <Col span="8"> <pv ref="pv"></pv></Col>
     </Row>
     <Row>
       <Col span="8"><keyword ref="keyword"></keyword></Col>
@@ -18,6 +18,7 @@
   import questiontype from './questioncount.vue';
   import keyword from './keyword.vue';
   import engine from './enginecount.vue';
+  import pv from './pv.vue';
 
   export default {
     name: 'view',
@@ -26,7 +27,8 @@
       sitetype,
       questiontype,
       keyword,
-      engine
+      engine,
+      pv
 
     },
 
