@@ -24,8 +24,8 @@
           }
         },
         grid: {
-          left: '10%',
-          right: '20%',
+          left: '20%',
+          right: '25%',
           bottom: '20%',
           containLabel: true
 
