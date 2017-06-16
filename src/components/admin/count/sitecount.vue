@@ -27,7 +27,6 @@
           right: '25%',
           bottom: '20%',
           containLabel: true
-
         },
         title: {
           text: '站点统计',
@@ -41,8 +40,6 @@
             axisLabel: {
               interval: 0,
               rotate: -20,
-
-
             }
           }
         ],
@@ -95,7 +92,7 @@
 
 <style scoped>
   .echarts {
-    width: 100%;
+    width: 98%;
     height: 400px;
     float: left;
     padding-bottom: 50px;
