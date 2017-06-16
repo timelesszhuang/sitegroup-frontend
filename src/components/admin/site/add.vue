@@ -246,7 +246,6 @@
           return this.$refs.myTextEditor.quillEditor
         }
       },
-
       changeLink(){
 
       },
@@ -261,7 +260,6 @@
         this.form.site_type = value.value
         this.form.site_type_name = value.label
       },
-
       changeTemptype(value) {
         this.form.template_id = value.value
       },
