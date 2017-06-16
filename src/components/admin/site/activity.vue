@@ -10,21 +10,15 @@
     <div slot="footer">
     </div>
   </Modal>
-
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
   export default{
-      data() {
-          return {
-            modal2: false,
-            modal_loading: false,
-          }
-      },
-    methods: {
-      sendTemp(index){
-          alert(index)
+    data() {
+      return {
+        modal2: false,
+        modal_loading: false,
       }
     },
     computed: {
@@ -36,14 +30,14 @@
           sortable: true
         });
         columns.push({
-          title:'模板名称',
-          key:'name',
-          sortable:true
+          title: '模板名称',
+          key: 'name',
+          sortable: true
         })
         columns.push({
-          title:'是否同步',
-          key:'issync',
-          sortable:true
+          title: '是否同步',
+          key: 'issync',
+          sortable: true
         })
         columns.push(
           {
@@ -52,7 +46,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="sendTemp(${row.id})">sdfsd</i-button>`;
+              return `<i-button type="primary" size="small" @click="sendTemp(${$index})">sdfsd</i-button>`;
             }
           })
 //        columns.push({
@@ -65,12 +59,15 @@
         return columns;
       }
     },
-    props:{
-      sid:Number,
+    methods: {
+      sendTemp(index){
+        alert(index)
+      },
+    },
+    props: {
+      sid: Number,
       datas: {
-        default: {
-
-        }
+        default: {}
       }
     },
     mixins: [http]
