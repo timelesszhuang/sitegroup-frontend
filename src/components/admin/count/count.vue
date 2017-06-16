@@ -15,7 +15,7 @@
     data: () => ({
       loading: false,
       bar: {
-        color: ["#13CE66"],
+        color: [["#20a0ff"],["#13CE66"]],
         tooltip: {
           trigger: 'axis',
           formatter: '{b} <br/>{a}:{c}篇',
@@ -24,7 +24,7 @@
           }
         },
         grid: {
-          left: '5%',
+          left: '20%',
           right: '25%',
           bottom: '20%',
           containLabel: true
