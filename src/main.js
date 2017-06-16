@@ -24,9 +24,9 @@ Vue.use(router);
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
 
-// let domain = 'sitegroup.youdao.so'
+let domain = 'api.admin.com.cn'
 
-let domain = 'api.mypc.com.cn'
+// let domain = 'www.sitegroupback.com'
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'
 

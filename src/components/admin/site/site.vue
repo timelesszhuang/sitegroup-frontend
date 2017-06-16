@@ -25,6 +25,7 @@
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
     <win ref="windows" :genaraterId="genarate_id"></win>
+    <Activily ref="activily" :datas="activily_data" :sid="site_id"></Activily>
   </div>
 </template>
 
@@ -35,6 +36,7 @@
   import ftpsave from './ftp.vue';
   import cdnsave from './cdn.vue';
   import win from './window.vue';
+  import Activily from './activily.vue';
   export default {
     data () {
       return {
@@ -65,10 +67,12 @@
         cdn_info:{},
         mobileSite:[],
         code:[],
-        genarate_id:0
+        genarate_id:0,
+        site_id:0,
+        activily_data:[]
       }
     },
-    components: {siteadd, sitesave,ftpsave,cdnsave,win},
+    components: {siteadd, sitesave,ftpsave,cdnsave,win,Activily},
     created () {
       this.getCode();
       this.getData();
@@ -99,6 +103,23 @@
       this.getMobileSite();
     },
     methods: {
+      sendActivily(id){
+        this.site_id =id
+        this.getActivily(id)
+      },
+      getActivily(id) {
+        this.apiGet('Site/getActivily/'+id).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.activily_data=data
+            this.$refs.activily.modal2=true;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
         getCode() {
           this.apiGet('code/getAll').then((res) => {
             this.handelResponse(res, (data, msg) => {
@@ -441,7 +462,7 @@
           {
             title: '操作',
             key: 'action',
-            width: 480,
+            width: 580,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
@@ -450,7 +471,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn+`&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
+              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="info" size="small" @click="sendActivily(${row.id})">发送主题模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn+`&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
             }
           }
         );
