@@ -5,7 +5,54 @@
       <span>活动主题列表</span>
     </p>
     <div style="text-align:center">
-      <Table border :columns="columns" :data="datas"></Table>
+      <div class="ivu-table ivu-table-border"><!---->
+        <div class="ivu-table-header">
+          <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+            <thead>
+            <tr>
+              <th>
+                <div class="ivu-table-cell"><span>id</span></div>
+              </th>
+              <th>
+                <div class="ivu-table-cell"><span>模板姓名</span></div>
+              </th>
+              <th>
+                <div class="ivu-table-cell"><span>是否同步</span></div>
+              </th>
+              <th>
+                <div class="ivu-table-cell"><span>操作</span></div>
+              </th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+          <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+            <tbody class="ivu-table-tbody">
+            <tr class="ivu-table-row" v-for="item in datas">
+              <td>
+                <div class="ivu-table-cell">
+                  <div><strong>{{item["id"]}}</strong></div>
+                </div>
+              </td>
+              <td>
+                <div class="ivu-table-cell"> <span>{{item["name"]}}</span></div>
+              </td>
+              <td class="">
+                <div class="ivu-table-cell"><span>{{item["issync"]}}</span></div>
+              </td>
+              <td class="ivu-table-column-center">
+                <div class="ivu-table-cell">
+                  <div>
+                    <button @click="sendTemp(item['id'])"  type="button" class="ivu-btn ivu-btn-primary ivu-btn-small" style="margin-right: 5px;">
+                     <span>{{item["sync"]}}</span></button>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
     <div slot="footer">
     </div>
@@ -21,48 +68,23 @@
         modal_loading: false,
       }
     },
-    computed: {
-      columns() {
-        let columns = [];
-        columns.push({
-          title: '模板id',
-          key: 'id',
-          sortable: true
-        });
-        columns.push({
-          title: '模板名称',
-          key: 'name',
-          sortable: true
-        })
-        columns.push({
-          title: '是否同步',
-          key: 'issync',
-          sortable: true
-        })
-        columns.push(
-          {
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="sendTemp(${$index})">sdfsd</i-button>`;
-            }
-          })
-//        columns.push({
-//          title:'操作',
-//          key:'action',
-//          render(row,column){
-//              return `<i-button type="primary" size="small" @click="sendTemp(${row.id})">sdfsd</i-button>`;
-//          }
-//        })
-        return columns;
-      }
-    },
     methods: {
-      sendTemp(index){
-        alert(index)
-      },
+      sendTemp(id){
+        this.apiGet('Site/ignoreFrontend/' + id + '/'+this.sid+"/activity").then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.modal = false;
+            this.modal_loading = false;
+            this.$Message.success(msg);
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg, 5);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      }
     },
     props: {
       sid: Number,
@@ -72,7 +94,6 @@
     },
     mixins: [http]
   }
-
 </script>
 <style>
 

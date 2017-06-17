@@ -137,7 +137,7 @@
         })
       },
       sendTemp(index) {
-        this.apiGet('Site/ignoreFrontend/' + index).then((res) => {
+        this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.$Message.success(msg);
           }, (data, msg) => {
