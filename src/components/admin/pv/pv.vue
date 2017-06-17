@@ -33,7 +33,7 @@
       bar: {
         color: ["#20a0ff", "#BBFFFF"],
         title: {
-          text: 'pv统计',
+          text: '浏览量统计',
           left: 'center',
           top: 10
         },

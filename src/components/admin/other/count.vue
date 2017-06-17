@@ -26,7 +26,6 @@
         grid: {
           left: '20%',
           right: '25%',
-          bottom: '20%',
           containLabel: true
 
         },
@@ -94,7 +93,7 @@
 <style scoped>
   .echarts {
     width: 98%;
-    height: 400px;
+    height: 500px;
     float: left;
     padding-bottom: 50px;
   }

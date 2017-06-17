@@ -1,6 +1,6 @@
 <template>
   <div class="echarts">
-  <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
   </div>
 </template>
 <script type="text/babel">
@@ -9,16 +9,16 @@
   export default {
     name: 'view',
     components: {
-      IEcharts
+      IEcharts,
     },
     props: {},
     data: () => ({
       loading: false,
       bar: {
-        color: [["#20a0ff"],["#13CE66"]],
+        color: ["#13CE66","#F7BA2A","#FF4949"],
         tooltip: {
           trigger: 'axis',
-          formatter: '{b} <br/>{a}:{c}篇',
+          formatter: '{b} <br/>{a}:{c}个',
           axisPointer: {            // 坐标轴指示器，坐标轴触发有效
             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
           }
@@ -26,23 +26,27 @@
         grid: {
           left: '20%',
           right: '25%',
-          bottom: '20%',
+
           containLabel: true
 
         },
         title: {
-          text: '文章统计',
+          text: '关键词统计',
           left: 'center',
           top: 10
         },
         xAxis: [
           {
+            formatter: '{b}<br/>{a}:{c}',
             type: 'category',
             data: [],
             axisLabel: {
               interval: 0,
               rotate: -20,
-            }
+              formatter: function (value) {
+                return value + "类关键词";
+              }
+            },
           }
         ],
         yAxis: [
@@ -52,6 +56,7 @@
         ],
         series: [
           {
+            color: ["#13CE66","#F7BA2A","#FF4949"],
             name: '共',
             type: 'bar',
             barWidth: '17%',
@@ -70,7 +75,7 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('articletype/articleCount').then((data) => {
+        this.apiGet('keyword/KeywordCount').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.series[0].data = data.count;
             that.bar.xAxis[0].data = data.name;
@@ -94,9 +99,9 @@
 <style scoped>
   .echarts {
     width: 98%;
-    height: 400px;
+   margin-top: 30px;
+    height: 500px;
     float: left;
     padding-bottom: 50px;
   }
 </style>
-

@@ -169,21 +169,42 @@
               <Icon type="ios-analytics"></Icon>
               数据统计
             </template>
-            <Menu-item name="搜索引擎统计">
+            <!--<Menu-item name="搜索引擎统计">-->
+              <!--<Icon type="android-cloud-circle"></Icon>-->
+              <!--<span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="搜索关键词统计">-->
+              <!--<Icon type="android-cloud-circle"></Icon>-->
+              <!--<span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="爬虫统计">-->
+              <!--<Icon type="android-cloud-circle"></Icon>-->
+              <!--<span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="pv统计">-->
+              <!--<Icon type="android-cloud-circle"></Icon>-->
+              <!--<span class="layout-text" @click="routerChange('/admin/pv','pv统计')">pv统计</span>-->
+            <!--</Menu-item>-->
+
+            <Menu-item name="浏览量统计">
               <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>
+              <span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">浏览量统计</span>
             </Menu-item>
-            <Menu-item name="搜索关键词统计">
+            <Menu-item name="浏览量展示">
               <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>
+              <span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">浏览量展示</span>
             </Menu-item>
             <Menu-item name="爬虫统计">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>
             </Menu-item>
-            <Menu-item name="pv统计">
+            <Menu-item name="搜索引擎关键词统计">
               <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/pv','pv统计')">pv统计</span>
+              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>
+            </Menu-item>
+            <Menu-item name="其他统计">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/other','其他统计')">其他统计</span>
             </Menu-item>
           </Submenu>
         </Menu>

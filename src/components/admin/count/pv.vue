@@ -22,6 +22,7 @@
           top: 10
         },
         tooltip: {
+          formatter: '{b} <br/>{a}:{c}次',
           trigger: 'axis'
         },
         legend: {
@@ -33,9 +34,7 @@
           right: '25%',
           bottom: '20%',
           containLabel: true
-
         },
-
         xAxis: {
           type: 'category',
           boundaryGap: false,

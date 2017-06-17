@@ -22,6 +22,7 @@
           top: 10
         },
         tooltip: {
+          formatter: '{b} <br/>{a}:{c}个',
           trigger: 'axis'
         },
         legend: {
