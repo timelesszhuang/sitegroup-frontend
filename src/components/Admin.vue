@@ -169,23 +169,6 @@
               <Icon type="ios-analytics"></Icon>
               数据统计
             </template>
-            <!--<Menu-item name="搜索引擎统计">-->
-              <!--<Icon type="android-cloud-circle"></Icon>-->
-              <!--<span class="layout-text" @click="routerChange('/admin/flow','搜索引擎统计')">搜索引擎统计</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="搜索关键词统计">-->
-              <!--<Icon type="android-cloud-circle"></Icon>-->
-              <!--<span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="爬虫统计">-->
-              <!--<Icon type="android-cloud-circle"></Icon>-->
-              <!--<span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="pv统计">-->
-              <!--<Icon type="android-cloud-circle"></Icon>-->
-              <!--<span class="layout-text" @click="routerChange('/admin/pv','pv统计')">pv统计</span>-->
-            <!--</Menu-item>-->
-
             <Menu-item name="浏览量统计">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">浏览量统计</span>
@@ -212,14 +195,20 @@
       <i-col span="20">
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
-            <Col span="2">
+            <Col span="2" align="right">
             <Badge :count="count">
               <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
                 <Icon type="ios-bell-outline" size="26"></Icon>
               </span>
             </Badge>
+
             </Col>
-            <Col span="2" style="cursor: pointer">
+            <Col span="2" align="right" style="cursor: pointer">
+            <Icon type="ionic" style="color: red" @click="routerChange('/admin/count')"></Icon>
+            <span class="layout-text" style="font-family:Microsoft YaHei;font-size: 15px;"
+                  @click="routerChange('/admin/count')">首页</span>
+            </Col>
+            <Col span="2" align="center" style="cursor: pointer">
             <Icon type="android-lock" @click="changePwd()"></Icon>
             <span class="layout-text" @click="changePwd()">重置密码</span>
             </Col>
@@ -298,11 +287,11 @@
     },
     //created 是函数
     created () {
-        let _this = this;
+      let _this = this;
       _this.checkAlert();
-        setInterval(function(){
-          _this.checkAlert();
-        },12000);
+      setInterval(function () {
+        _this.checkAlert();
+      }, 12000);
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
         //表示没有登陆
