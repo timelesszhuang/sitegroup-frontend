@@ -2,7 +2,13 @@
   <div>
     <div class="top">
       站点管理:
-      <Input v-model="site_name" placeholder="站点名字" style="width:300px;"></Input>
+      <Input v-model="site_name" placeholder="站点名字" style="width:200px;"></Input>
+      <Input v-model="url" placeholder="url" style="width:200px;"></Input>
+      <Select v-model="site_type_id" style="width:200px;" placeholder="根据站点分类查询"label-in-value filterable clearable>
+        <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -73,7 +79,9 @@
         code: [],
         genarate_id: 0,
         site_id: 0,
-        activity_data: []
+        activity_data: [],
+        site_type_id:'',
+        url:''
       }
     },
     components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
@@ -178,7 +186,9 @@
           params: {
             page: this.page,
             rows: this.rows,
-            site_name: this.site_name
+            site_name: this.site_name,
+            site_type_id:this.site_type_id,
+            url:this.url
           }
         }
         this.apiGet('Site', data).then((data) => {
@@ -451,15 +461,25 @@
           sortable: true
         });
         columns.push({
-          title: '域名',
-          key: 'domain',
-          sortable: true
-        });
-        columns.push({
           title: 'url',
           key: 'url',
           sortable: true
         });
+          columns.push({
+            title: '模板状态',
+            align: 'center',
+            render(row,index){
+                if(row.template_status==10){
+                  var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
+                return type;
+                }else{
+                  var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
+                  return type;
+                }
+
+            },
+            sortable: true
+          });
         columns.push(
           {
             title: '操作',
