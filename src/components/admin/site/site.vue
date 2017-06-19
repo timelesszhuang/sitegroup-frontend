@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       站点管理:
-       <Input v-model="site_name" placeholder="站点名字" style="width:300px;"></Input>
+      <Input v-model="site_name" placeholder="站点名字" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -14,17 +14,22 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator show-sizer>
+          </Page>
         </div>
       </div>
     </div>
-    <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
+    <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+             :hotline="hotline"
              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist" :hotline="hotline"
-              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo" :mobileSite="mobileSite"></sitesave>
+    <sitesave ref="save" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+              :hotline="hotline"
+              :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"
+              :mobileSite="mobileSite"></sitesave>
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
     <win ref="windows" :genaraterId="genarate_id"></win>
+    <Activity ref="activity" :datas="activity_data" :sid="site_id"></Activity>
   </div>
 </template>
 
@@ -35,6 +40,7 @@
   import ftpsave from './ftp.vue';
   import cdnsave from './cdn.vue';
   import win from './window.vue';
+  import Activity from './activity.vue';
   export default {
     data () {
       return {
@@ -59,16 +65,18 @@
         domainlist: [],
         userlist: [],
         keyword: [],
-        link:[],
-        ftp_id:0,
-        ftp_info:{},
-        cdn_info:{},
-        mobileSite:[],
-        code:[],
-        genarate_id:0
+        link: [],
+        ftp_id: 0,
+        ftp_info: {},
+        cdn_info: {},
+        mobileSite: [],
+        code: [],
+        genarate_id: 0,
+        site_id: 0,
+        activity_data: []
       }
     },
-    components: {siteadd, sitesave,ftpsave,cdnsave,win},
+    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
     created () {
       this.getCode();
       this.getData();
@@ -99,20 +107,37 @@
       this.getMobileSite();
     },
     methods: {
-        getCode() {
-          this.apiGet('code/getAll').then((res) => {
-            this.handelResponse(res, (data, msg) => {
-              this.code=data;
-            }, (data, msg) => {
-              this.$Message.error(msg);
-            })
-          }, (res) => {
-            //处理错误信息
-            this.$Message.error('网络异常，请稍后重试。');
+      sendActivity(id){
+        this.site_id = id
+        this.getActivity(id)
+      },
+      getActivity(id) {
+        this.apiGet('Site/getActivily/' + id).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.activity_data = data
+            this.$refs.activity.modal2 = true;
+          }, (data, msg) => {
+            this.$Message.error(msg);
           })
-        },
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      getCode() {
+        this.apiGet('code/getAll').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.code = data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       sendTemp(index) {
-        this.apiGet('Site/ignoreFrontend/'+index).then((res) => {
+        this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.$Message.success(msg);
           }, (data, msg) => {
@@ -125,7 +150,7 @@
       },
       removeCache(index){
         let linkid = this.datas[index].id
-        this.apiGet('Site/siteGetCurl/'+linkid+"/clearCache").then((res) => {
+        this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -139,7 +164,7 @@
       getMobileSite() {
         this.apiGet('Site/mobileSite').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.mobileSite=data;
+            this.mobileSite = data;
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -289,22 +314,22 @@
             let keyAar = [];
             let link_id = [];
             let code = [];
-            if(this.editinfo.menu!=="") {
+            if (this.editinfo.menu !== "") {
               this.editinfo.menu.split(",").map(function (key) {
                 tempNUmber.push(Number(key))
               })
             }
-            if(this.editinfo.keyword_ids!=="") {
+            if (this.editinfo.keyword_ids !== "") {
               this.editinfo.keyword_ids.split(",").map(function (key) {
                 keyAar.push(Number(key))
               })
             }
-            if(this.editinfo.link_id!=="") {
+            if (this.editinfo.link_id !== "") {
               this.editinfo.link_id.split(",").map(function (key) {
                 link_id.push(Number(key))
               })
             }
-            if(this.editinfo.public_code!==""){
+            if (this.editinfo.public_code !== "") {
               this.editinfo.public_code.split(",").map(function (key) {
                 code.push(Number(key))
               })
@@ -312,7 +337,7 @@
             this.editinfo.menu = tempNUmber
             this.editinfo.keyword_ids = keyAar
             this.editinfo.link_id = link_id
-            this.editinfo.public_code=code
+            this.editinfo.public_code = code
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {
@@ -329,7 +354,7 @@
         let _this = this
         let data = {
           'main_site': main_site,
-           id: id
+          id: id
         }
         if (data.main_site == 20) {
           this.$Modal.confirm({
@@ -394,8 +419,8 @@
         this.$refs.cdnsave.modal = true
       },
       generateStatic(index){
-          this.genarate_id=index;
-          this.$refs.windows.modal2=true
+        this.genarate_id = index;
+        this.$refs.windows.modal2 = true
       }
     },
     computed: {
@@ -409,7 +434,6 @@
             align: 'center'
           })
         }
-
         columns.push({
           title: '站点id',
           key: 'id',
@@ -436,12 +460,11 @@
           key: 'url',
           sortable: true
         });
-
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 480,
+            width: 580,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
@@ -450,7 +473,7 @@
                 //20 表示禁用 按钮应该为启用
                 btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
               }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn+`&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
+              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="info" size="small" @click="sendActivity(${row.id})">发送主题模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn + `&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
             }
           }
         );

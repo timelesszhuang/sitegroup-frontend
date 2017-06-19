@@ -1,8 +1,16 @@
 <template>
   <div>
+    <div class="top">
+      <Select v-model="site_id" style="margin-left:40%;width:200px;" label-in-value filterable clearable>
+        <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
+      <Button type="primary" @click="queryData">查询</Button>
+    </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" @on-row-click="showMessage" style="width: 100%">
+             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
@@ -12,52 +20,69 @@
         </div>
       </div>
     </div>
-    <Modal v-model="errorMessage" title="错误信息">
-      <p>错误信息: {{message}}</p>
-      <p>操作: {{operator}}</p>
-      <p>站点: {{site_name}}</p>
-    </Modal>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
-  import http from '../../assets/js/http.js';
+  import http from '../../../assets/js/http.js';
   export default {
-    data() {
+    data () {
       return {
-        errorMessage: false,
         self: this,
         border: true,
         stripe: true,
-        current: 1,
         showheader: true,
         showIndex: true,
         size: 'small',
+        current: 1,
         total: 0,
         page: 1,
         rows: 10,
+        name: '',
         datas: [],
-        message: '',
-        operator: '',
-        site_name:'',
+        site: [],
+        site_id: "",
       }
     },
-    created() {
+    components: {},
+    created () {
       this.getData();
+      this.getSite((data) => {
+        this.site = data
+      });
     },
     methods: {
-      showMessage(row){
-        this.errorMessage = true
-        this.operator = row.operator;
-        this.message = row.msg
-        this.site_name = row.site_name
-        this.changeStatus(row.id)
+      getSite(){
+        this.apiGet('Site/getSites').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.site = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
       },
-      changeStatus(id){
-        this.apiPost('article/changeErrorStatus/'+id).then((data) => {
+      queryData() {
+        this.getData();
+        this.getSite((data) => {
+          this.site = data
+        });
+      },
+      getData() {
+        let data = {
+          params: {
+            page: this.page,
+            rows: this.rows,
+            site_id: this.site_id
+          }
+        }
+        this.apiGet('pv', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            console.log(data)
+            this.datas = data.rows
+            this.total = data.total;
+          }, (data, msg) => {
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -73,23 +98,8 @@
         this.rows = pagesize;
         this.getData();
       },
-      getData() {
-        let data = {
-          params: {
-            page: this.page,
-            rows: this.rows,
-          }
-        }
-        this.apiGet('article/getErrorInfo', data).then((data) => {
-          this.handelResponse(data, (data, msg) => {
-            this.datas = data.rows
-            this.total = data.total;
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (data) => {
-          this.$Message.error('网络异常，请稍后重试');
-        })
+      queryData(){
+        this.getData();
       },
     },
     computed: {
@@ -111,23 +121,18 @@
           })
         }
         columns.push({
-          title: '信息',
-          key: 'msg',
+          title: '省市',
+          key: 'Provincecities',
           sortable: true
         });
         columns.push({
-          title: '状态',
-          key: 'status',
+          title: 'IP地址',
+          key: 'ip',
           sortable: true
         });
         columns.push({
-          title: '操作过程',
-          key: 'operator',
-          sortable: true
-        });
-        columns.push({
-          title: '出错时间',
-          key: 'create_time',
+          title: '来源页',
+          key: 'referer',
           sortable: true
         });
         return columns;
@@ -135,10 +140,4 @@
     },
     mixins: [http]
   }
-
 </script>
-<style>
-
-
-</style>
-

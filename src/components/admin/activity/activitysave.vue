@@ -19,6 +19,9 @@
           <Form-item label="活动/创意信息" prop="come_from">
             <Input type="text" v-model="form.detail" placeholder="请输入模板活动/创意相关信息" style="width: 200px;"></Input>
           </Form-item>
+          <Form-item label="文件夹名称" prop="directory_name">
+            <Input type="text" v-model="form.directory_name" placeholder="文件夹名称"></Input>
+          </Form-item>
         </Form>
       </div>
       <div slot="footer">
@@ -42,6 +45,9 @@
           detail: [
             {required: true, message: '请填写活动/创意详情', trigger: 'blur'},
           ],
+          directory_name:[
+            {required:true,message:'请填写活动文件夹名',trigger:'blur'}
+          ]
         }
       }
     },

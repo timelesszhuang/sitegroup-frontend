@@ -16,6 +16,18 @@
                      placeholder="请输入代码">
               </Input>
             </Form-item>
+            <Form-item label="代码位置" prop="position">
+              <Radio-group v-model="form.position">
+                <Radio label="1">
+                  <Icon type="social-apple"></Icon>
+                  <span>head前</span>
+                </Radio>
+                <Radio label="2">
+                  <Icon type="social-android"></Icon>
+                  <span>head后</span>
+                </Radio>
+              </Radio-group>
+            </Form-item>
           </Form>
         </div>
         <div slot="footer">
@@ -36,7 +48,8 @@
         modal_loading: false,
         form: {
           name: "",
-          code: ""
+          code: "",
+          position:"1"
         },
         AddRule: {
           name: [
