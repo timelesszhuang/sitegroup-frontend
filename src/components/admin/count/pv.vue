@@ -30,8 +30,8 @@
           data:[]
         },
         grid: {
-          left: '20%',
-          right: '25%',
+          left: '15%',
+          right: '20%',
           bottom: '20%',
           containLabel: true
         },

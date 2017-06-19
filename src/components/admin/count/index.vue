@@ -1,5 +1,5 @@
 <template>
-  <div class="echarts">
+  <div class="echarts" style="min-width:900px">
     <Row>
       <Col span="8"><sitetype ref="sitetype"></sitetype></Col>
       <Col span="8"> <engine ref="engine"></engine></Col>

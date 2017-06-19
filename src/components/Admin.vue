@@ -222,8 +222,8 @@
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
-        <div class="layout-content">
-          <div class="layout-content-main">
+        <div class="layout-content" >
+          <div class="layout-content-main"  style="min-width:900px">
             <router-view></router-view>
           </div>
         </div>
