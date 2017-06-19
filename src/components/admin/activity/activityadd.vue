@@ -52,7 +52,6 @@
         form: {
           name: "",
           detail: '',
-          demo_path: '',
           code_path: '',
           directory_name:''
         },
@@ -72,7 +71,6 @@
     methods: {
       getResponse(response, file, filelist){
         this.form.code_path = response.data.code_path;
-        this.form.demo_path = response.data.demo_path;
         this.$Message.success(response.msg);
       },
       getErrorInfo(error, file, filelist){
@@ -86,10 +84,7 @@
           this.$Message.error('请首先上传活动/创意文件。');
           return
         }
-        if (!this.form.demo_path) {
-          this.$Message.error('请首先上传活动/创意文件。');
-          return
-        }
+
         this.$refs.activityadd.validate((valid) => {
           if (valid) {
             this.modal_loading = true;

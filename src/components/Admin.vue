@@ -45,7 +45,6 @@
   .layout-logo-left {
     width: 90%;
     height: 30px;
-    background: #5b6270;
     border-radius: 3px;
     padding-top: 10px;
     margin: 0px auto;
@@ -57,8 +56,8 @@
     <Row type="flex">
       <i-col span="4" class="layout-menu-left">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
-          <div class="layout-logo-left">
-            {{sysname}}
+          <div class="layout-logo-left"style="width: 150px;height: 58px;margin: 0 auto;">
+            <img style="" src="../../dist/static/img/云创意logo1.png" alt="">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -204,7 +203,7 @@
 
             </Col>
             <Col span="2" align="right" style="cursor: pointer">
-            <Icon type="ionic" style="color: red" @click="routerChange('/admin/count')"></Icon>
+            <Icon type="home" style="font-size: 15px" @click="routerChange('/admin/count')"></Icon>
             <span class="layout-text" style="font-family:Microsoft YaHei;font-size: 15px;"
                   @click="routerChange('/admin/count')">首页</span>
             </Col>
