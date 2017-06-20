@@ -30,7 +30,6 @@
           data:[]
         },
         grid: {
-          left: '15%',
           right: '20%',
           bottom: '20%',
           containLabel: true
@@ -98,6 +97,7 @@
 
 <style scoped>
   .echarts {
+    margin-top: 20px;
     width: 100%;
     height: 400px;
     float: left;

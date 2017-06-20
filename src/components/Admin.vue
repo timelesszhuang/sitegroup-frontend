@@ -30,6 +30,9 @@
     text-align: center;
     padding: 10px 0 20px;
     color: #9ea7b4;
+    position:fixed;
+    bottom:0;
+    left:50%;
   }
 
   .layout-menu-left {
@@ -54,9 +57,9 @@
 <template>
   <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
-      <i-col span="4" class="layout-menu-left">
+      <i-col span="4" class="layout-menu-left" style="min-width:170px">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
-          <div class="layout-logo-left"style="width: 150px;height: 58px;margin: 0 auto;">
+          <div class="layout-logo-left" @click="routerChange('/admin/count')"style="width: 150px;height: 58px;margin: 0 auto;">
             <img style="" src="../../dist/static/img/云创意logo1.png" alt="">
           </div>
           <Submenu name="1">
@@ -222,8 +225,8 @@
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
-        <div class="layout-content" >
-          <div class="layout-content-main"  style="min-width:900px">
+        <div class="layout-content">
+          <div class="layout-content-main">
             <router-view></router-view>
           </div>
         </div>

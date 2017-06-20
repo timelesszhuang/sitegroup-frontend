@@ -112,6 +112,11 @@
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;
             that.bar.series = data.type;
+            that.bar.series[0].areaStyle = {normal: {}};
+            that.bar.series[1].areaStyle = {normal: {}};
+            that.bar.series[2].areaStyle = {normal: {}};
+            that.bar.series[3].areaStyle = {normal: {}};
+            that.bar.series[4].areaStyle = {normal: {}};
           }, (data, msg) => {
             this.$Message.error(msg);
           })
