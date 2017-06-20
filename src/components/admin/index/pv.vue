@@ -30,7 +30,7 @@
           data:[]
         },
         grid: {
-          right: '20%',
+          right: '15%',
           bottom: '20%',
           containLabel: true
         },
@@ -98,9 +98,10 @@
 <style scoped>
   .echarts {
     margin-top: 20px;
-    width: 100%;
+    max-width: 32%;
+    min-width: 30%;
     height: 400px;
-    float: left;
     padding-bottom: 50px;
+    padding-right: 10px;
   }
 </style>
