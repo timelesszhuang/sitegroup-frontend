@@ -93,7 +93,7 @@
 
 <style scoped>
   .echarts {
-    width: 98%;
+    width: 100%;
     height: 400px;
     float: left;
     padding-bottom: 50px;

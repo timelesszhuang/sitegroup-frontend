@@ -30,8 +30,7 @@
           data:[]
         },
         grid: {
-          left: '20%',
-          right: '25%',
+          right: '20%',
           bottom: '20%',
           containLabel: true
 
@@ -85,7 +84,6 @@
           })
         },)
 
-//        that.loading = !that.loading;
       },
       onReady(instance) {
       },
@@ -99,7 +97,8 @@
 
 <style scoped>
   .echarts {
-    width: 97%;
+    margin-top: 20px;
+    width: 100%;
     height: 400px;
     float: left;
     padding-bottom: 50px;

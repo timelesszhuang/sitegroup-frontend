@@ -29,7 +29,7 @@
                   <span>PC机</span>
                 </Radio>
                 <Radio label=20>
-                  <Icon type="social-apple"></Icon>
+                  <Icon type="android-phone-portrait"></Icon>
                   <span>手机</span>
                 </Radio>
               </Radio-group>

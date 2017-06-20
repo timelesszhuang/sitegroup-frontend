@@ -15,53 +15,55 @@
     data: () => ({
       loading: false,
       bar: {
-        color: ["#20a0ff"],
-        tooltip: {
-          formatter: '{b} <br/>{a}:{c}个',
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          left: '20%',
-          right: '25%',
-          bottom: '20%',
-          containLabel: true
-        },
+        color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8","#BBFFFF","#FF1493","#FF34B3","#FF00FF",'#FFDAB9'],
         title: {
-          text: '站点统计',
+          text: '浏览量统计',
           left: 'center',
           top: 10
         },
-        xAxis: [
-          {
-            type: 'category',
-            data: [],
-            axisLabel: {
-              interval: 0,
-              rotate: -20,
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
+        tooltip: {
+          formatter: '{b} <br/>{a}:{c}次',
+          trigger: 'axis'
+        },
+        legend: {
+          bottom: 'bottom',
+          data:[]
+        },
+        grid: {
+          right: '20%',
+          bottom: '20%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: [],
+          axisLabel: {
+            interval: 0,
+            rotate: -25,
+          },
+          axisLine: {show: false},
+          splitNumber:100,
+          splitLine: {
+            show:true,
+          },
+        },
+        yAxis: {
+          type: 'value'
+        },
         series: [
           {
-            name: '共',
-            type: 'bar',
-            barWidth: '17%',
-            data: [],
-          }
+            name:'邮件营销',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[120, 132, 101, 134, 90, 230, 210]
+          },
         ]
       },
 
     }),
     created() {
-      console.log(this.$refs.articletype)
       this.doRandom();
     },
     methods: {
@@ -70,10 +72,12 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('site/SiteCount').then((data) => {
+        this.apiGet('count/pv').then((data) => {
           this.handelResponse(data, (data, msg) => {
-            that.bar.series[0].data = data.value;
-            that.bar.xAxis[0].data = data.name;
+            that.bar.legend.data = data.type;
+            that.bar.xAxis.data = data.time;
+            that.bar.series = data.type;
+
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -93,7 +97,8 @@
 
 <style scoped>
   .echarts {
-    width: 98%;
+    margin-top: 20px;
+    width: 100%;
     height: 400px;
     float: left;
     padding-bottom: 50px;

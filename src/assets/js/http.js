@@ -72,7 +72,7 @@ const ajaxMethods = {
       if (data.type == 1) {
         routerUrl = '/sysadmin/'
       } else {
-        routerUrl = '/admin/count';
+        routerUrl = '/admin/index';
       }
       setTimeout(() => {
         let path = this.$router.path

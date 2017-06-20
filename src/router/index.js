@@ -30,7 +30,7 @@ import Link from '../components/admin/link/index.vue'
 import MessageLog from '../components/messageLog/messageLog.vue';
 import Flow from '../components/admin/flow/index.vue';
 import Countkeyword from '../components/admin/countkeyword/index.vue'
-import Count from '../components/admin/count/index.vue'
+import Index from '../components/admin/index/index.vue'
 import Crawler from '../components/admin/crawler/crawler.vue'
 import Pv from '../components/admin/pv/pv.vue'
 import Other from '../components/admin/other/index.vue'
@@ -61,7 +61,7 @@ export default new Router({
       component: Admin,
       children: [
         {path: 'keyword', component: Keyword, name: 'keyword'},
-        {path: 'count', component: Count, name: 'count'},
+        {path: 'index', component: Index, name: 'index'},
         {path: 'articletype', component: Articletype, name: 'articletype'},
         {path: 'article', component: Article, name: 'article'},
         {path: 'navigation', component: Navigation, name: 'navigation'},
