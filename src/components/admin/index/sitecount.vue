@@ -98,5 +98,7 @@
     min-width: 30%;
     height: 400px;
     padding-bottom: 50px;
+    display:flex;
+    flex: 1;
   }
 </style>
