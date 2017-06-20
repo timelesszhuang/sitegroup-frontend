@@ -14,24 +14,23 @@
     props: {},
     data: () => ({
       loading: false,
-      data: [],
       bar: {
-        color: ["#20a0ff", "#13CE66", "#F7BA2A", "#FF4949", "#61a0a8", "#BBFFFF", "#FF1493", "#FF34B3", "#FF00FF", '#FFDAB9'],
+        color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8","#BBFFFF","#FF1493","#FF34B3","#FF00FF",'#FFDAB9'],
         title: {
           text: '爬虫统计',
           left: 'center',
           top: 10
         },
         tooltip: {
+          formatter: '{b} <br/>{a}:{c}个',
           trigger: 'axis'
         },
         legend: {
           bottom: 'bottom',
-          data: []
+          data:[]
         },
         grid: {
-          left: '5%',
-          right: '25%',
+          right: '20%',
           bottom: '20%',
           containLabel: true
 
@@ -46,23 +45,22 @@
             rotate: -25,
           },
           axisLine: {show: false},
-          splitNumber: 100,
+          splitNumber:100,
           splitLine: {
-            show: true,
+            show:true,
           },
         },
         yAxis: {
           type: 'value'
         },
-        series: []
+        series: [
+
+        ]
       },
 
     }),
     created() {
       this.doRandom();
-      this.getSite((data) => {
-        this.site = data
-      });
     },
     methods: {
       queryData() {
@@ -70,11 +68,7 @@
       },
       doRandom() {
         const that = this;
-        let data = {
-          params: {
-          }
-        }
-        this.apiGet('count/enginecount', data).then((data) => {
+        this.apiGet('count/enginecount').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;
@@ -85,11 +79,11 @@
             that.bar.series[3].areaStyle = {normal: {}};
             that.bar.series[4].areaStyle = {normal: {}};
           }, (data, msg) => {
+
             this.$Message.error(msg);
           })
         },)
 
-//        that.loading = !that.loading;
       },
       onReady(instance) {
       },
