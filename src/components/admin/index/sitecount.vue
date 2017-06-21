@@ -1,6 +1,6 @@
 <template>
   <div class="echarts">
-  <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
   </div>
 </template>
 <script type="text/babel">
@@ -9,29 +9,28 @@
   export default {
     name: 'view',
     components: {
-      IEcharts
+      IEcharts,
     },
     props: {},
     data: () => ({
       loading: false,
       bar: {
-        color: [["#20a0ff"],["#13CE66"]],
+        color: ["#20a0ff"],
         tooltip: {
+          formatter: '{b} <br/>{a}:{c}个',
           trigger: 'axis',
-          formatter: '{b} <br/>{a}:{c}篇',
           axisPointer: {            // 坐标轴指示器，坐标轴触发有效
             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
           }
         },
         grid: {
-          left: '20%',
+          left: '2%',
           right: '25%',
           bottom: '20%',
           containLabel: true
-
         },
         title: {
-          text: '文章统计',
+          text: '站点统计',
           left: 'center',
           top: 10
         },
@@ -62,6 +61,7 @@
 
     }),
     created() {
+      console.log(this.$refs.articletype)
       this.doRandom();
     },
     methods: {
@@ -70,9 +70,9 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('articletype/articleCount').then((data) => {
+        this.apiGet('site/SiteCount').then((data) => {
           this.handelResponse(data, (data, msg) => {
-            that.bar.series[0].data = data.count;
+            that.bar.series[0].data = data.value;
             that.bar.xAxis[0].data = data.name;
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -93,10 +93,12 @@
 
 <style scoped>
   .echarts {
-    width: 98%;
+    margin-top: 20px;
+    max-width: 32%;
+    min-width: 30%;
     height: 400px;
-    float: left;
     padding-bottom: 50px;
+    display:flex;
+    flex: 1;
   }
 </style>
-

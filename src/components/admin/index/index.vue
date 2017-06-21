@@ -1,10 +1,8 @@
 <template>
-  <div class="echarts" style="min-width:900px">
-    <Row>
-      <Col span="8"><sitetype ref="sitetype"></sitetype></Col>
-      <Col span="8"> <engine ref="engine"></engine></Col>
-      <Col span="8"> <pv ref="pv"></pv></Col>
-    </Row>
+  <div class="echarts">
+    <sitetype ref="sitetype"></sitetype>
+     <engine ref="engine"></engine>
+    <pv ref="pv"></pv>
   </div>
 </template>
 <script type="text/babel">
@@ -21,7 +19,10 @@
     },
   };
 </script>
-<style>
-
+<style scoped>
+.echarts{
+    display:flex;
+    flex: 1;
+}
 
 </style>

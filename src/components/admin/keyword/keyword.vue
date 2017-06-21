@@ -23,6 +23,7 @@
              :filter-node-method="filterNode">
     </el-tree>
     <!--操作相关子组件-->
+    <Alert style="margin-top:20px;font-size:15px;font-weight: bold" type="warning">必须首先添加A类关键词,&nbsp;&nbsp;&nbsp;在A类关键词下批量添加B类关键词,&nbsp;&nbsp;&nbsp;同理,&nbsp;&nbsp;&nbsp;在B类关键词下批量添加C类关键词</Alert>
     <keywordUpload ref="upload" :id="checkedNodeId"></keywordUpload>
     <AkeywordAdd ref="akeywordadd"></AkeywordAdd>
   </div>

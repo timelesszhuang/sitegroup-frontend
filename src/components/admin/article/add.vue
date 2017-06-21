@@ -17,7 +17,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者" style="width: 200px;"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
+            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
@@ -65,8 +65,10 @@
           come_from: '',
           articletype_id: 0,
           articletype_name: '',
-          content: ''
+          content: '',
+
         },
+        selects:true,
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -116,6 +118,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.add.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);

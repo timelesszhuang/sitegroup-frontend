@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
             </Form-item>
             <Form-item label="问答分类" prop="articletype_id">
-              <Select v-model="form.type_id" style="text-align: left;width:200px;"
+              <Select  ref="select" :clearable="selects"v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
@@ -47,6 +47,7 @@
       };
       return {
         modal: false,
+        selects:true,
         modal_loading: false,
         AddRule: {
           question: [
@@ -65,6 +66,9 @@
       changeArticletype(type) {
         this.form.type_name = type.label;
       },
+      clearQuestionType(){
+        this.$refs.select.clearSingleSelect()
+      },
       add() {
         this.$refs.questionadd.validate((valid) => {
           if (valid) {
@@ -78,6 +82,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.questionadd.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);

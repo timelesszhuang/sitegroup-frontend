@@ -17,12 +17,12 @@
       bar: {
         color:["#20a0ff","#13CE66","#F7BA2A","#FF4949","#61a0a8","#BBFFFF","#FF1493","#FF34B3","#FF00FF",'#FFDAB9'],
         title: {
-          text: '浏览量统计',
+          text: '爬虫统计',
           left: 'center',
           top: 10
         },
         tooltip: {
-          formatter: '{b} <br/>{a}:{c}次',
+          formatter: '{b} <br/>{a}:{c}个',
           trigger: 'axis'
         },
         legend: {
@@ -30,10 +30,12 @@
           data:[]
         },
         grid: {
-          right: '20%',
+          right: '25%',
           bottom: '20%',
           containLabel: true
+
         },
+
         xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -52,13 +54,7 @@
           type: 'value'
         },
         series: [
-          {
-            name:'邮件营销',
-            type:'line',
-            stack: '总量',
-            areaStyle: {normal: {}},
-            data:[120, 132, 101, 134, 90, 230, 210]
-          },
+
         ]
       },
 
@@ -72,18 +68,22 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('count/pv').then((data) => {
+        this.apiGet('count/enginecount').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;
             that.bar.series = data.type;
-
+            that.bar.series[0].areaStyle = {normal: {}};
+            that.bar.series[1].areaStyle = {normal: {}};
+            that.bar.series[2].areaStyle = {normal: {}};
+            that.bar.series[3].areaStyle = {normal: {}};
+            that.bar.series[4].areaStyle = {normal: {}};
           }, (data, msg) => {
+
             this.$Message.error(msg);
           })
         },)
 
-//        that.loading = !that.loading;
       },
       onReady(instance) {
       },
@@ -98,9 +98,11 @@
 <style scoped>
   .echarts {
     margin-top: 20px;
-    width: 100%;
+    max-width: 32%;
+    min-width: 30%;
     height: 400px;
-    float: left;
     padding-bottom: 50px;
+    display:flex;
+    flex: 1;
   }
 </style>
