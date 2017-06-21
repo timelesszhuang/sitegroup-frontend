@@ -154,13 +154,13 @@
         let _this = this
         let data = {
           'is_sync': is_sync,
-          id:id
+          id: id
         }
-        if(data.is_sync == 10){
+        if (data.is_sync == 10) {
           this.$Modal.confirm({
-            title: '确认禁用',
-            content: '您确定禁用该活动?',
-            okText: '禁用',
+            title: '确认同步',
+            content: '您确定同步该活动?',
+            okText: '确定',
             cancelText: '取消',
             onOk: (index) => {
               _this.apiPost('article/sync', data).then((res) => {
@@ -179,11 +179,11 @@
               return false
             }
           })
-        }else if(data.is_sync==20){
+        } else if (data.is_sync == 20) {
           this.$Modal.confirm({
-            title: '确认启用',
-            content: '您确定启用该活动?',
-            okText: '启用',
+            title: '确认取消同步',
+            content: '您确定取消该活动?',
+            okText: '确定',
             cancelText: '取消',
             onOk: (index) => {
               _this.apiPost('article/sync', data).then((res) => {
@@ -247,14 +247,14 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-                var btn='';
-                if(row.site_id != '0') {
-                  var btn = `<i-button type="primary" size="small" @click="changeSync(${index},'10')">同步</i-button>`;
-                  if (row.is_sync == '10' ) {
-                    //20 表示禁用 按钮应该为启用
-                    btn = `<i-button type="error" size="small" title="不同步" @click="changeSync(${index},'20')">取消</i-button>`;
-                  }
+              var btn = '';
+              if (row.site_id != '0') {
+                var btn = `<i-button type="primary" size="small" title="同步文章到主站点" @click="changeSync(${index},'10')">文章同步主站</i-button>`;
+                if (row.is_sync == '10') {
+                  //20 表示禁用 按钮应该为启用
+                  btn = `<i-button type="error" size="small" title="取消同步到主站" @click="changeSync(${index},'20')">取消同步文章</i-button>`;
                 }
+              }
               return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
 <i-button type="info" size="small" @click="show(${index})">预览</i-button>
                       <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;` + btn;
