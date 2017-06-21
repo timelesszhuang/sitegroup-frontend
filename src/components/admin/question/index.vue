@@ -100,6 +100,7 @@
         this.$refs.add.modal = true
       },
       edit(index){
+
         let editid = this.datas[index].id
         this.apiGet('question/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -107,6 +108,7 @@
             delete  data.update_time;
             this.editinfo = data
             this.modal = false;
+            this.$refs.save.clearQuestionType()
             this.$refs.save.modal = true
           }, (data, msg) => {
             this.$Message.error(msg);
