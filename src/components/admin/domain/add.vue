@@ -63,18 +63,18 @@
           domain: [
             {required: true, message: '请填写域名', trigger: 'blur'},
           ],
-          registrant_user: [
-            {required: true, message: '请输入注册人', trigger: 'blur'},
-          ],
-          registrant_tel: [
-            {required: true, message: '请输入注册电话', trigger: 'blur'},
-          ],
-          registrant_email: [
-            {required: true, message: '请输入注册人邮箱', trigger: 'blur'},
-          ],
-          filing_num: [
-            {required: true, message: '请填写备案号', trigger: 'blur'},
-          ]
+//          registrant_user: [
+//            {required: true, message: '请输入注册人', trigger: 'blur'},
+//          ],
+//          registrant_tel: [
+//            {required: true, message: '请输入注册电话', trigger: 'blur'},
+//          ],
+//          registrant_email: [
+//            {required: true, message: '请输入注册人邮箱', trigger: 'blur'},
+//          ],
+//          filing_num: [
+//            {required: true, message: '请填写备案号', trigger: 'blur'},
+//          ]
         }
       }
     },
