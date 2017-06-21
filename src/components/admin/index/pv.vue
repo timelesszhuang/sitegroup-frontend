@@ -103,5 +103,8 @@
     height: 400px;
     padding-bottom: 50px;
     padding-right: 10px;
+    display:flex;
+    flex: 1;
+
   }
 </style>

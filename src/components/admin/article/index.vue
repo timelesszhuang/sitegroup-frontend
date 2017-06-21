@@ -179,7 +179,7 @@
               return false
             }
           })
-        }else if(is_sync==20){
+        }else if(data.is_sync==20){
           this.$Modal.confirm({
             title: '确认启用',
             content: '您确定启用该活动?',

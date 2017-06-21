@@ -1,5 +1,5 @@
 <template>
-  <div class="echarts" style="display: flex;justify-content:center">
+  <div class="echarts">
     <sitetype ref="sitetype"></sitetype>
      <engine ref="engine"></engine>
     <pv ref="pv"></pv>
@@ -19,7 +19,10 @@
     },
   };
 </script>
-<style>
-
+<style scoped>
+.echarts{
+    display:flex;
+    flex: 1;
+}
 
 </style>

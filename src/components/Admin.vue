@@ -60,7 +60,7 @@
       <i-col span="4" class="layout-menu-left" style="min-width:170px">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')"style="width: 150px;height: 58px;margin: 0 auto;">
-            <img style="" src="../../src/assets/云创意logo.png" alt="">
+            <img style="" src="../../src/assets/logo.png" alt="">
           </div>
           <Submenu name="1">
             <template slot="title">
