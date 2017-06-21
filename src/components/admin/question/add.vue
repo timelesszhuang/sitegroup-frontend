@@ -12,11 +12,10 @@
               <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="articletype_id">
-              <Select v-model="form.type_id" style="text-align: left;width:200px;"
+              <Select   ref="select" :clearable="selects" v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
-
                 </Option>
               </Select>
             </Form-item>
@@ -56,6 +55,7 @@
           type_id:0,
           type_name:''
         },
+        selects:true,
         AddRule: {
           question: [
             {required: true, message: '请填写问题名', trigger: 'blur'},
@@ -85,6 +85,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.questionadd.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
