@@ -13,13 +13,13 @@
       <div>
         <Form ref="scatteredarticleadd" :model="form" :label-width="90" :rules="scatterrdArticlAddRule"
               class="scatteredarticle-add-form">
-          <Form-item label="段落" prop="detail">
-            <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
+          <Form-item label="段落" prop="content_paragraph">
+            <Input ref="input" :clearable="sel" v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
                    placeholder="请输入零散段落">
             </Input>
           </Form-item>
           <Form-item label="分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left"
+            <Select ref="select" :clearable="selects" v-model="form.articletype_id" style="text-align: left"
                     label-in-value filterable　clearable @on-change="changeArticleType">
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
@@ -45,11 +45,12 @@
           callback();
         }
       };
-
       return {
         modal: false,
         modal_loading: false,
         label_in_value: true,
+        selects:true,
+        sel:true,
         form: {
           content_paragraph: '',
           articletype_id: 0,
@@ -62,10 +63,11 @@
           articletype_id: [
             {required: true,validator: checkarticletype, trigger: 'blur'}
           ]
-
-
         }
       }
+    },
+    created() {
+
     },
     methods: {
       changeArticleType(value){
@@ -80,10 +82,11 @@
             let data = this.form;
             this.apiPost('scatteredArticle', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
-                this.$refs.scatteredarticleadd.resetFields();
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
+                this.$refs.scatteredarticleadd.resetFields();
+                this.$refs.select.clearSingleSelect()
                 this.modal_loading = false;
               }, (data, msg) => {
                 this.modal_loading = false;
@@ -94,8 +97,6 @@
               this.modal_loading = false;
               this.$Message.error('网络异常，请稍后重试。');
             })
-          } else {
-            return false;
           }
         })
       }

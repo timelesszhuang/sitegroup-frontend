@@ -106,6 +106,7 @@
             delete  data.update_time;
             this.editinfo = data
             this.modal = false;
+            this.$refs.save.clearTitleType
             this.$refs.save.modal = true
           }, (data, msg) => {
             this.$Message.error(msg);
