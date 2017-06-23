@@ -16,11 +16,11 @@
       <div>
         <Form ref="scatterrdarticlesave" :model="form"  :label-width="90" :rules="scatterrdArticlEditRule"
               class="scatteredarticle-edit-form">
-          <Form-item label="段落" prop="detail">
+          <Form-item label="段落" prop="content_paragraph">
             <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}" placeholder="请输入零散段落"></Input>
           </Form-item>
           <Form-item label="分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left"
+            <Select  ref="select" :clearable="selects"v-model="form.articletype_id" style="text-align: left"
                     label-in-value filterable clearable @on-change="changeArticleType">
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
@@ -48,6 +48,7 @@
       };
       return {
         modal: false,
+        selects:true,
         modal_loading: false,
         scatterrdArticlEditRule: {
           content_paragraph: [
@@ -64,6 +65,9 @@
         this.form.articletype_name = value.label;
         this.form.articletype_id = value.value;
       },
+      clearTitleType(){
+        this.$refs.select.clearSingleSelect()
+      },
       edit()
       {
         this.$refs.scatterrdarticlesave.validate((valid) => {
@@ -77,6 +81,7 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
+                this.$refs.select.clearSingleSelect()
                 this.modal_loading = false;
               }, (data, msg) => {
                 this.modal_loading = false;

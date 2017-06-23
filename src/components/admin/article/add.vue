@@ -66,7 +66,6 @@
           articletype_id: 0,
           articletype_name: '',
           content: '',
-
         },
         selects:true,
         AddRule: {

@@ -35,6 +35,7 @@ import Crawler from '../components/admin/crawler/crawler.vue'
 import Pv from '../components/admin/pv/pv.vue'
 import Other from '../components/admin/other/index.vue'
 import Show from '../components/admin/show/index.vue'
+import Staticconfig from '../components/admin/staticconfig/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -84,7 +85,8 @@ export default new Router({
         {path: 'crawler',component:Crawler,name: 'crawler'},
         {path: 'pv',component:Pv,name: 'pv'},
         {path: 'other',component:Other,name: 'other'},
-        {path: 'show',component:Show,name: 'show'}
+        {path: 'show',component:Show,name: 'show'},
+        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'}
       ]
     }
   ]
