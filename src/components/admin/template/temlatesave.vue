@@ -7,6 +7,20 @@
           <span>修改问答分类</span>
         </p>
         <div>
+          <Upload
+            type="drag"
+            with-credentials
+            name="file_name"
+            :format="['zip']"
+            :on-success="getResponse"
+            :on-error="getErrorInfo"
+            :on-format-error="formatError"
+            :action="action">
+            <div style="padding: 20px 0">
+              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+              <p>点击或将模板文件拖拽到这里上传</p>
+            </div>
+          </Upload>
           <Form ref="templatesave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="下载">
               <a v-bind:href="downloadPath" target="_blank">点击下载模板</a>
@@ -34,6 +48,7 @@
       return {
         modal: false,
         modal_loading: false,
+        action: HOST + 'template/uploadtemplate',
         AddRule: {
           name: [
             {required: true, message: '请填写问答分类', trigger: 'blur'},
@@ -47,6 +62,16 @@
       }
     },
     methods: {
+      getResponse(response, file, filelist){
+        this.form.path = response.data;
+        this.$Message.success(response.msg);
+      },
+      getErrorInfo(error, file, filelist){
+        this.$Message.error(error);
+      },
+      formatError(){
+        this.$Message.error('文件格式只支持 zip格式。');
+      },
       add() {
         this.$refs.templatesave.validate((valid) => {
           if (valid) {

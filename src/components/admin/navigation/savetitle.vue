@@ -19,7 +19,7 @@
           </Form-item>
           <Form-item label="文章分类" prop="type_id">
             <Select v-model="form.type_id" style="text-align: left;width:200px;"
-                    label-in-value filterable　@on-change="changeArticletype">
+                    label-in-value 　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
               </Option>

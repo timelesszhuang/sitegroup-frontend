@@ -68,7 +68,7 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('count/enginecount').then((data) => {
+        this.apiGet('count/en').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;

@@ -35,7 +35,7 @@
               </Radio-group>
             </Form-item>
             <Form-item label="手机网站" prop="m_site_id">
-              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
+              <Select  clearable v-model="form.m_site_id" style="text-align: left;width:200px;"
                       label-in-value filterable>
                 <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}

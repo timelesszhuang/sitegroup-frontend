@@ -53,7 +53,7 @@
         },
         series: [
           {
-            name:'邮件营销',
+            name:'',
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},
@@ -72,7 +72,7 @@
       },
       doRandom() {
         const that = this;
-        this.apiGet('count/pv').then((data) => {
+        this.apiGet('count/show').then((data) => {
           this.handelResponse(data, (data, msg) => {
             that.bar.legend.data = data.type;
             that.bar.xAxis.data = data.time;

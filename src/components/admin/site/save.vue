@@ -35,8 +35,8 @@
               </Radio-group>
             </Form-item>
             <Form-item label="手机网站" prop="m_site_id">
-              <Select v-model="form.m_site_id" style="text-align: left;width:200px;"
-                      label-in-value filterable>
+              <Select v-model="form.m_site_id"  clearable style="text-align: left;width:200px;"
+                      label-in-value >
                 <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -58,7 +58,7 @@
             </Form-item>
             <Form-item label="模板" prop="template_id">
               <Select v-model="form.template_id" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeTemptype">
+                      label-in-value 　@on-change="changeTemptype">
                 <Option v-for="item in temptype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -66,7 +66,7 @@
             </Form-item>
             <Form-item label="联系方式" prop="support_hotline">
               <Select v-model="form.support_hotline" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeHotline">
+                      label-in-value 　@on-change="changeHotline">
                 <Option v-for="item in hotline" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -74,7 +74,7 @@
             </Form-item>
             <Form-item label="网站分类" prop="site_type">
               <Select v-model="form.site_type" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeSitetype">
+                      label-in-value 　@on-change="changeSitetype">
                 <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -82,7 +82,7 @@
             </Form-item>
             <Form-item label="域名选择" prop="domain_id">
               <Select v-model="form.domain_id" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeDomainlist">
+                      label-in-value 　@on-change="changeDomainlist">
                 <Option v-for="item in domainlist" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -120,7 +120,7 @@
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
         </div>
-      </Modal> 
+      </Modal>
     </div>
   </div>
 
