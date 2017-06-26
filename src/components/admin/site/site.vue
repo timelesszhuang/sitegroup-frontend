@@ -145,15 +145,29 @@
         })
       },
       sendTemp(index) {
-        this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.$Message.success(msg);
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
+        let _this = this
+        this.$Modal.confirm({
+          title: '确认',
+          content: '您确定发送?',
+          okText: '确认',
+          cancelText: '取消',
+          onOk: () => {
+            _this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
+              _this.handelResponse(res, (data, msg) => {
+                _this.getData()
+                _this.$Message.success(msg);
+              }, (data, msg) => {
+                _this.modal_loading = false;
+                _this.$Message.error(msg, 5);
+              })
+            }, (res) => {
+              //处理错误信息
+              _this.$Message.error('网络异常，请稍后重试');
+            })
+          },
+          onCancel: () => {
+            return false
+          }
         })
       },
       removeCache(index){

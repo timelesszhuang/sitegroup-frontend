@@ -135,6 +135,11 @@
           key: 'referer',
           sortable: true
         });
+        columns.push({
+          title: '访问时间',
+          key: 'update_time',
+          sortable: true
+        });
         return columns;
       }
     },

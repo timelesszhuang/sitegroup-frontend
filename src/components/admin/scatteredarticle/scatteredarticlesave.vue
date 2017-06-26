@@ -21,7 +21,7 @@
           </Form-item>
           <Form-item label="分类" prop="articletype_id">
             <Select  ref="select" :clearable="selects"v-model="form.articletype_id" style="text-align: left"
-                    label-in-value filterable clearable @on-change="changeArticleType">
+                    label-in-value  clearable @on-change="changeArticleType">
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
               </Option>

@@ -206,6 +206,10 @@
           key: 'type_name'
         });
         columns.push({
+        title: '英文名',
+        key: 'generate_name'
+      });
+        columns.push({
           title: '创建时间',
           key: 'create_time'
         });
