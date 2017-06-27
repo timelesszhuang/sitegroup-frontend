@@ -32,11 +32,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import http from '../../../assets/js/http.js';
-  import common from '../../../assets/js/common.js';
-  import articleadd from './add.vue';
-  import articlesave from './save.vue';
-  import articleshow from './show.vue';
+  import http from '../../../assets/js/http.js'
+  import common from '../../../assets/js/common.js'
+  import articleadd from './add.vue'
+  import articlesave from './save.vue'
+  import articleshow from './show.vue'
 
   export default {
     data () {
@@ -97,7 +97,6 @@
       queryData(page){
         if (page != 1) {
           this.page = 1
-          this.current = 1
         }
         this.getData();
       },

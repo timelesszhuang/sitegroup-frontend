@@ -263,8 +263,8 @@
     },
     methods: {
       menuClick(e) {
-        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
-        console.log(e.srcElement.parentElement)
+//        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
+//        console.log(e.srcElement.parentElement)
       },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
