@@ -11,6 +11,7 @@
             type="drag"
             with-credentials
             name="file_name"
+            ref="upload"
             :format="['zip']"
             :on-success="getResponse"
             :on-error="getErrorInfo"
@@ -53,7 +54,7 @@
           name: "",
           detail: '',
           code_path: '',
-          directory_name:''
+          directory_name: ''
         },
         AddRule: {
           name: [
@@ -62,8 +63,8 @@
           detail: [
             {required: true, message: '请填写活动/创意说明', trigger: 'blur'},
           ],
-          directory_name:[
-            {required:true,message:'请填写活动文件夹名',trigger:'blur'}
+          directory_name: [
+            {required: true, message: '请填写活动文件夹名', trigger: 'blur'}
           ]
         }
       }
@@ -96,6 +97,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.activityadd.resetFields();
+                this.$refs.upload.clearFiles();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
