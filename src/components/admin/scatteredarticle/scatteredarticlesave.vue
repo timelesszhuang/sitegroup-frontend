@@ -20,7 +20,7 @@
             <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}" placeholder="请输入零散段落"></Input>
           </Form-item>
           <Form-item label="分类" prop="articletype_id">
-            <Select  ref="select" :clearable="selects"v-model="form.articletype_id" style="text-align: left"
+            <Select  ref="select" :clearable="selects" v-model="form.articletype_id" style="text-align: left"
                     label-in-value  clearable @on-change="changeArticleType">
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}

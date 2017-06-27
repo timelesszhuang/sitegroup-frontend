@@ -109,6 +109,7 @@
             this.editinfo = data
             this.modal = false;
             this.$refs.save.modal = true
+            this.$refs.save.clearTiTleType
           }, (data, msg) => {
             this.$Message.error(msg);
           })
