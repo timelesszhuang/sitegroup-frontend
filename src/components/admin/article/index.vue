@@ -94,7 +94,11 @@
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData(page){
+        if (page != 1) {
+          this.page = 1
+          this.current = 1
+        }
         this.getData();
       },
       add(){
