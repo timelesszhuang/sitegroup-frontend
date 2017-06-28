@@ -56,7 +56,7 @@
           if (valid) {
             this.apiPost('templateAdd/' + this.site_id + '/' + this.form.filename, {content: this.form.content}).then((res) => {
               this.handelResponse(res, (data, msg) => {
-                this.modal = false;
+                this.modal1 = false;
                 this.$Message.success(msg);
                 this.$refs.formInline.resetFields();
               }, (data, msg) => {

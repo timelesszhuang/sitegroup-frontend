@@ -1,6 +1,6 @@
 <template>
   <Modal v-model="modal1" title="修改模板" @on-ok="ok" style="width:400px;">
-    <Input v-model="content" type="textarea" :rows="7" ></Input>
+    <Input ref="con" v-model="editContent" type="textarea" :rows="7" ></Input>
   </Modal>
 
 </template>
@@ -13,11 +13,17 @@
               modal1:false,
           }
       },
+      computed: {
+          editContent() {
+            return this.content
+          }
+      },
       methods: {
         ok() {
-          this.apiPost('templateSave/'+this.site_id+'/'+this.filename,{content:this.content}).then((res) => {
+          this.apiPost('templateSave/'+this.site_id+'/'+this.filename,{content:this.$refs.con.$refs.textarea.value}).then((res) => {
             this.handelResponse(res, (data, msg) => {
               this.$Message.success(msg);
+              this.modal1=false
             }, (data, msg) => {
               this.$Message.error('没有获取到');
             })
@@ -47,7 +53,3 @@
     mixins: [http]
   }
 </script>
-<style>
-
-
-</style>
