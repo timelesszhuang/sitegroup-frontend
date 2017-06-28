@@ -169,6 +169,10 @@
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
+            <Menu-item name="手机模板管理">
+              <Icon type="social-android"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/mobiletemplate','手机模板管理')">手机模板管理</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="7">
             <template slot="title">

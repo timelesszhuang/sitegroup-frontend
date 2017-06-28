@@ -36,6 +36,7 @@ import Pv from '../components/admin/pv/pv.vue'
 import Other from '../components/admin/other/index.vue'
 import Show from '../components/admin/show/index.vue'
 import Staticconfig from '../components/admin/staticconfig/index.vue'
+import Mobile from '../components/admin/mobiletemplate/mobile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -86,7 +87,8 @@ export default new Router({
         {path: 'pv',component:Pv,name: 'pv'},
         {path: 'other',component:Other,name: 'other'},
         {path: 'show',component:Show,name: 'show'},
-        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'}
+        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'},
+        {path: 'mobiletemplate',component:Mobile,name: 'mobiletemplate'}
       ]
     }
   ]
