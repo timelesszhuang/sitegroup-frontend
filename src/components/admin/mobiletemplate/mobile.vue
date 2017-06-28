@@ -1,32 +1,93 @@
 <template>
 <div>
   站点选择:
-  <Select v-model="site_type_id" style="width:200px" label-in-value filterable clearable>
+  <Select v-model="site_type_id" style="width:200px" label-in-value filterable clearable >
     <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">{{ item.text }}</Option>
   </Select>
-</div>
-
+  <Button type="primary" @click="getInfo">查询</Button>
+  <Button type="info" @click="addTemplate">添加模板</Button>
+  <div class="content" style="margin-top:10px;">
+    <Table ref="table" :context="self" :border="border" :stripe="stripe" :show-header="showheader"
+          :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
+    </Table>
+  </div>
+  <!--<Save ref="save" :content="content" :filename="filename" :site_id="site_id"></Save>-->
+  <!--<Add ref="add" :site_id="site_id"></Add>-->
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import Save from './mobilesave.vue';
+  import Add from './mobileadd.vue'
     export default {
         data() {
             return {
-              siteType:[],
-              site_type_id:''
+              sitetype:[],
+              site_type_id:'',
+              self: this,
+              border: true,
+              stripe: true,
+              showheader: true,
+              size: 'small',
+              datas:[],
+              site_id:0,
+              content:'',
+              filename:''
             }
+        },
+        components:{
+          Save,Add
         },
         created() {
            this.getSiteType()
         },
         methods: {
+          addTemplate(){
+            if(this.site_id>0){
+              this.$refs.add.modal1=true
+            }else{
+              this.$Message.error('请先选择站点!!');
+            }
+          },
+          editTemplate(index){
+             let name=this.datas[index].name
+            if(this.site_id>0){
+              this.apiGet('/templateRead/'+this.site_id+"/"+name).then((res) => {
+                this.handelResponse(res, (data, msg) => {
+                  this.content=data.content
+                  this.filename=data.filename
+                  this.$refs.save.modal1=true
+                }, (data, msg) => {
+                  this.$Message.error('没有获取到');
+                })
+              }, (res) => {
+                //处理错误信息
+                this.$Message.error('网络异常，请稍后重试。');
+              });
+            }else{
+              this.$Message.error('请先选择站点!!');
+            }
+          },
+          getInfo() {
+            this.site_id=this.site_type_id
+            if(this.site_id>0){
+              this.apiGet('/mobileTemplate/'+this.site_id).then((res) => {
+                this.handelResponse(res, (data, msg) => {
+                  this.datas = data
+                }, (data, msg) => {
+                  this.$Message.error('没有获取到');
+                })
+              }, (res) => {
+                //处理错误信息
+                this.$Message.error('网络异常，请稍后重试。');
+              });
+            }
+          },
           getSiteType() {
-            this.apiGet('sitetype/getSiteType').then((res) => {
+            this.apiGet('Site/getSites').then((res) => {
               this.handelResponse(res, (data, msg) => {
-                this.siteType = data
-                console.log(this.siteType)
-
+                this.sitetype = data
               }, (data, msg) => {
                 this.$Message.error('没有获取到');
               })
@@ -36,11 +97,49 @@
             });
           }
         },
+      computed: {
+        tableColumns()
+        {
+          let columns = [];
+          if (this.showCheckbox) {
+            columns.push({
+              type: 'selection',
+              width: 60,
+              align: 'center'
+            })
+          }
+          columns.push({
+            title: '文件名称',
+            key: 'name',
+            sortable: true
+          });
+
+          columns.push({
+            title: '大小',
+            key: 'size',
+          });
+          columns.push({
+            title: '创建时间',
+            key: 'filemtime',
+            sortable: true
+          });
+          columns.push(
+            {
+              title: '操作',
+              key: 'action',
+              width: 580,
+              align: 'center',
+              fixed: 'right',
+              render (row, column, index) {
+                return `<i-button type="info" size="big" @click="editTemplate(${index})">修改</i-button>`;
+              }
+            }
+          );
+          return columns;
+        }
+      },
       mixins: [http]
     }
 
 </script>
-<style>
 
-
-</style>

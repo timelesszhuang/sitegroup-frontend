@@ -172,7 +172,7 @@
             </Menu-item>
             <Menu-item name="手机模板管理">
               <Icon type="social-android"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/mobiletemplate','手机模板管理')">手机模板管理</span>
+              <span class="layout-text" @click="routerChange('/admin/mobiletemplate','模板管理')">手机模板管理</span>
             </Menu-item>
           </Submenu>
           <Submenu name="7">
