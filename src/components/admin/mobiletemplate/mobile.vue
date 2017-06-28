@@ -11,8 +11,8 @@
           :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
     </Table>
   </div>
-  <!--<Save ref="save" :content="content" :filename="filename" :site_id="site_id"></Save>-->
-  <!--<Add ref="add" :site_id="site_id"></Add>-->
+  <Save ref="save" :content="content" :filename="filename" :site_id="site_id"></Save>
+  <Add ref="add" :site_id="site_id"></Add>
   </div>
 </template>
 
