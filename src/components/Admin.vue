@@ -54,13 +54,14 @@
   }
 
 </style>
+
 <template>
   <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col span="4" class="layout-menu-left" style="min-width:170px">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')"style="width: 150px;height: 58px;margin: 0 auto;">
-            <img style="" src="../../src/assets/logo.png" alt="">
+            <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -266,8 +267,8 @@
     },
     methods: {
       menuClick(e) {
-        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
-        console.log(e.srcElement.parentElement)
+//        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
+//        console.log(e.srcElement.parentElement)
       },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {

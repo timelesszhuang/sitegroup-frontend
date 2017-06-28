@@ -100,7 +100,6 @@
         this.$refs.add.modal = true
       },
       edit(index){
-
         let editid = this.datas[index].id
         this.apiGet('question/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
