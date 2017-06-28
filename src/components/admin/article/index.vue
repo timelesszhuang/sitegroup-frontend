@@ -18,7 +18,8 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+          <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
+                @on-page-size-change="changePageSize"
                 show-total
                 show-elevator show-sizer></Page>
         </div>
@@ -41,6 +42,7 @@
   export default {
     data () {
       return {
+        page_show: true,
         self: this,
         border: true,
         stripe: true,
@@ -51,6 +53,7 @@
         total: 0,
         page: 1,
         rows: 10,
+        pageSize: 10,
         title: '',
         article_type: 0,
         datas: [],
@@ -79,6 +82,7 @@
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
+            this.pageSize = 10
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -94,12 +98,11 @@
         this.rows = pagesize;
         this.getData();
       },
-      queryData(page){
-        if (page != 1) {
-          this.page = 1
-          this.current = 1
-        }
+      queryData(){
+        this.page = 1
+        this.page_show = false
         this.getData();
+        this.page_show = true
       },
       add(){
         this.$refs.add.modal = true

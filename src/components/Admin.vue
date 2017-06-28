@@ -54,7 +54,6 @@
   }
 
 </style>
-
 <template>
   <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
@@ -188,6 +187,10 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>
             </Menu-item>
+            <Menu-item name="甩单展示">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/rejection','甩单展示')">甩单展示</span>
+            </Menu-item>
             <Menu-item name="搜索引擎关键词统计">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">搜索关键词统计</span>
@@ -263,8 +266,7 @@
     },
     methods: {
       menuClick(e) {
-        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
-        console.log(e.srcElement.parentElement)
+
       },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
