@@ -1,21 +1,21 @@
 <template>
-  <Modal v-model="modal1" title="添加模板"  style="width:500px;">
+  <Modal v-model="modal1" title="添加模板"  width="700">
     <Form ref="formInline" :model="form" :rules="ruleInline">
       <Form-item prop="filename">
         <Row>
           <Col span="4">
-          *文件名:</Col>
+          文件名:</Col>
           <Col span="20">
-          <Input v-model="form.filename" placeholder="请输入..." style="width: 300px"></Input>
+            <Input v-model="form.filename" placeholder="请输入..." style="width: 300px"></Input>
           </Col>
         </Row>
       </Form-item>
       <Form-item prop="content">
         <Row>
           <Col span="4">
-          *内容:</Col>
+          内容:</Col>
           <Col span="20">
-          <Input v-model="form.content" type="textarea" :rows="7"></Input>
+            <Input v-model="form.content" type="textarea" :rows="7"></Input>
           </Col>
         </Row>
       </Form-item>

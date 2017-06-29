@@ -45,8 +45,8 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import Save from './mobilesave.vue';
-  import Add from './mobileadd.vue'
+  import Save from './templatesave.vue';
+  import Add from './templateadd.vue'
   export default {
     data() {
       return {
@@ -74,7 +74,7 @@
         if (this.site_id > 0) {
           this.$refs.add.modal1 = true
         } else {
-          this.$Message.error('请先选择站点!!');
+          this.$Message.error('请先选择站点->点击查询!');
         }
       },
       editTemplate(row){
@@ -93,7 +93,7 @@
             this.$Message.error('网络异常，请稍后重试。');
           });
         } else {
-          this.$Message.error('请先选择站点!!');
+          this.$Message.error('请先选择站点->点击查询!');
         }
       },
       getInfo() {

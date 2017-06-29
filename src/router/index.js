@@ -9,7 +9,6 @@ import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
 
 
-
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
@@ -37,7 +36,7 @@ import Other from '../components/admin/other/index.vue'
 import Show from '../components/admin/show/index.vue'
 import Staticconfig from '../components/admin/staticconfig/index.vue'
 import Rejection from '../components/admin/rejection/index.vue'
-import Mobile from '../components/admin/mobiletemplate/mobile.vue'
+import Templatemanage from '../components/admin/templatemanage/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -81,17 +80,17 @@ export default new Router({
         {path: 'sitetype', component: Sitetype, name: 'sitetype'},
         {path: 'site', component: Site, name: 'site'},
         {path: 'link', component: Link, name: 'link'},
-        {path: 'messageLog',component: MessageLog,name: 'messageLog'},
-        {path: 'flow',component:Flow,name: 'flow'},
-        {path: 'countkeyword',component:Countkeyword,name: 'countkeyword'},
-        {path: 'crawler',component:Crawler,name: 'crawler'},
-        {path: 'pv',component:Pv,name: 'pv'},
-        {path: 'other',component:Other,name: 'other'},
-        {path: 'show',component:Show,name: 'show'},
-        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'},
-        {path: 'mobiletemplate',component:Mobile,name: 'mobiletemplate'},
-        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'},
-        {path: 'rejection',component:Rejection,name: 'rejection'}
+        {path: 'messageLog', component: MessageLog, name: 'messageLog'},
+        {path: 'flow', component: Flow, name: 'flow'},
+        {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
+        {path: 'crawler', component: Crawler, name: 'crawler'},
+        {path: 'pv', component: Pv, name: 'pv'},
+        {path: 'other', component: Other, name: 'other'},
+        {path: 'show', component: Show, name: 'show'},
+        {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
+        {path: 'templatemanage', component: Templatemanage, name: 'templatemanage'},
+        {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
+        {path: 'rejection', component: Rejection, name: 'rejection'}
       ]
     }
   ]
