@@ -1,8 +1,7 @@
 <template>
-  <Modal v-model="modal1" title="修改模板" @on-ok="ok" style="width:400px;">
-    <Input ref="con" v-model="editContent" type="textarea" :rows="7" ></Input>
+  <Modal v-model="modal1" title="修改模板" @on-ok="ok" width="700">
+    <Input ref="con" v-model="editContent"  type="textarea" :rows="30" ></Input>
   </Modal>
-
 </template>
 
 <script type="text/ecmascript-6">
