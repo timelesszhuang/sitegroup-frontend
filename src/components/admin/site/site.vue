@@ -174,6 +174,8 @@
         let linkid = this.datas[index].id
         this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
+            this.getData()
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
