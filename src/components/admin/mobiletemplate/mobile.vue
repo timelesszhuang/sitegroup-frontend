@@ -99,7 +99,7 @@
       getInfo() {
         this.site_id = this.site_type_id
         if (this.site_id > 0) {
-          this.apiGet('/mobileTemplate/' + this.site_id).then((res) => {
+          this.apiGet('/templateList/' + this.site_id).then((res) => {
             this.handelResponse(res, (data, msg) => {
               this.datas = data
             }, (data, msg) => {
