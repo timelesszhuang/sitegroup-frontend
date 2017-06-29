@@ -2,7 +2,6 @@
 <style scoped>
   .layout {
     border: 1px solid #d7dde4;
-    background: #f5f7f9;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
@@ -43,7 +42,6 @@
   .layout-logo-left {
     width: 90%;
     height: 30px;
-    background: #5b6270;
     border-radius: 3px;
     margin: 15px auto;
   }
@@ -94,7 +92,9 @@
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
         <Menu active-name="activeName" :theme="theme" width="auto">
-          <div class="layout-logo-left"></div>
+          <div class="layout-logo-left" @click="routerChange('/sysadmin/')"style="width: 150px;height: 58px;margin: 10px auto;">
+            <img style="" src="../../src/assets/img/logo.png" alt="">
+          </div>
           <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
@@ -189,9 +189,9 @@
     //created 是函数
     created () {
       let rememberKey = Lockr.get('rememberKey')
-      let user_id = Lockr.get('user_id')
+//      let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');
-      if (!rememberKey || !user_id || type != 1) {
+      if (!rememberKey || type != 1) {
         //表示没有登陆
         setTimeout(() => {
           router.replace('/')

@@ -54,13 +54,14 @@
   }
 
 </style>
+
 <template>
   <div class="layout" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col span="4" class="layout-menu-left" style="min-width:170px">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')"style="width: 150px;height: 58px;margin: 0 auto;">
-            <img style="" src="../../src/assets/logo.png" alt="">
+            <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -169,6 +170,10 @@
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
             </Menu-item>
+            <Menu-item name="手机模板管理">
+              <Icon type="social-android"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/mobiletemplate','模板管理')">手机模板管理</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="7">
             <template slot="title">
@@ -186,6 +191,10 @@
             <Menu-item name="爬虫统计">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">爬虫统计</span>
+            </Menu-item>
+            <Menu-item name="甩单展示">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/rejection','甩单展示')">甩单展示</span>
             </Menu-item>
             <Menu-item name="搜索引擎关键词统计">
               <Icon type="android-cloud-circle"></Icon>
@@ -262,8 +271,7 @@
     },
     methods: {
       menuClick(e) {
-        console.log(this.$refs.menuClickEle.getElementsByClassName("ivu-menu-submenu"))
-        console.log(e.srcElement.parentElement)
+
       },
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {

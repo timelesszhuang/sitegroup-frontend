@@ -57,7 +57,7 @@
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},
-            data:[]
+            data:[0,0,0,0,0,0,0,0,0,0]
           },
         ]
       },

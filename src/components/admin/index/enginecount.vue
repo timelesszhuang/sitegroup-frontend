@@ -54,7 +54,13 @@
           type: 'value'
         },
         series: [
-
+          {
+            name:'',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[0,0,0,0,0,0,0,0,0,0]
+          },
         ]
       },
 

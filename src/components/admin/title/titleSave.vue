@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.title" placeholder="请填写文章标题"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="articletype_id">
-              <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
+              <Select ref="select"    :clearable="selects" v-model="form.articletype_id" style="text-align: left;width:200px;"
                       label-in-value 　@on-change="changeArticletype">
                 <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
@@ -45,6 +45,7 @@
       };
       return {
         modal: false,
+        selects:true,
         modal_loading: false,
         SaveRule: {
           title: [
@@ -60,6 +61,9 @@
       changeArticletype(type) {
         this.form.articletype_name = type.label;
       },
+      clearTiTleType(){
+          console.log(this.$refs.select.clearSingleSelect());
+      },
       save() {
         this.$refs.titlesave.validate((valid) => {
           if (valid) {
@@ -72,6 +76,7 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
+                this.$refs.select.clearSingleSelect();
                 this.$refs.titlesave.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
