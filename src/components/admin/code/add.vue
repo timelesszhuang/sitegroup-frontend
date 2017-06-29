@@ -76,6 +76,7 @@
                     this.modal_loading = false;
                     this.$refs.code.resetFields();
                   }, (data, msg) => {
+
                     this.modal_loading = false;
                     this.$Message.error(msg);
                   })

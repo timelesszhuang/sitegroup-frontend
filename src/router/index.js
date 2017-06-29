@@ -89,8 +89,7 @@ export default new Router({
         {path: 'other',component:Other,name: 'other'},
         {path: 'show',component:Show,name: 'show'},
         {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'},
-        {path: 'mobiletemplate',component:Mobile,name: 'mobiletemplate'}
-        {path: 'staticconfig',component:Staticconfig,name: 'staticconfig'},
+        {path: 'mobiletemplate',component:Mobile,name: 'mobiletemplate'},
         {path: 'rejection',component:Rejection,name: 'rejection'}
       ]
     }

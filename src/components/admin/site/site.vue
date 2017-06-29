@@ -476,8 +476,11 @@
         });
         columns.push({
           title: 'url',
-          key: 'url',
-          sortable: true
+          key:'url',
+          sortable: true,
+          render(row,index){
+              return '<a href="'+row.url+'" target="_blank">'+row.url+'</a>';
+          }
         });
           columns.push({
             title: '模板状态',
