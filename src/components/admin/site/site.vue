@@ -174,6 +174,8 @@
         let linkid = this.datas[index].id
         this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
+            this.getData()
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -476,8 +478,11 @@
         });
         columns.push({
           title: 'url',
-          key: 'url',
-          sortable: true
+          key:'url',
+          sortable: true,
+          render(row,index){
+              return '<a href="'+row.url+'" target="_blank">'+row.url+'</a>';
+          }
         });
           columns.push({
             title: '模板状态',

@@ -166,13 +166,13 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">站点静态化配置</span>
             </Menu-item>
+            <Menu-item name="模板管理">
+              <Icon type="map"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">站点模板管理</span>
+            </Menu-item>
             <Menu-item name="用户管理">
               <Icon type="person"></Icon>
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">用户管理</span>
-            </Menu-item>
-            <Menu-item name="模板管理">
-              <Icon type="social-android"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/mobiletemplate','模板管理')">模板管理</span>
             </Menu-item>
           </Submenu>
           <Submenu name="7">
@@ -216,7 +216,6 @@
                 <Icon type="ios-bell-outline" size="26"></Icon>
               </span>
             </Badge>
-
             </Col>
             <Col span="2" align="right" style="cursor: pointer">
             <Icon type="home" style="font-size: 15px" @click="routerChange('/admin/index')"></Icon>

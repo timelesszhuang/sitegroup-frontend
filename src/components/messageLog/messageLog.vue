@@ -57,7 +57,7 @@
       changeStatus(id){
         this.apiPost('article/changeErrorStatus/'+id).then((data) => {
           this.handelResponse(data, (data, msg) => {
-            console.log(data)
+            this.getData();
           }, (data, msg) => {
             this.$Message.error(msg);
           })
