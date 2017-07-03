@@ -89,7 +89,7 @@
       activitysave() {
         this.$refs.save.validate((valid) => {
           if (valid) {
-            this.modal_loading = true;
+            this.modal_loading = true; 
             let data = this.form;
             let id = data.id;
             this.apiPut('activity/' + id, data).then((res) => {
