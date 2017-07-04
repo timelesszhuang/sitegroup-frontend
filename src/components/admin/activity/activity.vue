@@ -197,7 +197,7 @@
               var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">禁用</i-button>`;
               if (row.status == '20') {
                 //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="error" size="small" @click="changeStatus(${index},'10')">启用</i-button>`;
+                btn = `<i-button type="success" size="small" @click="changeStatus(${index},'10')">启用</i-button>`;
               }
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button> ` + btn;
             }
