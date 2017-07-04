@@ -183,7 +183,6 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
-
       },
       getMobileSite() {
         this.apiGet('Site/mobileSite').then((res) => {

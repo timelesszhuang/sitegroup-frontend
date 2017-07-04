@@ -27,6 +27,7 @@
     props: {},
     data: () => ({
       site: [],
+      time:[],
       site_id: "",
       loading: false,
       data: [],

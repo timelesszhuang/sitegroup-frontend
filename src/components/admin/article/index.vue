@@ -256,10 +256,10 @@
             render (row, column, index) {
               var btn = '';
               if (row.site_id != '0') {
-                var btn = `<i-button type="primary" size="small" title="同步文章到主站点" @click="changeSync(${index},'10')">文章同步主站</i-button>`;
+                var btn = `<i-button type="primary" size="small" title="取消文章同步到其他站点" @click="changeSync(${index},'10')">取消同步文章</i-button>`;
                 if (row.is_sync == '10') {
                   //20 表示禁用 按钮应该为启用
-                  btn = `<i-button type="error" size="small" title="取消同步到主站" @click="changeSync(${index},'20')">取消同步文章</i-button>`;
+                  btn = `<i-button type="error" size="small" title="同步文章到其他站点" @click="changeSync(${index},'20')">文章同步主站</i-button>`;
                 }
               }
               return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
