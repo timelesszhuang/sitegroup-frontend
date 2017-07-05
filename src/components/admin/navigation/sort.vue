@@ -26,9 +26,7 @@
       const checksort= (rule, value, callback) => {
         if(!/^-?[1-9]\d*$/.test(value)){
           callback(new Error('请输入数字'));
-        }
-
-        else {
+        } else {
           callback();
         }
       };
@@ -37,9 +35,8 @@
         modal_loading: false,
         AddRule: {
           sort: [
-            {equired: true,validator: checksort, trigger: 'blur'}
+            {required: true,validator: checksort, trigger: 'blur'}
           ],
-
         }
       }
     },
