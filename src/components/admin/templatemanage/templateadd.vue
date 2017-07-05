@@ -60,7 +60,7 @@
                 this.$Message.success(msg);
                 this.$refs.formInline.resetFields();
               }, (data, msg) => {
-                this.$Message.error('没有获取到');
+                this.$Message.error(msg);
               })
             }, (res) => {
               //处理错误信息
