@@ -86,7 +86,7 @@
               this.filename = data.filename
               this.$refs.save.modal1 = true
             }, (data, msg) => {
-              this.$Message.error('没有获取到');
+              this.$Message.error(msg);
             })
           }, (res) => {
             //处理错误信息
@@ -103,7 +103,7 @@
             this.handelResponse(res, (data, msg) => {
               this.datas = data
             }, (data, msg) => {
-              this.$Message.error('没有获取到');
+              this.$Message.error(msg);
             })
           }, (res) => {
             //处理错误信息
@@ -116,7 +116,7 @@
           this.handelResponse(res, (data, msg) => {
             this.sitetype = data
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
