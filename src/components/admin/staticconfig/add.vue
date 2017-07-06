@@ -20,9 +20,9 @@
                 placeholder="起始时间"
                 v-model="form.starttime"
                 :picker-options="{
-                  start: '09:00',
+                  start: '08:00',
                   step: '00:30',
-                  end: '10:30'
+                  end: '23:00'
                   }">
               </el-time-select>
               <el-time-select
@@ -31,7 +31,7 @@
                 :picker-options="{
                   start: '08:30',
                   step: '00:30',
-                  end: '19:30',
+                  end: '23:30',
                   minTime: form.starttime
                 }">
               </el-time-select>
