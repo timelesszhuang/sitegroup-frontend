@@ -1,5 +1,5 @@
 <template>
-  <div class="echarts"style="overflow: auto;height: 450px;width: auto">
+  <div class="echarts"style="overflow: scroll;height:480px;width: auto">
     <Row>
       <keyword ref="keyword"></keyword>
       <articletype ref="articletype"></articletype>

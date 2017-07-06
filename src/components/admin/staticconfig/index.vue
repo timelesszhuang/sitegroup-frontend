@@ -48,6 +48,7 @@
         datas: [],
         editinfo: {},
         site: [],
+        site_id:''
       }
     },
     components: {staticconfigadd, staticconfigsave},
@@ -171,15 +172,16 @@
           sortable: true
         });
         columns.push({
-          title: '静态化生成时间',
-          key: 'starttime',
+          title: '类型',
+          key: 'type_name',
           sortable: true
         });
         columns.push({
-          title: '静态化结束时间',
-          key: 'stoptime',
+          title: '静态化时间',
+          key: 'time',
           sortable: true
         });
+
         columns.push(
           {
             title: '操作',

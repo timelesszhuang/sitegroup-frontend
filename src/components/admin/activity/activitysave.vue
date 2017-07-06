@@ -6,6 +6,21 @@
         <span>修改模板</span>
       </p>
       <div>
+        <Upload
+          type="drag"
+          with-credentials
+          name="file_name"
+          ref="upload"
+          :format="['zip']"
+          :on-success="getResponse"
+          :on-error="getErrorInfo"
+          :on-format-error="formatError"
+          :action="action">
+          <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+            <p>重新上传文件</p>
+          </div>
+        </Upload>
         <Form ref="save" :model="form" :label-width="90" :rules="SaveRule" class="node-add-form">
           <Form-item label="下载">
             <a v-bind:href="downloadPath" target="_blank">点击下载模板</a>
@@ -38,6 +53,7 @@
       return {
         modal: false,
         modal_loading: false,
+        action: HOST + 'activity/uploadActivity',
         SaveRule: {
           name: [
             {required: true, message: '请填写活动/创意名', trigger: 'blur'},
@@ -60,10 +76,20 @@
       }
     },
     methods: {
+      getResponse(response, file, filelist){
+        this.form.code_path = response.data.code_path;
+        this.$Message.success(response.msg);
+      },
+      getErrorInfo(error, file, filelist){
+        this.$Message.error(error);
+      },
+      formatError(){
+        this.$Message.error('文件格式只支持 zip格式。');
+      },
       activitysave() {
         this.$refs.save.validate((valid) => {
           if (valid) {
-            this.modal_loading = true;
+            this.modal_loading = true; 
             let data = this.form;
             let id = data.id;
             this.apiPut('activity/' + id, data).then((res) => {

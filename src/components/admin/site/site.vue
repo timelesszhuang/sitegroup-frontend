@@ -174,6 +174,8 @@
         let linkid = this.datas[index].id
         this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
+            this.getData()
+            this.$Message.success(msg);
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -181,7 +183,6 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
-
       },
       getMobileSite() {
         this.apiGet('Site/mobileSite').then((res) => {
@@ -221,7 +222,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -234,7 +235,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -246,7 +247,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -258,7 +259,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -271,7 +272,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -284,7 +285,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -296,7 +297,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -308,7 +309,7 @@
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -476,8 +477,11 @@
         });
         columns.push({
           title: 'url',
-          key: 'url',
-          sortable: true
+          key:'url',
+          sortable: true,
+          render(row,index){
+              return '<a href="'+row.url+'" target="_blank">'+row.url+'</a>';
+          }
         });
           columns.push({
             title: '模板状态',

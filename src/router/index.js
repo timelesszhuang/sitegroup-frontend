@@ -9,6 +9,7 @@ import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
 
 
+
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'

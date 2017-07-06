@@ -40,8 +40,10 @@
               <Input v-model="form.staticcount" placeholder="请输入数量"></Input>
             </Form-item>
             <Form-item label="生成类型" prop="type">
-              <Select v-model="form.type" style="text-align: left;width:200px;">
-                <Option v-for="item in type" :value="item.value" :key="item">{{ item.label }}</Option>
+              <Select v-model="form.type" style="text-align: left;width:200px;" @on-change="changeStat" label-in-value filterable clearable>
+                <Option v-for="item in type" :value="item.value" :label="item.label":key="item">
+                  {{ item.label }}
+                </Option>
               </Select>
             </Form-item>
           </Form>
@@ -69,6 +71,8 @@
           staticcount:"",
           site_id:'',
           site_name:'',
+          type:'',
+          type_name:''
         },
         type: [
           {
@@ -93,6 +97,10 @@
       changeSite(value){
         this.form.site_name = value.label
         this.form.site_id = value.value
+      },
+      changeStat(value){
+        this.form.type_name = value.label
+        this.form.type = value.value
       },
       add() {
         this.$refs.staticconfig.validate((valid) => {
