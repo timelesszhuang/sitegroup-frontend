@@ -20,11 +20,13 @@
         </div>
       </div>
     </div>
+    <info ref="info" :data_company="data_company" :data_name="data_name" :data_phone="data_phone" :data_email="data_email" ></info>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import info from './info.vue';
   export default {
     data () {
       return {
@@ -42,9 +44,15 @@
         datas: [],
         site: [],
         site_id: "",
+        data_company:'',
+        data_name:'',
+        data_phone:0,
+        data_email:''
       }
     },
-    components: {},
+    components: {
+      info
+    },
     created () {
       this.getData();
       this.getSite((data) => {
@@ -101,6 +109,13 @@
       queryData(){
         this.getData();
       },
+      showCheck(index) {
+        this.data_company=this.datas[index].company;
+        this.data_name=this.datas[index].name
+        this.data_phone=parseInt(this.datas[index].phone)
+        this.data_email=this.datas[index].email
+        this.$refs.info.modal=true;
+      }
     },
     computed: {
       tableColumns()
@@ -145,7 +160,17 @@
           key: 'create_time',
           sortable: true
         });
-
+        columns.push(
+          {
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            fixed: 'right',
+            render (row, column, index) {
+              return `<i-button type="primary" size="small" @click="showCheck(${index})">查看</i-button>`;
+            }
+          }
+        );
         return columns;
       }
     },
