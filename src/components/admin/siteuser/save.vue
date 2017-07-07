@@ -14,6 +14,9 @@
             <Form-item label="账号" prop="account">
               <Input type="text" v-model="form.account" placeholder="请输入昵称"></Input>
             </Form-item>
+            <Form-item label="邮箱" prop="email">
+              <Input type="text" v-model="form.email" placeholder="请输入邮箱"></Input>
+            </Form-item>
             <Form-item label="密码" prop="pwd">
               <Input type="text" v-model="form.pwd" placeholder="请输入密码"></Input>
             </Form-item>
@@ -42,8 +45,8 @@
           account: [
             {required: true, message: '请输入昵称', trigger: 'blur'},
           ],
-          pwd: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
+          email:[
+            {required:true,message:'请输入邮箱',trigger:'blur'}
           ]
 
         }
