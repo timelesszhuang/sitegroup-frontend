@@ -52,7 +52,7 @@
 //            console.log(data)
             this.userlist = data;
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
@@ -64,7 +64,7 @@
           this.handelResponse(res, (data, msg) => {
             this.companylist = data;
           }, (data, msg) => {
-            this.$Message.error('没有获取到');
+            this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息

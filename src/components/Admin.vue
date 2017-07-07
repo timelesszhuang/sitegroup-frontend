@@ -162,13 +162,13 @@
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">站点管理</span>
             </Menu-item>
-            <Menu-item name="站点静态化配置">
-              <Icon type="android-cloud-circle"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">站点静态化配置</span>
-            </Menu-item>
             <Menu-item name="模板管理">
               <Icon type="map"></Icon>
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">站点模板管理</span>
+            </Menu-item>
+            <Menu-item name="站点静态化配置">
+              <Icon type="android-cloud-circle"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">站点静态化配置</span>
             </Menu-item>
             <Menu-item name="用户管理">
               <Icon type="person"></Icon>
