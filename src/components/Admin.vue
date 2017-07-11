@@ -166,6 +166,12 @@
               <Icon type="map"></Icon>
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">站点模板管理</span>
             </Menu-item>
+
+            <Menu-item name="SEO属性">
+              <Icon type="map"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">SEO属性</span>
+            </Menu-item>
+
             <Menu-item name="站点静态化配置">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">站点静态化配置</span>

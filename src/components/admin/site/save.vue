@@ -16,7 +16,7 @@
             </Form-item>
             <Form-item label="用户选择" prop="user_id">
               <Select v-model="form.user_id" style="text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeUser">
+                      label-in-value 　@on-change="changeUser">
                 <Option v-for="item in userlist" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>

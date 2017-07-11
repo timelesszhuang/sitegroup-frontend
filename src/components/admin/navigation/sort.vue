@@ -41,8 +41,7 @@
       }
     },
     methods: {
-
-      savetitle() {
+        savetitle() {
         this.$refs.title.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
