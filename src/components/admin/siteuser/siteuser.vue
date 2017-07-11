@@ -181,7 +181,10 @@
           key: 'name',
           sortable: true
         });
-
+        columns.push({
+          title: '邮箱',
+          key: 'email',
+        });
         columns.push(
         {
           title: '状态',

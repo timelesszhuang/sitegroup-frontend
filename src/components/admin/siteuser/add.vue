@@ -14,8 +14,14 @@
             <Form-item label="账号" prop="account">
               <Input type="text" v-model="form.account" placeholder="请输入昵称"></Input>
             </Form-item>
+            <Form-item label="邮箱" prop="email">
+              <Input type="text" v-model="form.email" placeholder="请输入邮箱"></Input>
+            </Form-item>
             <Form-item label="密码" prop="pwd">
-              <Input type="text" v-model="form.pwd" placeholder="请输入密码"></Input>
+              <Input type="password" v-model="form.pwd" placeholder="请输入密码"></Input>
+            </Form-item>
+            <Form-item label="确认密码" prop="confirmPwd">
+              <Input type="password" v-model="form.confirmPwd" placeholder="请输入确认密码"></Input>
             </Form-item>
           </Form>
         </div>
@@ -39,7 +45,9 @@
         form: {
           name: "",
           account:"",
-          pwd: ""
+          pwd: "",
+          email:'',
+          confirmPwd:''
         },
         AddRule: {
           name: [
@@ -50,8 +58,13 @@
           ],
           pwd: [
             {required: true, message: '请输入密码', trigger: 'blur'},
+          ],
+          email: [
+            {required:true,message:'请输入邮箱',trigger:'blur'}
+          ],
+          confirmPwd: [
+            {required:true,message:'请输入确认密码',trigger:'blur'}
           ]
-
         }
       }
     },
@@ -64,6 +77,10 @@
         add() {
           this.$refs.siteuser.validate((valid) => {
               if(valid){
+                if(this.form.pwd !== this.form.confirmPwd){
+                  this.$Message.error('两次输入的密码不同');
+                  return
+                }
                 this.modal_loading = true;
                 let data = this.form;
                 this.apiPost('siteuser', data).then((res) => {
