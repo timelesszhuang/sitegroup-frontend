@@ -58,7 +58,7 @@
             name: this.name
           }
         }
-        this.apiGet('scrapy/getKeyword', data).then((data) => {
+        this.apiGet('sys/getKeyword', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -98,6 +98,118 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
+      scrapyStatus(index, scrapystatus){
+        //需要删除确认
+        let id = this.datas[index].id
+        let _this = this
+        let data = {
+          'scrapystatus': scrapystatus,
+          id: id
+        }
+        if (data.scrapystatus == 20) {
+          this.$Modal.confirm({
+            title: '停止爬取',
+            content: '您确定停止爬取?',
+            okText: '停止爬取',
+            cancelText: '取消',
+            onOk: (index) => {
+              _this.apiGet('sys/stopScrapy/'+id, data).then((res) => {
+                _this.handelResponse(res, (data, msg) => {
+                  _this.getData();
+                  _this.$Message.success(msg);
+                }, (data, msg) => {
+                  _this.$Message.error(msg);
+                })
+              }, (res) => {
+                //处理错误信息
+                _this.$Message.error('网络异常，请稍后重试。');
+              })
+            },
+            onCancel: () => {
+              return false
+            }
+          })
+        } else if (data.scrapystatus == 10) {
+          this.$Modal.confirm({
+            title: '确认爬取',
+            content: '您确定正常爬取?',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: (index) => {
+              _this.apiGet('sys/startScrapy/'+id, data).then((res) => {
+                _this.handelResponse(res, (data, msg) => {
+                  _this.getData();
+                  _this.$Message.success(msg);
+                }, (data, msg) => {
+                  _this.$Message.error(msg);
+                })
+              }, (res) => {
+                //处理错误信息
+                _this.$Message.error('网络异常，请稍后重试。');
+              })
+            },
+            onCancel: () => {
+              return false
+            }
+          })
+        }
+      },
+      changeStatus(index, status){
+        //需要删除确认
+        let id = this.datas[index].id
+        let _this = this
+        let data = {
+          'status': status,
+          id: id
+        }
+        if (data.status == 20) {
+          this.$Modal.confirm({
+            title: '取消审核权限',
+            content: '您确定取消?',
+            okText: '确定',
+            cancelText: '取消',
+            onOk: (index) => {
+              _this.apiGet('sys/stopStatus/'+id, data).then((res) => {
+                _this.handelResponse(res, (data, msg) => {
+                  _this.getData();
+                  _this.$Message.success(msg);
+                }, (data, msg) => {
+                  _this.$Message.error(msg);
+                })
+              }, (res) => {
+                //处理错误信息
+                _this.$Message.error('网络异常，请稍后重试。');
+              })
+            },
+            onCancel: () => {
+              return false
+            }
+          })
+        } else if (data.status == 10) {
+          this.$Modal.confirm({
+            title: '确认通过审核',
+            content: '您确定通过审核?',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: (index) => {
+              _this.apiGet('sys/startStatus/'+id, data).then((res) => {
+                _this.handelResponse(res, (data, msg) => {
+                  _this.getData();
+                  _this.$Message.success(msg);
+                }, (data, msg) => {
+                  _this.$Message.error(msg);
+                })
+              }, (res) => {
+                //处理错误信息
+                _this.$Message.error('网络异常，请稍后重试。');
+              })
+            },
+            onCancel: () => {
+              return false
+            }
+          })
+        }
+      },
     },
     computed: {
       tableColumns()
@@ -122,16 +234,54 @@
           key: 'name',
           sortable: true
         });
+        columns.push({
+          title: '审核状态',
+          align: 'center',
+          render(row,index){
+            if(row.status==10){
+              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
+              return type;
+            }else{
+              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
+              return type;
+            }
+
+          },
+          sortable: true
+        });
+        columns.push({
+          title: '爬取状态',
+          align: 'center',
+          render(row,index){
+            if(row.scrapystatus==10){
+              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
+              return type;
+            }else{
+              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
+              return type;
+            }
+
+          },
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 150,
+//            width: 150,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-         `;
+              var btn1 = `<i-button type="error" size="small" @click="scrapyStatus(${index},'20')">停止爬取</i-button>`;
+                var btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">通过审核</i-button>`;
+              if (row.status == '10') {
+                //20 表示禁用 按钮应该为启用
+                btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">取消权限</i-button>`;
+              }
+              if(row.scrapystatus=='20'){
+                btn1 = `<i-button type="error" size="small" @click="scrapyStatus(${index},'10')">正常爬取</i-button>`;
+              }
+              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp; &nbsp;` + btn+'&nbsp;&nbsp;'+btn1;
             }
           }
         );

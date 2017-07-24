@@ -8,6 +8,7 @@ import User from '../components/sysadmin/user/user.vue'
 import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
 import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
+import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
 
 
 
@@ -59,7 +60,8 @@ export default new Router({
         {path: 'company', component: Company, name: 'company'},
         {path: 'node', component: Node, name: 'node'},
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
-        {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'},
+        {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
+        {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
       ]
     },
     {

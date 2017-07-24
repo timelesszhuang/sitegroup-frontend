@@ -95,6 +95,14 @@
           <div class="layout-logo-left" @click="routerChange('/sysadmin/')"style="width: 150px;height: 58px;margin: 10px auto;">
             <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
+          <Menu-item name="微信企业号关键词">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
+          </Menu-item>
+          <Menu-item name="微信企业号文章">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
+          </Menu-item>
           <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
