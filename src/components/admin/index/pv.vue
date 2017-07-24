@@ -53,7 +53,7 @@
         },
         series: [
           {
-            name:'',
+            name: '浏览量',
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},

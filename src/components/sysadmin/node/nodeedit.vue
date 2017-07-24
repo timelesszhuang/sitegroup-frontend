@@ -21,7 +21,7 @@
           </Form-item>
           <Form-item label="公司" prop="com_id">
             <Select v-model="form.com_id" style="text-align: left"
-                    label-in-value filterable　@on-change="changeCompany">
+                    label-in-value 　@on-change="changeCompany">
               <Option v-for="item in company" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
               </Option>
