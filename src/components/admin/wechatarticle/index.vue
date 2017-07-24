@@ -3,9 +3,13 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-
+      文章分类:
+      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -20,9 +24,7 @@
         </div>
       </div>
     </div>
-    <!--<articleadd ref="add" :articletype="articletypelist"></articleadd>-->
-    <!--<articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>-->
-    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
+    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
   </div>
 
 </template>
@@ -30,10 +32,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-//  import articleadd from './add.vue'
-//  import articlesave from './save.vue'
-//  import articleshow from './show.vue'
-
+  import wechatarticlesave from './save.vue'
   export default {
     data () {
       return {
@@ -51,16 +50,21 @@
         pageSize: 10,
         title: '',
         article_type: 0,
+        keyword_type:0,
         datas: [],
         editinfo: {},
-        articletypelist: []
+        articletypelist: [],
+        keywordtype:[]
       }
     },
-    components: {},
+    components: {wechatarticlesave},
     created () {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
+      });
+      this.getKeyword((data) => {
+        this.keywordtype = data
       });
     },
     methods: {
@@ -70,10 +74,10 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            article_type: this.article_type
+            keyword_id: this.keyword_type
           }
         }
-        this.apiGet('article', data).then((data) => {
+        this.apiGet('wechat/article', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -99,9 +103,6 @@
         this.getData();
         this.page_show = true
       },
-      add(){
-        this.$refs.add.modal = true
-      },
       edit(index){
         this.getArticle(index);
         this.$refs.save.modal = true
@@ -110,11 +111,24 @@
         this.getArticle(index);
         this.$refs.show.modal = true
       },
+      getKeyword(func) {
+        this.apiGet('scrapy/getlist').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
       getArticle(index){
         let editid = this.datas[index].id
-        this.apiGet('article/' + editid).then((res) => {
+        this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+//            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -133,7 +147,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('article/', id).then((res) => {
+            _this.apiPost('sys/deleteWecatArticle/'+id, ).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -149,64 +163,6 @@
             return false
           }
         })
-      },
-      changeSync(index, is_sync){
-        //需要删除确认
-        let id = this.datas[index].id
-        let _this = this
-        let data = {
-          'is_sync': is_sync,
-          id: id
-        }
-        if (data.is_sync == 10) {
-          this.$Modal.confirm({
-            title: '确认同步',
-            content: '您确定同步该活动?',
-            okText: '确定',
-            cancelText: '取消',
-            onOk: (index) => {
-              _this.apiPost('article/sync', data).then((res) => {
-                _this.handelResponse(res, (data, msg) => {
-                  _this.getData();
-                  _this.$Message.success(msg);
-                }, (data, msg) => {
-                  _this.$Message.error(msg);
-                })
-              }, (res) => {
-                //处理错误信息
-                _this.$Message.error('网络异常，请稍后重试。');
-              })
-            },
-            onCancel: () => {
-              return false
-            }
-          })
-        } else if (data.is_sync == 20) {
-          this.$Modal.confirm({
-            title: '确认取消同步',
-            content: '您确定取消该活动?',
-            okText: '确定',
-            cancelText: '取消',
-            onOk: (index) => {
-              _this.apiPost('article/sync', data).then((res) => {
-                _this.handelResponse(res, (data, msg) => {
-                  _this.getData();
-                  _this.$Message.success(msg);
-                }, (data, msg) => {
-                  _this.$Message.error(msg);
-                })
-              }, (res) => {
-                //处理错误信息
-                _this.$Message.error('网络异常，请稍后重试。');
-              })
-            },
-            onCancel: () => {
-              return false
-            }
-          })
-        }
-
-
       },
     },
     computed: {
@@ -233,13 +189,24 @@
           sortable: true
         });
         columns.push({
-          title: '分类名称',
-          key: 'articletype_name',
+          title: '关键词',
+          key: 'keyword',
           sortable: true
         });
         columns.push({
-          title: '作者',
-          key: 'auther',
+          title: '简介',
+          width:'300px',
+          key: 'summary',
+          sortable: true
+        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
+        columns.push({
+          title: '添加时间',
+          key: 'scrapytime',
           sortable: true
         });
         columns.push(
@@ -249,8 +216,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="info" size="small" @click="show(${index})">预览</i-button>
+              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>
                       <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;`;
             }
           }

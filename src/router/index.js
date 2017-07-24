@@ -42,6 +42,7 @@ import Rejection from '../components/admin/rejection/index.vue'
 import Templatemanage from '../components/admin/templatemanage/index.vue'
 import Seo from '../components/admin/tdk/index.vue'
 import Wechatkeyword from '../components/admin/wechatkeyword/index.vue'
+import Wechatarticle from '../components/admin/wechatarticle/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -99,7 +100,8 @@ export default new Router({
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'rejection', component: Rejection, name: 'rejection'},
         {path: 'seo', component: Seo, name: 'seo'},
-        {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'}
+        {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'},
+        {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'}
       ]
     }
   ]

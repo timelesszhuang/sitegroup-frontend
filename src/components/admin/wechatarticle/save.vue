@@ -3,15 +3,17 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
+
         <span>修改文章</span>
       </p>
       <div>
+
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <Form-item label="链接">
+            <a v-bind:href="url" target="_blank">链接</a>
+          </Form-item>
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
-          </Form-item>
-          <Form-item label="来源" prop="come_from">
-            <Input type="text" v-model="form.come_from" placeholder="请输入来源" style="width: 200px;"></Input>
           </Form-item>
           <Form-item label="作者" prop="title">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
@@ -43,13 +45,6 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
-      const checkarticletype = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请选择文章分类'));
-        } else {
-          callback();
-        }
-      };
       return {
         editorOption: {},
         modal: false,
@@ -58,23 +53,21 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-          come_from: [
-            {required: true, message: '请填写文章来源', trigger: 'blur'},
-          ],
-          auther: [
-            {required: true, message: '请填写文章作者', trigger: 'blur'},
-          ],
-          articletype_id: [
-            {validator: checkarticletype, trigger: 'blur'}
-          ]
         }
+      }
+    },
+    computed: {
+      url: function () {
+        return  this.form.url;
       }
     },
     methods: {
       computed: {
         editor() {
           return this.$refs.myTextEditoredit.quillEditor
-        }
+        },
+
+
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -84,9 +77,18 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            let data = this.form;
-            let id = data.id;
-            this.apiPut('article/' + id, data).then((res) => {
+            let data = {
+               articletype_id:this.form.articletype_id,
+              articletype_name:this.form.articletype_name,
+              auther:this.form.auther,
+              summary:this.form.summary,
+              title:this.form.title,
+              content:this.form.content,
+              come_from:this.form.source,
+              posttime:this.form.scrapytime
+            }
+//            let data = this.form;
+            this.apiPost('wechat/addArticle', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();
@@ -117,7 +119,7 @@
           auther: '',
           articletype_id: 0,
           articletype_name: '',
-          content: ''
+          content: '',
         }
       }
     }

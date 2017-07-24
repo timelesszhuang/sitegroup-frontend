@@ -82,6 +82,10 @@
               <Icon type="key"></Icon>
               <span class="layout-text" @click="routerChange('/admin/wechatkeyword','关键词管理')">关键词管理</span>
             </Menu-item>
+            <Menu-item name="微信企业号文章">
+              <Icon type="key"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/wechatarticle','微信企业号文章')">微信企业号文章</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="2">
             <template slot="title">
