@@ -254,10 +254,8 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return
-              `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="error" size="small" @click="modify(${index})">排序</i-button>
-`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
+                <i-button type="error" size="small" @click="modify(${index})">排序</i-button>`;
             }
           }
         );

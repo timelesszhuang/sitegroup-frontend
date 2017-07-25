@@ -9,6 +9,8 @@ import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
 import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
 import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
+import Newsarticle from '../components/sysadmin/163article/index.vue'
+import Qqarticle from '../components/sysadmin/qqarticle/index.vue'
 
 
 
@@ -43,6 +45,8 @@ import Templatemanage from '../components/admin/templatemanage/index.vue'
 import Seo from '../components/admin/tdk/index.vue'
 import Wechatkeyword from '../components/admin/wechatkeyword/index.vue'
 import Wechatarticle from '../components/admin/wechatarticle/index.vue'
+import Wangyiarticle from '../components/admin/163article/index.vue'
+import Tengxunarticle from '../components/admin/qqarticle/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +67,8 @@ export default new Router({
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
+        {path: 'newsarticle', component: Newsarticle, name: 'newsarticle'},
+        {path: 'qqarticle', component: Qqarticle, name: 'qqarticle'},
       ]
     },
     {
@@ -101,7 +107,9 @@ export default new Router({
         {path: 'rejection', component: Rejection, name: 'rejection'},
         {path: 'seo', component: Seo, name: 'seo'},
         {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'},
-        {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'}
+        {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'},
+        {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
+        {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'}
       ]
     }
   ]
