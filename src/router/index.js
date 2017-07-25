@@ -7,6 +7,8 @@ import Changepwd from '../components/Account/Changepwd.vue'
 import User from '../components/sysadmin/user/user.vue'
 import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
+import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
+import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
 
 
 
@@ -38,6 +40,9 @@ import Show from '../components/admin/show/index.vue'
 import Staticconfig from '../components/admin/staticconfig/index.vue'
 import Rejection from '../components/admin/rejection/index.vue'
 import Templatemanage from '../components/admin/templatemanage/index.vue'
+import Seo from '../components/admin/tdk/index.vue'
+import Wechatkeyword from '../components/admin/wechatkeyword/index.vue'
+import Wechatarticle from '../components/admin/wechatarticle/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -56,6 +61,8 @@ export default new Router({
         {path: 'company', component: Company, name: 'company'},
         {path: 'node', component: Node, name: 'node'},
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
+        {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
+        {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
       ]
     },
     {
@@ -91,7 +98,10 @@ export default new Router({
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'templatemanage', component: Templatemanage, name: 'templatemanage'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
-        {path: 'rejection', component: Rejection, name: 'rejection'}
+        {path: 'rejection', component: Rejection, name: 'rejection'},
+        {path: 'seo', component: Seo, name: 'seo'},
+        {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'},
+        {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'}
       ]
     }
   ]

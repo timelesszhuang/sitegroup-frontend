@@ -1,13 +1,15 @@
 <template>
   <div>
     <div class="top">
-      栏目:
-      <Input v-model="name" placeholder="栏目" style="width:300px;"></Input>
+      标题:
+      <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
+      文章分类:
+      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="adddetails">添加详情型</Button>
-      <Button type="success" @click="addquestion">添加问答型</Button>
-      <Button type="success" @click="addarticle">添加文章型</Button>
-      <Button type="success" @click="addtitle">添加零散文章</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -15,79 +17,55 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total" @on-change="changePage" @on-page-size-change="changePageSize"
+          <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
+                @on-page-size-change="changePageSize"
                 show-total
                 show-elevator show-sizer></Page>
         </div>
       </div>
     </div>
-    <detailadd :form="editinfo" ref="adddetails"></detailadd>
-    <questionadd ref="addquestion" :questiontype="questiontypelist"></questionadd>
-    <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
-    <detailssave ref="savedetails" :detail="editinfo"></detailssave>
-    <questionsave ref="savequestion" :questiontype="questiontypelist" :form="editinfo"></questionsave>
-    <articlesave ref="savearticle" :articletype="articletypelist" :form="editinfo"></articlesave>
-    <articleadd ref="addarticle" :articletype="articletypelist"></articleadd>
-    <titleadd ref="addtitle" :articletype="articletypelist"></titleadd>
-    <titlesave ref="savetitle" :articletype="articletypelist" :form="editinfo"></titlesave>
-    <sort ref="sort" :form="info"></sort>
-
+    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
-  import common from '../../../assets/js/common.js';
-  import http from '../../../assets/js/http.js';
-  import detailadd from './adddetails.vue';
-  import questionadd from './addquestion.vue';
-  import articleadd from './addarticle.vue';
-  import titleadd from './addtitle.vue';
-  import detailssave from './savedetails.vue';
-  import questionsave from './savequestion.vue';
-  import articlesave from './savearticle.vue';
-  import titlesave from './savetitle.vue';
-  import sort from './sort.vue';
+  import http from '../../../assets/js/http.js'
+  import common from '../../../assets/js/common.js'
+  import wechatarticlesave from './save.vue'
   export default {
     data () {
       return {
+        page_show: true,
         self: this,
         border: true,
         stripe: true,
+        current: 1,
         showheader: true,
         showIndex: true,
         size: 'small',
         total: 0,
         page: 1,
         rows: 10,
-        name: '',
+        pageSize: 10,
+        title: '',
+        article_type: 0,
+        keyword_type:0,
         datas: [],
         editinfo: {},
-        info: {},
         articletypelist: [],
-        questiontypelist: []
+        keywordtype:[]
       }
     },
-    components: {
-      detailadd,
-      questionadd,
-      articleadd,
-      titleadd,
-      detailssave,
-      questionsave,
-      articlesave,
-      titlesave,
-      sort,
-    },
+    components: {wechatarticlesave},
     created () {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
       });
-      this.getQuestionType((data) => {
-        this.questiontypelist = data
+      this.getKeyword((data) => {
+        this.keywordtype = data
       });
-
     },
     methods: {
       getData() {
@@ -95,15 +73,15 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name,
-            article_type: this.article_type,
-            question_type: this.question_type,
+            title: this.title,
+            keyword_id: this.keyword_type
           }
         }
-        this.apiGet('menu', data).then((data) => {
+        this.apiGet('wechat/article', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
+            this.pageSize = 10
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -116,57 +94,41 @@
         this.getData();
       },
       changePageSize(pagesize){
-        this.page = pagesize;
+        this.rows = pagesize;
         this.getData();
       },
       queryData(){
+        this.page = 1
+        this.page_show = false
         this.getData();
+        this.page_show = true
       },
-      adddetails(){
-        this.$refs.adddetails.modal = true
+      edit(index){
+        this.getArticle(index);
+        this.$refs.save.modal = true
       },
-      addquestion(){
-        this.$refs.addquestion.modal = true
+      show(index){
+        this.getArticle(index);
+        this.$refs.show.modal = true
       },
-      addarticle(){
-        this.$refs.addarticle.modal = true
-      },
-      addtitle(){
-        this.$refs.addtitle.modal = true
-      },
-      modify(index){
-        let editid = this.datas[index].id
-        this.apiGet('menu/' + editid).then((res) => {
+      getKeyword(func) {
+        this.apiGet('scrapy/getlist').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.info = data
-            this.modal = false;
-            this.$refs.sort.modal = true
+            func(data)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
-        })
+        });
       },
-
-      edit(index){
+      getArticle(index){
         let editid = this.datas[index].id
-        this.apiGet('menu/' + editid).then((res) => {
+        this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            this.modal = false;
-            if (data.flag == 1) {
-              this.$refs.savedetails.modal = true
-            }
-            else if (data.flag == 2) {
-              this.$refs.savequestion.modal = true
-            } else if (data.flag == 3) {
-              this.$refs.savearticle.modal = true
-            }
-            else if (data.flag == 4) {
-              this.$refs.savetitle.modal = true
-            }
+//            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -185,7 +147,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('articletype/', id).then((res) => {
+            _this.apiPost('sys/deleteWecatArticle/'+id, ).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -201,7 +163,7 @@
             return false
           }
         })
-      }
+      },
     },
     computed: {
       tableColumns()
@@ -214,7 +176,7 @@
             align: 'center'
           })
         }
-        if (this.showheader) {
+        if (this.showIndex) {
           columns.push({
             type: 'index',
             width: 60,
@@ -222,42 +184,40 @@
           })
         }
         columns.push({
-          title: '栏目',
-          key: 'name',
+          title: '标题',
+          key: 'title',
           sortable: true
         });
         columns.push({
-          title: '类型',
-          key: 'flag_name'
+          title: '关键词',
+          key: 'keyword',
+          sortable: true
         });
         columns.push({
-          title: '分类',
-          key: 'type_name'
+          title: '简介',
+          width:'300px',
+          key: 'summary',
+          sortable: true
         });
         columns.push({
-          title: '英文名',
-          key: 'generate_name'
+          title: '来源',
+          key: 'source',
+          sortable: true
         });
         columns.push({
-          title: '创建时间',
-          key: 'create_time'
-        });
-        columns.push({
-          title: '排序',
-          key: 'sort'
+          title: '添加时间',
+          key: 'scrapytime',
+          sortable: true
         });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 150,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return
-              `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="error" size="small" @click="modify(${index})">排序</i-button>
-`;
+              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>
+                      <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;`;
             }
           }
         );
