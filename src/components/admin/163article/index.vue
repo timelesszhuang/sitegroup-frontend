@@ -162,8 +162,8 @@
           sortable: true
         });
         columns.push({
-          title: '关键词',
-          key: 'keyword',
+          title: '分类',
+          key: 'type_name',
           sortable: true
         });
         columns.push({
@@ -179,7 +179,7 @@
         });
         columns.push({
           title: '发布时间',
-          key: 'ptime',
+          key: 'createtime',
           sortable: true
         });
         columns.push(

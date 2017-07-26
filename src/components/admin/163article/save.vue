@@ -83,7 +83,7 @@
               title:this.form.title,
               content:this.form.content,
               come_from:this.form.source,
-              posttime:this.form.ptime
+              posttime:this.form.createtime
             }
 //            let data = this.form;
             this.apiPost('wangyi/addArticle', data).then((res) => {

@@ -87,11 +87,11 @@
               <span class="layout-text" @click="routerChange('/admin/wechatarticle','微信企业号文章')">微信企业号文章</span>
             </Menu-item>
             <Menu-item name="163新闻类文章管理">
-              <Icon type="ios-navigate" :size="iconSize"></Icon>
+              <Icon type="ios-navigate"></Icon>
               <span class="layout-text" @click="routerChange('/admin/wangyiarticle','163新闻类文章管理')">163新闻类文章管理</span>
             </Menu-item>
             <Menu-item name="腾讯新闻类文章管理">
-              <Icon type="ios-navigate" :size="iconSize"></Icon>
+              <Icon type="ios-navigate"></Icon>
               <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻类文章管理</span>
             </Menu-item>
           </Submenu>

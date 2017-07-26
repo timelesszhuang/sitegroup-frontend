@@ -3,9 +3,9 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-      分类:
-      <Select v-model="typename" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in articletype" :value="item.id" :label="item.text" :key="item">
+      文章分类:
+      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
       </Select>
@@ -24,8 +24,7 @@
         </div>
       </div>
     </div>
-    <qqarticlesave ref="save" :form="editinfo" ></qqarticlesave>
-    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
+    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
   </div>
 
 </template>
@@ -33,9 +32,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import qqarticlesave from './save.vue'
-//  import articleshow from './show.vue'
-
+  import wechatarticlesave from './save.vue'
   export default {
     data () {
       return {
@@ -53,20 +50,21 @@
         pageSize: 10,
         title: '',
         article_type: 0,
+        keyword_type:0,
         datas: [],
         editinfo: {},
-//        articletypelist: []
-        articletype:[]
+        articletypelist: [],
+        keywordtype:[]
       }
     },
-    components: {qqarticlesave},
+    components: {wechatarticlesave},
     created () {
       this.getData();
-//      this.getArticleType((data) => {
-//        this.articletypelist = data
-//      });
-      this.getType((data) => {
-        this.articletype = data
+      this.getArticleType((data) => {
+        this.articletypelist = data
+      });
+      this.getKeyword((data) => {
+        this.keywordtype = data
       });
     },
     methods: {
@@ -76,10 +74,10 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            type_id:this.typename
+            keyword_id: this.keyword_type
           }
         }
-        this.apiGet('sys/qqArticle', data).then((data) => {
+        this.apiGet('qq/article', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -109,7 +107,11 @@
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      getType(func) {
+      show(index){
+        this.getArticle(index);
+        this.$refs.show.modal = true
+      },
+      getKeyword(func) {
         this.apiGet('article/articleAllType').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
@@ -126,6 +128,7 @@
         this.apiGet('qq/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+//            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -159,15 +162,20 @@
           sortable: true
         });
         columns.push({
-          title: '分类名称',
+          title: '分类',
           key: 'type_name',
           sortable: true
         });
-//        columns.push({
-//          title: '作者',
-//          key: 'auther',
-//          sortable: true
-//        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
+        columns.push({
+          title: '发布时间',
+          key: 'create_time',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
@@ -175,7 +183,7 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;`;
+              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
             }
           }
         );
