@@ -76,7 +76,7 @@
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
-              微信企业号
+              文章库
             </template>
             <Menu-item name="微信企业号关键词">
               <Icon type="key"></Icon>
