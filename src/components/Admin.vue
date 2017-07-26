@@ -75,7 +75,7 @@
           </Submenu>
           <Submenu name="8">
             <template slot="title">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="ios-bookmarks-outline"></Icon>
               文章库
             </template>
             <Menu-item name="微信企业号关键词">
@@ -83,15 +83,15 @@
               <span class="layout-text" @click="routerChange('/admin/wechatkeyword','关键词管理')">关键词管理</span>
             </Menu-item>
             <Menu-item name="微信企业号文章">
-              <Icon type="key"></Icon>
+              <Icon type="ios-bookmarks"></Icon>
               <span class="layout-text" @click="routerChange('/admin/wechatarticle','微信企业号文章')">微信企业号文章</span>
             </Menu-item>
             <Menu-item name="163新闻类文章管理">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="ios-copy"></Icon>
               <span class="layout-text" @click="routerChange('/admin/wangyiarticle','163新闻类文章管理')">163新闻类文章管理</span>
             </Menu-item>
             <Menu-item name="腾讯新闻类文章管理">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="ios-book"></Icon>
               <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻类文章管理</span>
             </Menu-item>
           </Submenu>

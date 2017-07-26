@@ -96,19 +96,19 @@
             <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Menu-item name="微信企业号关键词">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="key" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
           </Menu-item>
           <Menu-item name="微信企业号文章">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="ios-bookmarks":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
           </Menu-item>
           <Menu-item name="163新闻类文章管理">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="ios-copy":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/newsarticle','163新闻类文章管理')">163新闻类文章管理</span>
           </Menu-item>
           <Menu-item name="腾讯新闻类文章管理">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="ios-book" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/qqarticle','腾讯新闻类文章管理')">腾讯新闻类文章管理</span>
           </Menu-item>
           <Menu-item name="用户管理">
