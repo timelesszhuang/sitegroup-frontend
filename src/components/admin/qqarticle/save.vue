@@ -76,17 +76,17 @@
           if (valid) {
             this.modal_loading = true;
             let data = {
-               articletype_id:this.form.articletype_id,
+              articletype_id:this.form.articletype_id,
               articletype_name:this.form.articletype_name,
               auther:this.form.auther,
-              summary:this.form.summary,
+              summary:this.form.title,
               title:this.form.title,
               content:this.form.content,
               come_from:this.form.source,
-              posttime:this.form.scrapytime
+              posttime:this.form.createtime
             }
 //            let data = this.form;
-            this.apiPost('wechat/addArticle', data).then((res) => {
+            this.apiPost('qq/addArticle', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

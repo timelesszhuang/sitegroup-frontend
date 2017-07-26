@@ -3,9 +3,9 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-      文章分类:
-      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
+      分类:
+      <Select v-model="typename" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in articletype" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
       </Select>
@@ -24,7 +24,8 @@
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
+    <qqarticlesave ref="save" :form="editinfo" ></qqarticlesave>
+    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
   </div>
 
 </template>
@@ -32,7 +33,9 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import wechatarticlesave from './save.vue'
+  import qqarticlesave from './save.vue'
+//  import articleshow from './show.vue'
+
   export default {
     data () {
       return {
@@ -50,21 +53,20 @@
         pageSize: 10,
         title: '',
         article_type: 0,
-        keyword_type:0,
         datas: [],
         editinfo: {},
-        articletypelist: [],
-        keywordtype:[]
+//        articletypelist: []
+        articletype:[]
       }
     },
-    components: {wechatarticlesave},
+    components: {qqarticlesave},
     created () {
       this.getData();
-      this.getArticleType((data) => {
-        this.articletypelist = data
-      });
-      this.getKeyword((data) => {
-        this.keywordtype = data
+//      this.getArticleType((data) => {
+//        this.articletypelist = data
+//      });
+      this.getType((data) => {
+        this.articletype = data
       });
     },
     methods: {
@@ -74,10 +76,10 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            keyword_id: this.keyword_type
+            type_id:this.typename
           }
         }
-        this.apiGet('wechat/article', data).then((data) => {
+        this.apiGet('sys/qqArticle', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -107,12 +109,8 @@
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
-        this.getArticle(index);
-        this.$refs.show.modal = true
-      },
-      getKeyword(func) {
-        this.apiGet('scrapy/getlist').then((res) => {
+      getType(func) {
+        this.apiGet('sys/articleAllType').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
@@ -125,16 +123,42 @@
       },
       getArticle(index){
         let editid = this.datas[index].id
-        this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
+        this.apiGet('sys/qqArticleOne/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-//            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
         }, (res) => {
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      remove(index){
+        //需要删除确认
+        let id = this.datas[index].id
+        let _this = this
+        this.$Modal.confirm({
+          title: '确认删除',
+          content: '您确定删除该记录?',
+          okText: '删除',
+          cancelText: '取消',
+          onOk: (index) => {
+            _this.apiPost('sys/deleteQqArticle/'+id, ).then((res) => {
+              _this.handelResponse(res, (data, msg) => {
+                _this.getData()
+                _this.$Message.success(msg);
+              }, (data, msg) => {
+                _this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              _this.$Message.error('网络异常，请稍后重试');
+            })
+          },
+          onCancel: () => {
+            return false
+          }
         })
       },
     },
@@ -162,26 +186,15 @@
           sortable: true
         });
         columns.push({
-          title: '关键词',
-          key: 'keyword',
+          title: '分类名称',
+          key: 'type_name',
           sortable: true
         });
-        columns.push({
-          title: '简介',
-          width:'300px',
-          key: 'summary',
-          sortable: true
-        });
-        columns.push({
-          title: '来源',
-          key: 'source',
-          sortable: true
-        });
-        columns.push({
-          title: '添加时间',
-          key: 'scrapytime',
-          sortable: true
-        });
+//        columns.push({
+//          title: '作者',
+//          key: 'auther',
+//          sortable: true
+//        });
         columns.push(
           {
             title: '操作',
@@ -189,7 +202,8 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
+              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
+                      <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;`;
             }
           }
         );

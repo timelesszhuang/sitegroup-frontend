@@ -77,7 +77,7 @@
             keyword_id: this.keyword_type
           }
         }
-        this.apiGet('wechat/article', data).then((data) => {
+        this.apiGet('qq/article', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -112,7 +112,7 @@
         this.$refs.show.modal = true
       },
       getKeyword(func) {
-        this.apiGet('scrapy/getlist').then((res) => {
+        this.apiGet('article/articleAllType').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
@@ -125,7 +125,7 @@
       },
       getArticle(index){
         let editid = this.datas[index].id
-        this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
+        this.apiGet('qq/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
 //            console.log(data.url)
@@ -162,14 +162,8 @@
           sortable: true
         });
         columns.push({
-          title: '关键词',
-          key: 'keyword',
-          sortable: true
-        });
-        columns.push({
-          title: '简介',
-          width:'300px',
-          key: 'summary',
+          title: '分类',
+          key: 'type_name',
           sortable: true
         });
         columns.push({
@@ -178,8 +172,8 @@
           sortable: true
         });
         columns.push({
-          title: '添加时间',
-          key: 'scrapytime',
+          title: '发布时间',
+          key: 'create_time',
           sortable: true
         });
         columns.push(
