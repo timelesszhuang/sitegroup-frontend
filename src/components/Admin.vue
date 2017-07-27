@@ -30,9 +30,9 @@
     text-align: center;
     padding: 10px 0 20px;
     color: #9ea7b4;
-    position:fixed;
-    bottom:0;
-    left:50%;
+    /*position:relative;*/
+    margin-top: 5%;
+    /*left:0%;*/
   }
 
   .layout-menu-left {
@@ -271,7 +271,7 @@
           </div>
         </div>
         <div class="layout-copy">
-          2015-2017 &copy; 山东强比信息技术有限公司
+          2015-2017 &copy; 北京易至信科技有限公司
         </div>
       </i-col>
     </Row>

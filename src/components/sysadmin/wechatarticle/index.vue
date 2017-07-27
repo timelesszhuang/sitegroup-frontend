@@ -3,7 +3,11 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-
+      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
+        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
     <div class="content" style="margin-top:10px;">
@@ -50,6 +54,8 @@
         article_type: 0,
         datas: [],
         editinfo: {},
+        keyword_type:"",
+        keywordtype:[]
 //        articletypelist: []
       }
     },
@@ -59,6 +65,9 @@
 //      this.getArticleType((data) => {
 //        this.articletypelist = data
 //      });
+      this.getKeyword((data) => {
+        this.keywordtype = data
+      });
     },
     methods: {
       getData() {
@@ -67,6 +76,7 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
+            keyword_id: this.keyword_type
           }
         }
         this.apiGet('sys/wecatArticle', data).then((data) => {
@@ -115,6 +125,18 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
+      },
+      getKeyword(func) {
+        this.apiGet('sys/weixinKeyList').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
       },
       remove(index){
         //需要删除确认
@@ -165,6 +187,27 @@
         columns.push({
           title: '标题',
           key: 'title',
+          sortable: true
+        });
+        columns.push({
+          title: '关键词',
+          key: 'keyword',
+          sortable: true
+        });
+        columns.push({
+          title: '简介',
+          width:'300px',
+          key: 'summary',
+          sortable: true
+        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
+        columns.push({
+          title: '添加时间',
+          key: 'scrapytime',
           sortable: true
         });
 //        columns.push({

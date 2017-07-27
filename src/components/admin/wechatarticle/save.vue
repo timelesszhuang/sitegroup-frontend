@@ -3,11 +3,9 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-
         <span>修改文章</span>
       </p>
       <div>
-
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="点击查看原文章">
             <a v-bind:href="url" target="_blank">点击查看原文章</a>
@@ -17,6 +15,9 @@
           </Form-item>
           <Form-item label="作者" prop="title">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
+          </Form-item>
+          <Form-item label="关键词" prop="title">
+            <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
             <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
@@ -43,6 +44,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -58,7 +60,7 @@
     },
     computed: {
       url: function () {
-        return  this.form.url;
+        return this.form.url;
       }
     },
     methods: {
@@ -76,14 +78,14 @@
           if (valid) {
             this.modal_loading = true;
             let data = {
-               articletype_id:this.form.articletype_id,
-              articletype_name:this.form.articletype_name,
-              auther:this.form.auther,
-              summary:this.form.summary,
-              title:this.form.title,
-              content:this.form.content,
-              come_from:this.form.source,
-              posttime:this.form.scrapytime
+              articletype_id: this.form.articletype_id,
+              articletype_name: this.form.articletype_name,
+              auther: this.form.auther,
+              summary: this.form.summary,
+              title: this.form.title,
+              content: this.form.content,
+              come_from: this.form.source,
+              posttime: this.form.scrapytime
             }
 //            let data = this.form;
             this.apiPost('wechat/addArticle', data).then((res) => {
