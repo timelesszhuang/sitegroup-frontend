@@ -16,9 +16,6 @@
           <Form-item label="作者" prop="title">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
-          <Form-item label="关键词" prop="title">
-            <span style="font-size: 15px">{{form.keyword}}</span>
-          </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
             <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
                     label-in-value 　@on-change="changeArticletype">
@@ -26,6 +23,12 @@
                 {{ item.name }}
               </Option>
             </Select>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+           关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"

@@ -25,10 +25,10 @@
                 {{ item.name }}
               </Option>
             </Select>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <span>原分类：{{form.type_name}}</span>
           </Form-item>
-          <Form-item label="原分类" prop="title">
-            <span style="font-size: 15px">{{form.type_name}}</span>
-          </Form-item>
+
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
                           v-model="form.content"
