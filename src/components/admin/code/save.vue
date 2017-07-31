@@ -19,11 +19,9 @@
             <Form-item label="代码位置" prop="position">
               <Radio-group v-model="form.position">
                 <Radio label="1">
-                  <Icon type="social-apple"></Icon>
                   <span>head前</span>
                 </Radio>
                 <Radio label="2">
-                  <Icon type="social-android"></Icon>
                   <span>head后</span>
                 </Radio>
               </Radio-group>

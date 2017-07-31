@@ -50,10 +50,14 @@
               </Select>
             </Form-item>
             <Form-item label="栏目" prop="menu">
-              <Select v-model="form.menu" multiple style="text-align: left;width:200px;" 　@on-click="changeMenutype">
+              <Select filterable v-model="form.menu" multiple style="text-align: left;width:350px;">
+                <Option disabled><span style="font-size: 15px;font-weight: bold">栏目名—栏目分类—所属文章分类—详情</span></Option>
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
-                  {{ item.text }}
+                  {{ item.text}}—{{item.flag_name}}
+                  <span v-if="item.type_name ==''">{{item.type_name}}</span>
+                  <span v-else>{{item.typeName}}</span>—{{item.title}}
                 </Option>
+
               </Select>
             </Form-item>
             <Form-item label="模板" prop="template_id">
