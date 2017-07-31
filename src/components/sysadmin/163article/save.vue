@@ -10,6 +10,12 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="简介" prop="digest">
+            <Input type="text" v-model="form.digest" placeholder="请输入简介"></Input>
+          </Form-item>
+          <Form-item label="来源" prop="source">
+            <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
+          </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
                           v-model="form.content"

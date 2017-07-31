@@ -53,6 +53,7 @@
         pageSize: 10,
         title: '',
         article_type: 0,
+        typename:'',
         datas: [],
         editinfo: {},
 //        articletypelist: []
@@ -195,6 +196,16 @@
 //          key: 'auther',
 //          sortable: true
 //        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
+        columns.push({
+          title: '添加时间',
+          key: 'createtime',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',

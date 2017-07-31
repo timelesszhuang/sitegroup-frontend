@@ -4,7 +4,7 @@
       v-model="modal" width="900">
       <p slot="header">
 
-        <span>修改文章</span>
+        <span>添加到文章库</span>
       </p>
       <div>
 
@@ -15,7 +15,7 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
-          <Form-item label="作者" prop="title">
+          <Form-item label="作者" prop="auther">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
