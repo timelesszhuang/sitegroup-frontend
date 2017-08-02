@@ -42,7 +42,8 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: {}
+        editinfo: {},
+        keywordtype:[]
       }
     },
     components: {wechatkadd,wechatksave},
