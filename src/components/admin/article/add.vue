@@ -17,7 +17,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者" style="width: 200px;"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="text-align: left;width:200px;"
+            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="text-align: left;width:250px;"
                     label-in-value filterable　@on-change="changeArticletype">
               <Option disabled><span style="font-size: 15px;font-weight: bold">分类名—标签</span></Option>
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
