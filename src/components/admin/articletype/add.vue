@@ -14,6 +14,9 @@
             <Form-item label="详情" prop="detail">
               <Input type="text" v-model="form.detail" placeholder="请输入节点相关信息"></Input>
             </Form-item>
+            <Form-item label="分类标签" prop="tag">
+              <Input type="text" v-model="form.tag" placeholder="请输入标签区分分类"></Input>
+            </Form-item>
           </Form>
         </div>
         <div slot="footer">
@@ -34,7 +37,8 @@
         modal_loading: false,
         form: {
           name: "",
-          detail: ""
+          detail: "",
+          tag:''
         },
         AddRule: {
           name: [
@@ -42,6 +46,9 @@
           ],
           detail: [
             {required: true, message: '请填写文章详情', trigger: 'blur'},
+          ],
+          tag: [
+            {required: true, message: '请输入标签区分分类', trigger: 'blur'},
           ]
         }
       }
