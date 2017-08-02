@@ -4,12 +4,11 @@
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option disabled><span style="font-size: 15px;font-weight: bold">关键词—爬取状态</span></Option>
+        <Option disabled :value="0"><span style="font-size: 15px;font-weight: bold">分类名—标签</span></Option>
         <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
           <span v-if="item.scrapystatus =='10'">—正在爬取</span>
           <span v-else>—停止爬取</span>
-
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
@@ -60,7 +59,6 @@
         editinfo: {},
         keyword_type:"",
         keywordtype:[]
-//        articletypelist: []
       }
     },
     components: {wechatarticlesave},
