@@ -66,21 +66,25 @@
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
-              关键词
+              关键词管理
             </template>
-            <Menu-item name="关键词管理">
+            <Menu-item name="站点关键词">
               <Icon type="key"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">关键词管理</span>
+              <span class="layout-text" @click="routerChange('/admin/keyword','站点关键词')">站点关键词</span>
+            </Menu-item>
+            <Menu-item name="推荐关键词库">
+              <Icon type="ios-list-outline"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/keyword','推荐关键词库')">推荐关键词库</span>
             </Menu-item>
           </Submenu>
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
-              文章库
+              推荐文章库
             </template>
             <Menu-item name="微信公众号关键词">
               <Icon type="key"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/wechatkeyword','关键词管理')">关键词管理</span>
+              <span class="layout-text" @click="routerChange('/admin/wechatkeyword','微信公众号关键词')">微信公众号关键词</span>
             </Menu-item>
             <Menu-item name="微信公众号文章">
               <Icon type="ios-bookmarks"></Icon>
@@ -88,45 +92,45 @@
             </Menu-item>
             <Menu-item name="163新闻类文章管理">
               <Icon type="ios-copy"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/wangyiarticle','163新闻类文章管理')">163新闻类文章管理</span>
+              <span class="layout-text" @click="routerChange('/admin/wangyiarticle','163新闻类文章管理')">网易新闻管理</span>
             </Menu-item>
             <Menu-item name="腾讯新闻类文章管理">
               <Icon type="ios-book"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻类文章管理</span>
+              <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻管理</span>
             </Menu-item>
           </Submenu>
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
-              文章管理
+              文章库
             </template>
             <Menu-item name="文章分类">
               <Icon type="settings"></Icon>
               <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">文章分类</span>
             </Menu-item>
-            <Menu-item name="文章">
+            <Menu-item name="文章列表">
               <Icon type="document"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/article','文章')">文章</span>
+              <span class="layout-text" @click="routerChange('/admin/article','文章列表')">文章列表</span>
             </Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
               <Icon type="scissors"></Icon>
-              零散文章段落
+              文章段落库
             </template>
-            <Menu-item name="零散文章">
+            <Menu-item name="文章段落">
               <Icon type="social-dropbox-outline"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/scatteredarticle','零散文章')">零散文章</span>
+              <span class="layout-text" @click="routerChange('/admin/scatteredarticle','文章段落')">文章段落</span>
             </Menu-item>
-            <Menu-item name="零散文章标题">
+            <Menu-item name="段落标题">
               <Icon type="flag"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/title','零散文章标题')">零散文章标题</span>
+              <span class="layout-text" @click="routerChange('/admin/title','段落标题')">段落标题</span>
             </Menu-item>
           </Submenu>
           <Submenu name="4">
             <template slot="title">
               <Icon type="chatbox-working"></Icon>
-              问答管理
+              问答库
             </template>
             <Menu-item name="问答分类">
               <Icon type="settings"></Icon>
@@ -140,15 +144,15 @@
           <Submenu name="5">
             <template slot="title">
               <Icon type="briefcase"></Icon>
-              基础元素设置
+              站点元素设置
             </template>
-            <Menu-item name="栏目">
+            <Menu-item name="">
               <Icon type="drag"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/navigation','栏目')">栏目</span>
+              <span class="layout-text" @click="routerChange('/admin/navigation','站点栏目')">站点栏目管理</span>
             </Menu-item>
             <Menu-item name="友情链接">
               <Icon type="drag"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/link','友情链接')">友情链接</span>
+              <span class="layout-text" @click="routerChange('/admin/link','友情链接')">友情链接管理</span>
             </Menu-item>
             <Menu-item name="域名管理">
               <Icon type="android-globe"></Icon>
@@ -164,7 +168,7 @@
             </Menu-item>
             <Menu-item name="主题/活动创意">
               <Icon type="beer"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">主题/活动创意</span>
+              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">主题/活动创意管理</span>
             </Menu-item>
             <Menu-item name="模板管理">
               <Icon type="map"></Icon>
@@ -191,9 +195,8 @@
 
             <Menu-item name="SEO属性">
               <Icon type="map"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">SEO属性</span>
+              <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">搜索引擎优化管理</span>
             </Menu-item>
-
             <Menu-item name="站点静态化配置">
               <Icon type="android-cloud-circle"></Icon>
               <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">站点静态化配置</span>
