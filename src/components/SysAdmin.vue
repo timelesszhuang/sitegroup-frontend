@@ -96,6 +96,10 @@
           <div class="layout-logo-left" @click="routerChange('/sysadmin/')"style="width: 150px;height: 58px;margin: 10px auto;">
             <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
+          <Menu-item name="微信公众号关键词分类">
+            <Icon type="key"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
+          </Menu-item>
           <Menu-item name="微信企业号关键词">
             <Icon type="key" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
