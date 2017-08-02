@@ -3,11 +3,9 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-
-        <span>修改文章</span>
+        <span>添加到文章库</span>
       </p>
       <div>
-
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="点击查看原文章">
             <a v-bind:href="url" target="_blank">点击查看原文章</a>
@@ -25,6 +23,12 @@
                 {{ item.name }}
               </Option>
             </Select>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+           关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
@@ -43,6 +47,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -58,7 +63,7 @@
     },
     computed: {
       url: function () {
-        return  this.form.url;
+        return this.form.url;
       }
     },
     methods: {
@@ -76,14 +81,14 @@
           if (valid) {
             this.modal_loading = true;
             let data = {
-               articletype_id:this.form.articletype_id,
-              articletype_name:this.form.articletype_name,
-              auther:this.form.auther,
-              summary:this.form.summary,
-              title:this.form.title,
-              content:this.form.content,
-              come_from:this.form.source,
-              posttime:this.form.scrapytime
+              articletype_id: this.form.articletype_id,
+              articletype_name: this.form.articletype_name,
+              auther: this.form.auther,
+              summary: this.form.summary,
+              title: this.form.title,
+              content: this.form.content,
+              come_from: this.form.source,
+              posttime: this.form.scrapytime
             }
 //            let data = this.form;
             this.apiPost('wechat/addArticle', data).then((res) => {

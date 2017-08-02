@@ -10,6 +10,12 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="简介" prop="summary">
+            <Input type="text" v-model="form.summary" placeholder="请输入文章简介（选填）"></Input>
+          </Form-item>
+          <Form-item label="来源" prop="source">
+            <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
+          </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
                           v-model="form.content"
@@ -18,11 +24,13 @@
           </Form-item>
         </Form>
       </div>
+
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
       </div>
     </Modal>
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -37,8 +45,9 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-
-
+          summary: [
+            {required: true, message: '请填写文章简介', trigger: 'blur'},
+          ],
         }
       }
     },

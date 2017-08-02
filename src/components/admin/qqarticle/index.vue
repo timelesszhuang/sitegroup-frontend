@@ -74,7 +74,7 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            keyword_id: this.keyword_type
+            type_id: this.keyword_type
           }
         }
         this.apiGet('qq/article', data).then((data) => {

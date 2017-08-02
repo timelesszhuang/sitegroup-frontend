@@ -4,7 +4,7 @@
       v-model="modal" width="900">
       <p slot="header">
 
-        <span>修改文章</span>
+        <span>添加到文章库</span>
       </p>
       <div>
 
@@ -25,7 +25,10 @@
                 {{ item.name }}
               </Option>
             </Select>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <span>原分类：{{form.type_name}}</span>
           </Form-item>
+
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
                           v-model="form.content"
@@ -53,6 +56,9 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
+          content:[
+            {required: true, message: '请填写文章内容', trigger: 'blur'},
+          ]
         }
       }
     },

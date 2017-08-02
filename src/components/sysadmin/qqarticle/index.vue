@@ -34,8 +34,6 @@
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
   import qqarticlesave from './save.vue'
-//  import articleshow from './show.vue'
-
   export default {
     data () {
       return {
@@ -55,6 +53,7 @@
         article_type: 0,
         datas: [],
         editinfo: {},
+        typename:'',
 //        articletypelist: []
         articletype:[]
       }
@@ -190,11 +189,16 @@
           key: 'type_name',
           sortable: true
         });
-//        columns.push({
-//          title: '作者',
-//          key: 'auther',
-//          sortable: true
-//        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
+        columns.push({
+          title: '添加时间',
+          key: 'create_time',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',

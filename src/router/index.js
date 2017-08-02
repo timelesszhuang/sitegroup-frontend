@@ -103,7 +103,6 @@ export default new Router({
         {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'templatemanage', component: Templatemanage, name: 'templatemanage'},
-        {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'rejection', component: Rejection, name: 'rejection'},
         {path: 'seo', component: Seo, name: 'seo'},
         {path: 'wechatkeyword', component: Wechatkeyword, name: 'wechatkeyword'},

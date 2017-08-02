@@ -10,6 +10,9 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="来源" prop="source">
+            <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
+          </Form-item>
           <Form-item label="内容" prop="content">
             <quill-editor ref="myTextEditoredit"
                           v-model="form.content"
@@ -37,8 +40,9 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-
-
+          content: [
+            {required: true, message: '请填写文章内容', trigger: 'blur'},
+          ],
         }
       }
     },
