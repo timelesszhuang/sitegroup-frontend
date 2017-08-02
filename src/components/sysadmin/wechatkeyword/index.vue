@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <wechatkadd ref="add"></wechatkadd>
-    <wechatksave ref="save" :form="editinfo"></wechatksave>
+    <wechatkadd ref="add" :types="wechatKeywordType"></wechatkadd>
+    <wechatksave ref="save" :form="editinfo" :types="wechatKeywordType"></wechatksave>
   </div>
 </template>
 
@@ -42,14 +42,27 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: {}
+        editinfo: {},
+        wechatKeywordType:{}
       }
     },
     components: {wechatkadd,wechatksave},
     created () {
       this.getData();
+      this.getTypes();
     },
     methods: {
+      getTypes() {
+        this.apiPost('sys/getKeyTypeList').then((data) => {
+          this.handelResponse(data, (data, msg) => {
+                this.wechatKeywordType=data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
+      },
       getData() {
         let data = {
           params: {
@@ -85,7 +98,7 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('scrapy/getOneKeyword/' + editid).then((res) => {
+        this.apiGet('sys/gettype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;

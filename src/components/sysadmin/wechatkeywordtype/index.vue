@@ -18,15 +18,15 @@
         </div>
       </div>
     </div>
-    <wechatkadd ref="add"></wechatkadd>
-    <wechatksave ref="save" :form="editinfo"></wechatksave>
+    <wechatadd ref="add"></wechatadd>
+    <wechatsave ref="save" :form="editinfo"></wechatsave>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import wechatkadd from './add.vue';
-  import wechatksave from './save.vue';
+  import wechatadd from './add.vue';
+  import wechatsave from './save.vue';
 
   export default {
        data() {
@@ -47,7 +47,7 @@
          }
        },
         components: {
-          wechatkadd,wechatksave
+          wechatadd,wechatsave
         },
        created() {
          this.getData()
