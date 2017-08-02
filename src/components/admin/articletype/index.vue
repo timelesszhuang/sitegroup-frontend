@@ -27,8 +27,9 @@
   import http from '../../../assets/js/http.js';
   import articleadd from './add.vue';
   import articlesave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -46,7 +47,7 @@
       }
     },
     components: {articleadd, articlesave},
-    created () {
+    created() {
       this.getData();
     },
     methods: {
@@ -69,21 +70,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('articletype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -100,8 +101,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -126,6 +126,10 @@
           title: '描述',
           key: 'detail'
         });
+        columns.push({
+          title: '标签',
+          key: 'tag'
+        });
         columns.push(
           {
             title: '操作',
@@ -133,7 +137,7 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
             }
           }
