@@ -116,14 +116,14 @@
           fixed: 'left'
         });
         columns.push({
-          title: '第几页有排名',
+          title: '页码',
           key: 'page',
           width: 130,
           sortable: true,
           fixed: 'left'
         });
         columns.push({
-          title: '排名',
+          title: '本页排名',
           key: 'page_order',
           width: 90,
           sortable: true,
@@ -132,7 +132,8 @@
           title: '链接',
           key: 'trueUrl',
           render (row, column, index) {
-            return `<a href="">11</i-button>`;
+            console.log(row)
+            return `<a href="`+row.a_href+`" target="_blank">`+row.a_text+`</i-button>`;
           }
         });
         columns.push({
