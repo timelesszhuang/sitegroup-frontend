@@ -48,6 +48,7 @@ import Wechatkeyword from '../components/admin/wechatkeyword/index.vue'
 import Wechatarticle from '../components/admin/wechatarticle/index.vue'
 import Wangyiarticle from '../components/admin/163article/index.vue'
 import Tengxunarticle from '../components/admin/qqarticle/index.vue'
+import MainKwyword from '../components/admin/mainkeyword/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -111,6 +112,7 @@ export default new Router({
         {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'},
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
+        {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'}
       ]
     }
   ]

@@ -76,6 +76,10 @@
               <Icon type="ios-list-outline"></Icon>
               <span class="layout-text" @click="routerChange('/admin/keyword','推荐关键词库')">推荐关键词库</span>
             </Menu-item>
+            <Menu-item name="主关键词排名">
+              <Icon type="ios-list-outline"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">主关键词排名</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="8">
             <template slot="title">
