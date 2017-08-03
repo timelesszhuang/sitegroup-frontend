@@ -3,6 +3,11 @@
     <div class="top">
      企业号关键词管理:
       <Input v-model="name" placeholder="请输入关键词" style="width:300px;"></Input>
+      <Select v-model="keyword_typename"  style="width: 200px;" label-in-value filterable clearable >
+        <Option v-for="item in wechatKeywordType" :value="item.id" :label="item.text" :key="item">
+          {{ item.text }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -18,8 +23,8 @@
         </div>
       </div>
     </div>
-    <wechatkadd ref="add"></wechatkadd>
-    <wechatksave ref="save" :form="editinfo"></wechatksave>
+    <wechatkadd ref="add" :types="wechatKeywordType"></wechatkadd>
+    <wechatksave ref="save" :form="editinfo" :types="wechatKeywordType"></wechatksave>
   </div>
 </template>
 
@@ -42,20 +47,35 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: {}
+        editinfo: {},
+        wechatKeywordType:{},
+        keyword_typename:""
       }
     },
     components: {wechatkadd,wechatksave},
     created () {
       this.getData();
+      this.getTypes();
     },
     methods: {
+      getTypes() {
+        this.apiPost('sys/getKeyTypeList').then((data) => {
+          this.handelResponse(data, (data, msg) => {
+                this.wechatKeywordType=data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
+      },
       getData() {
         let data = {
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            name: this.name,
+            keyword_typename:this.keyword_typename
           }
         }
         this.apiGet('sys/getKeyword', data).then((data) => {
@@ -85,7 +105,7 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('scrapy/getOneKeyword/' + editid).then((res) => {
+        this.apiGet('sys/gettype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -232,6 +252,11 @@
         columns.push({
           title: '关键词',
           key: 'name',
+          sortable: true
+        });
+        columns.push({
+          title: '分类',
+          key: 'type_name',
           sortable: true
         });
         columns.push({

@@ -1,14 +1,28 @@
-<!--该组件使用 饿了么 tree 实现-->
 <template>
   <div>
     <div class="top">
-      关键词查询:
-      <Input v-model="mainkeyword_name" placeholder="请输入关键词" style="width:300px;"></Input>
-      <Button type="primary" @click="queryData">查询</Button>
+      <Row>
+        <Col span="7">
+        关键词查询:
+        <Input v-model="mainkeyword_name" placeholder="请输入关键词" style="width:300px;"></Input>
+        </Col>
+        <Col span="7">
+        URL:
+        <Input v-model="url" placeholder="请输入URL" style="width:300px;"></Input>
+        </Col>
+        <Col span="4">
+        <Date-picker v-model="selectDate"   type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
+        </Col>
+        <Col span="1">
+        <Button type="primary" @click="queryData">查询</Button>
+        </Col>
+      </Row>
+
+
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
+             :size="size" :data="datas" :columns="tableColumns" style="width: 99%">
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
@@ -21,14 +35,9 @@
   </div>
 </template>
 
-
-<script>
+<script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import keywordUpload from './keywordupload.vue';
-  import AkeywordAdd from './Akeywordadd.vue';
-
   export default {
-//    components: {keywordUpload, AkeywordAdd},
     data() {
       return {
         total: 0,
@@ -44,8 +53,10 @@
         name:'',
         datas: [],
         current: 1,
-        mainkeyword_name:''
-      };
+        mainkeyword_name:'',
+        selectDate:'',
+        url:''
+      }
     },
     created() {
       this.getData()
@@ -68,9 +79,11 @@
             page: this.page,
             rows: this.rows,
             mainkeyword_name: this.mainkeyword_name,
+            time:this.selectDate,
+            url:this.url
           }
         }
-        this.apiGet('admin/mainkeywords', data).then((data) => {
+        this.apiGet('admin/searchkeywords', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -94,36 +107,71 @@
             align: 'center'
           })
         }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
-            width: 60,
-            align: 'center'
-          })
-        }
-        columns.push({
-          title: '关键词',
-          key: 'keyword',
-          sortable: true
-        });
         columns.push({
           title: 'A类关键词',
           key: 'mainkeyword_name',
+          width: 130,
+          sortable: true,
+          fixed: 'left'
+        });
+        columns.push({
+          title: '总排名',
+          key: 'all_order',
+          width: 90,
+          sortable: true,
+          fixed: 'left'
+        });
+        columns.push({
+          title: '页码',
+          key: 'page',
+          width: 130,
+          sortable: true,
+          fixed: 'left'
+        });
+        columns.push({
+          title: '本页排名',
+          key: 'page_order',
+          width: 90,
+          sortable: true,
+        });
+        columns.push({
+          title: '链接',
+          key: 'trueUrl',
+          render (row, column, index) {
+            console.log(row)
+            return `<a href="`+row.a_href+`" target="_blank">`+row.a_text+`</i-button>`;
+          }
+        });
+        columns.push({
+          title: '标题',
+          key: 'emtitle',
           sortable: true
         });
         columns.push({
-          title: '出现次数',
-          key: 'count',
+          title: '关键词',
+          key: 'keywords',
+          sortable: true
+        });
+        columns.push({
+          title: '描述',
+          key: 'description',
           sortable: true
         });
         columns.push({
           title: '时间',
           key: 'create_time',
-          sortable: true
+          sortable: true,
+          fixed: 'right',
         });
         return columns;
       }
     },
     mixins: [http]
-  };
+  }
 </script>
+<style>
+  em{
+    color:red;
+  }
+
+</style>

@@ -3,10 +3,10 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
-          {{ item.text }}
-        </Option>
+      <Select v-model="keyword_type" style="width:200px">
+        <Option-group  v-for="(item,index) in keywordtype" :label="index" :key="item">
+          <Option v-for="items in item" :value="items.id" :key="items.value">{{ items.text }}</Option>
+        </Option-group>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
@@ -55,8 +55,8 @@
         datas: [],
         editinfo: {},
         keyword_type:"",
-        keywordtype:[]
-//        articletypelist: []
+        keywordtype:[],
+        typeNameArr:[]
       }
     },
     components: {wechatarticlesave},
@@ -70,6 +70,13 @@
       });
     },
     methods: {
+      forEachType(data) {
+        if(this.typeNameArr.indexOf(data) == -1){
+          this.typeNameArr.push(data)
+          return true;
+        }
+        return false;
+      },
       getData() {
         let data = {
           params: {
