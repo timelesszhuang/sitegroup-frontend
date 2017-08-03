@@ -6,6 +6,10 @@
         关键词查询:
         <Input v-model="mainkeyword_name" placeholder="请输入关键词" style="width:300px;"></Input>
         </Col>
+        <Col span="7">
+        URL:
+        <Input v-model="url" placeholder="请输入URL" style="width:300px;"></Input>
+        </Col>
         <Col span="4">
         <Date-picker v-model="selectDate"   type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
         </Col>
@@ -50,7 +54,8 @@
         datas: [],
         current: 1,
         mainkeyword_name:'',
-        selectDate:''
+        selectDate:'',
+        url:''
       }
     },
     created() {
@@ -74,7 +79,8 @@
             page: this.page,
             rows: this.rows,
             mainkeyword_name: this.mainkeyword_name,
-            time:this.selectDate
+            time:this.selectDate,
+            url:this.url
           }
         }
         this.apiGet('admin/searchkeywords', data).then((data) => {
