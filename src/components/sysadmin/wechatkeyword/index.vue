@@ -48,7 +48,8 @@
         name: '',
         datas: [],
         editinfo: {},
-        wechatKeywordType:{}
+        wechatKeywordType:{},
+        keyword_typename:""
       }
     },
     components: {wechatkadd,wechatksave},
