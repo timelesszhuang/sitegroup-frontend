@@ -69,7 +69,7 @@
     },
     methods: {
       getKeyword(func) {
-        this.apiGet('sys/weixinKeyList').then((res) => {
+        this.apiGet('scrapy/getlist').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
