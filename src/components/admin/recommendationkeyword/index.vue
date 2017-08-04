@@ -44,6 +44,7 @@
         datas: [],
         current: 1,
         currentKeyId:0,
+        keywordtype:{},
         keyword_type:'',
       };
     },
