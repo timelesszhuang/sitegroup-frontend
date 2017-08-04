@@ -4,7 +4,9 @@
       <Row>
         <Col span="7">
         关键词查询:
-        <Input v-model="mainkeyword_name" placeholder="请输入关键词" style="width:300px;"></Input>
+        <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
+            <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>
+        </Select>
         </Col>
         <Col span="7">
         URL:
@@ -53,15 +55,32 @@
         name:'',
         datas: [],
         current: 1,
-        mainkeyword_name:'',
         selectDate:'',
-        url:''
+        url:'',
+        keyword_type:'',
+        keywordtype:{},
+        currentKeyId:0
       }
     },
     created() {
       this.getData()
+      this.mainKeywordList()
     },
     methods: {
+      changeKeyword(key) {
+        this.currentKeyId=key
+      },
+      mainKeywordList() {
+        this.apiGet('admin/mainkeyword').then((data) => {
+          this.handelResponse(data, (data, msg) => {
+            this.keywordtype=data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
+      },
       changePage(page){
         this.page = page;
         this.getData();
@@ -78,8 +97,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            mainkeyword_name: this.mainkeyword_name,
             time:this.selectDate,
+            mainkeyword_id:this.currentKeyId,
             url:this.url
           }
         }
@@ -103,57 +122,54 @@
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
-            width: 60,
             align: 'center'
           })
         }
         columns.push({
           title: 'A类关键词',
           key: 'mainkeyword_name',
-          width: 130,
           sortable: true,
           fixed: 'left'
         });
         columns.push({
           title: '总排名',
           key: 'all_order',
-          width: 90,
           sortable: true,
           fixed: 'left'
         });
         columns.push({
           title: '页码',
           key: 'page',
-          width: 130,
           sortable: true,
           fixed: 'left'
         });
         columns.push({
           title: '本页排名',
           key: 'page_order',
-          width: 90,
           sortable: true,
         });
         columns.push({
           title: '链接',
           key: 'trueUrl',
           render (row, column, index) {
-            console.log(row)
             return `<a href="`+row.a_href+`" target="_blank">`+row.a_text+`</i-button>`;
           }
         });
         columns.push({
           title: '标题',
           key: 'emtitle',
+          width: 250,
           sortable: true
         });
         columns.push({
           title: '关键词',
           key: 'keywords',
+          width: 250,
           sortable: true
         });
         columns.push({
           title: '描述',
+          width: 250,
           key: 'description',
           sortable: true
         });
