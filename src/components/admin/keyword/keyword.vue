@@ -3,7 +3,9 @@
   <div>
     <div class="top">
       关键词查询:
-      <Input v-model="mainkeyword_name" placeholder="请输入关键词" style="width:300px;"></Input>
+      <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
+        <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
     <div class="content" style="margin-top:10px;">
@@ -44,13 +46,30 @@
         name:'',
         datas: [],
         current: 1,
-        mainkeyword_name:''
+        currentKeyId:0,
+        keywordtype:{},
+        keyword_type:'',
       };
     },
     created() {
       this.getData()
+      this.mainKeywordList()
     },
     methods: {
+      changeKeyword(key) {
+        this.currentKeyId=key
+      },
+      mainKeywordList() {
+        this.apiGet('admin/mainkeyword').then((data) => {
+          this.handelResponse(data, (data, msg) => {
+            this.keywordtype=data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
+      },
       changePage(page){
         this.page = page;
         this.getData();
@@ -67,7 +86,7 @@
           params: {
             page: this.page,
             rows: this.rows,
-            mainkeyword_name: this.mainkeyword_name,
+            mainkeyword_id:this.currentKeyId,
           }
         }
         this.apiGet('admin/mainkeywords', data).then((data) => {
