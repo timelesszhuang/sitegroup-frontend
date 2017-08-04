@@ -301,7 +301,7 @@
                 var btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">通过审核</i-button>`;
               if (row.status == '10') {
                 //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">取消权限</i-button>`;
+                btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">否决审核</i-button>`;
               }
               if(row.scrapystatus=='20'){
                 btn1 = `<i-button type="error" size="small" @click="scrapyStatus(${index},'10')">正常爬取</i-button>`;
