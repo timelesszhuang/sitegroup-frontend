@@ -74,7 +74,7 @@
             </Menu-item>
             <Menu-item name="推荐关键词库">
               <Icon type="ios-list-outline"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/keyword','推荐关键词库')">推荐关键词库</span>
+              <span class="layout-text" @click="routerChange('/admin/recommendationkeyword','推荐关键词库')">推荐关键词库</span>
             </Menu-item>
             <Menu-item name="主关键词排名">
               <Icon type="android-archive"></Icon>
