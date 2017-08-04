@@ -70,13 +70,6 @@
       });
     },
     methods: {
-      forEachType(data) {
-        if(this.typeNameArr.indexOf(data) == -1){
-          this.typeNameArr.push(data)
-          return true;
-        }
-        return false;
-      },
       getData() {
         let data = {
           params: {

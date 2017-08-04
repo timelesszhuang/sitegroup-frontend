@@ -4,10 +4,10 @@
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
-      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
-          {{ item.text }}
-        </Option>
+      <Select v-model="keyword_type" style="width:200px">
+        <Option-group  v-for="(item,index) in keywordtype" :label="index" :key="item">
+          <Option v-for="items in item" :value="items.id" :key="items.value">{{ items.text }}</Option>
+        </Option-group>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
@@ -68,6 +68,18 @@
       });
     },
     methods: {
+      getKeyword(func) {
+        this.apiGet('sys/weixinKeyList').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
       getData() {
         let data = {
           params: {
@@ -110,18 +122,6 @@
       show(index){
         this.getArticle(index);
         this.$refs.show.modal = true
-      },
-      getKeyword(func) {
-        this.apiGet('scrapy/getlist').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
       },
       getArticle(index){
         let editid = this.datas[index].id
