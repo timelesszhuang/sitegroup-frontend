@@ -6,7 +6,7 @@
       文章分类:
       <Select v-model="article_type" style="width: 250px;"
               label-in-value filterable clearable>
-        <Option disabled :value="0"><span style="font-size: 15px;font-weight: bold">分类名—标签</span></Option>
+        <Option disabled :value="0">分类名—标签</Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}—{{item.tag}}
         </Option>
