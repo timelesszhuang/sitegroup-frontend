@@ -250,6 +250,11 @@
           key: 'auther',
           sortable: true
         });
+        columns.push({
+          title: '添加时间',
+          key: 'create_time',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',

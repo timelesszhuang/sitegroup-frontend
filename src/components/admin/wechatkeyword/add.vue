@@ -35,17 +35,32 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checktype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
         keyword_type:'',
         form: {
           name: "",
+          detail:'',
         },
         AddRule: {
           name: [
             {required: true, message: '请输入关键词名称', trigger: 'blur'},
           ],
+          detail:[
+            {required:true,message:'请输入关键词描述',trigger:'blur'},
+          ],
+          type_name: [
+            {required: true,validator: checktype, trigger: 'blur'}
+          ]
+
         }
       }
     },
