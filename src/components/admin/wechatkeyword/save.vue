@@ -11,7 +11,16 @@
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-
+            <Form-item label="关键词描述" prop="detail">
+              <Input type="text" v-model="form.detail" placeholder="请输入关键词描述"></Input>
+            </Form-item>
+            <Form-item label="关键词分类" prop="type_name">
+              <Select v-model="form.type_id" @on-change="changeType" style="width: 200px;" label-in-value filterable clearable >
+                <Option v-for="item in types" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
           </Form>
         </div>
         <div slot="footer">
@@ -30,6 +39,7 @@
       return {
         modal: false,
         modal_loading: false,
+        keyword_type:'',
         AddRule: {
           name: [
             {required: true, message: '请输入名称', trigger: 'blur'},
@@ -39,14 +49,16 @@
       }
     },
     methods: {
+      changeType(label) {
+        this.form.type_id=label.value;
+        this.form.type_name=label.label;
+      },
         add() {
           this.$refs.wechatksave.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
-                let id = data.id;
-                let dataname = this.form.name
-                this.apiGet('scrapy/saveKeyword/'+ id+'/'+dataname).then((res) => {
+                this.apiPost('scrapy/saveKeyword',data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
@@ -67,6 +79,11 @@
         }
     },
     props: {
+      types:{
+        default:{
+
+        }
+      },
       form: {
         default: {
           name: '',

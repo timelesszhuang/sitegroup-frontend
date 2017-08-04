@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="top">
-      关键词查询:
+      关键词:
       <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
         <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>
       </Select>
@@ -123,7 +123,7 @@
           sortable: true
         });
         columns.push({
-          title: 'A类关键词',
+          title: '主关键词',
           key: 'mainkeyword_name',
           sortable: true
         });
