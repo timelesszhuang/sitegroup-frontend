@@ -55,7 +55,7 @@
        methods: {
          edit(index){
            let editid = this.datas[index].id
-           this.apiGet('sys/gettype/' + editid).then((res) => {
+           this.apiGet('sys/keywordtype/' + editid).then((res) => {
              this.handelResponse(res, (data, msg) => {
                this.editinfo = data
                this.modal = false;

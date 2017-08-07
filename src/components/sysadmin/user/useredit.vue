@@ -98,7 +98,7 @@
             this.modal_loading = true;
             let data = this.form;
             let id = data.id;
-            console.log(id)
+//            console.log(id)
             delete data['pwd2'];
             delete data['create_time'];
             data['type_name'] = this.form.type == 1 ? '系统管理员' : '节点管理员';
