@@ -263,6 +263,10 @@
           key: 'flag_name'
         });
         columns.push({
+          title: '详情',
+          key: 'title'
+        });
+        columns.push({
           title: '分类',
           key: 'type_name'
         });
