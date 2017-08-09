@@ -60,7 +60,7 @@
     },
     components: {titleadd, titlesave, titleshow},
     created () {
-      this.getArticleType((data) => {
+      this.getScaType((data) => {
         this.articletypelist = data
       });
       this.getData();

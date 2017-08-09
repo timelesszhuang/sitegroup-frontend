@@ -51,6 +51,7 @@ import Tengxunarticle from '../components/admin/qqarticle/index.vue'
 import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
 import Editor from '../components/admin/editor/index.vue'
+import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
 Vue.use(Router)
 
 
@@ -118,6 +119,7 @@ export default new Router({
         {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'},
         {path: 'editor', component:Editor,name:'editor'},
         {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
+        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'}
 
       ]
     }
