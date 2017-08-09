@@ -3,6 +3,11 @@
     <div class="top">
       栏目:
       <Input v-model="name" placeholder="栏目" style="width:300px;"></Input>
+
+        <Select v-model="flag" style="width:200px;" placeholder="根据栏目分类查询"label-in-value filterable clearable>
+          <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
+        </Select>
+
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="adddetails">添加详情型</Button>
       <Button type="success" @click="addquestion">添加问答型</Button>
@@ -65,7 +70,26 @@
         editinfo: {},
         info: {},
         articletypelist: [],
-        questiontypelist: []
+        questiontypelist: [],
+        flag:'',
+        flag_type: [
+          {
+            value: '1',
+            label: '详情型'
+          },
+          {
+            value: '2',
+            label: '问答型'
+          },
+          {
+            value: '3',
+            label: '文章型'
+          },
+          {
+            value: '4',
+            label: '零散文章型'
+          },
+        ],
       }
     },
     components: {
@@ -88,6 +112,7 @@
         this.questiontypelist = data
       });
 
+
     },
     methods: {
       getData() {
@@ -98,8 +123,10 @@
             name: this.name,
             article_type: this.article_type,
             question_type: this.question_type,
+            flag:this.flag
           }
         }
+
         this.apiGet('menu', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
@@ -149,7 +176,6 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-
       edit(index){
         let editid = this.datas[index].id
         this.apiGet('menu/' + editid).then((res) => {
@@ -221,6 +247,12 @@
             align: 'center'
           })
         }
+        columns.push({
+          title: 'Id',
+          key: 'id',
+          width:'100px',
+          sortable: true
+        });
         columns.push({
           title: '栏目',
           key: 'name',
