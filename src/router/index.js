@@ -50,6 +50,7 @@ import Wangyiarticle from '../components/admin/163article/index.vue'
 import Tengxunarticle from '../components/admin/qqarticle/index.vue'
 import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
+import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -114,7 +115,8 @@ export default new Router({
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
         {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'},
-        {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'}
+        {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
+        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'}
       ]
     }
   ]

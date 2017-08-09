@@ -14,9 +14,8 @@
             <Form-item label="文章分类" prop="articletype_id">
               <Select ref="select"    :clearable="selects" v-model="form.articletype_id" style="text-align: left;width:200px;"
                       label-in-value 　@on-change="changeArticletype">
-                <Option disabled :value="0">分类名—标签</Option>
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.name }}—{{item.tag}}
+                <Option v-for="item in articletype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
                 </Option>
               </Select>
             </Form-item>
