@@ -23,7 +23,7 @@
                     label-in-value filterable　clearable @on-change="changeArticleType">
               <Option disabled :value="0">分类名—标签</Option>
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}—{{item.tag}}
+                {{ item.name }}
               </Option>
             </Select>
           </Form-item>

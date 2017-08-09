@@ -8,7 +8,7 @@
               label-in-value filterable clearable>
         <Option disabled :value="0">分类名—标签</Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          {{ item.name }}—{{item.tag}}
+          {{ item.name }}
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询分段</Button>
