@@ -7,7 +7,7 @@
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Form-item label="点击查看原文章">
+          <Form-item label="原文">
             <a v-bind:href="url" target="_blank">点击查看原文章</a>
           </Form-item>
           <Form-item label="标题" prop="title">
@@ -17,7 +17,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
+            <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
                     label-in-value 　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}

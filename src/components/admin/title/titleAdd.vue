@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.title" placeholder="请填写标题"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="articletype_id">
-              <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
+              <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option disabled :value="0">分类名—标签</Option>
                 <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
