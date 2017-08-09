@@ -8,6 +8,19 @@ const commonMethods = {
   methods: {
     //获取文章分类的 id => name 属性
     getArticleType(func) {
+      this.apiGet('articletype/gettype').then((res) => {
+        this.handelResponse(res, (data, msg) => {
+          func(data);
+        }, (data, msg) => {
+          this.$Message.error(msg);
+        })
+      }, (res) => {
+        //处理错误信息
+        this.$Message.error('网络异常，请稍后重试。');
+      });
+    },
+    //获取文章分类的 id => name 属性
+    getScaType(func) {
       this.apiGet('sca/getType').then((res) => {
         this.handelResponse(res, (data, msg) => {
           func(data);
