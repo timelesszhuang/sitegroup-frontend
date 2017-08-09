@@ -58,7 +58,7 @@
     components: {scatteredarticleadd, scatteredarticlesave},
     created () {
       // 获取文章分类
-      this.getArticleType((data) => {
+      this.getScaType((data) => {
         this.articletypelist = data
       });
       this.getData();
