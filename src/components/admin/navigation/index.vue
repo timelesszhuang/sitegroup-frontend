@@ -248,7 +248,7 @@
           })
         }
         columns.push({
-          title: 'Id',
+          title: '栏目编号',
           key: 'id',
           width:'100px',
           sortable: true
