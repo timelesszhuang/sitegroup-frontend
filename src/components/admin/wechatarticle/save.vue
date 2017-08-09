@@ -7,7 +7,7 @@
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Form-item label="点击查看原文章">
+          <Form-item label="原文">
             <a v-bind:href="url" target="_blank">点击查看原文章</a>
           </Form-item>
           <Form-item label="标题" prop="title">
@@ -17,24 +17,18 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:200px;"
+            <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
                     label-in-value 　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}
+                {{ item.text }}
               </Option>
             </Select>
             &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-           关键词： <span style="font-size: 15px">{{form.keyword}}</span>
+            关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <quill-editor ref="myTextEditoredit"
-                          v-model="form.content"
-                          :config="editorOption">
-            </quill-editor>
+            <editor @change="updateData" :z-index="1":content="content"  :height="500"></editor>
+
           </Form-item>
         </Form>
       </div>
@@ -51,9 +45,9 @@
   export default {
     data() {
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
+        contents:'',
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -64,13 +58,14 @@
     computed: {
       url: function () {
         return this.form.url;
+      },
+      content:function () {
+        return this.form.content;
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditoredit.quillEditor
-        },
+      updateData(data) {
+       this.contents = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -80,13 +75,14 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
+//            console.log(this.contents)
             let data = {
               articletype_id: this.form.articletype_id,
               articletype_name: this.form.articletype_name,
               auther: this.form.auther,
               summary: this.form.summary,
               title: this.form.title,
-              content: this.form.content,
+              content: this.contents,
               come_from: this.form.source,
               posttime: this.form.scrapytime
             }

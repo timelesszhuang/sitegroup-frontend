@@ -30,7 +30,7 @@
 
         },
         title: {
-          text: '零散段落统计',
+          text: '文章段落统计',
           left: 'center',
           top: 10
         },

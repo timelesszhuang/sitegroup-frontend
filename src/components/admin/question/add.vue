@@ -11,7 +11,7 @@
             <Form-item label="问题名" prop="question">
               <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
-            <Form-item label="文章分类" prop="articletype_id">
+            <Form-item label="问答分类" prop="articletype_id">
               <Select   ref="select" :clearable="selects" v-model="form.type_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
