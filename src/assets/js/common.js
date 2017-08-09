@@ -8,7 +8,7 @@ const commonMethods = {
   methods: {
     //获取文章分类的 id => name 属性
     getArticleType(func) {
-      this.apiGet('articletype/gettype').then((res) => {
+      this.apiGet('sca/getType').then((res) => {
         this.handelResponse(res, (data, msg) => {
           func(data);
         }, (data, msg) => {

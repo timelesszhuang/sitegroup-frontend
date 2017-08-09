@@ -123,6 +123,10 @@
               <Icon type="scissors"></Icon>
               文章段落库
             </template>
+            <Menu-item name="文章段落分类">
+              <Icon type="social-dropbox-outline"></Icon>
+              <span class="layout-text" @click="routerChange('/admin/scatteredtype','文章段落分类')">文章段落分类</span>
+            </Menu-item>
             <Menu-item name="文章段落">
               <Icon type="social-dropbox-outline"></Icon>
               <span class="layout-text" @click="routerChange('/admin/scatteredarticle','文章段落')">文章段落</span>
