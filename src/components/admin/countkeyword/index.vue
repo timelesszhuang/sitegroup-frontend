@@ -1,11 +1,11 @@
 <template>
   <div class="echarts">
-    <div style="margin-left: 35%;padding-top:1%;padding-bottom:2%">
+    <div style="margin-left: 30%;padding-top:1%;padding-bottom:2%">
       <Row>
         <Col span="9">
         <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
         </Col>
-        <Select v-model="site_id" style="width:150px;" label-in-value filterable clearable>
+        <Select v-model="site_id" style="width:310px;" label-in-value filterable clearable>
           <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
             {{ item.text }}
           </Option>

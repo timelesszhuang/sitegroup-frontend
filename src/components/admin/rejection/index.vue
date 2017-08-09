@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-      <Select v-model="site_id" style="margin-left:40%;width:200px;" label-in-value filterable clearable>
+      <Select v-model="site_id" style="margin-left:40%;width:310px;" label-in-value filterable clearable>
         <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>

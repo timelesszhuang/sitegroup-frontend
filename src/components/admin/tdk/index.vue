@@ -1,7 +1,7 @@
 <template>
   <div>
     站点选择:
-    <Select v-model="site_type_id" style="width:200px" label-in-value filterable clearable>
+    <Select v-model="site_type_id" style="width:300px" label-in-value filterable clearable>
       <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">{{ item.text }}</Option>
     </Select>
     <Button type="primary" @click="queryData">查询</Button>

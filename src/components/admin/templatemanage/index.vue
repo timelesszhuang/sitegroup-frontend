@@ -2,7 +2,7 @@
   <div>
     站点选择:
     <Select v-model="site_type_id" style="width:300px" label-in-value filterable clearable>
-    <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">{{ item.text}}--{{item.url}}</Option>
+    <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">{{ item.text}}</Option>
   </Select>
     <Button type="primary" @click="getInfo">查询</Button>
     <Button type="info" @click="addTemplate">添加模板</Button>
