@@ -8,20 +8,25 @@
     <Modal
       v-model="modal" width="600">
       <p slot="header">
-        <span>添零散段落</span>
+        <span>添文章段落</span>
       </p>
       <div>
         <Form ref="scatteredarticleadd" :model="form" :label-width="90" :rules="scatterrdArticlAddRule"
               class="scatteredarticle-add-form">
-          <Form-item label="段落" prop="content_paragraph">
+          <Form-item label="文章段落" prop="content_paragraph">
             <Input ref="input" :clearable="sel" v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
-                   placeholder="请输入零散段落">
+                   placeholder="请输入文章段落">
             </Input>
           </Form-item>
           <Form-item label="分类" prop="articletype_id">
             <Select ref="select" :clearable="selects" v-model="form.articletype_id" style="text-align: left"
                     label-in-value filterable　clearable @on-change="changeArticleType">
+<<<<<<< HEAD
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.text" :key="item">
+=======
+              <Option disabled :value="0">分类名—标签</Option>
+              <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
+>>>>>>> 769dbdd7ae3ce5cbbeaae3cf6f06e38962399fba
                 {{ item.text }}
               </Option>
             </Select>
@@ -58,7 +63,7 @@
         },
         scatterrdArticlAddRule: {
           content_paragraph: [
-            {required: true, message: '请填写段落', trigger: 'blur'},
+            {required: true, message: '请填写文章段落', trigger: 'blur'},
           ],
           articletype_id: [
             {required: true,validator: checkarticletype, trigger: 'blur'}

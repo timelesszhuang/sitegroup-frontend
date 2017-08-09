@@ -6,8 +6,8 @@
       文章分类:
       <Select v-model="article_type" style="width: 250px;"
               label-in-value filterable clearable>
-        <Option v-for="item in articletypelist" :value="item.id" :label="item.text" :key="item">
-          {{item.text}}
+        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
+          {{ item.text }}
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询分段</Button>

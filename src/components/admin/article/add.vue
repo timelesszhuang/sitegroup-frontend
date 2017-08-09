@@ -21,7 +21,7 @@
                     label-in-value filterable　@on-change="changeArticletype">
               <Option disabled :value="0">分类名—标签</Option>
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}—{{item.tag}}
+                {{ item.text }}
               </Option>
             </Select>
           </Form-item>

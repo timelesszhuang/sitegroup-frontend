@@ -84,8 +84,8 @@
             label: '问答'
           },
           {
-            value: 'scatteredartile',
-            label: '零散文章'
+            value: 'scatteredarticle',
+            label: '文章段落'
           }
         ],
         AddRule: {

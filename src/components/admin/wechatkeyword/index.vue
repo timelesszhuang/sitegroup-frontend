@@ -138,13 +138,13 @@
           })
         }
         columns.push({
-          title: '分类',
-          key: 'type_name',
+          title: '关键词',
+          key: 'name',
           sortable: true
         });
         columns.push({
-          title: '关键词',
-          key: 'name',
+          title: '关键词所属分类',
+          key: 'type_name',
           sortable: true
         });
         columns.push({

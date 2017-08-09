@@ -9,7 +9,7 @@
           分类名—标签
         </Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          {{ item.name }}—{{item.tag}}
+          {{ item.text }}
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
@@ -228,13 +228,12 @@
             align: 'center'
           })
         }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
+        columns.push({
+            title: 'ID',
+            key: 'id',
             width: 60,
             align: 'center'
           })
-        }
         columns.push({
           title: '标题',
           key: 'title',

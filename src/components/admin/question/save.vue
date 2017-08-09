@@ -9,7 +9,7 @@
         <div>
           <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="问题名称" prop="question">
-              <Input type="text" v-model="form.question" placeholder="请填写文章分类"></Input>
+              <Input type="text" v-model="form.question" placeholder="请填写问答分类"></Input>
             </Form-item>
             <Form-item label="问答分类" prop="articletype_id">
               <Select  ref="select" :clearable="selects"v-model="form.type_id" style="text-align: left;width:200px;"

@@ -3,17 +3,36 @@
     <div class="top">
       栏目:
       <Input v-model="name" placeholder="栏目" style="width:300px;"></Input>
+
+      <Select v-model="flag" style="width:200px;" placeholder="根据栏目分类查询" label-in-value filterable clearable>
+        <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
+      </Select>
+
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="adddetails">添加详情型</Button>
       <Button type="success" @click="addquestion">添加问答型</Button>
       <Button type="success" @click="addarticle">添加文章型</Button>
-      <Button type="success" @click="addtitle">添加零散文章</Button>
+      <Button type="success" @click="addtitle">添加文章段落</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
       <div style="margin: 10px;overflow: hidden">
+        <!--<Alert type="error">栏目是在建立站点的时候选择,</Alert>-->
+        <!--<Alert type="error">文章型,问答型,零散文章型是在列表中显示出来的,比如文章列表</Alert>-->
+        <template>
+          <Alert type="error">
+            站点栏目介绍
+            <span slot="desc">
+            1.栏目是在建立站点管理中新建站点的时候选择
+           <br/>
+            2.详情型是首页显示的详情，比如说关于我们这种就是详情型，链接到详情页，添加的这个英文名用于生成静态页
+              <br/>
+              3.文章型文章型,问答型是在站点列表中显示出来的,比如文章列表
+            </span>
+          </Alert>
+        </template>
         <div style="float: right;">
           <Page :total="total" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
@@ -36,6 +55,7 @@
 
 </template>
 
+
 <script type="text/ecmascript-6">
   import common from '../../../assets/js/common.js';
   import http from '../../../assets/js/http.js';
@@ -48,8 +68,9 @@
   import articlesave from './savearticle.vue';
   import titlesave from './savetitle.vue';
   import sort from './sort.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -65,7 +86,26 @@
         editinfo: {},
         info: {},
         articletypelist: [],
-        questiontypelist: []
+        questiontypelist: [],
+        flag: '',
+        flag_type: [
+          {
+            value: '1',
+            label: '详情型'
+          },
+          {
+            value: '2',
+            label: '问答型'
+          },
+          {
+            value: '3',
+            label: '文章型'
+          },
+          {
+            value: '4',
+            label: '文章段落型'
+          },
+        ],
       }
     },
     components: {
@@ -79,7 +119,7 @@
       titlesave,
       sort,
     },
-    created () {
+    created() {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
@@ -87,6 +127,7 @@
       this.getQuestionType((data) => {
         this.questiontypelist = data
       });
+
 
     },
     methods: {
@@ -98,8 +139,10 @@
             name: this.name,
             article_type: this.article_type,
             question_type: this.question_type,
+            flag: this.flag
           }
         }
+
         this.apiGet('menu', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
@@ -111,30 +154,30 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.page = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      adddetails(){
+      adddetails() {
         this.$refs.adddetails.modal = true
       },
-      addquestion(){
+      addquestion() {
         this.$refs.addquestion.modal = true
       },
-      addarticle(){
+      addarticle() {
         this.$refs.addarticle.modal = true
       },
-      addtitle(){
+      addtitle() {
         this.$refs.addtitle.modal = true
       },
-      modify(index){
+      modify(index) {
         let editid = this.datas[index].id
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -149,8 +192,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -175,7 +217,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -204,8 +246,7 @@
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -222,6 +263,12 @@
           })
         }
         columns.push({
+          title: '栏目编号',
+          key: 'id',
+          width: '110px',
+          sortable: true
+        });
+        columns.push({
           title: '栏目',
           key: 'name',
           sortable: true
@@ -229,6 +276,10 @@
         columns.push({
           title: '类型',
           key: 'flag_name'
+        });
+        columns.push({
+          title: '详情',
+          key: 'title'
         });
         columns.push({
           title: '分类',
@@ -253,7 +304,7 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
                 <i-button type="error" size="small" @click="modify(${index})">排序</i-button>`;
             }

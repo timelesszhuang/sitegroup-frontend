@@ -12,9 +12,9 @@
               <Input type="text" v-model="form.title" placeholder="请填写文章标题"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select"    :clearable="selects" v-model="form.articletype_id" style="text-align: left;width:200px;"
+              <Select ref="select"    :clearable="selects" v-model="form.articletype_id" style="text-align: left;width:250px;"
                       label-in-value 　@on-change="changeArticletype">
-                <Option v-for="item in articletype" :value="item.id" :label="item.text" :key="item">
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
@@ -22,7 +22,7 @@
           </Form>
         </div>
         <Alert type="warning">
-          如果选择的 <b>文章分类</b> 下的 <b>零散文章</b> 的数量不足 15篇,不会给该标题 随机生成文章。 也就不会出现在 站群的节点中。
+          如果选择的 <b>文章分类</b> 下的 <b>文章段落</b> 的数量不足 15篇,不会给该标题 随机生成文章。 也就不会出现在 站群的节点中。
         </Alert>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>

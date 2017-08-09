@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>添加零散文章型</span>
+          <span>添加文章段落型</span>
         </p>
         <div>
           <Form ref="titleadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
@@ -18,10 +18,10 @@
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="type_id">
-              <Select v-model="form.type_id" style="text-align: left;width:200px;"
+              <Select v-model="form.type_id" style="text-align: left;width:250px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.name }}
+                  {{ item.text }}
                 </Option>
               </Select>
             </Form-item>
@@ -53,7 +53,7 @@
           name: "",
           title: "",
           flag: "4",
-          flag_name: "段落标题",
+          flag_name: "文章段落标题",
           type_id: '',
           type_name: '',
           generate_name: ''

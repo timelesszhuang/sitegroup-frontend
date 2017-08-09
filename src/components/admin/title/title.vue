@@ -1,12 +1,12 @@
 <template>
-  <!--该文件是零散的段落的 标题-->
+  <!--该文件是段落的 标题-->
   <div>
     <div class="top">
       标题:
       <Input v-model="title" placeholder="标题" style="width:300px;"></Input>
-      <Select v-model="article_type" style="width: 200px;"
+      <Select v-model="article_type" style="width:300px;"
               label-in-value filterable clearable>
-        <Option v-for="item in articletypelist" :value="item.id" :label="item.text" :key="item">
+        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
           {{ item.text }}
         </Option>
       </Select>
