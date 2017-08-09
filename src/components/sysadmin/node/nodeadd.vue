@@ -47,6 +47,20 @@
   import http from '../../../assets/js/http.js'
   export default {
     data () {
+      const checktype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择管理账号'));
+        } else {
+          callback();
+        }
+      };
+      const checkcomtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择公司名'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
@@ -65,7 +79,14 @@
           ],
           detail: [
             {required: true, message: '请填写节点详情', trigger: 'blur'},
+          ],
+          user_id:[
+            {required: true,validator: checkcomtype, trigger: 'blur'}
+          ],
+          com_id:[
+            {required:true,validator:checktype,trigger:"blur"}
           ]
+
         }
       }
     },

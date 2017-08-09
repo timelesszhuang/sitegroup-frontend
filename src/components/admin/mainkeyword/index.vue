@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <Row>
-        <Col span="5">
+        <Col span="6">
         主关键词：
         <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
           <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>

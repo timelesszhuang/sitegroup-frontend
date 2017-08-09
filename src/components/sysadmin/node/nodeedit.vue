@@ -27,14 +27,6 @@
               </Option>
             </Select>
           </Form-item>
-          <Form-item label="管理账号" prop="user_id">
-            <Select v-model="form.user_id" style="width:150px;text-align: left"
-                    label-in-value　@on-change="changeUser">
-              <Option v-for="item in user" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}
-              </Option>
-            </Select>
-          </Form-item>
         </Form>
       </div>
       <div slot="footer">
@@ -47,6 +39,14 @@
   import http from '../../../assets/js/http.js'
   export default {
     data () {
+
+      const checkcomtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择公司名'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
@@ -57,29 +57,20 @@
           ],
           detail: [
             {required: true, message: '请填写节点详情', trigger: 'blur'},
+          ],
+          com_id:[
+            {required:true,validator:checkcomtype,trigger:"blur"}
           ]
         },
       }
     },
     methods: {
-      changeUser(value){
-        this.form.user_name = value.label;
-        this.form.user_id = value.value;
-      },
       changeCompany(value){
         this.form.com_name = value.label;
         this.form.com_id = value.value;
       },
       edit()
       {
-        if (!this.form.user_id) {
-          this.$Message.error('请选择管理账号');
-          return
-        }
-        if (!this.form.user_id) {
-          this.$Message.error('请选择所属公司');
-          return
-        }
         this.$refs.nodeedit.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
@@ -111,15 +102,10 @@
       company: {
         default: []
       },
-      user: {
-        default: []
-      },
       form: {
         default: {
           name: '',
           detail: '',
-          com_id: 0,
-          com_name: '',
           user_id: '',
           user_name: ''
         }

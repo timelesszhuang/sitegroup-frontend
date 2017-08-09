@@ -60,7 +60,8 @@
     <Row type="flex">
       <i-col span="4" class="layout-menu-left" style="min-width:170px">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
-          <div class="layout-logo-left" @click="routerChange('/admin/index')"style="width: 150px;height: 58px;margin: 0 auto;">
+          <div class="layout-logo-left" @click="routerChange('/admin/index')"
+               style="width: 150px;height: 58px;margin: 0 auto;">
             <img style="" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Submenu name="1">
@@ -290,8 +291,9 @@
   import logout from './Account/Logout.vue';
   import changepwd from './Account/Changepwd.vue';
   import http from '../assets/js/http.js';
+
   export default {
-    data(){
+    data() {
       return {
         activeName: '',
         sysname: '',
@@ -319,27 +321,28 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      routerChange (path, activeName) {
+      routerChange(path, activeName) {
         this.activeName = activeName;
         router.push(path);
       },
-      changePwd () {
+      changePwd() {
         this.$refs.changePwd.modal = true
       },
-      logOut(){
+      logOut() {
         this.$refs.logout.modal = true
       },
-      messageLog(){
+      messageLog() {
         router.replace('/admin/messageLog');
       }
     },
     //created 是函数
-    created () {
+    created() {
       let _this = this;
       _this.checkAlert();
       setInterval(function () {
         _this.checkAlert();
       }, 12000);
+//      console.log(Lockr.get('userInfo'));
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
         //表示没有登陆
@@ -348,6 +351,7 @@
         }, 1500)
         return
       }
+
       this.sysname = Lockr.get('userInfo').node_name;
       document.title = this.sysname
       let rememberKey = Lockr.get('rememberKey')

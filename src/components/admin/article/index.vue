@@ -4,8 +4,8 @@
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
-      <Select v-model="article_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option disabled :value="0">
+      <Select v-model="article_type" style="width: 250px;" label-in-value filterable clearable>
+        <Option disabled value="">
           分类名—标签
         </Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
@@ -228,13 +228,12 @@
             align: 'center'
           })
         }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
+        columns.push({
+            title: 'ID',
+            key: 'id',
             width: 60,
             align: 'center'
           })
-        }
         columns.push({
           title: '标题',
           key: 'title',
@@ -248,6 +247,11 @@
         columns.push({
           title: '作者',
           key: 'auther',
+          sortable: true
+        });
+        columns.push({
+          title: '添加时间',
+          key: 'create_time',
           sortable: true
         });
         columns.push(
