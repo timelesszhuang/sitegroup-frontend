@@ -21,12 +21,7 @@
           <Form-item label="分类" prop="articletype_id">
             <Select ref="select" :clearable="selects" v-model="form.articletype_id" style="text-align: left"
                     label-in-value filterable　clearable @on-change="changeArticleType">
-<<<<<<< HEAD
-              <Option v-for="item in articleTypeList" :value="item.id" :label="item.text" :key="item">
-=======
-              <Option disabled :value="0">分类名—标签</Option>
               <Option v-for="item in articleTypeList" :value="item.id" :label="item.name" :key="item">
->>>>>>> 769dbdd7ae3ce5cbbeaae3cf6f06e38962399fba
                 {{ item.text }}
               </Option>
             </Select>
