@@ -3,7 +3,7 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>修改零散文章型</span>
+        <span>修改文章段落型</span>
       </p>
       <div>
         <Form ref="title" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
@@ -21,7 +21,7 @@
             <Select v-model="form.type_id" style="text-align: left;width:200px;"
                     label-in-value 　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}
+                {{ item.text }}
               </Option>
             </Select>
           </Form-item>

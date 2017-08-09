@@ -71,7 +71,7 @@
           },
           {
             value: 'scatteredarticle',
-            label: '零散文章'
+            label: '文章段落'
           }
         ],
         AddRule: {

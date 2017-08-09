@@ -1,5 +1,5 @@
 <template>
-  <!--该文件是零散的段落的 标题-->
+  <!--该文件是段落的 标题-->
   <div>
     <div class="top">
       标题:
@@ -8,7 +8,7 @@
               label-in-value filterable clearable>
         <Option disabled :value="0">分类名—标签</Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          {{ item.name }}
+          {{ item.text }}
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
