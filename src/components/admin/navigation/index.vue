@@ -250,7 +250,7 @@
         columns.push({
           title: '栏目编号',
           key: 'id',
-          width:'100px',
+          width:'110px',
           sortable: true
         });
         columns.push({
