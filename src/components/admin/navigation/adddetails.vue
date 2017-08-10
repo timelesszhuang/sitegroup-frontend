@@ -18,13 +18,7 @@
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
             <Form-item label="内容" prop="content" style="height:100%;">
-              <quill-editor ref="myTextEditor"
-                            v-model="form.content"
-                            :config="editorOption"
-                            @blur="onEditorBlur($event)"
-                            @focus="onEditorFocus($event)"
-                            @ready="onEditorReady($event)">
-              </quill-editor>
+              <editor @change="updateData" :content="form.content" :height="500"></editor>
             </Form-item>
           </Form>
         </div>
@@ -39,19 +33,19 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
         modal: false,
         modal_loading: false,
-        editorOption: {},
         form: {
           name: "",
           title: "",
-          flag:"1",
-          flag_name:"详情型",
-          generate_name:'',
-          content:''
+          flag: "1",
+          flag_name: "详情型",
+          generate_name: '',
+          content: ''
         },
         AddRule: {
           name: [
@@ -63,51 +57,40 @@
           type_name: [
             {required: true, message: '请选择问答分类', trigger: 'blur'},
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ]
         }
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
+      updateData(data) {
+        this.form.content = data
       },
-      onEditorBlur(editor) {
-//        console.log('editor blur!', editor)
-      },
-      onEditorFocus(editor) {
-//        console.log('editor focus!', editor)
-      },
-      onEditorReady(editor) {
-//        console.log('editor ready!', editor)
-      },
-        adddetails() {
-          this.$refs.detailadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('menu', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.detailadd.resetFields();
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+      adddetails() {
+        this.$refs.detailadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('menu', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.detailadd.resetFields();
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
     mixins: [http]
   }

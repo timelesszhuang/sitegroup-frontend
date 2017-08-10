@@ -18,11 +18,7 @@
             <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <quill-editor ref="myTextEditor"
-                          v-model="detail.content"
-                          :config="editorOption"
-                          @blur="onEditorBlur($event)">
-            </quill-editor>
+            <editor @change="updateData" :content="form.content" :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -35,13 +31,14 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
         editorOption: {},
         modal: false,
         modal_loading: false,
-        id:0,
+        id: 0,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -49,20 +46,15 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ]
         }
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
-      },
-      onEditorBlur(editor) {
-
+      updateData(data) {
+        this.form.content = data
       },
       savedetails() {
         this.$refs.detailadd.validate((valid) => {
@@ -97,7 +89,7 @@
           name: "",
           title: '',
           content: '',
-          generate_name:''
+          generate_name: ''
         }
       }
     }

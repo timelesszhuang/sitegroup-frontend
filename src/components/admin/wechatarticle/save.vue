@@ -16,7 +16,7 @@
           <Form-item label="作者" prop="title">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
-          <Form-item label="文章分类" prop="articletype_id"style="z-index: 10000">
+          <Form-item label="文章分类" prop="articletype_id">
             <Select  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index:10000;"
                     label-in-value 　@on-change="changeArticletype">
               <Option   v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
@@ -27,8 +27,7 @@
             关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="content"  :height="500"></editor>
-
+            <editor @change="updateData" :content="form.content"  :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -47,7 +46,6 @@
       return {
         modal: false,
         modal_loading: false,
-        contents:'',
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -59,13 +57,11 @@
       url: function () {
         return this.form.url;
       },
-      content:function () {
-        return this.form.content;
-      }
     },
+
     methods: {
       updateData(data) {
-       this.contents = data
+       this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -82,7 +78,7 @@
               auther: this.form.auther,
               summary: this.form.summary,
               title: this.form.title,
-              content: this.contents,
+              content: this.form.content,
               come_from: this.form.source,
               posttime: this.form.scrapytime
             }
