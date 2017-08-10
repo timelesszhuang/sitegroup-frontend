@@ -17,7 +17,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者" style="width: 200px;"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="text-align: left;width:250px;"
+            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index: 10000;"
                     label-in-value filterable　@on-change="changeArticletype">
               <Option disabled :value="0">分类名—标签</Option>
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
@@ -26,13 +26,7 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <quill-editor ref="myTextEditoradd"
-                          v-model="form.content"
-                          :config="editorOption"
-                          @blur="onEditorBlur($event)"
-                          @focus="onEditorFocus($event)"
-                          @ready="onEditorReady($event)">
-            </quill-editor>
+            <editor @change="updateData" :content="form.content"  :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -59,7 +53,6 @@
       return {
         modal: false,
         modal_loading: false,
-        editorOption: {},
         form: {
           title: "",
           auther: '',
@@ -88,19 +81,8 @@
     created() {
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditoradd.quillEditor
-        }
-      },
-      onEditorBlur(editor) {
-//        console.log('editor blur!', editor)
-      },
-      onEditorFocus(editor) {
-//        console.log('editor focus!', editor)
-      },
-      onEditorReady(editor) {
-//        console.log('editor ready!', editor)
+      updateData(data) {
+        this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label

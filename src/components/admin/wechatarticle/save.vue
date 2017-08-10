@@ -17,9 +17,9 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
+            <Select  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index:10000;"
                     label-in-value 　@on-change="changeArticletype">
-              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+              <Option   v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
@@ -27,8 +27,7 @@
             关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :z-index="1":content="content"  :height="500"></editor>
-
+            <editor @change="updateData" :content="form.content"  :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -47,7 +46,6 @@
       return {
         modal: false,
         modal_loading: false,
-        contents:'',
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -59,13 +57,11 @@
       url: function () {
         return this.form.url;
       },
-      content:function () {
-        return this.form.content;
-      }
     },
+
     methods: {
       updateData(data) {
-       this.contents = data
+       this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -82,7 +78,7 @@
               auther: this.form.auther,
               summary: this.form.summary,
               title: this.form.title,
-              content: this.contents,
+              content: this.form.content,
               come_from: this.form.source,
               posttime: this.form.scrapytime
             }
@@ -130,4 +126,8 @@
     padding-bottom: 1em;
     max-height: 25em;
   }
+  .vue-html5-editor{
+    z-index: 1000;
+  }
+
 </style>

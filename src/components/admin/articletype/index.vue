@@ -6,6 +6,12 @@
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
+    <div>
+      <br>
+      <Alert type="success">
+        注意：标签用于 在添加栏目的时候 区分文章分类
+      </Alert>
+    </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
