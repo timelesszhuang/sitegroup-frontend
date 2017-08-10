@@ -160,9 +160,9 @@ Vue.use(VueHtml5Editor, {
 })
 
 
-let domain = 'local.sitegroup.com'
+// let domain = 'local.sitegroup.com'
 
-// let domain = 'www.sitegroupback.com'
+let domain = 'api.mypc.com.cn'
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'
 
