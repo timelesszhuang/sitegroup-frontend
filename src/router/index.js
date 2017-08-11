@@ -51,7 +51,7 @@ import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
 import Editor from '../components/admin/editor/index.vue'
 import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
-import HotNews from '../components/admin/hotnews/hotnews.vue'
+import Hotnews from '../components/admin/news/tab.vue'
 Vue.use(Router)
 
 
@@ -105,6 +105,7 @@ export default new Router({
         {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
         {path: 'crawler', component: Crawler, name: 'crawler'},
         {path: 'pv', component: Pv, name: 'pv'},
+
         {path: 'other', component: Other, name: 'other'},
         {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
@@ -119,7 +120,7 @@ export default new Router({
         {path: 'editor', component:Editor,name:'editor'},
         {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
         {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'},
-        {path: 'hotnews',component:HotNews,name:'hotnews'}
+        {path: 'hotnews', component: Hotnews, name: 'hotnews'},
       ]
     }
   ]

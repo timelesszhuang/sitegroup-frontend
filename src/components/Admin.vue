@@ -95,18 +95,11 @@
               <Icon type="ios-bookmarks"></Icon>
               <span class="layout-text" @click="routerChange('/admin/wechatarticle','微信企业号文章')">微信公众号文章</span>
             </Menu-item>
-            <Menu-item name="163新闻类文章管理">
+            <Menu-item name="新闻类文章管理">
               <Icon type="ios-copy"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/wangyiarticle','163新闻类文章管理')">网易新闻管理</span>
+              <span class="layout-text" @click="routerChange('/admin/hotnews','新闻类文章管理')">新闻管理</span>
             </Menu-item>
-            <Menu-item name="腾讯新闻类文章管理">
-              <Icon type="ios-book"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻管理</span>
-            </Menu-item>
-            <Menu-item name="热点新闻管理">
-              <Icon type="ios-book"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/hotnews','热点新闻管理')">热点新闻管理</span>
-            </Menu-item>
+
           </Submenu>
           <Submenu name="2">
             <template slot="title">
