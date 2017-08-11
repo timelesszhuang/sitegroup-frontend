@@ -14,7 +14,7 @@
             <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="form.content"  :height="500"></editor>
+            <editor @change="updateData" :content="form.content"  :height="300"></editor>
           </Form-item>
         </Form>
       </div>
