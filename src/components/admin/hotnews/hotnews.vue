@@ -140,7 +140,11 @@
           title: '缩略图',
           width:'200',
           key: 'base64img',
-          sortable: true
+          sortable: true,
+          render(row, index) {
+            var type = '<div class="img">' + row.base64img + '</div>';
+            return type;
+          },
         });
         columns.push({
           title: '标题',
@@ -179,8 +183,8 @@
   }
 
 </script>
-<style>
-img{
+<style scoped>
+.img img{
   width:150px;
 }
 
