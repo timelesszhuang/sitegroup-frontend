@@ -20,7 +20,7 @@
               </Select>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">
-              <editor @change="updateData" :content="form.content_paragraph"  :height="500"></editor>
+              <editor @change="updateData" :content="form.content_paragraph"  :height="300"></editor>
             </Form-item>
           </Form>
         </div>
