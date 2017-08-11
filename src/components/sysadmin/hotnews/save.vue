@@ -10,6 +10,9 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
+          <Form-item label="简介" prop="summary">
+            <Input type="text" v-model="form.summary" placeholder="请输入简介"></Input>
+          </Form-item>
           <Form-item label="来源" prop="source">
             <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
           </Form-item>
@@ -30,15 +33,15 @@
   export default {
     data() {
       return {
+        editorOption: {},
         modal: false,
         modal_loading: false,
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-          content: [
-            {required: true, message: '请填写文章内容', trigger: 'blur'},
-          ],
+
+
         }
       }
     },
@@ -54,9 +57,16 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            let data = this.form;
+            let data = {
+
+          id:this.form.id,
+              summary: this.form.summary,
+              title: this.form.title,
+              content: this.form.content,
+
+            }
             let id = data.id;
-            this.apiPost('sys/changeQqArticle', data).then((res) => {
+            this.apiPost('sys/editnews', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

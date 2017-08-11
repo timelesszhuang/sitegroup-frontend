@@ -108,13 +108,9 @@
             <Icon type="ios-bookmarks":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
           </Menu-item>
-          <Menu-item name="163新闻类文章管理">
+          <Menu-item name="新闻类文章管理">
             <Icon type="ios-copy":size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/newsarticle','163新闻类文章管理')">163新闻类文章管理</span>
-          </Menu-item>
-          <Menu-item name="腾讯新闻类文章管理">
-            <Icon type="ios-book" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/qqarticle','腾讯新闻类文章管理')">腾讯新闻类文章管理</span>
+            <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
           </Menu-item>
           <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
