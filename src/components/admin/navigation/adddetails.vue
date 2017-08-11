@@ -45,7 +45,7 @@
           flag: "1",
           flag_name: "详情型",
           generate_name: '',
-          content: ''
+          content:'',
         },
         AddRule: {
           name: [

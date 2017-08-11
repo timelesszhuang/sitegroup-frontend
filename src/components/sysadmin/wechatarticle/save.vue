@@ -17,10 +17,7 @@
             <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <quill-editor ref="myTextEditoredit"
-                          v-model="form.content"
-                          :config="editorOption">
-            </quill-editor>
+            <editor @change="updateData" :content="form.content"  :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -52,10 +49,8 @@
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditoredit.quillEditor
-        }
+      updateData(data) {
+        this.form.content = data
       },
 //      changeArticletype(value) {
 //        this.form.articletype_name = value.label

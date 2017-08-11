@@ -18,7 +18,7 @@
             <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="form.content" :height="500"></editor>
+            <editor @change="updateData" :content="detail.content" :height="500"></editor>
           </Form-item>
         </Form>
       </div>
@@ -35,9 +35,9 @@
   export default {
     data() {
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
+        content:'',
         id: 0,
         AddRule: {
           name: [
@@ -54,7 +54,7 @@
     },
     methods: {
       updateData(data) {
-        this.form.content = data
+        this.detail.content = data
       },
       savedetails() {
         this.$refs.detailadd.validate((valid) => {
