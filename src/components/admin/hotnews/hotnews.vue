@@ -121,12 +121,7 @@
       tableColumns()
       {
         let columns = [];
-        columns.push({
-          title: '缩略图',
-          width:'200',
-          key: 'base64img',
-          sortable: true
-        });
+
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -141,6 +136,12 @@
             align: 'center'
           })
         }
+        columns.push({
+          title: '缩略图',
+          width:'200',
+          key: 'base64img',
+          sortable: true
+        });
         columns.push({
           title: '标题',
           key: 'title',

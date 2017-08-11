@@ -103,9 +103,9 @@
               <Icon type="ios-book"></Icon>
               <span class="layout-text" @click="routerChange('/admin/tengxunarticle','腾讯新闻类文章管理')">腾讯新闻管理</span>
             </Menu-item>
-            <Menu-item name="热点新闻文章管理">
+            <Menu-item name="热点新闻管理">
               <Icon type="ios-book"></Icon>
-              <span class="layout-text" @click="routerChange('/admin/hotnews','热点新闻文章管理')">热点新闻文章管理</span>
+              <span class="layout-text" @click="routerChange('/admin/hotnews','热点新闻管理')">热点新闻管理</span>
             </Menu-item>
           </Submenu>
           <Submenu name="2">
