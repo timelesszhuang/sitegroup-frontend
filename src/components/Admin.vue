@@ -155,9 +155,9 @@
               <Icon type="briefcase"  ></Icon>
               站点元素设置
             </template>
-            <Menu-item name="">
+            <Menu-item name="站点栏目">
               <Icon type="drag"  ></Icon>
-              <span class="layout-text" @click="routerChange('/admin/navigation','站点栏目')">站点栏目管理</span>
+              <span class="layout-text" @click="routerChange('/admin/nav','站点栏目')">站点栏目管理</span>
             </Menu-item>
             <Menu-item name="友情链接">
               <Icon type="drag"  ></Icon>

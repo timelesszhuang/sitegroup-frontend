@@ -17,9 +17,18 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
+            <Form-item label="分类" prop="tag_name">
+              <Select v-model="form.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
+                      label-in-value filterable　@on-change="changeNavtype">
+                <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="内容" prop="content" style="height:100%;">
               <editor @change="updateData" :content="form.content" :height="300"></editor>
             </Form-item>
+
           </Form>
         </div>
         <div slot="footer">
@@ -36,6 +45,13 @@
 
   export default {
     data() {
+      const checkNavtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择栏目分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
@@ -59,11 +75,18 @@
           ],
           generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
-          ]
+          ],
+          tag_name: [
+            {required: true,validator: checkNavtype, trigger: 'blur'}
+          ],
         }
       }
     },
     methods: {
+      changeNavtype(value) {
+        this.form.tag_name= value.label
+        this.form.tag_id = value.value
+      },
       updateData(data) {
         this.form.content = data
       },
@@ -92,6 +115,11 @@
         })
       }
     },
-    mixins: [http]
+    mixins: [http],
+    props: {
+      navtype: {
+        default: []
+      }
+    }
   }
 </script>

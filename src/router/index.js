@@ -52,6 +52,8 @@ import Recommendationkeyword from '../components/admin/recommendationkeyword/ind
 import Editor from '../components/admin/editor/index.vue'
 import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
 import Hotnews from '../components/admin/news/tab.vue'
+import Menutype from '../components/admin/menutype/index.vue'
+import Nav from '../components/admin/nav/tab.vue'
 Vue.use(Router)
 
 
@@ -121,6 +123,8 @@ export default new Router({
         {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
         {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'},
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
+        {path: 'menutype', component: Menutype, name: 'menutype'},
+        {path: 'nav', component: Nav, name: 'nav'},
       ]
     }
   ]
