@@ -141,6 +141,7 @@
     computed: {
       tableColumns()
       {
+
         let columns = [];
         if (this.showCheckbox) {
           columns.push({

@@ -13,8 +13,8 @@
 </template>
 <script>
   import http from '../../../assets/js/http.js'
-  import Newsarticle from '../qqarticle/index.vue'
-  import Qqarticle   from '../163article/index.vue'
+  import Qqarticle from '../qqarticle/index.vue'
+  import Newsarticle   from '../163article/index.vue'
   import Hotnews   from '../hotnews/hotnews.vue'
   export default {
     components: {Newsarticle, Qqarticle,Hotnews},
