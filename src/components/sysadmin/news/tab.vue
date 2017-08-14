@@ -1,5 +1,5 @@
 <template>
-  <Tabs value="news">
+  <Tabs value="newsarticle">
     <Tab-pane label="163新闻" name="newsarticle">
       <Newsarticle></Newsarticle>
     </Tab-pane>
