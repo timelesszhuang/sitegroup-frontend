@@ -18,7 +18,7 @@
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
             <Form-item label="文章分类" prop="type_id">
-              <Select v-model="form.type_id" style="text-align: left;width:250px;"
+              <Select v-model="form.type_id" ref="select" :clearable="selects" style="text-align: left;width:250px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
@@ -26,7 +26,7 @@
               </Select>
             </Form-item>
             <Form-item label="分类" prop="tag_name">
-              <Select v-model="form.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
+              <Select v-model="form.tag_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
@@ -73,6 +73,7 @@
           type_name: '',
           generate_name: ''
         },
+        selects:true,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -113,6 +114,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.titleadd.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
