@@ -310,8 +310,12 @@
           key: 'title'
         });
         columns.push({
-          title: '分类',
+          title: '类型',
           key: 'type_name'
+        });
+        columns.push({
+          title: '分类',
+          key: 'tag_name'
         });
         columns.push({
           title: '英文名',

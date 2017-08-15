@@ -55,7 +55,7 @@
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-                    this.$refs.articlesave.resetFields();
+                    this.$refs.menusave.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);

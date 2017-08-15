@@ -84,6 +84,7 @@
     },
     methods: {
       changeNavtype(value) {
+        console.log(value)
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
