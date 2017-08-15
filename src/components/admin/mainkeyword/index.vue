@@ -123,7 +123,7 @@
           })
         }
         columns.push({
-          title: 'A类关键词',
+          title: '主关键词',
           key: 'mainkeyword_name',
           sortable: true,
           fixed: 'left'

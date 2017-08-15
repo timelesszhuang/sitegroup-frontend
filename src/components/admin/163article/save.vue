@@ -45,6 +45,13 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkarticletype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择文章分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
@@ -52,6 +59,12 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
+          auther: [
+            {required: true, message: '请填写作者', trigger: 'blur'},
+          ],
+          articletype_id:[
+            {required: true,validator: checkarticletype, trigger: 'blur'}
+          ]
         }
       }
     },
