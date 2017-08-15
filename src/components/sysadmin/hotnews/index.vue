@@ -216,7 +216,7 @@
   }
 
 </script>
-<style>
+<style scoped>
 .img img{
   width: 150px;
   /*height: 50px;*/

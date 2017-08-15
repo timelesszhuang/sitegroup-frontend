@@ -135,7 +135,6 @@
         } else {
           this.$Message.info('只能选择一个节点作为上级关键词');
         }
-
       },
       //过滤数据
       filterNode(value, data) {

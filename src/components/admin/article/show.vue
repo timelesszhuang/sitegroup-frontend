@@ -63,7 +63,7 @@
   }
 
 </script>
-<style>
+<style scoped>
   .img img{
    max-width: 850px;
   }

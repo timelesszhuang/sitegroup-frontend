@@ -45,6 +45,9 @@
           summary: [
             {required: true, message: '请填写文章简介', trigger: 'blur'},
           ],
+          source:[
+            {required:true,message:'请填写文章来源',trigger:'blur'}
+          ]
         }
       }
     },

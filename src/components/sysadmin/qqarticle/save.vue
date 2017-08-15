@@ -36,6 +36,10 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
+          source:[
+            {required:true,message:'请输入来源',trigger:'blur'},
+          ],
+
           content: [
             {required: true, message: '请填写文章内容', trigger: 'blur'},
           ],
