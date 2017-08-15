@@ -58,6 +58,7 @@
               this.handelResponse(res, (data, msg) => {
                 this.modal1 = false;
                 this.$Message.success(msg);
+                this.$parent.getInfo();
                 this.$refs.formInline.resetFields();
               }, (data, msg) => {
                 this.$Message.error(msg);
