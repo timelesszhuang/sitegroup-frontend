@@ -19,7 +19,7 @@
           </Form-item>
           <Form-item label="分类" prop="tag_name">
             <Select v-model="detail.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
-                    label-in-value filterable　@on-change="changeNavtype">
+                    label-in-value 　@on-change="changeNavtype">
               <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                 {{ item.text }}
               </Option>

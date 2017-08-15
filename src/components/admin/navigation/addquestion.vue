@@ -26,7 +26,7 @@
               </Select>
             </Form-item>
             <Form-item label="分类" prop="tag_name">
-              <Select v-model="form.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
+              <Select v-model="form.tag_id" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
@@ -75,6 +75,7 @@
           type_name:'',
           generate_name:''
         },
+        selects:true,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -115,6 +116,7 @@
                     this.$Message.success(msg);
                     this.modal_loading = false;
                     this.$refs.questionadd.resetFields();
+                    this.$refs.select.clearSingleSelect()
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
