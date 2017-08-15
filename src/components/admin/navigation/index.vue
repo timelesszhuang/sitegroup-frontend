@@ -139,7 +139,7 @@
     },
     methods: {
       changeNavtype(value) {
-        this.form.tag_id = value.value
+        this.tag_id = value.value
       },
       getData() {
         let data = {
