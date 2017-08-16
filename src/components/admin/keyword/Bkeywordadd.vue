@@ -13,7 +13,7 @@
       </p>
       <div>
         <Form ref="bkeywordadd" :model="form" :label-width="90" :rules="akeyWordRule" class="company-add-form">
-          <Form-item label="B类关键词" prop="content">
+          <Form-item label="B/C类关键词" prop="content">
             <Input v-model="form.content" type="textarea" placeholder="请输入B/C类关键词"></Input>
           </Form-item>
         </Form>
