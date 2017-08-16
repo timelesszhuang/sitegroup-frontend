@@ -172,7 +172,7 @@
           title: '缩略图',
           align: 'center',
           render(row, index) {
-            var type = '<div class="img">' + row.base64img + '</div>';
+            var type = '<div class="img1">' + row.base64img + '</div>';
             return type;
           },
           width:'200',
@@ -216,10 +216,10 @@
   }
 
 </script>
-<style scoped>
-.img img{
+<style >
+.img1 img{
   width: 150px;
-  /*height: 50px;*/
+  height: 100px;
 }
 
 </style>
