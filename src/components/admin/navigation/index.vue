@@ -312,7 +312,7 @@
           key: 'title'
         });
         columns.push({
-          title: '类型',
+          title: '所属文章分类',
           key: 'type_name'
         });
         columns.push({
