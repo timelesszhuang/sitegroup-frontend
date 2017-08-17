@@ -100,11 +100,11 @@
             <Icon type="key"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
           </Menu-item>
-          <Menu-item name="微信企业号关键词">
+          <Menu-item name="微信公众号关键词">
             <Icon type="key" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
           </Menu-item>
-          <Menu-item name="微信企业号文章">
+          <Menu-item name="微信公众号文章">
             <Icon type="ios-bookmarks":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
           </Menu-item>

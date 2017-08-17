@@ -8,11 +8,10 @@
     <Modal
       v-model="modal" width="600">
       <p slot="header">
-        <span>添零散段落分类</span>
+        <span>添加文章段落分类</span>
       </p>
       <div>
-        <Form ref="scatteredarticleadd" :model="form" :label-width="90" :rules="scatterrdArticlAddRule"
-              class="scatteredarticle-add-form">
+        <Form ref="scatteredarticleadd" :model="form" :label-width="90" :rules="scatterrdArticlAddRule" class="scatteredarticle-add-form">
           <Form-item label="分类名" prop="name">
             <Input ref="input" :clearable="sel" v-model="form.name" placeholder="请输入分类名">
             </Input>
