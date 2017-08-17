@@ -118,7 +118,7 @@
         });
       },
       editMain(id){
-        this.menuid =id;
+        this.menuid =this.datas[id].id;
         this.$refs.mainsave.modal = true
         this.apiGet('admin/getAkeywordA/'+this.site_type_id).then((res) => {
           this.handelResponse(res, (data, msg) => {
