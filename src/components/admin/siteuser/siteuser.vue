@@ -2,7 +2,7 @@
   <div>
     <div class="top">
      用户管理:
-      <Input v-model="name" placeholder="联系方式描述" style="width:300px;"></Input>
+      <Input v-model="name" placeholder="" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>

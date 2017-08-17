@@ -4,15 +4,15 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>修改</span>
+          <span>修改分类</span>
         </p>
         <div>
-          <Form ref="contactwaysave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="描述" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入名称"></Input>
+          <Form ref="menusave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <Form-item label="分类名称" prop="name">
+              <Input type="text" v-model="form.name" placeholder="请输入节点名"></Input>
             </Form-item>
-            <Form-item label="html" prop="html" style="height:100%;">
-              <editor @change="updateData" :content="form.html"  :height="300"></editor>
+            <Form-item label="详情" prop="detail">
+              <Input type="text" v-model="form.detail" placeholder="请输入节点相关信息"></Input>
             </Form-item>
           </Form>
         </div>
@@ -33,33 +33,32 @@
         modal: false,
         modal_loading: false,
         AddRule: {
-          detail: [
-            {required: true, message: '请填写描述', trigger: 'blur'},
+          name: [
+            {required: true, message: '请填写文章分类', trigger: 'blur'},
           ],
-          html: [
-            {required: true, message: '请填写html', trigger: 'blur'},
-          ]
-
+          detail: [
+            {required: true, message: '请填写文章详情', trigger: 'blur'},
+          ],
         }
       }
     },
     methods: {
-      updateData(data) {
-        this.form.html = data
-      },
         add() {
-          this.$refs.contactwaysave.validate((valid) => {
+          this.$refs.menusave.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
                 let id = data.id;
-                this.apiPut('contactway/'+ id, data).then((res) => {
+                this.apiPut('admin/menutag/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-//                    this.$refs.contactsave.resetFields();
+                    this.$refs.menusave.resetFields();
+                    setTimeout(function () {
+                      location.reload();
+                    },100);
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
@@ -76,8 +75,9 @@
     props: {
       form: {
         default: {
+          name: '',
           detail: '',
-          html:'',
+          tag:''
         }
       }
     },

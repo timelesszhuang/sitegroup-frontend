@@ -1,16 +1,9 @@
 <template>
-  <!--该文件是段落的 标题-->
   <div>
     <div class="top">
       标题:
-      <Input v-model="title" placeholder="标题" style="width:300px;"></Input>
-      <Select v-model="article_type" style="width:300px;">
-        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          {{ item.text }}
-        </Option>
-      </Select>
+      <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -18,51 +11,53 @@
       </Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+          <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
+                @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer>
-          </Page>
+                show-elevator show-sizer></Page>
         </div>
       </div>
     </div>
-    <titleadd ref="add" :articletype="articletypelist"></titleadd>
-    <titlesave ref="save" :form="editinfo" :articletype="articletypelist"></titlesave>
-    <titleshow ref="show" :form="editinfo"></titleshow>
+    <hotnewssave ref="save" :form="editinfo"></hotnewssave>
+    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
-  import http from '../../../assets/js/http.js';
-  import common from '../../../assets/js/common.js';
-  import titleadd from './titleAdd.vue';
-  import titlesave from './titleSave.vue';
-  import titleshow from './titleshow.vue';
+  import http from '../../../assets/js/http.js'
+  import common from '../../../assets/js/common.js'
+  import hotnewssave from './save.vue'
+  //  import articleshow from './show.vue'
+
   export default {
-    data () {
+    data() {
       return {
+        page_show: true,
         self: this,
         border: true,
         stripe: true,
+        current: 1,
         showheader: true,
         showIndex: true,
-        article_type: 0,
         size: 'small',
         total: 0,
         page: 1,
-        current: 1,
         rows: 10,
+        pageSize: 10,
         title: '',
         datas: [],
         editinfo: {},
-        articletypelist: []
+//        articletypelist: []
+        articletype: []
       }
     },
-    components: {titleadd, titlesave, titleshow},
-    created () {
-      this.getScaType((data) => {
-        this.articletypelist = data
-      });
+    components: {hotnewssave},
+    created() {
       this.getData();
+//      this.getArticleType((data) => {
+//        this.articletypelist = data
+//      });
     },
     methods: {
       getData() {
@@ -71,13 +66,13 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            article_type: this.article_type
           }
         }
-        this.apiGet('scatteredTitle', data).then((data) => {
+        this.apiGet('sys/hotnews', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
+            this.pageSize = 10
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -85,30 +80,41 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
+        this.page = 1
+        this.page_show = false
         this.getData();
+        this.page_show = true
       },
-      add(){
-        this.$refs.add.modal = true
+      edit(index) {
+        this.getArticle(index);
+        this.$refs.save.modal = true
       },
-      edit(index){
-        let editid = this.datas[index].id
-        this.apiGet('scatteredTitle/' + editid).then((res) => {
+      getType(func) {
+        this.apiGet('sys/articleAllType').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            delete  data.create_time;
-            delete  data.update_time;
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
+      getArticle(index) {
+        let editid = this.datas[index].id
+        this.apiGet('sys/getonenews/' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            this.modal = false;
-            this.$refs.save.modal = true
-            this.$refs.save.clearTiTleType
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -117,23 +123,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      show(index){
-        //获取单条数据
-        let editid = this.datas[index].id
-        this.apiGet('scatteredTitle/getArrticleJoinTitle?id=' + editid).then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.editinfo = data
-            this.modal = false;
-            this.$refs.show.modal = true
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        })
-      },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -143,7 +133,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('scatteredTitle/', id).then((res) => {
+            _this.apiGet('sys/deleteWangyiArticle/' + id,).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -159,11 +149,10 @@
             return false
           }
         })
-      }
+      },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -180,17 +169,33 @@
           })
         }
         columns.push({
-          title: '标题',
-          key: 'title',
+          title: '缩略图',
+          align: 'center',
+          render(row, index) {
+            var type = '<div class="img1">' + row.base64img + '</div>';
+            return type;
+          },
+          width:'200',
           sortable: true
         });
         columns.push({
-          title: '所属分类',
-          key: 'articletype_name'
+          title: '标题',
+          key: 'title',
+          sortable: true,
+          width:'240'
         });
         columns.push({
-          title: '时间',
-          key: 'create_time'
+          title: '简介',
+          key: 'summary',
+          sortable: true,
+          width:'600'
+        });
+
+        columns.push({
+          title: '添加时间',
+          key: 'create_time',
+          sortable: true,
+          width:"150"
         });
         columns.push(
           {
@@ -198,8 +203,9 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button> <i-button type="info" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+            render(row, column, index) {
+              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
+                      <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;`;
             }
           }
         );
@@ -208,4 +214,12 @@
     },
     mixins: [http, common]
   }
+
 </script>
+<style >
+.img1 img{
+  width: 150px;
+  height: 100px;
+}
+
+</style>

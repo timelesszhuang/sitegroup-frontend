@@ -17,7 +17,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
+            <Select v-model="form.articletype_id" style="text-align: left;width:250px;position: relative;z-index: 10000"
                     label-in-value 　@on-change="changeArticletype">
               <Option disabled :value="0">分类名—标签</Option>
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
@@ -26,10 +26,7 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <quill-editor ref="myTextEditoredit"
-                          v-model="form.content"
-                          :config="editorOption">
-            </quill-editor>
+            <editor @change="updateData" :content="form.content"  :height="300"></editor>
           </Form-item>
         </Form>
       </div>
@@ -72,10 +69,8 @@
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditoredit.quillEditor
-        }
+      updateData(data) {
+        this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label

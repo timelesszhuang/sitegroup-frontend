@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="800">
         <p slot="header">
           <span>添加问答</span>
         </p>
@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
             <Form-item label="问答分类" prop="articletype_id">
-              <Select   ref="select" :clearable="selects" v-model="form.type_id" style="text-align: left;width:200px;"
+              <Select   ref="select" :clearable="selects" v-model="form.type_id" style="position:relative;z-index:10000;text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
@@ -20,9 +20,7 @@
               </Select>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">
-              <Input v-model="form.content_paragraph" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
-                     placeholder="请输入答案">
-              </Input>
+              <editor @change="updateData" :content="form.content_paragraph"  :height="300"></editor>
             </Form-item>
           </Form>
         </div>
@@ -70,6 +68,9 @@
       }
     },
     methods: {
+      updateData(data) {
+        this.form.content_paragraph = data
+      },
       changeArticletype(type) {
           this.form.type_name=type.label;
       },

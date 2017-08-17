@@ -4,10 +4,12 @@
       栏目:
       <Input v-model="name" placeholder="栏目" style="width:300px;"></Input>
 
-      <Select v-model="flag" style="width:200px;" placeholder="根据栏目分类查询" label-in-value filterable clearable>
+      <Select v-model="flag" style="width:200px;" placeholder="根据栏目类型查询" label-in-value filterable clearable>
         <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
       </Select>
-
+      <Select v-model="tag_id" style="width:200px;" placeholder="根据栏目分类查询" label-in-value filterable clearable @on-change="changeNavtype">
+        <Option v-for="item in navtype" :value="item.id" :key="item">{{ item.text }}</Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="adddetails">添加详情型</Button>
       <Button type="success" @click="addquestion">添加问答型</Button>
@@ -29,7 +31,9 @@
            <br/>
             2.详情型是首页显示的详情，比如说关于我们这种就是详情型，链接到详情页，添加的这个英文名用于生成静态页
               <br/>
-              3.文章型文章型,问答型是在站点列表中显示出来的,比如文章列表
+              3.文章型,问答型是在站点列表中显示出来的,比如文章列表
+               <br/>
+              4.栏目分类用于区分各个站点
             </span>
           </Alert>
         </template>
@@ -40,15 +44,16 @@
         </div>
       </div>
     </div>
-    <detailadd :form="editinfo" ref="adddetails"></detailadd>
-    <questionadd ref="addquestion" :questiontype="questiontypelist"></questionadd>
+    <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
+    <questionadd ref="addquestion" :navtype="navtype" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
-    <detailssave ref="savedetails" :detail="editinfo"></detailssave>
-    <questionsave ref="savequestion" :questiontype="questiontypelist" :form="editinfo"></questionsave>
-    <articlesave ref="savearticle" :articletype="articletypelist" :form="editinfo"></articlesave>
-    <articleadd ref="addarticle" :articletype="articletypelist"></articleadd>
-    <titleadd ref="addtitle" :articletype="articletypelist"></titleadd>
-    <titlesave ref="savetitle" :articletype="articletypelist" :form="editinfo"></titlesave>
+    <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
+    <questionsave ref="savequestion" :navtype="navtype" :questiontype="questiontypelist"
+                  :form="editinfo"></questionsave>
+    <articlesave ref="savearticle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></articlesave>
+    <articleadd ref="addarticle" :navtype="navtype" :articletype="articletypelist"></articleadd>
+    <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
+    <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
 
   </div>
@@ -88,6 +93,8 @@
         articletypelist: [],
         questiontypelist: [],
         flag: '',
+        navtype: [],
+        tag_id:'',
         flag_type: [
           {
             value: '1',
@@ -119,6 +126,7 @@
       titlesave,
       sort,
     },
+
     created() {
       this.getData();
       this.getArticleType((data) => {
@@ -127,10 +135,14 @@
       this.getQuestionType((data) => {
         this.questiontypelist = data
       });
-
-
+      this.getmenutype((data) => {
+        this.navtype = data
+      });
     },
     methods: {
+      changeNavtype(value) {
+        this.tag_id = value.value
+      },
       getData() {
         let data = {
           params: {
@@ -139,7 +151,8 @@
             name: this.name,
             article_type: this.article_type,
             question_type: this.question_type,
-            flag: this.flag
+            flag: this.flag,
+            tag_id: this.tag_id
           }
         }
 
@@ -164,6 +177,18 @@
       },
       queryData() {
         this.getData();
+      },
+      getmenutype(func) {
+        this.apiGet('admin/menutag/list').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
       },
       adddetails() {
         this.$refs.adddetails.modal = true
@@ -243,6 +268,11 @@
             return false
           }
         })
+      },
+      update(){
+        this.getmenutype((data) => {
+          this.navtype = data
+        });
       }
     },
     computed: {
@@ -282,8 +312,12 @@
           key: 'title'
         });
         columns.push({
-          title: '分类',
+          title: '所属文章分类',
           key: 'type_name'
+        });
+        columns.push({
+          title: '分类',
+          key: 'tag_name'
         });
         columns.push({
           title: '英文名',
@@ -313,7 +347,8 @@
         return columns;
       }
     },
-    mixins: [http, common]
+    mixins: [http, common],
+
   }
 
 </script>

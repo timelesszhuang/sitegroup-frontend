@@ -1,11 +1,12 @@
 <template>
   <div>
-    站点选择:
-    <Select v-model="site_type_id" style="width:300px" label-in-value filterable clearable>
-      <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">{{ item.text }}</Option>
-    </Select>
-    <Button type="primary" @click="queryData">查询</Button>
     <div class="top">
+      分类名:
+      <Input v-model="name" placeholder="栏目分类名" style="width:300px;"></Input>
+      <Button type="primary" @click="queryData">查询</Button>
+      <Button type="success" @click="add">添加</Button>
+    </div>
+    <div>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -15,25 +16,23 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-ele vator show-sizer></Page>
+                show-elevator show-sizer></Page>
         </div>
       </div>
     </div>
-    <tdksave ref="save" :form="editinfo"></tdksave>
-    <savemain ref="mainsave" :siteid="menuid" :keys="keyArr"></savemain>
+    <menuadd ref="add" ></menuadd>
+    <menusave ref="save" :form="editinfo"></menusave>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import tdksave from './save.vue';
-  import savemain from './savemain.vue';
+  import menuadd from './add.vue';
+  import menusave from './save.vue';
 
   export default {
-    data () {
+    data() {
       return {
-        sitetype: [],
-        site_type_id: '',
         self: this,
         border: true,
         stripe: true,
@@ -44,28 +43,27 @@
         total: 0,
         page: 1,
         rows: 10,
+        name: '',
         datas: [],
         editinfo: {},
-        keyArr:{},
-        menuid:0
       }
     },
-    components: {tdksave,savemain},
-    created () {
-//      this.getData();
-      this.getSiteType()
-    },
 
+    components: {menuadd, menusave},
+    created() {
+      this.getData();
+
+    },
     methods: {
       getData() {
         let data = {
           params: {
             page: this.page,
             rows: this.rows,
-//            tdkd
+            name: this.name
           }
         }
-        this.apiGet('getTdk/'+this.site_type_id ,data).then((data) => {
+        this.apiGet('admin/menutag', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -73,26 +71,27 @@
             this.$Message.error(msg);
           })
         }, (data) => {
-          this.$Message.error('请先选择站点->点击查询!');
+          this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
-        this.apiGet('getTdkOne/' + editid).then((res) => {
+        this.apiGet('admin/menutag/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -105,36 +104,9 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getSiteType() {
-        this.apiGet('Site/getSites').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.sitetype = data
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      editMain(id){
-        this.menuid =this.datas[id].id;
-        this.$refs.mainsave.modal = true
-        this.apiGet('admin/getAkeywordA/'+this.site_type_id).then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.keyArr = data
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -151,32 +123,13 @@
           })
         }
         columns.push({
-          title: '页面类型',
-          width: 110,
-          key: 'page_type',
-          sortable: true
-        });
-        columns.push({
-          title: '页面名字',
-          width: 110,
-          key: 'page_name',
-          sortable: true
-        });
-        columns.push({
-          title: '标题',
-          key: 'title',
+          title: '分类名',
+          key: 'name',
           sortable: true
         });
         columns.push({
           title: '描述',
-          key: 'description',
-          sortable: true
-        });
-
-        columns.push({
-          title: '关键词',
-          key: 'keyword',
-          sortable: true
+          key: 'detail'
         });
         columns.push(
           {
@@ -185,11 +138,7 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              var mainkey=''
-              if(row.akeyword_id!=0){
-                return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="primary" size="small" @click="editMain(${index})">修改主关键词</i-button>`;
-              }
+            render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
             }
           }

@@ -22,7 +22,7 @@
         </Row>
         <Row>
           <Col span="24">
-          <div v-html="form.content"></div>
+          <div v-html="form.content" style="overflow: hidden" class="img"> </div>
           </Col>
         </Row>
       </div>
@@ -61,4 +61,11 @@
       }
     }
   }
+
 </script>
+<style scoped>
+  .img img{
+   max-width: 850px;
+  }
+
+</style>

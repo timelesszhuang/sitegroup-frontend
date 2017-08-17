@@ -3,12 +3,6 @@
     <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
-      文章分类:
-      <Select v-model="keyword_type" style="width: 200px;" label-in-value filterable clearable>
-        <Option v-for="item in keywordtype" :value="item.id" :label="item.text" :key="item">
-          {{ item.text }}
-        </Option>
-      </Select>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
     <div class="content" style="margin-top:10px;">
@@ -24,7 +18,7 @@
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
+    <hotnews ref="save" :articletype="articletypelist" :form="editinfo" ></hotnews>
   </div>
 
 </template>
@@ -32,7 +26,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import wechatarticlesave from './save.vue'
+  import hotnews from './save.vue'
   export default {
     data () {
       return {
@@ -57,14 +51,11 @@
         keywordtype:[]
       }
     },
-    components: {wechatarticlesave},
+    components: {hotnews},
     created () {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
-      });
-      this.getKeyword((data) => {
-        this.keywordtype = data
       });
     },
     methods: {
@@ -74,10 +65,9 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            type_id: this.keyword_type
           }
         }
-        this.apiGet('qq/article', data).then((data) => {
+        this.apiGet('admin/hotnews', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -111,24 +101,13 @@
         this.getArticle(index);
         this.$refs.show.modal = true
       },
-      getKeyword(func) {
-        this.apiGet('article/articleAllType').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
       getArticle(index){
         let editid = this.datas[index].id
-        this.apiGet('qq/getOneArticle/' + editid).then((res) => {
+        this.apiGet('admin/hotnews/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-//            console.log(data.url)
+            this.editinfo.articletype_id = ''
+            this.editinfo.articletype_name = ''
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -141,8 +120,8 @@
     computed: {
       tableColumns()
       {
-
         let columns = [];
+
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -158,23 +137,32 @@
           })
         }
         columns.push({
+          title: '缩略图',
+          width:'200',
+          key: 'base64img',
+          sortable: true,
+          render(row, index) {
+            var type = '<div class="imggg">' + row.base64img + '</div>';
+            return type;
+          },
+        });
+        columns.push({
           title: '标题',
           key: 'title',
+          width: 240,
           sortable: true
         });
         columns.push({
-          title: '分类',
-          key: 'type_name',
+          title: '简介',
+          width:'600',
+          key: 'summary',
           sortable: true
         });
-        columns.push({
-          title: '来源',
-          key: 'source',
-          sortable: true
-        });
+
         columns.push({
           title: '发布时间',
           key: 'create_time',
+          width:'150',
           sortable: true
         });
         columns.push(
@@ -196,6 +184,9 @@
 
 </script>
 <style>
-
+  .imggg img{
+    width:150px;
+    height:100px;
+  }
 
 </style>

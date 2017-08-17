@@ -4,8 +4,7 @@
       查询:
       <Input v-model="content" placeholder="问答" style="width:300px;"></Input>
       文章分类:
-      <Select v-model="article_type" style="width: 250px;"
-              label-in-value filterable clearable>
+      <Select v-model="article_type" style="width: 250px;">
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
           {{ item.text }}
         </Option>

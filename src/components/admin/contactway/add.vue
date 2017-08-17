@@ -12,10 +12,7 @@
               <Input type="text" v-model="form.detail" placeholder="请输入名称"></Input>
             </Form-item>
             <Form-item label="公共模板" prop="html" style="height:100%;">
-              <quill-editor ref="myTextEditor"
-                            v-model="form.html"
-                            :config="editorOption">
-              </quill-editor>
+              <editor @change="updateData" :content="form.html"  :height="300"></editor>
             </Form-item>
           </Form>
         </div>
@@ -33,7 +30,6 @@
   export default {
     data() {
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
         form: {
@@ -52,10 +48,8 @@
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
+      updateData(data) {
+        this.form.html = data
       },
         add() {
           this.$refs.contactway.validate((valid) => {

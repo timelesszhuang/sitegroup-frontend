@@ -22,6 +22,7 @@
           this.apiPost('templateSave/'+this.site_id+'/'+this.filename,{content:this.$refs.con.$refs.textarea.value}).then((res) => {
             this.handelResponse(res, (data, msg) => {
               this.$Message.success(msg);
+              this.$Message.getInfo()
               this.modal1=false
             }, (data, msg) => {
               this.$Message.error(msg);

@@ -17,15 +17,18 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
-            <Form-item label="内容" prop="content" style="height:100%;">
-              <quill-editor ref="myTextEditor"
-                            v-model="form.content"
-                            :config="editorOption"
-                            @blur="onEditorBlur($event)"
-                            @focus="onEditorFocus($event)"
-                            @ready="onEditorReady($event)">
-              </quill-editor>
+            <Form-item label="分类" prop="tag_name">
+              <Select v-model="form.tag_id" ref="select" :clearable="selects"  style="text-align: left;width:200px;position: relative;z-index: 10000"
+                      label-in-value filterable　@on-change="changeNavtype">
+                <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
             </Form-item>
+            <Form-item label="内容" prop="content" style="height:100%;">
+              <editor @change="updateData" :content="form.content" :height="300"></editor>
+            </Form-item>
+
           </Form>
         </div>
         <div slot="footer">
@@ -39,20 +42,28 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
+      const checkNavtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择栏目分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
-        editorOption: {},
         form: {
           name: "",
           title: "",
-          flag:"1",
-          flag_name:"详情型",
-          generate_name:'',
-          content:''
+          flag: "1",
+          flag_name: "详情型",
+          generate_name: '',
+          content:'',
         },
+        selects:true,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -63,52 +74,55 @@
           type_name: [
             {required: true, message: '请选择问答分类', trigger: 'blur'},
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
-          ]
+          ],
+          tag_name: [
+            {required: true,validator: checkNavtype, trigger: 'blur'}
+          ],
         }
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
+      changeNavtype(value) {
+        console.log(value)
+        this.form.tag_name= value.label
+        this.form.tag_id = value.value
       },
-      onEditorBlur(editor) {
-//        console.log('editor blur!', editor)
+      updateData(data) {
+        this.form.content = data
       },
-      onEditorFocus(editor) {
-//        console.log('editor focus!', editor)
-      },
-      onEditorReady(editor) {
-//        console.log('editor ready!', editor)
-      },
-        adddetails() {
-          this.$refs.detailadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('menu', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.detailadd.resetFields();
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+      adddetails() {
+        this.$refs.detailadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('menu', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.detailadd.resetFields();
+                this.$refs.select.clearSingleSelect()
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
-    mixins: [http]
+    mixins: [http],
+    props: {
+      navtype: {
+        default: []
+      }
+    }
   }
 </script>

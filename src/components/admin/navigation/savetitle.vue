@@ -25,6 +25,14 @@
               </Option>
             </Select>
           </Form-item>
+          <Form-item label="分类" prop="tag_name">
+            <Select v-model="form.tag_id" style="text-align: left;width:200px;"
+                    label-in-value filterable　@on-change="changeNavtype">
+              <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
         </Form>
       </div>
       <div slot="footer">
@@ -36,8 +44,16 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
+      const checkNavtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择栏目分类'));
+        } else {
+          callback();
+        }
+      };
       const checkarticletype = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请选择文章分类'));
@@ -48,7 +64,7 @@
       return {
         editorOption: {},
         modal: false,
-        type_name:'',
+        type_name: '',
         modal_loading: false,
         AddRule: {
           name: [
@@ -58,15 +74,22 @@
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
           type_id: [
-            {equired: true,validator: checkarticletype, trigger: 'blur'}
+            {equired: true, validator: checkarticletype, trigger: 'blur'}
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
-          ]
+          ],
+          tag_name: [
+            {required: true, validator: checkNavtype, trigger: 'blur'}
+          ],
         }
       }
     },
     methods: {
+      changeNavtype(value) {
+        this.form.tag_name = value.label
+        this.form.tag_id = value.value
+      },
       changeArticletype(value) {
         this.type_name = value.label
         this.form.type_id = value.value
@@ -77,7 +100,7 @@
             this.modal_loading = true;
             let data = this.form;
             let id = data.id;
-            data.type_name=this.type_name;
+            data.type_name = this.type_name;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
@@ -101,9 +124,10 @@
     mixins: [http],
     props: {
       articletype: {
-        default: {
-
-        }
+        default: {}
+      },
+      navtype: {
+        default: []
       },
       form: {
         default: {

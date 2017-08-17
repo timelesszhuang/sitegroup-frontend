@@ -17,12 +17,16 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
+          <Form-item label="分类" prop="tag_name">
+            <Select v-model="detail.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
+                    label-in-value 　@on-change="changeNavtype">
+              <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <quill-editor ref="myTextEditor"
-                          v-model="detail.content"
-                          :config="editorOption"
-                          @blur="onEditorBlur($event)">
-            </quill-editor>
+            <editor @change="updateData" :content="detail.content" :height="300"></editor>
           </Form-item>
         </Form>
       </div>
@@ -35,13 +39,21 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
+      const checkNavtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择栏目分类'));
+        } else {
+          callback();
+        }
+      };
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
-        id:0,
+        content:'',
+        id: 0,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -49,20 +61,22 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
-          ]
+          ],
+          tag_name: [
+            {required: true,validator: checkNavtype, trigger: 'blur'}
+          ],
         }
       }
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditor.quillEditor
-        }
+      changeNavtype(value) {
+        this.detail.tag_name= value.label
+        this.detail.tag_id = value.value
       },
-      onEditorBlur(editor) {
-
+      updateData(data) {
+        this.detail.content = data
       },
       savedetails() {
         this.$refs.detailadd.validate((valid) => {
@@ -97,8 +111,12 @@
           name: "",
           title: '',
           content: '',
-          generate_name:''
+          generate_name: ''
         }
+      },
+        navtype: {
+          default: []
+
       }
     }
   }

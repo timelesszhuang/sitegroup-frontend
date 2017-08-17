@@ -11,7 +11,7 @@
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
           <Form-item label="简介" prop="summary">
-            <Input type="text" v-model="form.summary" placeholder="请输入文章简介（选填）"></Input>
+            <Input type="text" v-model="form.summary" placeholder="请输入简介"></Input>
           </Form-item>
           <Form-item label="来源" prop="source">
             <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
@@ -21,13 +21,11 @@
           </Form-item>
         </Form>
       </div>
-
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
       </div>
     </Modal>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -42,12 +40,8 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-          summary: [
-            {required: true, message: '请填写文章简介', trigger: 'blur'},
-          ],
-          source:[
-            {required:true,message:'请填写文章来源',trigger:'blur'}
-          ]
+
+
         }
       }
     },
@@ -63,9 +57,16 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            let data = this.form;
+            let data = {
+
+          id:this.form.id,
+              summary: this.form.summary,
+              title: this.form.title,
+              content: this.form.content,
+
+            }
             let id = data.id;
-            this.apiPost('sys/changeWecatArticle', data).then((res) => {
+            this.apiPost('sys/editnews', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

@@ -9,9 +9,8 @@ import Node from '../components/sysadmin/node/node.vue'
 import Company from '../components/sysadmin/industry/tab.vue'
 import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
 import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
-import Newsarticle from '../components/sysadmin/163article/index.vue'
-import Qqarticle from '../components/sysadmin/qqarticle/index.vue'
 import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vue'
+import News from '../components/sysadmin/news/tab.vue'
 
 
 
@@ -52,6 +51,9 @@ import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
 import Editor from '../components/admin/editor/index.vue'
 import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
+import Hotnews from '../components/admin/news/tab.vue'
+import Menutype from '../components/admin/menutype/index.vue'
+import Nav from '../components/admin/nav/tab.vue'
 Vue.use(Router)
 
 
@@ -69,12 +71,11 @@ export default new Router({
       children: [
         {path: 'user', component: User, name: 'user'},
         {path: 'company', component: Company, name: 'company'},
+        {path: 'news', component: News, name: 'news'},
         {path: 'node', component: Node, name: 'node'},
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
-        {path: 'newsarticle', component: Newsarticle, name: 'newsarticle'},
-        {path: 'qqarticle', component: Qqarticle, name: 'qqarticle'},
         {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'}
       ]
     },
@@ -106,6 +107,7 @@ export default new Router({
         {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
         {path: 'crawler', component: Crawler, name: 'crawler'},
         {path: 'pv', component: Pv, name: 'pv'},
+
         {path: 'other', component: Other, name: 'other'},
         {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
@@ -119,8 +121,10 @@ export default new Router({
         {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'},
         {path: 'editor', component:Editor,name:'editor'},
         {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
-        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'}
-
+        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'},
+        {path: 'hotnews', component: Hotnews, name: 'hotnews'},
+        {path: 'menutype', component: Menutype, name: 'menutype'},
+        {path: 'nav', component: Nav, name: 'nav'},
       ]
     }
   ]

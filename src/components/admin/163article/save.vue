@@ -19,7 +19,7 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:250px;"
+            <Select v-model="form.articletype_id" style="text-align: left;width:250px;position: relative;z-index: 10000"
                     label-in-value 　@on-change="changeArticletype">
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
@@ -30,10 +30,7 @@
             <span>原分类：{{form.type_name}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <quill-editor ref="myTextEditoredit"
-                          v-model="form.content"
-                          :config="editorOption">
-            </quill-editor>
+            <editor @change="updateData" :content="form.content"  :height="300"></editor>
           </Form-item>
         </Form>
       </div>
@@ -48,27 +45,38 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkarticletype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择文章分类'));
+        } else {
+          callback();
+        }
+      };
       return {
-        editorOption: {},
         modal: false,
         modal_loading: false,
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
+          auther: [
+            {required: true, message: '请填写作者', trigger: 'blur'},
+          ],
+          articletype_id:[
+            {required: true,validator: checkarticletype, trigger: 'blur'}
+          ]
         }
       }
     },
     computed: {
       url: function () {
         return  this.form.url;
-      }
+      },
+
     },
     methods: {
-      computed: {
-        editor() {
-          return this.$refs.myTextEditoredit.quillEditor
-        },
+      updateData(data) {
+        this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -84,7 +92,7 @@
               auther:this.form.auther,
               summary:this.form.digest,
               title:this.form.title,
-              content:this.form.content,
+              content: this.form.content,
               come_from:this.form.source,
               posttime:this.form.createtime
             }
