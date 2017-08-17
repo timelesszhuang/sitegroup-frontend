@@ -91,7 +91,7 @@
           };
           this.$Modal.confirm({
             title: '确认删除',
-            content: '您确定删除该节点?',
+            content: '您确定删除关键词?',
             okText: '删除',
             cancelText: '取消',
             onOk: () => {
