@@ -6,7 +6,7 @@
           <span>选择主关键词</span>
         </p>
         <div>
-          <Select v-model="oldKey" style="width:150px" label-in-value filterable clearable>
+          <Select v-model="oldKey" style="width:200px" label-in-value filterable clearable>
             <Option v-for="item in keys" :value="item.id" :label="item.text" :key="item">{{ item.text }}</Option>
           </Select>
         </div>
