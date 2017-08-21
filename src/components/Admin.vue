@@ -183,6 +183,10 @@
               <Icon type="map"  ></Icon>
               <span class="layout-text" @click="routerChange('/admin/template','模板管理')">模板管理</span>
             </Menu-item>
+            <Menu-item name="自定义表单">
+              <Icon type="map"  ></Icon>
+              <span class="layout-text" @click="routerChange('/admin/customeform','自定义表单')">自定义表单</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="6">
             <template slot="title">
