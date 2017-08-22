@@ -5,10 +5,10 @@
       <span>甩单信息</span>
     </p>
     <div class="content">
-      <div class="column">姓名:<span class="column_content">{{data_name}}</span></div>
-      <div class="column">公司:<span class="column_content">{{data_company}}</span></div>
-      <div class="column">电话:<span class="column_content">{{data_phone}}</span></div>
-      <div class="column">邮箱:<span class="column_content">{{data_email}}</span></div>
+      <div class="column">{{field1}}</div>
+      <div class="column">{{field2}}</div>
+      <div class="column">{{field3}}</div>
+      <div class="column">{{field4}}</div>
     </div>
     <div slot="footer">
     </div>
@@ -24,10 +24,10 @@
           }
       },
     props:{
-      data_company:String,
-      data_name:String,
-      data_phone:Number,
-      data_email:String
+      field1:String,
+      field2:String,
+      field3:String,
+      field4:String
     }
   }
 
@@ -41,8 +41,7 @@
   .content .column{
     padding:10px 0;
     box-sizing:border-box;
+    margin: 0 auto;
   }
-  .content .column .column_content{
-    padding-left:10px;
-  }
+
 </style>

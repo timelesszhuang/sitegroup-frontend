@@ -26,13 +26,13 @@
         </div>
       </div>
     </div>
-    <!--<info ref="info" :data_company="data_company" :data_name="data_name" :data_phone="data_phone" :data_email="data_email" ></info>-->
+    <info ref="info" :field1="field1" :field2="field2" :field3="field3" :field4="field4" ></info>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-//  import info from './info.vue';
+  import info from './info.vue';
   export default {
     data () {
       return {
@@ -50,16 +50,16 @@
         datas: [],
         site: [],
         site_id: "",
-        data_company:'',
-        data_name:'',
-        data_phone:0,
-        data_email:'',
+        field1:'',
+        field2:'',
+        field3:'',
+        field4:'',
         userdefine:[],
         search:'',
         detail:''
       }
     },
-    components: {
+    components: {info
     },
     created () {
       this.getData();
@@ -130,10 +130,10 @@
         this.getData();
       },
       showCheck(index) {
-        this.data_company=this.datas[index].company;
-        this.data_name=this.datas[index].name
-        this.data_phone=parseInt(this.datas[index].phone)
-        this.data_email=this.datas[index].email
+        this.field1=this.datas[index].field1;
+        this.field2=this.datas[index].field2;
+        this.field3=this.datas[index].field3;
+        this.field4=this.datas[index].field4;
         this.$refs.info.modal=true;
       }
     },
