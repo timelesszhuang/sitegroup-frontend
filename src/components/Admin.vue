@@ -187,6 +187,14 @@
               <Icon type="map"  ></Icon>
               <span class="layout-text" @click="routerChange('/admin/customeform','自定义表单')">自定义表单</span>
             </Menu-item>
+            <Menu-item name="产品分类管理">
+              <Icon type="map"  ></Icon>
+              <span class="layout-text" @click="routerChange('/admin/producttype','产品分类管理')">产品分类管理</span>
+            </Menu-item>
+            <Menu-item name="产品管理">
+              <Icon type="map"  ></Icon>
+              <span class="layout-text" @click="routerChange('/admin/product','产品管理')">产品管理</span>
+            </Menu-item>
           </Submenu>
           <Submenu name="6">
             <template slot="title">
