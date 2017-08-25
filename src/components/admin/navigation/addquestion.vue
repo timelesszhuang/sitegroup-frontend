@@ -8,8 +8,8 @@
         </p>
         <div>
           <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="分类名称" prop="name">
-              <Input type="text" v-model="form.name" placeholder="请填写菜单名字"></Input>
+            <Form-item label="栏目/菜单名称" prop="name">
+              <Input type="text" v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
             </Form-item>
             <Form-item label="英文名" prop="generate_name">
               <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
