@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="900">
         <p slot="header">
           <span>添加</span>
         </p>
@@ -39,7 +39,7 @@
               <Input type="text" v-model="form.payway" placeholder="请输入收费方式"></Input>
             </Form-item>
             <Form-item label="摘要" prop="summary">
-              <Input type="text" v-model="form.summary" placeholder="请输入摘要"></Input>
+              <Input type="textarea" :autosize="{minRows: 2,maxRows: 10}" v-model="form.summary" placeholder="请输入摘要"></Input>
             </Form-item>
             <Form-item label="详情" prop="detail">
               <editor @change="updateData" :content="form.detail"  :height="300"></editor>
@@ -59,6 +59,13 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkptype = (rule, value, callback) => {
+        if (!value ) {
+          callback(new Error('请选择文章分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
@@ -76,11 +83,18 @@
         },
         AddRule: {
           name: [
-            {required: true, message: '请填写分类', trigger: 'blur'},
+            {required: true, message: '请填写名称', trigger: 'blur'},
           ],
           detail: [
             {required: true, message: '请填写详情', trigger: 'blur'},
           ],
+          summary: [
+            {required: true, message: '请输入摘要', trigger: 'blur'},
+          ],
+          type_name:[
+            {required: true,validator: checkptype, trigger: 'blur'}
+          ]
+
         }
       }
     },
