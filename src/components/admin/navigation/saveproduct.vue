@@ -19,7 +19,7 @@
           </Form-item>
           <Form-item label="分类名称" prop="type_name">
             <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
-                    @on-change="changePtype">
+                    @on-change="changeProtype">
               <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
             </Select>
           </Form-item>
@@ -52,7 +52,7 @@
           callback();
         }
       };
-      const checkarticletype = (rule, value, callback) => {
+      const checkptype = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请选择分类'));
         } else {
@@ -71,7 +71,7 @@
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
           type_name: [
-            {required: true, validator: checkarticletype, trigger: 'blur'}
+            {required: true, validator: checkptype, trigger: 'blur'}
           ],
           generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
@@ -87,16 +87,18 @@
         this.form.tag_name = value.label
         this.form.tag_id = value.value
       },
-      changePtype(value) {
+      changeProtype(value) {
 //        console.log(value)
         this.form.type_id = value.value
-        this.form.type_name = value.label
+        this.type_name = value.label
       },
       saveproduct() {
         this.$refs.data.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
+            this.form.type_name = this.type_name
             let data = this.form;
+            console.log(this.form);
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
