@@ -21,6 +21,9 @@
               <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
               <p>点击或将产品图片拖拽到这里上传 仅支持(jpg jpeg png gif)类型图片</p>
             </div>
+
+
+
           </Upload>
 
           <Form ref="padd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
