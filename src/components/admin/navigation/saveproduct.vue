@@ -7,9 +7,9 @@
       </p>
       <div>
         <Form ref="data" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Form-item label="分类名称" prop="name">
+          <Form-item label="栏目/菜单名称" prop="name">
             <Input type="text"
-                   v-model="form.name" placeholder="请填写菜单名字"></Input>
+                   v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
           </Form-item>
           <Form-item label="英文名" prop="generate_name">
             <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
@@ -17,7 +17,7 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
-          <Form-item label="分类名称" prop="type_name">
+          <Form-item label="产品分类" prop="type_name">
             <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
                     @on-change="changeProtype">
               <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
