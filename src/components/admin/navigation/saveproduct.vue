@@ -3,35 +3,38 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>修改详情型栏目</span>
+        <span>修改产品型栏目</span>
       </p>
       <div>
-        <Form ref="detailadd" :model="detail" :label-width="90" :rules="AddRule" class="node-add-form">
+        <Form ref="data" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="分类名称" prop="name">
             <Input type="text"
-                   v-model="detail.name" placeholder="请填写菜单名字"></Input>
+                   v-model="form.name" placeholder="请填写菜单名字"></Input>
           </Form-item>
           <Form-item label="英文名" prop="generate_name">
-            <Input type="text" v-model="detail.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
+            <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
           </Form-item>
           <Form-item label="详情" prop="title">
-            <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
+            <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
+          </Form-item>
+          <Form-item label="分类名称" prop="type_name">
+            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
+                    @on-change="changePtype">
+              <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
+            </Select>
           </Form-item>
           <Form-item label="分类" prop="tag_name">
-            <Select v-model="detail.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
-                    label-in-value 　@on-change="changeNavtype">
+            <Select v-model="form.tag_id" style="text-align: left;width:200px;"
+                    label-in-value filterable　@on-change="changeNavtype">
               <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
           </Form-item>
-          <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="detail.content" :height="300"></editor>
-          </Form-item>
         </Form>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="savedetails">保存</Button>
+        <Button type="success" size="large" :loading="modal_loading" @click="saveproduct">保存</Button>
       </div>
     </Modal>
   </div>
@@ -49,11 +52,17 @@
           callback();
         }
       };
+      const checkarticletype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择分类'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
+        type_name: '',
         modal_loading: false,
-        content:String,
-        id: 0,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -61,28 +70,33 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
+          type_name: [
+            {required: true, validator: checkarticletype, trigger: 'blur'}
+          ],
           generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
-            {required: true,validator: checkNavtype, trigger: 'blur'}
+            {required: true, validator: checkNavtype, trigger: 'blur'}
           ],
         }
       }
     },
     methods: {
       changeNavtype(value) {
-        this.detail.tag_name= value.label
-        this.detail.tag_id = value.value
+        this.form.tag_name = value.label
+        this.form.tag_id = value.value
       },
-      updateData(data) {
-        this.detail.content = data
+      changePtype(value) {
+//        console.log(value)
+        this.form.type_id = value.value
+        this.form.type_name = value.label
       },
-      savedetails() {
-        this.$refs.detailadd.validate((valid) => {
+      saveproduct() {
+        this.$refs.data.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            let data = this.detail;
+            let data = this.form;
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -90,7 +104,7 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.$refs.detailadd.resetFields();
+                this.$refs.data.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
@@ -106,25 +120,19 @@
     },
     mixins: [http],
     props: {
-      detail: {
+      ptype: {
+        default: []
+      },
+      navtype: {
+        default: []
+      },
+      form: {
         default: {
           name: "",
           title: '',
-          content:String,
-          generate_name: ''
         }
-      },
-        navtype: {
-          default: []
-
       }
     }
   }
 </script>
-<style>
-  .ql-container .ql-editor {
-    min-height: 20em;
-    padding-bottom: 1em;
-    max-height: 25em;
-  }
-</style>
+

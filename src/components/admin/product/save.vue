@@ -23,12 +23,12 @@
           </Upload>
 
           <Form ref="psave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="编号" prop="sn">
-              <Input type="text" v-model="form.sn" placeholder="请输入编号"></Input>
-            </Form-item>
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入产品名称"></Input>
             </Form-item>
+            <Form-item label="编号" prop="sn">
+            <Input type="text" v-model="form.sn" placeholder="请输入编号"></Input>
+          </Form-item>
             <Form-item label="分类名称" prop="type_name">
               <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable @on-change="changePtype">
                 <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
@@ -37,12 +37,13 @@
             <Form-item label="收费方式" prop="payway">
               <Input type="text" v-model="form.payway" placeholder="请输入收费方式"></Input>
             </Form-item>
-            <Form-item label="详情" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入分类详情"></Input>
-            </Form-item>
             <Form-item label="摘要" prop="summary">
               <Input type="text" v-model="form.summary" placeholder="请输入摘要"></Input>
             </Form-item>
+            <Form-item label="详情" prop="detail">
+              <editor @change="updateData" :content="form.detail"  :height="300"></editor>
+            </Form-item>
+
           </Form>
 
         </div>
@@ -75,6 +76,9 @@
       }
     },
     methods: {
+      updateData(data) {
+        this.form.detail = data
+      },
       changePtype(value) {
 //        console.log(value)
         this.form.type_id = value.value
