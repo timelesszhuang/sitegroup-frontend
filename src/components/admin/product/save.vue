@@ -7,6 +7,7 @@
           <span>修改</span>
         </p>
         <div>
+          <div><img width="200px" :src="form.base64" alt=""></div>
           <Upload
             type="drag"
             with-credentials
