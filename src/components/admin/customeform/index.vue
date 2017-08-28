@@ -178,7 +178,7 @@
           {
             title: '操作',
             key: 'action',
-            width: 150,
+            width: 200,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
