@@ -190,7 +190,7 @@
             render (row, column, index) {
               var mainkey=''
               if(row.akeyword_id!=0){
-                return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>&nbsp;<span style="margin:5px"><i-button type="primary" size="small" @click="editMain(${index})">修改主关键词</i-button></span>`;
+                return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>&nbsp;<span style="margin:5px;"><i-button type="primary" size="small" @click="editMain(${index})">修改主关键词</i-button></span>`;
               }
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
             }
