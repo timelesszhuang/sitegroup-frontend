@@ -125,7 +125,7 @@
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
-            width: 60,
+//            width: 60,
             align: 'center'
           })
         }
@@ -149,12 +149,12 @@
         columns.push({
           title: '标题',
           key: 'title',
-          width: 240,
+//          width: 240,
           sortable: true
         });
         columns.push({
           title: '简介',
-          width:'600',
+          width:280,
           key: 'summary',
           sortable: true
         });
@@ -162,7 +162,7 @@
         columns.push({
           title: '发布时间',
           key: 'create_time',
-          width:'150',
+//          width:'150',
           sortable: true
         });
         columns.push(
@@ -171,6 +171,7 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
+//            width:'150',
             render (row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
             }
