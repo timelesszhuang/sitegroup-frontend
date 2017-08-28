@@ -7,9 +7,9 @@
       </p>
       <div>
         <Form ref="detailadd" :model="detail" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Form-item label="分类名称" prop="name">
+          <Form-item label="栏目/菜单名称" prop="name">
             <Input type="text"
-                   v-model="detail.name" placeholder="请填写菜单名字"></Input>
+                   v-model="detail.name" placeholder="请填写栏目/菜单名字"></Input>
           </Form-item>
           <Form-item label="英文名" prop="generate_name">
             <Input type="text" v-model="detail.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
@@ -52,7 +52,7 @@
       return {
         modal: false,
         modal_loading: false,
-        content:'',
+        content:String,
         id: 0,
         AddRule: {
           name: [
@@ -110,7 +110,7 @@
         default: {
           name: "",
           title: '',
-          content: '',
+          content:String,
           generate_name: ''
         }
       },

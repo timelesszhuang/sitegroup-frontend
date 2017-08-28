@@ -3,10 +3,10 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>修改问答型栏目</span>
+        <span>修改产品型栏目</span>
       </p>
       <div>
-        <Form ref="questionadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+        <Form ref="data" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="栏目/菜单名称" prop="name">
             <Input type="text"
                    v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
@@ -17,12 +17,10 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
-          <Form-item label="问答分类" prop="type_id">
-            <Select v-model="form.type_id" style="text-align: left;width:200px;"
-                    label-in-value 　@on-change="changeQuestiontype">
-              <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
-                {{ item.name }}
-              </Option>
+          <Form-item label="产品分类" prop="type_name">
+            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
+                    @on-change="changeProtype">
+              <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
             </Select>
           </Form-item>
           <Form-item label="分类" prop="tag_name">
@@ -36,7 +34,7 @@
         </Form>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="savequestion">保存</Button>
+        <Button type="success" size="large" :loading="modal_loading" @click="saveproduct">保存</Button>
       </div>
     </Modal>
   </div>
@@ -44,6 +42,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkNavtype = (rule, value, callback) => {
@@ -53,16 +52,16 @@
           callback();
         }
       };
-      const checkquestiontype = (rule, value, callback) => {
-        if (value === 0) {
-          callback(new Error('请选择问答分类'));
+      const checkptype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择分类'));
         } else {
           callback();
         }
       };
       return {
-        editorOption: {},
         modal: false,
+        type_name: '',
         modal_loading: false,
         AddRule: {
           name: [
@@ -71,32 +70,35 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_id: [
-            {required: true,validator: checkquestiontype, trigger: 'blur'}
+          type_name: [
+            {required: true, validator: checkptype, trigger: 'blur'}
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
-            {required: true,validator: checkNavtype, trigger: 'blur'}
+            {required: true, validator: checkNavtype, trigger: 'blur'}
           ],
         }
       }
     },
     methods: {
       changeNavtype(value) {
-        this.form.tag_name= value.label
+        this.form.tag_name = value.label
         this.form.tag_id = value.value
       },
-      changeQuestiontype(value) {
-        this.form.type_name= value.label
+      changeProtype(value) {
+//        console.log(value)
         this.form.type_id = value.value
+        this.type_name = value.label
       },
-      savequestion() {
-        this.$refs.questionadd.validate((valid) => {
+      saveproduct() {
+        this.$refs.data.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
+            this.form.type_name = this.type_name
             let data = this.form;
+            console.log(this.form);
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -104,7 +106,7 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.$refs.questionadd.resetFields();
+                this.$refs.data.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
@@ -120,10 +122,8 @@
     },
     mixins: [http],
     props: {
-      questiontype: {
-        default: {
-
-        }
+      ptype: {
+        default: []
       },
       navtype: {
         default: []
@@ -132,16 +132,9 @@
         default: {
           name: "",
           title: '',
-          type_name: ''
         }
       }
     }
   }
 </script>
-<style>
-  .ql-container .ql-editor {
-    min-height: 20em;
-    padding-bottom: 1em;
-    max-height: 25em;
-  }
-</style>
+

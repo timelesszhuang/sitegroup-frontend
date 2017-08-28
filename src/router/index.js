@@ -54,6 +54,9 @@ import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
 import Hotnews from '../components/admin/news/tab.vue'
 import Menutype from '../components/admin/menutype/index.vue'
 import Nav from '../components/admin/nav/tab.vue'
+import Customeform from '../components/admin/customeform/index.vue'
+import Producttype from '../components/admin/producttype/index.vue'
+import Product from '../components/admin/product/index.vue'
 Vue.use(Router)
 
 
@@ -125,6 +128,9 @@ export default new Router({
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
         {path: 'menutype', component: Menutype, name: 'menutype'},
         {path: 'nav', component: Nav, name: 'nav'},
+        {path: 'customeform', component: Customeform, name: 'customeform'},
+        {path: 'producttype', component: Producttype, name: 'producttype'},
+        {path: 'product', component: Product, name: 'product'},
       ]
     }
   ]

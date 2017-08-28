@@ -12,6 +12,7 @@
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="adddetails">添加详情型</Button>
+      <Button type="success" @click="addproduct">添加产品型</Button>
       <Button type="success" @click="addquestion">添加问答型</Button>
       <Button type="success" @click="addarticle">添加文章型</Button>
       <Button type="success" @click="addtitle">添加文章段落</Button>
@@ -44,6 +45,8 @@
         </div>
       </div>
     </div>
+    <productadd ref="addproduct" :navtype="navtype"  :ptype="ptype"></productadd>
+    <productsave ref="saveproduct" :navtype="navtype" :form="editinfo" :ptype="ptype"></productsave>
     <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :navtype="navtype" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
@@ -72,6 +75,8 @@
   import questionsave from './savequestion.vue';
   import articlesave from './savearticle.vue';
   import titlesave from './savetitle.vue';
+  import productadd from './addproduct.vue';
+  import productsave from './saveproduct.vue';
   import sort from './sort.vue';
 
   export default {
@@ -95,6 +100,7 @@
         flag: '',
         navtype: [],
         tag_id:'',
+        ptype:[],
         flag_type: [
           {
             value: '1',
@@ -112,10 +118,16 @@
             value: '4',
             label: '文章段落型'
           },
+          {
+            value: '5',
+            label: '产品型'
+          },
         ],
       }
     },
     components: {
+      productadd,
+      productsave,
       detailadd,
       questionadd,
       articleadd,
@@ -137,6 +149,9 @@
       });
       this.getmenutype((data) => {
         this.navtype = data
+      });
+      this.getproducttype((data) => {
+        this.ptype = data
       });
     },
     methods: {
@@ -178,6 +193,18 @@
       queryData() {
         this.getData();
       },
+      getproducttype(func) {
+        this.apiGet('admin/getProductType').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
       getmenutype(func) {
         this.apiGet('admin/menutag/list').then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -201,6 +228,9 @@
       },
       addtitle() {
         this.$refs.addtitle.modal = true
+      },
+      addproduct() {
+        this.$refs.addproduct.modal = true
       },
       modify(index) {
         let editid = this.datas[index].id
@@ -233,6 +263,8 @@
             }
             else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
+            } else if (data.flag == 5) {
+              this.$refs.saveproduct.modal = true
             }
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -312,7 +344,7 @@
           key: 'title'
         });
         columns.push({
-          title: '所属文章分类',
+          title: '所属分类',
           key: 'type_name'
         });
         columns.push({

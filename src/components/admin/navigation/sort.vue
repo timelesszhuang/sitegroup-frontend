@@ -1,14 +1,14 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="300">
+      v-model="modal" width="200">
       <p slot="header">
         <span>修改排序</span>
       </p>
       <div>
-        <Form ref="title" :model="form" :label-width="45" :rules="AddRule" class="node-add-form">
+        <Form ref="title" :model="form" :label-width="60" :rules="AddRule" class="node-add-form">
           <Form-item label="排序" prop="sort">
-            <Input type="text" v-model="form.sort" placeholder="请填写当前栏目的排序"></Input>
+            <Input-number  :min="0" v-model="form.sort"  placeholder="请填写当前栏目的排序"></Input-number>
           </Form-item>
         </Form>
       </div>

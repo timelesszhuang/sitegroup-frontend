@@ -4,10 +4,10 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>添加文章型栏目</span>
+          <span>添加产品型栏目</span>
         </p>
         <div>
-          <Form ref="articleadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <Form ref="productadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="栏目/菜单名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
             </Form-item>
@@ -17,12 +17,9 @@
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
-            <Form-item label="文章分类" prop="type_id">
-              <Select v-model="form.type_id" ref="select" :clearable="selects"  style="text-align: left;width:250px;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.text }}
-                </Option>
+            <Form-item label="产品分类" prop="type_name">
+              <Select v-model="type_name" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable @on-change="changePtype">
+                <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
               </Select>
             </Form-item>
             <Form-item label="分类" prop="tag_name">
@@ -36,7 +33,7 @@
           </Form>
         </div>
         <div slot="footer">
-          <Button type="success" size="large" :loading="modal_loading" @click="addarticle">保存</Button>
+          <Button type="success" size="large" :loading="modal_loading" @click="addproduct">保存</Button>
         </div>
       </Modal>
     </div>
@@ -57,7 +54,7 @@
       };
       const checkarticletype = (rule, value, callback) => {
         if (!value ) {
-          callback(new Error('请选择文章分类'));
+          callback(new Error('请选择分类'));
         } else {
           callback();
         }
@@ -65,12 +62,14 @@
       return {
         modal: false,
         modal_loading: false,
+        type_name: '',
         form: {
           name: "",
           title: "",
-          flag:"3",
-          flag_name:"文章型",
-          generate_name:''
+          flag:"5",
+          flag_name:"产品型",
+          generate_name:'',
+          type_name:''
         },
         selects:true,
         AddRule: {
@@ -81,9 +80,6 @@
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
           type_name: [
-            {required: true, message: '请选择文章分类', trigger: 'blur'},
-          ],
-          type_id: [
             {required: true,validator: checkarticletype, trigger: 'blur'}
           ],
           generate_name:[
@@ -101,12 +97,13 @@
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
-      changeArticletype(value) {
-        this.form.type_name = value.label
+      changePtype(value) {
+//        console.log(value)
         this.form.type_id = value.value
+        this.form.type_name =  value.label
       },
-      addarticle() {
-          this.$refs.articleadd.validate((valid) => {
+      addproduct() {
+          this.$refs.productadd.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
                 let data = this.form;
@@ -116,7 +113,7 @@
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-                    this.$refs.articleadd.resetFields();
+                    this.$refs.productadd.resetFields();
                     this.$refs.select.clearSingleSelect()
                   }, (data, msg) => {
                     this.modal_loading = false;
@@ -133,10 +130,11 @@
     },
     mixins: [http],
     props: {
-      articletype: {
+
+      navtype: {
         default: []
       },
-      navtype: {
+      ptype: {
         default: []
       }
     }

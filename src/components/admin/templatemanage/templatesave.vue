@@ -1,5 +1,7 @@
 <template>
   <Modal v-model="modal1" title="修改模板" @on-ok="ok" width="700">
+  <div style="font-size: 25px;">当前修改模板{{this.filename}}.html
+  </div>
     <Input ref="con" v-model="editContent"  type="textarea" :rows="30" ></Input>
   </Modal>
 </template>
@@ -22,7 +24,7 @@
           this.apiPost('templateSave/'+this.site_id+'/'+this.filename,{content:this.$refs.con.$refs.textarea.value}).then((res) => {
             this.handelResponse(res, (data, msg) => {
               this.$Message.success(msg);
-              this.$Message.getInfo()
+              this.$parent.getInfo();
               this.modal1=false
             }, (data, msg) => {
               this.$Message.error(msg);

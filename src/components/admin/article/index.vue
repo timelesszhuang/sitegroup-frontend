@@ -271,7 +271,11 @@
               }
               return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
 <i-button type="info" size="small" @click="show(${index})">预览</i-button>
-                      <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;` + btn;
+
+                      <!--<i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;-->
+
+
+` + btn;
             }
           }
         );
