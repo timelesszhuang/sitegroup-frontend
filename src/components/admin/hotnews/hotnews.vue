@@ -170,7 +170,6 @@
             title: '操作',
             key: 'action',
             align: 'center',
-            fixed: 'right',
 //            width:'150',
             render (row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
