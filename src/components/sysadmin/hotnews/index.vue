@@ -188,7 +188,7 @@
           title: '简介',
           key: 'summary',
           sortable: true,
-          width:'600'
+          width:'200'
         });
 
         columns.push({
