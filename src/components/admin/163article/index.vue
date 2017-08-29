@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" >
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
@@ -60,6 +60,7 @@
     components: {wechatarticlesave},
     created () {
       this.getData();
+//      console.log(3434)
       this.getArticleType((data) => {
         this.articletypelist = data
       });
