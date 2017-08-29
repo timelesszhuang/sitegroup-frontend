@@ -51,7 +51,6 @@
 
     components: {menuadd, menusave},
     created() {
-      this.getData();
 
     },
     methods: {
