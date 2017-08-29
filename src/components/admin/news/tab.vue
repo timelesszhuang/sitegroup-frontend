@@ -1,13 +1,13 @@
 <template>
   <Tabs value="newsarticle" @on-click="getdata">
     <Tab-pane label="163新闻" name="newsarticle">
-      <Newsarticle ></Newsarticle>
+      <Newsarticle></Newsarticle>
     </Tab-pane>
     <Tab-pane label="腾讯新闻" name="qqarticle">
-      <Qqarticle ref="qqwenzhang" ></Qqarticle>
+      <Qqarticle ref="qqwenzhang"></Qqarticle>
     </Tab-pane>
     <Tab-pane label="热点新闻" name="hotnews">
-      <Hotnews ref="newswenzhang" :hotnewsdata="hotnewsdata"></Hotnews>
+      <Hotnews ref="newswenzhang"></Hotnews>
     </Tab-pane>
   </Tabs>
 </template>
@@ -22,7 +22,7 @@
     methods: {
       getdata(name) {
         if (name == "qqarticle") {
-        this.$refs.qqwenzhang.getData()
+          this.$refs.qqwenzhang.getData()
         } else if (name == "hotnews") {
           this.$refs.newswenzhang.getData()
         }
