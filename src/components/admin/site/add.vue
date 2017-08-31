@@ -110,6 +110,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="图片水印文字" prop="walterString">
+              <Input type="text" v-model="form.walterString" placeholder="请输入图片水印文字"></Input>
+            </Form-item>
             <Form-item label="head前代码" prop="before_header_jscode">
               <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
                      placeholder="请输入head前代码">
@@ -208,7 +211,8 @@
           user_id:"",
           url:'',
           is_mobile:10,
-          m_site_id:0
+          m_site_id:0,
+          walterString:''
         },
         AddRule: {
           site_name: [
@@ -275,6 +279,9 @@
         this.$refs.site.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
+            if(!this.form.walterString){
+              this.form.walterString=this.form.site_name
+            }
             let data = this.form;
             this.apiPost('site', data).then((res) => {
               this.handelResponse(res, (data, msg) => {

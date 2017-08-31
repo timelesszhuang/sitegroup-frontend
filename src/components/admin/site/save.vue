@@ -109,6 +109,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="图片水印文字" prop="walterString">
+              <Input type="text" v-model="form.walterString" placeholder="请输入图片水印文字"></Input>
+            </Form-item>
             <Form-item label="head前代码" prop="before_header_jscode">
               <Input v-model="form.before_header_jscode" type="textarea" :rows="3"
                      placeholder="请输入head前代码">
@@ -256,6 +259,9 @@
           this.$refs.sitesave.validate((valid) => {
               if(valid){
                 this.modal_loading = true;
+                if(!this.form.walterString){
+                  this.form.walterString=this.form.site_name
+                }
                 let data = this.form;
                 let id = data.id;
                 this.apiPut('site/'+ id, data).then((res) => {
