@@ -388,17 +388,22 @@
             </Badge>
             </Col>
             <Col span="2" align="right" style="cursor: pointer">
-            <Icon type="home" style="font-size: 15px" @click="routerChange('/admin/index')"></Icon>
-            <span class="layout-text" style="font-family:Microsoft YaHei;font-size: 15px;"
-                  @click="routerChange('/admin/index')">首页</span>
+            <span class="layout-text" @click="routerChange('/admin/index')">
+                <Icon type="home" style="font-size: 15px"></Icon>
+                首页
+            </span>
             </Col>
             <Col span="2" align="center" style="cursor: pointer">
-            <Icon type="android-lock" @click="changePwd()"></Icon>
-            <span class="layout-text" @click="changePwd()">重置密码</span>
+            <span class="layout-text" @click="changePwd()">
+              <Icon type="android-lock"></Icon>
+              重置密码
+            </span>
             </Col>
             <Col span="2" style="cursor: pointer">
-            <Icon type="log-out" @click="logOut()"></Icon>
-            <span class="layout-text" @click="logOut()">退出系统</span>
+            <span class="layout-text" @click="logOut()">
+              <Icon type="log-out"></Icon>
+              退出系统
+            </span>
             </Col>
           </Row>
         </div>

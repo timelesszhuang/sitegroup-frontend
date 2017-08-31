@@ -47,7 +47,6 @@
               <editor @change="updateData" :content="form.detail" :height="300"></editor>
             </Form-item>
           </Form>
-
         </div>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
