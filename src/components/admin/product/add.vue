@@ -107,7 +107,7 @@
       changePtype(value) {
 //        console.log(value)
         this.form.type_id = value.value
-        this.form.type_name = value.label
+        this.form.type_name =  value.label
       },
       getResponse(response, file, filelist) {
         this.image = response.data;

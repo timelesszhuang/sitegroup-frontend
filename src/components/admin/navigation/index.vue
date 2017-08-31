@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       栏目:
-      <Input v-model="name" placeholder="栏目" style="width:300px;"></Input>
+      <Input v-model="name" placeholder="栏目" style="width:200px;"></Input>
 
       <Select v-model="flag" style="width:200px;" placeholder="根据栏目类型查询" label-in-value filterable clearable>
         <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
@@ -11,11 +11,11 @@
         <Option v-for="item in navtype" :value="item.id" :key="item">{{ item.text }}</Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="adddetails">添加详情型</Button>
-      <Button type="success" @click="addproduct">添加产品型</Button>
-      <Button type="success" @click="addquestion">添加问答型</Button>
-      <Button type="success" @click="addarticle">添加文章型</Button>
-      <Button type="success" @click="addtitle">添加文章段落</Button>
+      <Button type="success" @click="adddetails" shape="circle" size="small">添加详情型</Button>
+      <Button type="success" @click="addproduct" shape="circle" size="small">添加产品型</Button>
+      <Button type="success" @click="addquestion" shape="circle" size="small">添加问答型</Button>
+      <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
+      <Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -344,7 +344,7 @@
           key: 'title'
         });
         columns.push({
-          title: '所属文章分类',
+          title: '所属分类',
           key: 'type_name'
         });
         columns.push({

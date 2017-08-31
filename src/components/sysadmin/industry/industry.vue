@@ -43,7 +43,6 @@
     },
     components: {Industryadd, Industryedit},
     created () {
-      this.getData();
     },
     methods: {
       //获取数据

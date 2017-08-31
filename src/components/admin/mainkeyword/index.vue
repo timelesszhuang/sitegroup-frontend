@@ -2,20 +2,20 @@
   <div>
     <div class="top">
       <Row>
-        <Col span="6">
+        <Col span="9">
         主关键词：
         <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
           <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>
         </Select>
         </Col>
-        <Col span="5">
-        URL:
-        <Input v-model="url" placeholder="请输入URL" style="width:200px;"></Input>
-        </Col>
+        <!--<Col span="7">-->
+        <!--URL:-->
+        <!--<Input v-model="url" placeholder="请输入URL" style="width:200px;"></Input>-->
+        <!--</Col>-->
         <Col span="5">
         <Date-picker v-model="selectDate"   type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
         </Col>
-        <Col span="5">
+        <Col span="2">
         <Button type="primary" @click="queryData">查询</Button>
         </Col>
       </Row>

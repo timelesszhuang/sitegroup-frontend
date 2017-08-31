@@ -59,9 +59,6 @@
                     this.$Message.success(msg);
                     this.modal_loading = false;
                     this.$refs.menuadd.resetFields();
-                    setTimeout(function () {
-                      location.reload();
-                    }, 100);
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
