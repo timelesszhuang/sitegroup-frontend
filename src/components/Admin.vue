@@ -7,7 +7,7 @@
   }
 
   .layout-logo-left {
-    width: 100%;
+    width:100%;
     background-color: #ffffff;
     height: 60px;
   }
@@ -18,10 +18,11 @@
 
   .layout-content {
     min-height: 63%;
-    height: auto;
     margin: 15px;
+    margin-top:5%;
     background: #fff;
     border-radius: 4px;
+    flex: 1;
   }
 
   .layout-content-main {
@@ -71,9 +72,28 @@
   }
 
   .layout-header {
+    width:84%;
+    float:right;
+    z-index: 10000;
+    /*height:30px;*/
+    position:fixed;
+    top:0;
+    left:16.7%;
     height: 60px;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  }
+  /**底部版权信息*/
+  .layout-copy {
+    text-align: center;
+    padding: 10px 0 10px;
+    /*color: #9ea7b4;*/
+  }
+
+  .Site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
   }
 
   .layout-hide-text, .layout-text {
@@ -85,23 +105,16 @@
     color: #ffffff !important;
   }
 
-  /**底部版权信息*/
-  .layout-copy {
-    text-align: center;
-    padding: 10px 0 20px;
-    /*color: #9ea7b4;*/
-    margin-top: 5%;
-  }
 
 </style>
 
 <template>
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
-      <i-col :span="spanLeft" class="layout-menu-left">
+      <i-col :span="spanLeft" class="layout-menu-left" style="overflow: auto;overflow-x:visible ">
         <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
-            <img style="" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
+            <img style="width: 200px" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -378,8 +391,14 @@
         </Menu>
       </i-col>
       <i-col :span="spanRight" style="overflow: auto">
-        <div class="layout-header">
-          <Row type="flex" justify="end" align="middle" class="code-row-bg">
+        <div class="layout-header" >
+          <Row type="flex" justify="end" align="middle" class="code-row-bg" >
+            <Col span="17" align="left" style="cursor: pointer">
+            <span class="layout-text" @click="routerChange('/admin/index')">
+                <Icon type="home" style="font-size: 15px"></Icon>
+                首页
+            </span>
+            </Col>
             <Col span="2" align="right">
             <Badge :count="count">
               <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
@@ -387,12 +406,7 @@
               </span>
             </Badge>
             </Col>
-            <Col span="2" align="right" style="cursor: pointer">
-            <span class="layout-text" @click="routerChange('/admin/index')">
-                <Icon type="home" style="font-size: 15px"></Icon>
-                首页
-            </span>
-            </Col>
+
             <Col span="2" align="center" style="cursor: pointer">
             <span class="layout-text" @click="changePwd()">
               <Icon type="android-lock"></Icon>
@@ -412,13 +426,16 @@
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
-        <div class="layout-content">
+        <div class="Site">
+        <div class="layout-content" >
           <div class="layout-content-main">
             <router-view></router-view>
           </div>
         </div>
         <div class="layout-copy">
           2015-2017 &copy; 北京易至信科技有限公司
+          <div>京ICP12019481号</div>
+        </div>
         </div>
       </i-col>
     </Row>
