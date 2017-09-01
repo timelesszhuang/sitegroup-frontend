@@ -484,7 +484,7 @@
       _this.checkAlert();
       setInterval(function () {
         _this.checkAlert();
-      }, 12000);
+      }, 60000);
 //      console.log(Lockr.get('userInfo'));
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
