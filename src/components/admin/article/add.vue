@@ -29,6 +29,7 @@
             <editor @change="updateData" :content="form.content"  :height="300"></editor>
           </Form-item>
         </Form>
+        <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;</Alert>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>

@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
             <Form-item label="账号" prop="account">
-              <Input type="text" v-model="form.account" disabled placeholder="请输入昵称"></Input>
+              <Input type="text" v-model="form.account" disabled></Input>
             </Form-item>
             <Form-item label="邮箱" prop="email">
               <Input type="text" v-model="form.email" placeholder="请输入邮箱"></Input>
@@ -51,9 +51,6 @@
 
         }
       }
-    },
-    created() {
-      console.log(this.form)
     },
     methods: {
         add() {
