@@ -68,7 +68,6 @@
                     this.$parent.getData();
                     this.$Message.success(msg);
                     this.modal_loading = false;
-//                    this.$refs.siteusersave.resetFields();
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);
