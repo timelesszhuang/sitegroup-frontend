@@ -19,7 +19,6 @@
   .layout-content {
     min-height: 63%;
     margin: 15px;
-    margin-top:5%;
     background: #fff;
     border-radius: 4px;
     flex: 1;
@@ -74,7 +73,7 @@
   .layout-header {
     width:84%;
     float:right;
-    z-index: 10000;
+    z-index: 999;
     /*height:30px;*/
     position:fixed;
     top:0;
@@ -94,9 +93,13 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    margin-top: 3%;
-  }
 
+  }
+  .ivu-breadcrumb {
+    color: #999;
+    font-size: 14px;
+    padding-top: 3.5%;
+  }
   .layout-hide-text, .layout-text {
     display: inline-block;
     width: 100%;
