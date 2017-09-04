@@ -9,7 +9,7 @@
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
-      <div style="margin: 10px;overflow: hidden">
+      <div style="margin: 10px;">
         <div style="float: right;">
           <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
                 @on-page-size-change="changePageSize"
