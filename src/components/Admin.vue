@@ -98,7 +98,7 @@
   .ivu-breadcrumb {
     color: #999;
     font-size: 14px;
-    padding-top: 3.5%;
+    padding-top: 4.5%;
   }
   .layout-hide-text, .layout-text {
     display: inline-block;
