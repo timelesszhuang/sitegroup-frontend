@@ -31,7 +31,7 @@
   }
 
   .layout-menu-left {
-    background: #464c5b;
+    background:#16b8be;
   }
 
   .layout-header {
@@ -41,10 +41,11 @@
   }
 
   .layout-logo-left {
-    width: 90%;
-    height: 30px;
+    height: 65px;
+    background-color: #fff;
     border-radius: 3px;
-    margin: 15px auto;
+    padding: 15px auto;
+    padding-bottom: 30px;
   }
 
   .layout-ceiling-main a {
@@ -86,6 +87,15 @@
   .layout-breadcrumb {
     padding: 10px 15px 0;
   }
+  .ivu-menu-dark {
+    background: #16b8be;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
+    color: #fff;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {
+    color: #fff;
+  }
 
 </style>
 <template>
@@ -93,8 +103,8 @@
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
         <Menu active-name="activeName" :theme="theme" width="auto">
-          <div class="layout-logo-left" @click="routerChange('/sysadmin/')"style="width: 150px;height: 58px;margin: 10px auto;">
-            <img style="" src="../../src/assets/img/logo.png" alt="">
+          <div class="layout-logo-left" @click="routerChange('/sysadmin/')">
+            <img style="width:205px;display: block;margin: 0 auto" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Menu-item name="微信公众号关键词分类">
             <Icon type="key"></Icon>
@@ -124,21 +134,33 @@
             <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
           </Menu-item>
-          <Menu-item name="重置密码">
-            <Icon type="android-lock" :size="iconSize" @click="changePwd()"></Icon>
-            <span class="layout-text" @click="changePwd()">重置密码</span>
-          </Menu-item>
-          <Menu-item name="退出系统">
-            <Icon type="log-out" :size="iconSize" @click="logOut()"></Icon>
-            <span class="layout-text" @click="logOut()">退出系统</span>
-          </Menu-item>
+          <!--<Menu-item name="重置密码">-->
+            <!--<Icon type="android-lock" :size="iconSize" @click="changePwd()"></Icon>-->
+            <!--<span class="layout-text" @click="changePwd()">重置密码</span>-->
+          <!--</Menu-item>-->
+          <!--<Menu-item name="退出系统">-->
+            <!--<Icon type="log-out" :size="iconSize" @click="logOut()"></Icon>-->
+            <!--<span class="layout-text" @click="logOut()">退出系统</span>-->
+          <!--</Menu-item>-->
         </Menu>
       </i-col>
       <i-col :span="spanRight" style="overflow: auto">
         <div class="layout-header">
-          <i-button type="text" @click="toggleClick">
-            <Icon type="navicon" size="32"></Icon>
-          </i-button>
+          <Row type="flex" justify="end" align="middle" class="code-row-bg">
+
+            <Col span="2" align="center" style="cursor: pointer">
+            <span class="layout-text" @click="changePwd()">
+              <Icon type="android-lock"></Icon>
+              重置密码
+            </span>
+            </Col>
+            <Col span="2" style="cursor: pointer">
+            <span class="layout-text" @click="logOut()">
+              <Icon type="log-out"></Icon>
+              退出系统
+            </span>
+            </Col>
+          </Row>
         </div>
         <div class="layout-breadcrumb">
           <Breadcrumb>

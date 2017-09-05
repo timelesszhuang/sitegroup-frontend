@@ -122,7 +122,7 @@
         <Menu active-name="activename" theme="dark" style="overflow: auto;overflow-x:visible " width="auto"
               :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
-            <img style="width: 200px" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
+            <img style="width: 200px;display: block;margin:0 auto" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -184,7 +184,7 @@
               </span>
             </Menu-item>
             <Menu-item name="软文发布">
-              <span class="layout-text" @click="routerChange('/admin/ruanwen','软文发布')">
+              <span class="layout-text" @click="ruanwenClick">
                 <Icon type="wand"></Icon>
                 软文发布
               </span>
@@ -419,11 +419,13 @@
     </Row>
     <logout ref="logout"></logout>
     <changepwd ref="changePwd"></changepwd>
+    <cue ref="cueclick"></cue>
   </div>
 </template>
 <script>
   import logout from './Account/Logout.vue';
   import changepwd from './Account/Changepwd.vue';
+  import cue from './Account/cue.vue';
   import http from '../assets/js/http.js';
 
   export default {
@@ -439,13 +441,18 @@
     },
     components: {
       changepwd,
-      logout
+      logout,
+      cue
     },
 
     methods: {
       menuClick(e) {
 
       },
+      ruanwenClick(){
+this.$refs.cueclick.modal = true
+      },
+
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
           this.handelResponse(res, (data, msg) => {
