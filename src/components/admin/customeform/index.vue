@@ -46,15 +46,15 @@
         field2:{},
         field3:{},
         field4:{},
-        getinfo:{}
+        getinfo:''
 
       }
     },
     components: {customefromadd,customefromsave,customefromcode},
-    created () {
-      this.getData();
-    },
     methods: {
+      init() {
+        this.getData();
+      },
       getData() {
         let data = {
           params: {

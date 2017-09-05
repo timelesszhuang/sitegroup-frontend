@@ -294,42 +294,6 @@
                   网站元素设置
               </span>
             </Menu-item>
-            <Menu-item name="友情链接">
-              <span class="layout-text" @click="routerChange('/admin/link','友情链接')">
-                  <Icon type="drag"></Icon>
-                  友情链接管理
-              </span>
-            </Menu-item>
-            <Menu-item name="域名管理">
-              <span class="layout-text" @click="routerChange('/admin/domain','域名管理')">
-                <Icon type="android-globe"></Icon>
-                域名管理
-              </span>
-            </Menu-item>
-            <Menu-item name="公共代码管理">
-              <span class="layout-text" @click="routerChange('/admin/code','公共代码管理')">
-                <Icon type="social-javascript"></Icon>
-                公共代码管理
-              </span>
-            </Menu-item>
-            <Menu-item name="联系方式管理">
-              <span class="layout-text" @click="routerChange('/admin/contactway','联系方式管理')">
-                <Icon type="ios-telephone"></Icon>
-                联系方式管理
-              </span>
-            </Menu-item>
-            <Menu-item name="模板管理">
-              <span class="layout-text" @click="routerChange('/admin/template','模板管理')">
-                <Icon type="map"></Icon>
-                模板管理
-              </span>
-            </Menu-item>
-            <Menu-item name="自定义表单">
-              <span class="layout-text" @click="routerChange('/admin/customeform','自定义表单')">
-                <Icon type="map"></Icon>
-                自定义表单
-              </span>
-            </Menu-item>
 
             <Menu-item name="站点管理">
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">

@@ -33,9 +33,7 @@
     },
     props: {
       form: {
-        default: {
-
-        }
+        default:String
       }
     },
     mixins: [http]
