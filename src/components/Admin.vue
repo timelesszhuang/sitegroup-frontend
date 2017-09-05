@@ -162,19 +162,31 @@
           </Submenu>
           <Submenu name="8">
             <template slot="title">
-              <Icon type="ios-bookmarks-outline"></Icon>
+              <Icon type="ios-box"></Icon>
               <span class="parent-menu-title">资源聚合</span>
             </template>
             <Menu-item name="新闻管理">
               <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
-                <Icon type="ios-copy"></Icon>
+                <Icon type="social-designernews"></Icon>
                 新闻管理
               </span>
             </Menu-item>
             <Menu-item name="公众号">
               <span class="layout-text" @click="routerChange('/admin/wechat','公众号')">
-                <Icon type="ios-bookmarks"></Icon>
+                <Icon type="cube"></Icon>
                 公众号
+              </span>
+            </Menu-item>
+            <Menu-item name="软文发布">
+              <span class="layout-text" @click="routerChange('/admin/ruanwen','软文发布')">
+                <Icon type="wand"></Icon>
+                软文发布
+              </span>
+            </Menu-item>
+            <Menu-item name="视频资源">
+              <span class="layout-text" @click="routerChange('/admin/ruanwen','视频资源')">
+                <Icon type="videocamera"></Icon>
+                视频资源
               </span>
             </Menu-item>
           </Submenu>
@@ -191,23 +203,22 @@
             </Menu-item>
             <Menu-item name="问答管理">
               <span class="layout-text" @click="routerChange('/admin/questionmange','问答管理')">
-                <Icon type="document"></Icon>
-                问答管理
+                <Icon type="ios-help-empty"></Icon>
+                 问答管理
               </span>
             </Menu-item>
             <Menu-item name="产品管理">
               <span class="layout-text" @click="routerChange('/admin/productmange','产品管理')">
-                <Icon type="document"></Icon>
+                <Icon type="ios-grid-view"></Icon>
                 产品管理
               </span>
             </Menu-item>
             <Menu-item name="文章段落管理">
               <span class="layout-text" @click="routerChange('/admin/newsmange','文章段落管理')">
-                <Icon type="document"></Icon>
+                <Icon type="social-buffer-outline"></Icon>
                 文章段落管理
               </span>
             </Menu-item>
-
             <!--<Menu-item name="文章分类">
               <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">
                 <Icon type="settings"></Icon>
@@ -273,7 +284,7 @@
             </template>
             <Menu-item name="站点栏目">
               <span class="layout-text" @click="routerChange('/admin/nav','站点栏目')">
-                              <Icon type="drag"></Icon>
+                <Icon type="drag"></Icon>
                 站点栏目管理
               </span>
             </Menu-item>
@@ -313,7 +324,6 @@
                 自定义表单
               </span>
             </Menu-item>
-
           </Submenu>
           <Submenu name="6">
             <template slot="title">
