@@ -141,12 +141,6 @@
                 关键词推荐
               </span>
             </Menu-item>
-            <Menu-item name="主关键词排名">
-              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">
-                <Icon type="android-archive"></Icon>
-                主关键词排名
-              </span>
-            </Menu-item>
           </Submenu>
           <Submenu name="8">
             <template slot="title">
@@ -157,6 +151,18 @@
               <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
                 <Icon type="beer"></Icon>
                 主题/活动创意管理
+              </span>
+            </Menu-item>
+            <Menu-item name="事件营销">
+              <span class="layout-text" @click="routerChange('/admin/eventmarketing','事件营销')">
+                <Icon type="alert"></Icon>
+                  &nbsp;&nbsp;事件营销
+              </span>
+            </Menu-item>
+            <Menu-item name="营销模式">
+              <span class="layout-text" @click="routerChange('/admin/marketingmode','营销模式')">
+                <Icon type="flag"></Icon>
+                营销模式
               </span>
             </Menu-item>
           </Submenu>
@@ -330,7 +336,6 @@
                 自定义表单
               </span>
             </Menu-item>
-
             <Menu-item name="站点管理">
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">
                 <Icon type="android-cloud-circle"></Icon>
@@ -343,8 +348,6 @@
                 站点分类
               </span>
             </Menu-item>
-
-
             <Menu-item name="模板管理">
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">
                 <Icon type="map"></Icon>
@@ -377,8 +380,8 @@
                 市场反馈
               </span>
             </template>
-            <Menu-item name="主关键词排名">
-              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">
+            <Menu-item name="位置排名">
+              <span class="layout-text" @click="routerChange('/admin/mainkeyword','位置排名')">
                 <Icon type="android-archive"></Icon>
                 位置排名
               </span>
