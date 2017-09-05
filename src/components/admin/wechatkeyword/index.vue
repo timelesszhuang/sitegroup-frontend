@@ -54,7 +54,7 @@
     },
     components: {wechatkadd,wechatksave},
     created () {
-      this.getData();
+//      this.getData();
       this.getTypes();
     },
     methods: {

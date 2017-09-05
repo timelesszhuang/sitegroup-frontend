@@ -17,6 +17,7 @@ import News from '../components/sysadmin/news/tab.vue'
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
+import Articlemange from '../components/admin/articlemanage/tab.vue'
 import Navigation from '../components/admin/navigation/index.vue'
 import Question from '../components/admin/question/index.vue'
 import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
@@ -57,6 +58,7 @@ import Nav from '../components/admin/nav/tab.vue'
 import Customeform from '../components/admin/customeform/index.vue'
 import Producttype from '../components/admin/producttype/index.vue'
 import Product from '../components/admin/product/index.vue'
+import Wechat from '../components/admin/wechat/tab.vue'
 Vue.use(Router)
 
 
@@ -91,6 +93,7 @@ export default new Router({
         {path: 'index', component: Index, name: 'index'},
         {path: 'articletype', component: Articletype, name: 'articletype'},
         {path: 'article', component: Article, name: 'article'},
+        {path: 'articlemange', component: Articlemange, name: 'articlemange'},
         {path: 'navigation', component: Navigation, name: 'navigation'},
         {path: 'question', component: Question, name: 'question'},
         {path: 'scatteredarticle', component: Scatteredarticle, name: 'scatteredarticle'},
@@ -131,6 +134,7 @@ export default new Router({
         {path: 'customeform', component: Customeform, name: 'customeform'},
         {path: 'producttype', component: Producttype, name: 'producttype'},
         {path: 'product', component: Product, name: 'product'},
+        {path: 'wechat', component: Wechat, name: 'wechat'},
       ]
     }
   ]

@@ -98,7 +98,7 @@
   .ivu-breadcrumb {
     color: #999;
     font-size: 14px;
-    padding-top: 4.5%;
+    padding-top: 4.9%;
   }
   .layout-hide-text, .layout-text {
     display: inline-block;
@@ -123,18 +123,18 @@
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
-              <span class="parent-menu-title">关键词管理</span>
+              <span class="parent-menu-title">站点关键词</span>
             </template>
-            <Menu-item name="站点关键词">
-              <span class="layout-text" @click="routerChange('/admin/keyword','站点关键词')">
+            <Menu-item name="关键词管理">
+              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">
                 <Icon type="key"></Icon>
-                站点关键词
+                关键词管理
               </span>
             </Menu-item>
-            <Menu-item name="推荐关键词库">
-              <span class="layout-text" @click="routerChange('/admin/recommendationkeyword','推荐关键词库')">
+            <Menu-item name="关键词推荐">
+              <span class="layout-text" @click="routerChange('/admin/recommendationkeyword','关键词推荐')">
                 <Icon type="ios-list-outline"></Icon>
-                推荐关键词库
+                关键词推荐
               </span>
             </Menu-item>
             <Menu-item name="主关键词排名">
@@ -147,43 +147,24 @@
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
-              <span class="parent-menu-title">推荐文章库</span>
+              <span class="parent-menu-title">内容管理</span>
             </template>
-            <Menu-item name="微信公众号关键词">
-              <span class="layout-text" @click="routerChange('/admin/wechatkeyword','微信公众号关键词')">
-                <Icon type="key"></Icon>
-                微信公众号关键词
-              </span>
-            </Menu-item>
-            <Menu-item name="微信公众号文章">
-              <span class="layout-text" @click="routerChange('/admin/wechatarticle','微信企业号文章')">
-                <Icon type="ios-bookmarks"></Icon>
-                微信公众号文章
-              </span>
-            </Menu-item>
-            <Menu-item name="新闻类文章管理">
-              <span class="layout-text" @click="routerChange('/admin/hotnews','新闻类文章管理')">
+            <Menu-item name="新闻管理">
+              <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
                 <Icon type="ios-copy"></Icon>
                 新闻管理
               </span>
             </Menu-item>
-
-          </Submenu>
-          <Submenu name="2">
-            <template slot="title">
-              <Icon type="ios-keypad"></Icon>
-              <span class="parent-menu-title">文章库</span>
-            </template>
-            <Menu-item name="文章分类">
-              <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">
-                <Icon type="settings"></Icon>
-                文章分类
+            <Menu-item name="公众号">
+              <span class="layout-text" @click="routerChange('/admin/wechat','公众号')">
+                <Icon type="ios-bookmarks"></Icon>
+                公众号
               </span>
             </Menu-item>
-            <Menu-item name="文章列表">
-              <span class="layout-text" @click="routerChange('/admin/article','文章列表')">
+            <Menu-item name="文章管理">
+              <span class="layout-text" @click="routerChange('/admin/articlemange','文章管理')">
                 <Icon type="document"></Icon>
-                文章列表
+                文章管理
               </span>
             </Menu-item>
           </Submenu>

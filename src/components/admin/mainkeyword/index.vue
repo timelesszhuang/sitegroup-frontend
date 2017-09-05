@@ -149,7 +149,7 @@
         columns.push({
           title: '链接',
           key: 'trueUrl',
-          width:150,
+//          width:150,
           render(row, column, index) {
             return `<a href="` + row.a_href + `" target="_blank">` + row.a_text + `</i-button>`;
           }
@@ -157,25 +157,25 @@
         columns.push({
           title: '标题',
           key: 'emtitle',
-          width: 150,
+//          width: 150,
           sortable: true
         });
         columns.push({
           title: '关键词',
           key: 'keywords',
-          width: 350,
+//          width: 350,
           sortable: true
         });
         columns.push({
           title: '描述',
-          width: 350,
+          width: 200,
           key: 'description',
           sortable: true
         });
         columns.push({
           title: '时间',
           key: 'create_time',
-          width:100,
+//          width:100,
           sortable: true,
           fixed: 'right',
         });
