@@ -46,10 +46,10 @@
       }
     },
     components: {templateadd, templatesave},
+    created () {
+      this.getData();
+    },
     methods: {
-      init() {
-        this.getData();
-      },
       getData() {
         let data = {
           params: {

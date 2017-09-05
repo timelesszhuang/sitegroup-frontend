@@ -46,10 +46,10 @@
       }
     },
     components: {codeadd, codesave},
+    created () {
+      this.getData();
+    },
     methods: {
-      init() {
-        this.getData();
-      },
       getData() {
         let data = {
           params: {

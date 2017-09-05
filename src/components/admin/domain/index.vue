@@ -47,10 +47,10 @@
     },
 
     components: {domainadd,domainsave},
+    created () {
+      this.getData();
+    },
     methods: {
-      init() {
-        this.getData();
-      },
       getData() {
         let data = {
           params: {
