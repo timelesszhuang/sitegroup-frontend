@@ -66,10 +66,10 @@
       },
 
     }),
-    created() {
-      this.doRandom();
-    },
     methods: {
+      init(){
+        this.doRandom();
+      },
       queryData() {
         this.doRandom();
       },

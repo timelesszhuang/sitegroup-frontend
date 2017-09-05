@@ -60,12 +60,6 @@
       },
 
     }),
-    created() {
-      this.doRandom();
-      this.getSite((data) => {
-        this.site = data
-      });
-    },
     methods: {
       init(){
         this.doRandom();
