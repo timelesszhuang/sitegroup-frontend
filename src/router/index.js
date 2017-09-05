@@ -13,7 +13,6 @@ import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vu
 import News from '../components/sysadmin/news/tab.vue'
 
 
-
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
@@ -58,6 +57,7 @@ import Customeform from '../components/admin/customeform/index.vue'
 import Producttype from '../components/admin/producttype/index.vue'
 import Product from '../components/admin/product/index.vue'
 import Pageview from '../components/admin/pageview/index.vue'
+
 Vue.use(Router)
 
 
@@ -80,7 +80,7 @@ export default new Router({
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
-        {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'}
+        {path: 'wechatkeywordtype', component: WechatKeywordType, name: 'wechatkeywordtype'}
       ]
     },
     {
@@ -111,7 +111,6 @@ export default new Router({
         {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
         {path: 'crawler', component: Crawler, name: 'crawler'},
         {path: 'pv', component: Pv, name: 'pv'},
-
         {path: 'other', component: Other, name: 'other'},
         {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
@@ -122,17 +121,17 @@ export default new Router({
         {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'},
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
-        {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'},
-        {path: 'editor', component:Editor,name:'editor'},
-        {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
-        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'},
+        {path: 'mainkeyword', component: MainKwyword, name: 'mainkeyword'},
+        {path: 'editor', component: Editor, name: 'editor'},
+        {path: 'recommendationkeyword', component: Recommendationkeyword, name: 'recommendationkeyword'},
+        {path: 'scatteredtype', component: Scatteredtype, name: 'scatteredtype'},
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
         {path: 'menutype', component: Menutype, name: 'menutype'},
         {path: 'nav', component: Nav, name: 'nav'},
         {path: 'customeform', component: Customeform, name: 'customeform'},
         {path: 'producttype', component: Producttype, name: 'producttype'},
         {path: 'product', component: Product, name: 'product'},
-        {path: 'pageview',component: Pageview,name:'pageview'}
+        {path: 'pageview', component: Pageview, name: 'pageview'}
       ]
     }
   ]
