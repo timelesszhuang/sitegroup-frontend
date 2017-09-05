@@ -119,7 +119,7 @@
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
-        <Menu active-name="activename" theme="dark" style="overflow: auto;overflow-x:visible " width="auto"
+        <Menu active-name="activename" theme="dark" style="overflow-x:visible " width="auto"
               :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
             <img style="width: 200px;display: block;margin:0 auto" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
