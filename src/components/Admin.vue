@@ -202,7 +202,7 @@
               </span>
             </Menu-item>
             <Menu-item name="问答管理">
-              <span class="layout-text" @click="routerChange('/admin/questionmange','问答管理')">
+              <span class="layout-text" @click="routerChange('/admin/questionmanage','问答管理')">
                 <Icon type="ios-help-empty"></Icon>
                  问答管理
               </span>
@@ -279,13 +279,19 @@
             <template slot="title">
               <span class="parent-menu-title">
                 <Icon type="briefcase"></Icon>
-                站点元素设置
+                站点设置
               </span>
             </template>
-            <Menu-item name="站点栏目">
-              <span class="layout-text" @click="routerChange('/admin/nav','站点栏目')">
+            <Menu-item name="栏目管理">
+              <span class="layout-text" @click="routerChange('/admin/nav','栏目管理')">
                 <Icon type="drag"></Icon>
-                站点栏目管理
+                栏目管理
+              </span>
+            </Menu-item>
+            <Menu-item name="网站元素设置">
+              <span class="layout-text" @click="routerChange('/admin/siteelement','网站元素设置')">
+                <Icon type="settings"></Icon>
+                  网站元素设置
               </span>
             </Menu-item>
             <Menu-item name="友情链接">
@@ -324,31 +330,27 @@
                 自定义表单
               </span>
             </Menu-item>
-          </Submenu>
-          <Submenu name="6">
-            <template slot="title">
-              <Icon type="pinpoint"></Icon>
-              <span class="parent-menu-title">站点/用户管理</span>
-            </template>
-            <Menu-item name="站点分类">
-              <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">
-                <Icon type="android-cloud-circle"></Icon>
-                站点分类
-              </span>
-            </Menu-item>
+
             <Menu-item name="站点管理">
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">
                 <Icon type="android-cloud-circle"></Icon>
                 站点管理
               </span>
             </Menu-item>
+            <Menu-item name="站点分类">
+              <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">
+                <Icon type="android-cloud-circle"></Icon>
+                站点分类
+              </span>
+            </Menu-item>
+
+
             <Menu-item name="模板管理">
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">
                 <Icon type="map"></Icon>
                 站点模板管理
               </span>
             </Menu-item>
-
             <Menu-item name="SEO属性">
               <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">
                 <Icon type="map"></Icon>
@@ -393,35 +395,6 @@
                 流量分析
               </span>
             </Menu-item>
-            <!--<Menu-item name="浏览量统计">-->
-            <!--<span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">-->
-            <!--<Icon type="android-cloud-circle"></Icon>-->
-            <!--浏览量统计-->
-            <!--</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="浏览量展示">-->
-            <!--<span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">-->
-            <!--<Icon type="android-cloud-circle"></Icon>-->
-            <!--浏览量展示-->
-            <!--</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="爬虫统计">-->
-            <!--<span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">-->
-            <!--<Icon type="android-cloud-circle"></Icon>-->
-            <!--爬虫统计-->
-            <!--</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="搜索引擎关键词统计">-->
-            <!--<span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">-->
-            <!--<Icon type="android-cloud-circle"></Icon>-->
-            <!--搜索关键词统计-->
-            <!--</span>-->
-            <!--</Menu-item>-->
-            <!--<Menu-item name="其他统计">-->
-            <!--<span class="layout-text" @click="routerChange('/admin/other','其他统计')">-->
-            <!--<Icon type="android-cloud-circle"></Icon>-->
-            <!--其他统计</span>-->
-            <!--</Menu-item>-->
           </Submenu>
         </Menu>
       </i-col>
