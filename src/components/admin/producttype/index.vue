@@ -51,7 +51,7 @@
 
     components: {ptypeadd,ptypesave},
     created() {
-      this.getData();
+//      this.getData();
     },
     methods: {
       getData() {

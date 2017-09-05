@@ -18,10 +18,8 @@ import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
 import Articlemange from '../components/admin/articlemanage/tab.vue'
 import Navigation from '../components/admin/navigation/index.vue'
-import Question from '../components/admin/question/index.vue'
 import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
 import Title from '../components/admin/title/title.vue'
-import Questiontype from '../components/admin/questiontype/questiontype.vue'
 import Template from '../components/admin/template/template.vue'
 import Code from '../components/admin/code/index.vue'
 import Domain from '../components/admin/domain/index.vue'
@@ -33,12 +31,7 @@ import Site from '../components/admin/site/site.vue'
 import Link from '../components/admin/link/index.vue'
 import MessageLog from '../components/messageLog/messageLog.vue';
 import Flow from '../components/admin/flow/index.vue';
-// import Countkeyword from '../components/admin/countkeyword/index.vue'
 import Index from '../components/admin/index/index.vue'
-// import Crawler from '../components/admin/crawler/crawler.vue'
-// import Pv from '../components/admin/pv/pv.vue'
-// import Other from '../components/admin/other/index.vue'
-// import Show from '../components/admin/show/index.vue'
 import Staticconfig from '../components/admin/staticconfig/index.vue'
 import Rejection from '../components/admin/rejection/index.vue'
 import Templatemanage from '../components/admin/templatemanage/index.vue'
@@ -55,11 +48,13 @@ import Hotnews from '../components/admin/news/tab.vue'
 import Menutype from '../components/admin/menutype/index.vue'
 import Nav from '../components/admin/nav/tab.vue'
 import Customeform from '../components/admin/customeform/index.vue'
-import Producttype from '../components/admin/producttype/index.vue'
-import Product from '../components/admin/product/index.vue'
 import Pageview from '../components/admin/pageview/index.vue'
-
+import Wechat from '../components/admin/wechat/tab.vue'
+import Questionmanage from '../components/admin/questionmanage/tab.vue'
+import Productmanage from '../components/admin/productmanage/tab.vue'
+import Newsmanage from '../components/admin/newsmanage/tab.vue'
 Vue.use(Router)
+
 
 
 export default new Router({
@@ -95,10 +90,8 @@ export default new Router({
         {path: 'article', component: Article, name: 'article'},
         {path: 'articlemange', component: Articlemange, name: 'articlemange'},
         {path: 'navigation', component: Navigation, name: 'navigation'},
-        {path: 'question', component: Question, name: 'question'},
         {path: 'scatteredarticle', component: Scatteredarticle, name: 'scatteredarticle'},
         {path: 'title', component: Title, name: 'title'},
-        {path: 'questiontype', component: Questiontype, name: 'questiontype'},
         {path: 'template', component: Template, name: 'template'},
         {path: 'code', component: Code, name: 'code'},
         {path: 'contactway', component: Contactway, name: 'contactway'},
@@ -110,12 +103,6 @@ export default new Router({
         {path: 'link', component: Link, name: 'link'},
         {path: 'messageLog', component: MessageLog, name: 'messageLog'},
         {path: 'flow', component: Flow, name: 'flow'},
-        // {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
-        // {path: 'crawler', component: Crawler, name: 'crawler'},
-        // {path: 'pv', component: Pv, name: 'pv'},
-
-        // {path: 'other', component: Other, name: 'other'},
-        // {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'templatemanage', component: Templatemanage, name: 'templatemanage'},
         {path: 'rejection', component: Rejection, name: 'rejection'},
@@ -132,10 +119,11 @@ export default new Router({
         {path: 'menutype', component: Menutype, name: 'menutype'},
         {path: 'nav', component: Nav, name: 'nav'},
         {path: 'customeform', component: Customeform, name: 'customeform'},
-        {path: 'producttype', component: Producttype, name: 'producttype'},
-        {path: 'product', component: Product, name: 'product'},
         {path: 'pageview', component: Pageview, name: 'pageview'},
-        // {path: 'wechat', component: Wechat, name: 'wechat'},
+        {path: 'wechat', component: Wechat, name: 'wechat'},
+        {path: 'questionmanage', component: Questionmanage, name: 'questionmanage'},
+        {path: 'productmanage', component: Productmanage, name: 'productmanage'},
+        {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
       ]
     }
   ]

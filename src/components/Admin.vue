@@ -196,7 +196,7 @@
               <span class="parent-menu-title">内容管理</span>
             </template>
             <Menu-item name="文章管理">
-              <span class="layout-text" @click="routerChange('/admin/articlemange','文章管理')">
+              <span class="layout-text" @click="routerChange('/admin/article','文章管理')">
                 <Icon type="document"></Icon>
                 文章管理
               </span>
@@ -208,13 +208,13 @@
               </span>
             </Menu-item>
             <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/productmange','产品管理')">
+              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
                 <Icon type="ios-grid-view"></Icon>
                 产品管理
               </span>
             </Menu-item>
             <Menu-item name="文章段落管理">
-              <span class="layout-text" @click="routerChange('/admin/newsmange','文章段落管理')">
+              <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
                 <Icon type="social-buffer-outline"></Icon>
                 文章段落管理
               </span>

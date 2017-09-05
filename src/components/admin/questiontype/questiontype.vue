@@ -46,7 +46,7 @@
     },
     components: {questiontypeadd, questiontypesave},
     created () {
-      this.getData();
+//      this.getData();
     },
     methods: {
       getData() {
