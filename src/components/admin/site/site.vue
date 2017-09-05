@@ -115,6 +115,35 @@
       this.getMobileSite();
     },
     methods: {
+      init(){
+        this.getCode();
+        this.getData();
+        this.getMenuType((data) => {
+          this.menutype = data
+        });
+        this.getTempType((data) => {
+          this.temptype = data
+        });
+        this.getSiteType((data) => {
+          this.sitetype = data
+        });
+        this.getHotline((data) => {
+          this.hotline = data
+        });
+        this.getDomain((data) => {
+          this.domainlist = data
+        });
+        this.getUserType((data) => {
+          this.userlist = data
+        });
+        this.getKeyword((data) => {
+          this.keyword = data
+        });
+        this.getLink((data) => {
+          this.link = data
+        });
+        this.getMobileSite();
+      },
       sendActivity(id){
         this.site_id = id
         this.getActivity(id)

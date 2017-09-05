@@ -302,18 +302,11 @@
             </Menu-item>
 
             <Menu-item name="站点管理">
-              <span class="layout-text" @click="routerChange('/admin/site','站点管理')">
+              <span class="layout-text" @click="routerChange('/admin/sitemanage','站点管理')">
                 <Icon type="android-cloud-circle"></Icon>
                 站点管理
               </span>
             </Menu-item>
-            <Menu-item name="站点分类">
-              <span class="layout-text" @click="routerChange('/admin/sitetype','站点分类')">
-                <Icon type="android-cloud-circle"></Icon>
-                站点分类
-              </span>
-            </Menu-item>
-
 
             <Menu-item name="模板管理">
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">

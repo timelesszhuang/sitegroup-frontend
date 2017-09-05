@@ -51,6 +51,8 @@ import Wechat from '../components/admin/wechat/tab.vue'
 import Questionmanage from '../components/admin/questionmanage/tab.vue'
 import Productmanage from '../components/admin/productmanage/tab.vue'
 import Newsmanage from '../components/admin/newsmanage/tab.vue'
+import Siteelement from '../components/admin/siteelement/index.vue'
+import Sitemanage from '../components/admin/sitemanage/index.vue'
 Vue.use(Router)
 
 
@@ -117,6 +119,8 @@ export default new Router({
         {path: 'questionmanage', component: Questionmanage, name: 'questionmanage'},
         {path: 'productmanage', component: Productmanage, name: 'productmanage'},
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
+        {path:'sitemanage',component:Sitemanage,name:'sitemanage'},
+        {path: 'siteelement',component:Siteelement,name:'siteelement'}
       ]
     }
   ]
