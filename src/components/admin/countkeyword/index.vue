@@ -67,6 +67,12 @@
       });
     },
     methods: {
+      init(){
+        this.doRandom();
+        this.getSite((data) => {
+          this.site = data
+        });
+      },
       getSite(){
         this.apiGet('Site/getSites').then((res) => {
           this.handelResponse(res, (data, msg) => {
