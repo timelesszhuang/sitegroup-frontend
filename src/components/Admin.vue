@@ -336,6 +336,7 @@
                 自定义表单
               </span>
             </Menu-item>
+
             <Menu-item name="站点管理">
               <span class="layout-text" @click="routerChange('/admin/site','站点管理')">
                 <Icon type="android-cloud-circle"></Icon>
@@ -348,6 +349,8 @@
                 站点分类
               </span>
             </Menu-item>
+
+
             <Menu-item name="模板管理">
               <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">
                 <Icon type="map"></Icon>
@@ -380,8 +383,8 @@
                 市场反馈
               </span>
             </template>
-            <Menu-item name="位置排名">
-              <span class="layout-text" @click="routerChange('/admin/mainkeyword','位置排名')">
+            <Menu-item name="主关键词排名">
+              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">
                 <Icon type="android-archive"></Icon>
                 位置排名
               </span>
