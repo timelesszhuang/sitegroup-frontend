@@ -353,7 +353,7 @@
             <template slot="title">
               <span class="parent-menu-title">
                 <Icon type="ios-analytics"></Icon>
-                数据统计
+                市场反馈
               </span>
             </template>
             <Menu-item name="浏览量统计">
@@ -374,10 +374,10 @@
                 爬虫统计
               </span>
             </Menu-item>
-            <Menu-item name="甩单展示">
-              <span class="layout-text" @click="routerChange('/admin/rejection','甩单展示')">
+            <Menu-item name="线索">
+              <span class="layout-text" @click="routerChange('/admin/rejection','线索')">
                 <Icon type="android-cloud-circle"></Icon>
-                甩单展示
+                线索
               </span>
             </Menu-item>
             <Menu-item name="搜索引擎关键词统计">

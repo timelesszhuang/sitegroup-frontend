@@ -2,7 +2,7 @@
   <Modal v-model="modal" width="460">
     <p slot="header" style="color:dodgerblue;text-align:center;font-size: 18px;">
       <Icon type="flag"></Icon>
-      <span>甩单信息</span>
+      <span>线索信息</span>
     </p>
     <div class="content">
       <div class="column">{{field1}}</div>
