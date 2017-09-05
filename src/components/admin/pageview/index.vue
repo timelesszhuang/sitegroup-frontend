@@ -26,7 +26,7 @@
   import crawler from '../crawler/crawler.vue'
   import countkeyword from '../countkeyword/index.vue'
   import other from '../other/index.vue'
-//  import
+
   export default{
     data(){
       return {
@@ -35,7 +35,7 @@
     },
     methods: {
       tabClick(name) {
-        if(name!=="other"){
+        if(name!=="pv"){
           this.$refs[name].init();
         }
       }

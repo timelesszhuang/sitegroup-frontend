@@ -22,5 +22,13 @@
       keyword,
       scarrered
     },
+    methods:{
+      init(){
+        this.$refs.keyword.init();
+        this.$refs.articletype.init();
+        this.$refs.questiontype.init();
+        this.$refs.scarrered.init();
+      }
+    }
   };
 </script>
