@@ -7,7 +7,7 @@
   }
 
   .layout-logo-left {
-    width:100%;
+    width: 100%;
     background-color: #ffffff;
     height: 60px;
   }
@@ -71,17 +71,18 @@
   }
 
   .layout-header {
-    width:84%;
-    float:right;
+    width: 84%;
+    float: right;
     z-index: 999;
     /*height:30px;*/
-    position:fixed;
-    top:0;
-    left:16.7%;
+    position: fixed;
+    top: 0;
+    left: 16.7%;
     height: 60px;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   }
+
   /**底部版权信息*/
   .layout-copy {
     text-align: center;
@@ -95,11 +96,13 @@
     flex-direction: column;
 
   }
+
   .ivu-breadcrumb {
     color: #999;
     font-size: 14px;
     padding-top: 4.9%;
   }
+
   .layout-hide-text, .layout-text {
     display: inline-block;
     width: 100%;
@@ -115,8 +118,9 @@
 <template>
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
-      <i-col :span="spanLeft" class="layout-menu-left" >
-        <Menu active-name="activename" theme="dark" style="overflow: auto;overflow-x:visible "width="auto" :open-names="opennames" accordion>
+      <i-col :span="spanLeft" class="layout-menu-left">
+        <Menu active-name="activename" theme="dark" style="overflow: auto;overflow-x:visible " width="auto"
+              :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
             <img style="width: 200px" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>
@@ -147,7 +151,19 @@
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
-              <span class="parent-menu-title">内容管理</span>
+              <span class="parent-menu-title">营销计划</span>
+            </template>
+            <Menu-item name="主题/活动创意">
+              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
+                <Icon type="beer"></Icon>
+                主题/活动创意管理
+              </span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="ios-bookmarks-outline"></Icon>
+              <span class="parent-menu-title">资源聚合</span>
             </template>
             <Menu-item name="新闻管理">
               <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
@@ -161,31 +177,38 @@
                 公众号
               </span>
             </Menu-item>
-            <Menu-item name="文章管理">
-              <span class="layout-text" @click="routerChange('/admin/articlemange','文章管理')">
-                <Icon type="document"></Icon>
-                文章管理
-              </span>
-            </Menu-item>
-          </Submenu>
-          <Submenu name="8">
-            <template slot="title">
-              <Icon type="ios-bookmarks-outline"></Icon>
-              <span class="parent-menu-title">营销计划</span>
-            </template>
-            <Menu-item name="主题/活动创意">
-              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
-                <Icon type="beer"></Icon>
-                主题/活动创意管理
-              </span>
-            </Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               <span class="parent-menu-title">内容管理</span>
             </template>
-            <Menu-item name="文章分类">
+            <Menu-item name="文章管理">
+              <span class="layout-text" @click="routerChange('/admin/articlemange','文章管理')">
+                <Icon type="document"></Icon>
+                文章管理
+              </span>
+            </Menu-item>
+            <Menu-item name="问答管理">
+              <span class="layout-text" @click="routerChange('/admin/questionmange','问答管理')">
+                <Icon type="document"></Icon>
+                问答管理
+              </span>
+            </Menu-item>
+            <Menu-item name="产品管理">
+              <span class="layout-text" @click="routerChange('/admin/productmange','产品管理')">
+                <Icon type="document"></Icon>
+                产品管理
+              </span>
+            </Menu-item>
+            <Menu-item name="文章段落管理">
+              <span class="layout-text" @click="routerChange('/admin/newsmange','文章段落管理')">
+                <Icon type="document"></Icon>
+                文章段落管理
+              </span>
+            </Menu-item>
+
+            <!--<Menu-item name="文章分类">
               <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">
                 <Icon type="settings"></Icon>
                 文章分类
@@ -238,7 +261,7 @@
                 <Icon type="flag"></Icon>
                 段落标题
               </span>
-            </Menu-item>
+            </Menu-item>-->
           </Submenu>
 
           <Submenu name="5">
@@ -393,8 +416,8 @@
         </Menu>
       </i-col>
       <i-col :span="spanRight" style="overflow: auto">
-        <div class="layout-header" >
-          <Row type="flex" justify="end" align="middle" class="code-row-bg" >
+        <div class="layout-header">
+          <Row type="flex" justify="end" align="middle" class="code-row-bg">
             <Col span="17" align="left" style="cursor: pointer">
             <span class="layout-text" @click="routerChange('/admin/index')">
                 <Icon type="home" style="font-size: 15px"></Icon>
