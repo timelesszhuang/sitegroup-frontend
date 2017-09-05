@@ -13,7 +13,6 @@ import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vu
 import News from '../components/sysadmin/news/tab.vue'
 
 
-
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articletype from '../components/admin/articletype/index.vue'
 import Article from '../components/admin/article/index.vue'
@@ -58,7 +57,8 @@ import Nav from '../components/admin/nav/tab.vue'
 import Customeform from '../components/admin/customeform/index.vue'
 import Producttype from '../components/admin/producttype/index.vue'
 import Product from '../components/admin/product/index.vue'
-import Wechat from '../components/admin/wechat/tab.vue'
+import Pageview from '../components/admin/pageview/index.vue'
+
 Vue.use(Router)
 
 
@@ -124,17 +124,18 @@ export default new Router({
         {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'},
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
-        {path: 'mainkeyword', component:MainKwyword,name:'mainkeyword'},
-        {path: 'editor', component:Editor,name:'editor'},
-        {path:'recommendationkeyword',component:Recommendationkeyword,name:'recommendationkeyword'},
-        {path:'scatteredtype',component:Scatteredtype,name:'scatteredtype'},
+        {path: 'mainkeyword', component: MainKwyword, name: 'mainkeyword'},
+        {path: 'editor', component: Editor, name: 'editor'},
+        {path: 'recommendationkeyword', component: Recommendationkeyword, name: 'recommendationkeyword'},
+        {path: 'scatteredtype', component: Scatteredtype, name: 'scatteredtype'},
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
         {path: 'menutype', component: Menutype, name: 'menutype'},
         {path: 'nav', component: Nav, name: 'nav'},
         {path: 'customeform', component: Customeform, name: 'customeform'},
         {path: 'producttype', component: Producttype, name: 'producttype'},
         {path: 'product', component: Product, name: 'product'},
-        {path: 'wechat', component: Wechat, name: 'wechat'},
+        {path: 'pageview', component: Pageview, name: 'pageview'},
+        // {path: 'wechat', component: Wechat, name: 'wechat'},
       ]
     }
   ]

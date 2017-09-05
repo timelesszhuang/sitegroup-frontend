@@ -168,11 +168,59 @@
               </span>
             </Menu-item>
           </Submenu>
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="ios-bookmarks-outline"></Icon>
+              <span class="parent-menu-title">营销计划</span>
+            </template>
+            <Menu-item name="主题/活动创意">
+              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
+                <Icon type="beer"></Icon>
+                主题/活动创意管理
+              </span>
+            </Menu-item>
+          </Submenu>
           <Submenu name="3">
             <template slot="title">
-              <Icon type="scissors"></Icon>
-              <span class="parent-menu-title">文章段落库</span>
+              <Icon type="ios-keypad"></Icon>
+              <span class="parent-menu-title">内容管理</span>
             </template>
+            <Menu-item name="文章分类">
+              <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">
+                <Icon type="settings"></Icon>
+                文章分类
+              </span>
+            </Menu-item>
+            <Menu-item name="文章列表">
+              <span class="layout-text" @click="routerChange('/admin/article','文章列表')">
+                <Icon type="document"></Icon>
+                文章列表
+              </span>
+            </Menu-item>
+            <Menu-item name="产品分类管理">
+              <span class="layout-text" @click="routerChange('/admin/producttype','产品分类管理')">
+                <Icon type="map"></Icon>
+                产品分类管理
+              </span>
+            </Menu-item>
+            <Menu-item name="产品管理">
+              <span class="layout-text" @click="routerChange('/admin/product','产品管理')">
+                <Icon type="map"></Icon>
+                产品管理
+              </span>
+            </Menu-item>
+            <Menu-item name="问答分类">
+              <span class="layout-text" @click="routerChange('/admin/questiontype','问答分类')">
+                <Icon type="settings"></Icon>
+                问答分类
+              </span>
+            </Menu-item>
+            <Menu-item name="问答">
+              <span class="layout-text" @click="routerChange('/admin/question','问答')">
+                <Icon type="help"></Icon>
+                问答
+              </span>
+            </Menu-item>
             <Menu-item name="文章段落分类">
               <span class="layout-text" @click="routerChange('/admin/scatteredtype','文章段落分类')">
                 <Icon type="social-dropbox-outline"></Icon>
@@ -192,44 +240,7 @@
               </span>
             </Menu-item>
           </Submenu>
-          <Submenu name="6">
-            <template slot="title">
-              <Icon type="ios-navigate"></Icon>
-              <span class="parent-menu-title">产品管理</span>
-            </template>
-            <Menu-item name="产品分类管理">
-              <span class="layout-text" @click="routerChange('/admin/producttype','产品分类管理')">
-                <Icon type="map"></Icon>
-                产品分类管理
-              </span>
-            </Menu-item>
-            <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/product','产品管理')">
-                <Icon type="map"></Icon>
-                产品管理
-              </span>
-            </Menu-item>
-          </Submenu>
-          <Submenu name="4">
-            <template slot="title">
-              <span class="parent-menu-title">
-                <Icon type="chatbox-working"></Icon>
-                问答库
-              </span>
-            </template>
-            <Menu-item name="问答分类">
-              <span class="layout-text" @click="routerChange('/admin/questiontype','问答分类')">
-                <Icon type="settings"></Icon>
-                问答分类
-              </span>
-            </Menu-item>
-            <Menu-item name="问答">
-              <span class="layout-text" @click="routerChange('/admin/question','问答')">
-                <Icon type="help"></Icon>
-                问答
-              </span>
-            </Menu-item>
-          </Submenu>
+
           <Submenu name="5">
             <template slot="title">
               <span class="parent-menu-title">
@@ -265,12 +276,6 @@
               <span class="layout-text" @click="routerChange('/admin/contactway','联系方式管理')">
                 <Icon type="ios-telephone"></Icon>
                 联系方式管理
-              </span>
-            </Menu-item>
-            <Menu-item name="主题/活动创意">
-              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
-                <Icon type="beer"></Icon>
-                主题/活动创意管理
               </span>
             </Menu-item>
             <Menu-item name="模板管理">
@@ -337,22 +342,10 @@
                 市场反馈
               </span>
             </template>
-            <Menu-item name="浏览量统计">
-              <span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                浏览量统计
-              </span>
-            </Menu-item>
-            <Menu-item name="浏览量展示">
-              <span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">
-                <Icon type="android-cloud-circle"></Icon>
-                浏览量展示
-              </span>
-            </Menu-item>
-            <Menu-item name="爬虫统计">
-              <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                爬虫统计
+            <Menu-item name="主关键词排名">
+              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">
+                <Icon type="android-archive"></Icon>
+                位置排名
               </span>
             </Menu-item>
             <Menu-item name="线索">
@@ -361,17 +354,41 @@
                 线索
               </span>
             </Menu-item>
-            <Menu-item name="搜索引擎关键词统计">
-              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">
+            <Menu-item name="流量分析">
+              <span class="layout-text" @click="routerChange('/admin/pageview','流量分析')">
                 <Icon type="android-cloud-circle"></Icon>
-                搜索关键词统计
+                流量分析
               </span>
             </Menu-item>
-            <Menu-item name="其他统计">
-              <span class="layout-text" @click="routerChange('/admin/other','其他统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                其他统计</span>
-            </Menu-item>
+            <!--<Menu-item name="浏览量统计">-->
+            <!--<span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">-->
+            <!--<Icon type="android-cloud-circle"></Icon>-->
+            <!--浏览量统计-->
+            <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="浏览量展示">-->
+            <!--<span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">-->
+            <!--<Icon type="android-cloud-circle"></Icon>-->
+            <!--浏览量展示-->
+            <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="爬虫统计">-->
+            <!--<span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">-->
+            <!--<Icon type="android-cloud-circle"></Icon>-->
+            <!--爬虫统计-->
+            <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="搜索引擎关键词统计">-->
+            <!--<span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">-->
+            <!--<Icon type="android-cloud-circle"></Icon>-->
+            <!--搜索关键词统计-->
+            <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="其他统计">-->
+            <!--<span class="layout-text" @click="routerChange('/admin/other','其他统计')">-->
+            <!--<Icon type="android-cloud-circle"></Icon>-->
+            <!--其他统计</span>-->
+            <!--</Menu-item>-->
           </Submenu>
         </Menu>
       </i-col>
@@ -412,15 +429,15 @@
           </Breadcrumb>
         </div>
         <div class="Site">
-        <div class="layout-content" >
-          <div class="layout-content-main">
-            <router-view></router-view>
+          <div class="layout-content">
+            <div class="layout-content-main">
+              <router-view></router-view>
+            </div>
           </div>
-        </div>
-        <div class="layout-copy">
-          2015-2017 &copy; 北京易至信科技有限公司
-          <div>京ICP12019481号</div>
-        </div>
+          <div class="layout-copy">
+            2015-2017 &copy; 北京易至信科技有限公司
+            <div>京ICP12019481号</div>
+          </div>
         </div>
       </i-col>
     </Row>
