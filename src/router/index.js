@@ -57,6 +57,7 @@ import Nav from '../components/admin/nav/tab.vue'
 import Customeform from '../components/admin/customeform/index.vue'
 import Producttype from '../components/admin/producttype/index.vue'
 import Product from '../components/admin/product/index.vue'
+import Pageview from '../components/admin/pageview/index.vue'
 Vue.use(Router)
 
 
@@ -131,6 +132,7 @@ export default new Router({
         {path: 'customeform', component: Customeform, name: 'customeform'},
         {path: 'producttype', component: Producttype, name: 'producttype'},
         {path: 'product', component: Product, name: 'product'},
+        {path: 'pageview',component: Pageview,name:'pageview'}
       ]
     }
   ]

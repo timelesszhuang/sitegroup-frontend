@@ -356,41 +356,47 @@
                 市场反馈
               </span>
             </template>
-            <Menu-item name="浏览量统计">
-              <span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                浏览量统计
-              </span>
-            </Menu-item>
-            <Menu-item name="浏览量展示">
-              <span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">
-                <Icon type="android-cloud-circle"></Icon>
-                浏览量展示
-              </span>
-            </Menu-item>
-            <Menu-item name="爬虫统计">
-              <span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                爬虫统计
-              </span>
-            </Menu-item>
             <Menu-item name="线索">
               <span class="layout-text" @click="routerChange('/admin/rejection','线索')">
                 <Icon type="android-cloud-circle"></Icon>
                 线索
               </span>
             </Menu-item>
-            <Menu-item name="搜索引擎关键词统计">
-              <span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">
+            <Menu-item name="流量分析">
+              <span class="layout-text" @click="routerChange('/admin/pageview','流量分析')">
                 <Icon type="android-cloud-circle"></Icon>
-                搜索关键词统计
+                流量分析
               </span>
             </Menu-item>
-            <Menu-item name="其他统计">
-              <span class="layout-text" @click="routerChange('/admin/other','其他统计')">
-                <Icon type="android-cloud-circle"></Icon>
-                其他统计</span>
-            </Menu-item>
+            <!--<Menu-item name="浏览量统计">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/pv','浏览量统计')">-->
+                <!--<Icon type="android-cloud-circle"></Icon>-->
+                <!--浏览量统计-->
+              <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="浏览量展示">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/show','浏览量展示')">-->
+                <!--<Icon type="android-cloud-circle"></Icon>-->
+                <!--浏览量展示-->
+              <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="爬虫统计">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/crawler','爬虫统计')">-->
+                <!--<Icon type="android-cloud-circle"></Icon>-->
+                <!--爬虫统计-->
+              <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="搜索引擎关键词统计">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/countkeyword','搜索关键词统计')">-->
+                <!--<Icon type="android-cloud-circle"></Icon>-->
+                <!--搜索关键词统计-->
+              <!--</span>-->
+            <!--</Menu-item>-->
+            <!--<Menu-item name="其他统计">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/other','其他统计')">-->
+                <!--<Icon type="android-cloud-circle"></Icon>-->
+                <!--其他统计</span>-->
+            <!--</Menu-item>-->
           </Submenu>
         </Menu>
       </i-col>
