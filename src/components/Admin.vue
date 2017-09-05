@@ -141,12 +141,6 @@
                 关键词推荐
               </span>
             </Menu-item>
-            <Menu-item name="主关键词排名">
-              <span class="layout-text" @click="routerChange('/admin/mainkeyword','主关键词排名')">
-                <Icon type="android-archive"></Icon>
-                主关键词排名
-              </span>
-            </Menu-item>
           </Submenu>
           <Submenu name="8">
             <template slot="title">
@@ -157,6 +151,18 @@
               <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
                 <Icon type="beer"></Icon>
                 主题/活动创意管理
+              </span>
+            </Menu-item>
+            <Menu-item name="事件营销">
+              <span class="layout-text" @click="routerChange('/admin/eventmarketing','事件营销')">
+                <Icon type="alert"></Icon>
+                  &nbsp;&nbsp;事件营销
+              </span>
+            </Menu-item>
+            <Menu-item name="营销模式">
+              <span class="layout-text" @click="routerChange('/admin/marketingmode','营销模式')">
+                <Icon type="flag"></Icon>
+                营销模式
               </span>
             </Menu-item>
           </Submenu>
@@ -196,7 +202,7 @@
               <span class="parent-menu-title">内容管理</span>
             </template>
             <Menu-item name="文章管理">
-              <span class="layout-text" @click="routerChange('/admin/articlemange','文章管理')">
+              <span class="layout-text" @click="routerChange('/admin/article','文章管理')">
                 <Icon type="document"></Icon>
                 文章管理
               </span>
@@ -208,13 +214,13 @@
               </span>
             </Menu-item>
             <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/productmange','产品管理')">
+              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
                 <Icon type="ios-grid-view"></Icon>
                 产品管理
               </span>
             </Menu-item>
             <Menu-item name="文章段落管理">
-              <span class="layout-text" @click="routerChange('/admin/newsmange','文章段落管理')">
+              <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
                 <Icon type="social-buffer-outline"></Icon>
                 文章段落管理
               </span>
