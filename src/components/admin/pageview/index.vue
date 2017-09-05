@@ -1,20 +1,20 @@
 <template>
     <div>
-      <Tabs value="pv">
+      <Tabs value="other" @on-click="tabClick">
+        <TabPane label="其他统计" name="other">
+          <other ref="other"></other>
+        </TabPane>
         <TabPane label="浏览量统计" name="pv">
-          <pv></pv>
+          <pv ref="pv"></pv>
         </TabPane>
         <TabPane label="浏览量展示" name="show">
-          <show></show>
+          <show ref="show"></show>
         </TabPane>
         <TabPane label="爬虫统计" name="crawler">
-          <crawler></crawler>
+          <crawler ref="crawler"></crawler>
         </TabPane>
         <TabPane label="搜索引擎关键词统计" name="countkeyword">
-          <countkeyword></countkeyword>
-        </TabPane>
-        <TabPane label="其他统计" name="other">
-          <other></other>
+          <countkeyword ref="countkeyword"></countkeyword>
         </TabPane>
       </Tabs>
     </div>
@@ -31,6 +31,13 @@
     data(){
       return {
 
+      }
+    },
+    methods: {
+      tabClick(name) {
+        if(name!=="other"){
+          this.$refs[name].init();
+        }
       }
     },
     components:{

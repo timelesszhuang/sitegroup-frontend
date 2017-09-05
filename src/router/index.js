@@ -33,12 +33,12 @@ import Site from '../components/admin/site/site.vue'
 import Link from '../components/admin/link/index.vue'
 import MessageLog from '../components/messageLog/messageLog.vue';
 import Flow from '../components/admin/flow/index.vue';
-import Countkeyword from '../components/admin/countkeyword/index.vue'
+// import Countkeyword from '../components/admin/countkeyword/index.vue'
 import Index from '../components/admin/index/index.vue'
-import Crawler from '../components/admin/crawler/crawler.vue'
-import Pv from '../components/admin/pv/pv.vue'
-import Other from '../components/admin/other/index.vue'
-import Show from '../components/admin/show/index.vue'
+// import Crawler from '../components/admin/crawler/crawler.vue'
+// import Pv from '../components/admin/pv/pv.vue'
+// import Other from '../components/admin/other/index.vue'
+// import Show from '../components/admin/show/index.vue'
 import Staticconfig from '../components/admin/staticconfig/index.vue'
 import Rejection from '../components/admin/rejection/index.vue'
 import Templatemanage from '../components/admin/templatemanage/index.vue'
@@ -110,12 +110,12 @@ export default new Router({
         {path: 'link', component: Link, name: 'link'},
         {path: 'messageLog', component: MessageLog, name: 'messageLog'},
         {path: 'flow', component: Flow, name: 'flow'},
-        {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
-        {path: 'crawler', component: Crawler, name: 'crawler'},
-        {path: 'pv', component: Pv, name: 'pv'},
+        // {path: 'countkeyword', component: Countkeyword, name: 'countkeyword'},
+        // {path: 'crawler', component: Crawler, name: 'crawler'},
+        // {path: 'pv', component: Pv, name: 'pv'},
 
-        {path: 'other', component: Other, name: 'other'},
-        {path: 'show', component: Show, name: 'show'},
+        // {path: 'other', component: Other, name: 'other'},
+        // {path: 'show', component: Show, name: 'show'},
         {path: 'staticconfig', component: Staticconfig, name: 'staticconfig'},
         {path: 'templatemanage', component: Templatemanage, name: 'templatemanage'},
         {path: 'rejection', component: Rejection, name: 'rejection'},
