@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>修改问答分类</span>
+          <span></span>
         </p>
         <div>
           <Upload

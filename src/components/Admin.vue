@@ -98,7 +98,7 @@
   .ivu-breadcrumb {
     color: #999;
     font-size: 14px;
-    padding-top: 3.5%;
+    padding-top: 4.5%;
   }
   .layout-hide-text, .layout-text {
     display: inline-block;
@@ -115,8 +115,8 @@
 <template>
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
-      <i-col :span="spanLeft" class="layout-menu-left" style="overflow: auto;overflow-x:visible ">
-        <Menu active-name="activename" theme="dark" width="auto" :open-names="opennames" accordion>
+      <i-col :span="spanLeft" class="layout-menu-left" >
+        <Menu active-name="activename" theme="dark" style="overflow: auto;overflow-x:visible "width="auto" :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
             <img style="width: 200px" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>

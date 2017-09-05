@@ -148,7 +148,7 @@
         let _this = this
         this.$Modal.confirm({
           title: '确认',
-          content: '您确定发送?',
+          content: '您确定发送?发送会替换已有的模板',
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
