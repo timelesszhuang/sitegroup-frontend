@@ -54,7 +54,7 @@
       this.getArticleType((data) => {
         this.articletypelist = data
       });
-      this.getData();
+//      this.getData();
     },
     methods: {
       getData() {

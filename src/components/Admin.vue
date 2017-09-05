@@ -202,7 +202,7 @@
               <span class="parent-menu-title">内容管理</span>
             </template>
             <Menu-item name="文章管理">
-              <span class="layout-text" @click="routerChange('/admin/article','文章管理')">
+              <span class="layout-text" @click="routerChange('/admin/articlemanage','文章管理')">
                 <Icon type="document"></Icon>
                 文章管理
               </span>

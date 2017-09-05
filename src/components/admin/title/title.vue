@@ -62,7 +62,7 @@
       this.getScaType((data) => {
         this.articletypelist = data
       });
-      this.getData();
+//      this.getData();
     },
     methods: {
       getData() {

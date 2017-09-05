@@ -14,9 +14,7 @@ import News from '../components/sysadmin/news/tab.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
-import Articletype from '../components/admin/articletype/index.vue'
-import Article from '../components/admin/article/index.vue'
-import Articlemange from '../components/admin/articlemanage/tab.vue'
+import Articlemanage from '../components/admin/articlemanage/tab.vue'
 import Navigation from '../components/admin/navigation/index.vue'
 import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
 import Title from '../components/admin/title/title.vue'
@@ -86,9 +84,7 @@ export default new Router({
       children: [
         {path: 'keyword', component: Keyword, name: 'keyword'},
         {path: 'index', component: Index, name: 'index'},
-        {path: 'articletype', component: Articletype, name: 'articletype'},
-        {path: 'article', component: Article, name: 'article'},
-        {path: 'articlemange', component: Articlemange, name: 'articlemange'},
+        {path: 'articlemanage', component: Articlemanage, name: 'articlemanage'},
         {path: 'navigation', component: Navigation, name: 'navigation'},
         {path: 'scatteredarticle', component: Scatteredarticle, name: 'scatteredarticle'},
         {path: 'title', component: Title, name: 'title'},
