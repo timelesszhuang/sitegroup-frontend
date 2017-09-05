@@ -154,13 +154,13 @@
               </span>
             </Menu-item>
             <Menu-item name="事件营销">
-              <span class="layout-text" @click="routerChange('/admin/eventmarketing','事件营销')">
+              <span class="layout-text" @click="ruanwenClick">
                 <Icon type="alert"></Icon>
                   &nbsp;&nbsp;事件营销
               </span>
             </Menu-item>
             <Menu-item name="营销模式">
-              <span class="layout-text" @click="routerChange('/admin/marketingmode','营销模式')">
+              <span class="layout-text"@click="ruanwenClick">
                 <Icon type="flag"></Icon>
                 营销模式
               </span>
@@ -190,7 +190,7 @@
               </span>
             </Menu-item>
             <Menu-item name="视频资源">
-              <span class="layout-text" @click="routerChange('/admin/ruanwen','视频资源')">
+              <span class="layout-text" @click="ruanwenClick">
                 <Icon type="videocamera"></Icon>
                 视频资源
               </span>
