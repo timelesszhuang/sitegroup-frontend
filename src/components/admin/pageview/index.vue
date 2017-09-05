@@ -1,9 +1,6 @@
 <template>
     <div>
-      <Tabs value="other" @on-click="tabClick">
-        <TabPane label="其他统计" name="other">
-          <other ref="other"></other>
-        </TabPane>
+      <Tabs value="pv" @on-click="tabClick">
         <TabPane label="浏览量统计" name="pv">
           <pv ref="pv"></pv>
         </TabPane>
@@ -15,6 +12,9 @@
         </TabPane>
         <TabPane label="搜索引擎关键词统计" name="countkeyword">
           <countkeyword ref="countkeyword"></countkeyword>
+        </TabPane>
+        <TabPane label="其他统计" name="other">
+          <other ref="other"></other>
         </TabPane>
       </Tabs>
     </div>
