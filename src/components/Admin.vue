@@ -225,60 +225,6 @@
                 文章段落管理
               </span>
             </Menu-item>
-            <!--<Menu-item name="文章分类">
-              <span class="layout-text" @click="routerChange('/admin/articletype','文章分类')">
-                <Icon type="settings"></Icon>
-                文章分类
-              </span>
-            </Menu-item>
-            <Menu-item name="文章列表">
-              <span class="layout-text" @click="routerChange('/admin/article','文章列表')">
-                <Icon type="document"></Icon>
-                文章列表
-              </span>
-            </Menu-item>
-            <Menu-item name="产品分类管理">
-              <span class="layout-text" @click="routerChange('/admin/producttype','产品分类管理')">
-                <Icon type="map"></Icon>
-                产品分类管理
-              </span>
-            </Menu-item>
-            <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/product','产品管理')">
-                <Icon type="map"></Icon>
-                产品管理
-              </span>
-            </Menu-item>
-            <Menu-item name="问答分类">
-              <span class="layout-text" @click="routerChange('/admin/questiontype','问答分类')">
-                <Icon type="settings"></Icon>
-                问答分类
-              </span>
-            </Menu-item>
-            <Menu-item name="问答">
-              <span class="layout-text" @click="routerChange('/admin/question','问答')">
-                <Icon type="help"></Icon>
-                问答
-              </span>
-            </Menu-item>
-            <Menu-item name="文章段落分类">
-              <span class="layout-text" @click="routerChange('/admin/scatteredtype','文章段落分类')">
-                <Icon type="social-dropbox-outline"></Icon>
-                文章段落分类
-              </span>
-            </Menu-item>
-            <Menu-item name="文章段落">
-              <span class="layout-text" @click="routerChange('/admin/scatteredarticle','文章段落')">
-                <Icon type="social-dropbox-outline"></Icon>
-                文章段落
-              </span>
-            </Menu-item>
-            <Menu-item name="文章段落标题">
-              <span class="layout-text" @click="routerChange('/admin/title','文章段落标题')">
-                <Icon type="flag"></Icon>
-                段落标题
-              </span>
-            </Menu-item>-->
           </Submenu>
 
           <Submenu name="5">
@@ -309,14 +255,14 @@
             </Menu-item>
 
             <Menu-item name="模板管理">
-              <span class="layout-text" @click="routerChange('/admin/templatemanage','站点模板管理')">
-                <Icon type="map"></Icon>
-                站点模板管理
+              <span class="layout-text" @click="routerChange('/admin/templatemanage','模板管理')">
+                <Icon type="ios-browsers"></Icon>
+                模板管理
               </span>
             </Menu-item>
             <Menu-item name="SEO属性">
               <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">
-                <Icon type="map"></Icon>
+                <Icon type="search"></Icon>
                 搜索引擎优化管理
               </span>
             </Menu-item>
