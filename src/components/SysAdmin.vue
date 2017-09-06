@@ -123,7 +123,7 @@
             <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
           </Menu-item>
           <Menu-item name="营销模式">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="flag":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/eventmarketing','营销模式')">营销模式</span>
           </Menu-item>
           <Menu-item name="案例中心">
