@@ -154,13 +154,13 @@
                 主题/活动创意管理
               </span>
             </Menu-item>
-            <Menu-item name="事件营销">
-              <span class="layout-text" @click="routerChange('/admin/eventmarket','主题/事件营销')">
+            <Menu-item name="营销模式">
+              <span class="layout-text" @click="routerChange('/admin/eventmarket','主题/营销模式')">
                 <Icon type="alert"></Icon>
-                  &nbsp;&nbsp;事件营销
+                  &nbsp;&nbsp;营销模式
               </span>
             </Menu-item>
-            <Menu-item name="营销模式">
+            <Menu-item name="事件营销">
               <span class="layout-text" @click="ruanwenClick">
                 <Icon type="flag"></Icon>
                 营销模式

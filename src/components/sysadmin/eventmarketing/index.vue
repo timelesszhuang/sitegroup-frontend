@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="top">
-     事件营销:
-      <Input v-model="title" placeholder="营销标题" style="width:120px;"></Input>
+     营销模式:
+      <Input v-model="title" placeholder="营销标题" style="width:150px;"></Input>
       <Select v-model="industry_id" clearable label-in-value
               style="width:150px;text-align: left">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
         </Option>
       </Select>
-      <Input v-model="keyword" placeholder="要查询的关键词" style="width: 120px"></Input>
+      <Input v-model="keyword" placeholder="要查询的关键词" style="width: 150px"></Input>
       <Input v-model="content" placeholder="要查询营销模式内容" style="width: 300px"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
@@ -108,7 +108,6 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        console.log(editid);
         this.apiGet('sys/Marketingmode/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data

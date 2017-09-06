@@ -13,6 +13,7 @@ import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vu
 import News from '../components/sysadmin/news/tab.vue'
 import Eventmarketing from '../components/sysadmin/eventmarketing/index.vue'
 import Systempush from '../components/sysadmin/systempush/index.vue'
+import Case from '../components/sysadmin/case/index.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -78,7 +79,8 @@ export default new Router({
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
         {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'},
         {path: 'eventmarketing',component:Eventmarketing,name:'eventmarketing'},
-        {path: 'systempush',component:Systempush,name:'systempush'}
+        {path: 'systempush',component:Systempush,name:'systempush'},
+        {path: 'case',component:Case,name:'case'}
       ]
     },
     {
