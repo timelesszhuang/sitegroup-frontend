@@ -80,7 +80,7 @@
         })
       },
       getIndustry(){
-        this.apiGet('industry/getIndustry').then((res) => {
+        this.apiGet('admin/getIndustry').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.industry = data;
           }, (data, msg) => {
