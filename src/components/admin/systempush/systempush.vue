@@ -15,8 +15,12 @@
     </div>
 
     <Modal v-model="systemMessage" title="信息">
-      <p>标题: {{title}}</p>
-      <p>信息: {{content}}</p>
+      <div style="width: 100px;margin: 0 auto;font-size: 20px"> {{title}}</div>
+      <div style="width: auto;font-size: 20px;padding:15px;min-height: 300px">
+        {{content}}
+
+      </div>
+
     </Modal>
   </div>
 

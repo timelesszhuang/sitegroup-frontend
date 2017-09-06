@@ -16,7 +16,7 @@
         <Row style="border-bottom:1px solid #e3e8ee;margin:20px;padding-bottom: 10px">
           <Col span="24">
           <div style="width: 60%;margin: 0 auto;text-align: center">
-            <div>行业分类：{{form.industry_name}}  | 阅读：{{form.readcount}}</div>
+            <div>行业分类：{{form.industry_name}} &nbsp;&nbsp;  |关键词:{{form.keyword}}|&nbsp; &nbsp;  阅读：{{form.readcount}}</div>
           </div>
           </Col>
         </Row>

@@ -4,7 +4,7 @@
      营销模式:
       <Input v-model="title" placeholder="营销标题" style="width:150px;"></Input>
       <Select v-model="industry_id" clearable label-in-value
-              style="width:150px;text-align: left">
+              placeholder="要查询的行业"   style="width:150px;text-align: left">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
         </Option>

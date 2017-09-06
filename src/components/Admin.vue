@@ -311,7 +311,7 @@
       <i-col :span="spanRight" style="overflow: auto">
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
-            <Col span="16" align="left" style="cursor: pointer">
+            <Col span="18" align="left" style="cursor: pointer">
             <span class="layout-text" @click="routerChange('/admin/index')">
                 <Icon type="home" style="font-size: 15px"></Icon>
                 首页
