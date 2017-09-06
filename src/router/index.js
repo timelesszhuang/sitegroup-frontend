@@ -11,12 +11,12 @@ import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
 import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
 import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vue'
 import News from '../components/sysadmin/news/tab.vue'
+import Eventmarketing from '../components/sysadmin/eventmarketing/index.vue'
+import Systempush from '../components/sysadmin/systempush/index.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articlemanage from '../components/admin/articlemanage/tab.vue'
-import Navigation from '../components/admin/navigation/index.vue'
-import Scatteredarticle from '../components/admin/scatteredarticle/scatteredarticle.vue'
 import Title from '../components/admin/title/title.vue'
 import Template from '../components/admin/template/template.vue'
 import Code from '../components/admin/code/index.vue'
@@ -41,7 +41,6 @@ import Tengxunarticle from '../components/admin/qqarticle/index.vue'
 import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
 import Editor from '../components/admin/editor/index.vue'
-import Scatteredtype from '../components/admin/scatteredtype/scatteredtype.vue'
 import Hotnews from '../components/admin/news/tab.vue'
 import Menutype from '../components/admin/menutype/index.vue'
 import Nav from '../components/admin/nav/tab.vue'
@@ -53,8 +52,9 @@ import Productmanage from '../components/admin/productmanage/tab.vue'
 import Newsmanage from '../components/admin/newsmanage/tab.vue'
 import Siteelement from '../components/admin/siteelement/index.vue'
 import Sitemanage from '../components/admin/sitemanage/index.vue'
+import Eventmarket from '../components/admin/eventmarketing/index.vue'
+import Systemp from '../components/admin/systempush/systempush.vue';
 Vue.use(Router)
-
 
 
 export default new Router({
@@ -76,7 +76,9 @@ export default new Router({
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
-        {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'}
+        {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'},
+        {path: 'eventmarketing',component:Eventmarketing,name:'eventmarketing'},
+        {path: 'systempush',component:Systempush,name:'systempush'}
       ]
     },
     {
@@ -120,7 +122,9 @@ export default new Router({
         {path: 'productmanage', component: Productmanage, name: 'productmanage'},
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
         {path:'sitemanage',component:Sitemanage,name:'sitemanage'},
-        {path: 'siteelement',component:Siteelement,name:'siteelement'}
+        {path: 'siteelement',component:Siteelement,name:'siteelement'},
+        {path: 'eventmarket',component:Eventmarket,name:'eventmarket'},
+        {path: 'systemp', component: Systemp, name: 'systemp'},
       ]
     }
   ]

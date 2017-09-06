@@ -94,6 +94,7 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    /*margin-top: 5%;*/
 
   }
 
@@ -154,13 +155,13 @@
               </span>
             </Menu-item>
             <Menu-item name="事件营销">
-              <span class="layout-text" @click="ruanwenClick">
+              <span class="layout-text" @click="routerChange('/admin/eventmarket','主题/事件营销')">
                 <Icon type="alert"></Icon>
                   &nbsp;&nbsp;事件营销
               </span>
             </Menu-item>
             <Menu-item name="营销模式">
-              <span class="layout-text"@click="ruanwenClick">
+              <span class="layout-text" @click="ruanwenClick">
                 <Icon type="flag"></Icon>
                 营销模式
               </span>
@@ -310,20 +311,27 @@
       <i-col :span="spanRight" style="overflow: auto">
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
-            <Col span="17" align="left" style="cursor: pointer">
+            <Col span="16" align="left" style="cursor: pointer">
             <span class="layout-text" @click="routerChange('/admin/index')">
                 <Icon type="home" style="font-size: 15px"></Icon>
                 首页
             </span>
             </Col>
-            <Col span="2" align="right">
-            <Badge :count="count">
-              <span @click="routerChange('/admin/messageLog','消息')" style="cursor:pointer;">
-                <Icon type="ios-bell-outline" size="26"></Icon>
+            <Col span="0.5" align="center">
+            <Badge :count="systemcount">
+              <span @click="routerChange('/admin/systemp','推送消息')" title="系统推送消息" style="cursor:pointer;">
+                <Icon type="ios-email-outline" size="26"></Icon>
               </span>
             </Badge>
             </Col>
 
+            <Col span="1" align="right">
+            <Badge :count="count">
+              <span @click="routerChange('/admin/messageLog','消息')" title="错误信息" style="cursor:pointer;">
+                <Icon type="ios-bell-outline" size="26"></Icon>
+              </span>
+            </Badge>
+            </Col>
             <Col span="2" align="center" style="cursor: pointer">
             <span class="layout-text" @click="changePwd()">
               <Icon type="android-lock"></Icon>
@@ -375,6 +383,7 @@
         activeName: '',
         sysname: '',
         count: '无',
+        systemcount: '无',
         opennames: ['1'],
       }
     },
@@ -383,19 +392,33 @@
       logout,
       cue
     },
-
     methods: {
       menuClick(e) {
 
       },
-      ruanwenClick(){
-this.$refs.cueclick.modal = true
+      ruanwenClick() {
+        this.$refs.cueclick.modal = true
       },
 
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.count = data;
+          }, (data, msg) => {
+//            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      checkAlertstsyem() {
+        this.apiGet('admin/systemNotice/create').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.systemcount = data;
+            if(this.systemcount==0){
+              this.systemcount="无"
+            }
           }, (data, msg) => {
 //            this.$Message.error(msg);
           })
@@ -423,9 +446,11 @@ this.$refs.cueclick.modal = true
     created() {
       let _this = this;
       _this.checkAlert();
+      _this.checkAlertstsyem();
       setInterval(function () {
         _this.checkAlert();
-      }, 60000);
+        _this.checkAlertstsyem();
+      }, 120000);
 //      console.log(Lockr.get('userInfo'));
       if (!Lockr.get('userInfo')) {
         this.$Message.error("请先登录");
@@ -435,7 +460,6 @@ this.$refs.cueclick.modal = true
         }, 1500)
         return
       }
-
       this.sysname = Lockr.get('userInfo').node_name;
       document.title = this.sysname
       let rememberKey = Lockr.get('rememberKey')
