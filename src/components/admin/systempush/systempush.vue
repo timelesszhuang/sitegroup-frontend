@@ -120,7 +120,7 @@
           sortable: true
         });
         columns.push({
-          title: '模板状态',
+          title: '状态',
           align: 'center',
           render(row,index){
             if(!row.readid){
