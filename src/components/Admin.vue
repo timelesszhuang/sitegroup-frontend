@@ -163,7 +163,7 @@
             <Menu-item name="事件营销">
               <span class="layout-text" @click="ruanwenClick">
                 <Icon type="flag"></Icon>
-                营销模式
+                事件营销
               </span>
             </Menu-item>
           </Submenu>
