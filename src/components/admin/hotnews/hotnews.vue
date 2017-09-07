@@ -153,7 +153,7 @@
         });
         columns.push({
           title: '简介',
-          width:280,
+          width:400,
           key: 'summary',
           sortable: true
         });

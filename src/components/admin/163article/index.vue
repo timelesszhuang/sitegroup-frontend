@@ -176,6 +176,7 @@
         columns.push({
           title: '来源',
           key: 'source',
+          width:'300px',
           sortable: true
         });
         columns.push({
