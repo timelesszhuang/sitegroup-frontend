@@ -62,11 +62,11 @@
       },
 
     }),
-    created() {
-      console.log(this.$refs.articletype)
-      this.doRandom();
-    },
     methods: {
+      init() {
+        this.doRandom();
+
+      },
       queryData() {
         this.doRandom();
       },

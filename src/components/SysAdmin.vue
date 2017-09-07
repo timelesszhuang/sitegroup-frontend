@@ -122,6 +122,18 @@
             <Icon type="ios-copy":size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
           </Menu-item>
+          <Menu-item name="营销模式">
+            <Icon type="flag":size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/eventmarketing','营销模式')">营销模式</span>
+          </Menu-item>
+          <Menu-item name="案例中心">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>
+          </Menu-item>
+          <Menu-item name="系统推送">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/systempush','系统推送')">系统推送</span>
+          </Menu-item>
           <Menu-item name="用户管理">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>

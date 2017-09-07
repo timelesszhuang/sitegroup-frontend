@@ -1,5 +1,5 @@
 <template>
-  <Tabs value="company">
+  <Tabs value="company" @on-click="getdata">
     <Tab-pane label="公司" name="company">
       <Company ref="gongsi"></Company>
     </Tab-pane>

@@ -4,7 +4,8 @@
 
     </p>
     <div style="text-align:center">
-      <Alert type="error">软文发布正在发布中,请期待</Alert>
+      <!---->
+      <Alert type="success"><Icon type="heart"></Icon>正在发布中,请期待</Alert>
     </div>
     <div slot="footer">
     </div>
