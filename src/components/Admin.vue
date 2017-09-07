@@ -9,11 +9,18 @@
   .layout-logo-left {
     width: 100%;
     background-color: #ffffff;
-    height: 60px;
+    height: 50px;
+  }
+
+  .logo {
+    width: 150px;
+    display: block;
+    padding: 10px;
+    margin-left: 10%;
   }
 
   .layout-breadcrumb {
-    padding: 10px 15px 0;
+    padding-left: 15px;
   }
 
   .layout-content {
@@ -74,28 +81,29 @@
     width: 84%;
     float: right;
     z-index: 999;
-    /*height:30px;*/
     position: fixed;
-    top: 0;
     left: 16.7%;
-    height: 60px;
+    height: 50px;
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   }
 
   /**底部版权信息*/
   .layout-copy {
+    position: fixed;
     text-align: center;
-    padding: 10px 0 10px;
-    /*color: #9ea7b4;*/
+    padding: 5px 0 10px;
+    bottom: 0px;
+    height: 40px;
+    width: 84%;
+    background-color: #fff;
   }
 
-  .Site {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    /*margin-top: 5%;*/
+  .site {
+    height: 100%;
+  }
 
+  .layout-content-main {
+    height: 100%;
   }
 
   .ivu-breadcrumb {
@@ -123,7 +131,7 @@
         <Menu active-name="activename" theme="dark" style="overflow-x:visible " width="auto"
               :open-names="opennames" accordion>
           <div class="layout-logo-left" @click="routerChange('/admin/index')">
-            <img style="width: 200px;display: block;margin:0 auto" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
+            <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -314,7 +322,7 @@
           </Submenu>
         </Menu>
       </i-col>
-      <i-col :span="spanRight" style="overflow: auto">
+      <i-col :span="spanRight" style="overflow-y:scroll;padding-bottom:50px">
         <div class="layout-header">
           <Row type="flex" justify="end" align="middle" class="code-row-bg">
             <Col span="18" align="left" style="cursor: pointer">
@@ -330,7 +338,6 @@
               </span>
             </Badge>
             </Col>
-
             <Col span="1" align="right">
             <Badge :count="count">
               <span @click="routerChange('/admin/messageLog','消息')" title="错误信息" style="cursor:pointer;">
@@ -353,7 +360,7 @@
           </Row>
         </div>
         <div class="layout-breadcrumb">
-          <Breadcrumb>
+          <Breadcrumb style="padding-top: 4%;">
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
@@ -422,8 +429,8 @@
         this.apiGet('admin/systemNotice/create').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.systemcount = data;
-            if(this.systemcount==0){
-              this.systemcount="无"
+            if (this.systemcount == 0) {
+              this.systemcount = "无"
             }
           }, (data, msg) => {
 //            this.$Message.error(msg);
