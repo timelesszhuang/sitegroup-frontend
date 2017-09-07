@@ -25,6 +25,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="核心解读" prop="summary">
+              <editor @change="updateData2" :content="form.summary " :height="100"></editor>
+            </Form-item>
             <Form-item label="案例内容" prop="content">
               <editor @change="updateData" :content="form.content " :height="300"></editor>
             </Form-item>
@@ -56,10 +59,16 @@
           content: [
             {required: true, message: '请输入案例内容', trigger: 'blur'},
           ],
+          summary: [
+            {required: true, message: '请输入核心解读', trigger: 'blur'},
+          ],
         }
       }
     },
     methods: {
+      updateData2(data){
+        this.form.summary =data
+      },
       updateData(data) {
         this.form.content = data
       },
