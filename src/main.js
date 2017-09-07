@@ -160,7 +160,7 @@ Vue.use(VueHtml5Editor, {
   }
 })
 
-let domain = 'api.mypc.com.cn'
+let domain = 'api.salesman.cc'
 
 // let domain = 'www.sitegroupback.com'
 
