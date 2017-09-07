@@ -34,7 +34,7 @@
           <Page :total="total" :page-size="rows" :current="current" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
     </div>

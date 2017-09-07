@@ -13,7 +13,7 @@
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-                show-total show-elevator show-sizer>
+                show-total show-elevator>
           </Page>
         </div>
       </div>
