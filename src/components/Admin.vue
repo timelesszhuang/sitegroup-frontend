@@ -168,8 +168,8 @@
             </Menu-item>
             <Menu-item name="案例中心">
               <span class="layout-text" @click="routerChange('/admin/casecenter','案例中心')">
-                <Icon type="alert"></Icon>
-                &nbsp;&nbsp;案例中心
+               <Icon type="ionic"></Icon>
+               案例中心
               </span>
             </Menu-item>
           </Submenu>
