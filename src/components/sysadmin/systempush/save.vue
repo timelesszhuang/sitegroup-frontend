@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="900">
         <p slot="header">
           <span>修改</span>
         </p>
@@ -11,7 +11,7 @@
             <Form-item label="标题" prop="title">
               <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
             </Form-item>
-            <Form-item label="关键词" prop="node_ids">
+            <Form-item label="推送节点" prop="node_ids">
               <Select v-model="form.node_ids" multiple  style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;">
                 <Option v-for="item in nodeids" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}

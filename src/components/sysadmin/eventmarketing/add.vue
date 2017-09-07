@@ -16,7 +16,7 @@
             </Form-item>
             <Form-item label="行业分类" prop="industry_id">
               <Select v-model="form.industry_id" style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;"
-                      label-in-value　@on-change="changeIndustry">
+                      label-in-value　@on-change="changeIndustry" >
                 <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
                 </Option>

@@ -50,7 +50,8 @@
         datas: [],
         editinfo: {},
         industry:[],
-        industry_id:''
+        industry_id:'',
+        content:''
       }
     },
     components: {caseadd,casesave},
@@ -65,10 +66,11 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            industry_id:this.industry_id
+            industry_id:this.industry_id,
+            content:this.content
           }
         }
-        this.apiGet('sys/Marketingmode', data).then((data) => {
+        this.apiGet('sys/CaseCenter', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -108,7 +110,7 @@
       edit(index){
         let editid = this.datas[index].id
         console.log(editid);
-        this.apiGet('sys/Marketingmode/' + editid).then((res) => {
+        this.apiGet('sys/CaseCenter/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -131,7 +133,7 @@
           okText: '删除',
           cancelText: '取消',
           onOk: (index) => {
-            _this.apiDelete('sys/Marketingmode/', id).then((res) => {
+            _this.apiDelete('sys/CaseCenter/', id).then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -182,11 +184,11 @@
           key: 'keyword',
           sortable: true
         });
-        columns.push({
-          title: '阅读次数',
-          key: 'readcount',
-          sortable: true
-        });
+//        columns.push({
+//          title: '阅读次数',
+//          key: 'readcount',
+//          sortable: true
+//        });
         columns.push(
           {
             title: '操作',

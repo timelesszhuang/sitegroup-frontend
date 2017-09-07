@@ -14,6 +14,9 @@
             <Form-item label="来源" prop="source">
               <Input type="text" v-model="form.source" placeholder="请输入来源"></Input>
             </Form-item>
+            <Form-item label="关键词" prop="keyword">
+              <Input type="text" v-model="form.keyword" placeholder="请输入关键词"></Input>
+            </Form-item>
             <Form-item label="行业分类" prop="industry_id">
               <Select v-model="form.industry_id" style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;"
                       label-in-value　@on-change="changeIndustry">
@@ -22,7 +25,7 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="营销模式" prop="content">
+            <Form-item label="案例内容" prop="content">
               <editor @change="updateData" :content="form.content " :height="300"></editor>
             </Form-item>
           </Form>
@@ -51,7 +54,7 @@
             {required: true, message: '请输入关键词', trigger: 'blur'},
           ],
           content: [
-            {required: true, message: '请输入营销模式', trigger: 'blur'},
+            {required: true, message: '请输入案例内容', trigger: 'blur'},
           ],
         }
       }
@@ -70,7 +73,7 @@
                 this.modal_loading = true;
                 let data = this.form;
                 let id = data.id;
-                this.apiPut('sys/Marketingmode/'+ id, data).then((res) => {
+                this.apiPut('sys/CaseCenter/'+ id, data).then((res) => {
                   this.handelResponse(res, (data, msg) => {
                     this.modal = false;
                     this.$parent.getData();

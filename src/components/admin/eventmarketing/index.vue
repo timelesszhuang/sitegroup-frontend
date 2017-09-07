@@ -4,7 +4,7 @@
      事件营销:
       <Input v-model="title" placeholder="营销标题" style="width:120px;"></Input>
       <Select v-model="industry_id" clearable label-in-value
-              style="width:150px;text-align: left">
+              placeholder="要查询的行业"    style="width:150px;text-align: left">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
         </Option>
@@ -168,7 +168,7 @@
             fixed: 'right',
             render (row, column, index) {
               return `
-            <i-button type="error" size="small" @click="show(${index})">预览</i-button>`;
+            <i-button type="error" size="small" @click="show(${index})">查看</i-button>`;
             }
           }
         );
