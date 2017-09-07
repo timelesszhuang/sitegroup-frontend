@@ -26,9 +26,7 @@
         grid: {
           left: '20%',
           right: '25%',
-
           containLabel: true
-
         },
         title: {
           text: '关键词统计',
