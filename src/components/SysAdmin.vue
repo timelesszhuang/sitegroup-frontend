@@ -107,15 +107,15 @@
             <img style="width:205px;display: block;margin: 0 auto" src="../../src/assets/img/logo.png" alt="">
           </div>
           <Menu-item name="微信公众号关键词分类">
-            <Icon type="key"></Icon>
+            <Icon type="chatbubbles"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
           </Menu-item>
           <Menu-item name="微信公众号关键词">
-            <Icon type="key" :size="iconSize"></Icon>
+            <Icon type="chatbubbles"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
           </Menu-item>
           <Menu-item name="微信公众号文章">
-            <Icon type="ios-bookmarks":size="iconSize"></Icon>
+            <Icon type="chatbubbles"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
           </Menu-item>
           <Menu-item name="新闻类文章管理">
@@ -126,22 +126,14 @@
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
           </Menu-item>
-          <Menu-item name="友商库">
-            <Icon type="android-apps" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
-          </Menu-item>
           <Menu-item name="节点管理">
             <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
           </Menu-item>
-          <!--<Menu-item name="重置密码">-->
-            <!--<Icon type="android-lock" :size="iconSize" @click="changePwd()"></Icon>-->
-            <!--<span class="layout-text" @click="changePwd()">重置密码</span>-->
-          <!--</Menu-item>-->
-          <!--<Menu-item name="退出系统">-->
-            <!--<Icon type="log-out" :size="iconSize" @click="logOut()"></Icon>-->
-            <!--<span class="layout-text" @click="logOut()">退出系统</span>-->
-          <!--</Menu-item>-->
+          <Menu-item name="友商库">
+            <Icon type="android-apps" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
+          </Menu-item>
         </Menu>
       </i-col>
       <i-col :span="spanRight" style="overflow: auto">
