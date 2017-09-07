@@ -55,7 +55,9 @@ import Siteelement from '../components/admin/siteelement/index.vue'
 import Sitemanage from '../components/admin/sitemanage/index.vue'
 import Eventmarket from '../components/admin/eventmarketing/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
+import Casecenter from '../components/admin/case/index.vue';
 Vue.use(Router)
+
 
 
 export default new Router({
@@ -127,6 +129,7 @@ export default new Router({
         {path: 'siteelement',component:Siteelement,name:'siteelement'},
         {path: 'eventmarket',component:Eventmarket,name:'eventmarket'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
+        {path: 'casecenter', component: Casecenter, name: 'casecenter'},
       ]
     }
   ]

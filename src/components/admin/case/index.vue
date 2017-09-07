@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-     案例中心:
+      案例中心:
       <Input v-model="title" placeholder="案例中心" style="width:120px;"></Input>
       <Select v-model="industry_id" clearable label-in-value
               style="width:150px;text-align: left">
@@ -12,7 +12,6 @@
       <Input v-model="keyword" placeholder="要查询的关键词" style="width: 300px"></Input>
       <Input v-model="content" placeholder="要查询的案例中心内容关键词" style="width: 300px"></Input>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -26,14 +25,12 @@
         </div>
       </div>
     </div>
-    <caseadd ref="add" :industry="industry"></caseadd>
-    <casesave ref="save" :industry="industry" :form="editinfo"></casesave>
+    <caseshow ref="show" :form="editinfo"></caseshow>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import caseadd from './add.vue';
-  import casesave from './save.vue';
+  import caseshow from './show.vue';
   export default {
     data () {
       return {
@@ -52,11 +49,11 @@
         editinfo: {},
         industry:[],
         industry_id:'',
+        keyword:'',
         content:'',
-        keyword:''
       }
     },
-    components: {caseadd,casesave},
+    components: {caseshow},
     created () {
       this.getData();
       this.getIndustry();
@@ -69,11 +66,11 @@
             rows: this.rows,
             title: this.title,
             industry_id:this.industry_id,
-            content:this.content,
-            keyword:this.keyword
+            keyword:this.keyword,
+            content:this.content
           }
         }
-        this.apiGet('sys/CaseCenter', data).then((data) => {
+        this.apiGet('admin/CaseCenter/', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -85,7 +82,7 @@
         })
       },
       getIndustry(){
-        this.apiGet('industry/getIndustry').then((res) => {
+        this.apiGet('admin/getIndustry').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.industry = data;
           }, (data, msg) => {
@@ -95,6 +92,22 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         });
+      },
+      show(index){
+        let editid = this.datas[index].id
+        this.apiGet('admin/CaseCenter/' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.show.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       changePage(page){
         this.page = page;
@@ -107,52 +120,6 @@
       queryData(){
         this.getData();
       },
-      add(){
-        this.$refs.add.modal = true
-      },
-      edit(index){
-        let editid = this.datas[index].id
-        console.log(editid);
-        this.apiGet('sys/CaseCenter/' + editid).then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.editinfo = data
-            this.modal = false;
-            this.$refs.save.modal = true
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        })
-      },
-      remove(index){
-        //需要删除确认
-        let id = this.datas[index].id
-        let _this = this
-        this.$Modal.confirm({
-          title: '确认删除',
-          content: '您确定删除该记录?',
-          okText: '删除',
-          cancelText: '取消',
-          onOk: (index) => {
-            _this.apiDelete('sys/CaseCenter/', id).then((res) => {
-              _this.handelResponse(res, (data, msg) => {
-                _this.getData()
-                _this.$Message.success(msg);
-              }, (data, msg) => {
-                _this.$Message.error(msg);
-              })
-            }, (res) => {
-              //处理错误信息
-              _this.$Message.error('网络异常，请稍后重试');
-            })
-          },
-          onCancel: () => {
-            return false
-          }
-        })
-      }
     },
     computed: {
       tableColumns()
@@ -187,11 +154,11 @@
           key: 'keyword',
           sortable: true
         });
-//        columns.push({
-//          title: '阅读次数',
-//          key: 'readcount',
-//          sortable: true
-//        });
+        columns.push({
+          title: '来源',
+          key: 'source',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
@@ -200,11 +167,12 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-            <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+              return `
+            <i-button type="error" size="small" @click="show(${index})">查看</i-button>`;
             }
           }
         );
+
         return columns;
       }
     },
