@@ -31,7 +31,7 @@
   }
 
   .layout-menu-left {
-    background:#16b8be;
+    background: #16b8be;
   }
 
   .layout-header {
@@ -87,12 +87,15 @@
   .layout-breadcrumb {
     padding: 10px 15px 0;
   }
+
   .ivu-menu-dark {
     background: #16b8be;
   }
+
   .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
     color: #fff;
   }
+
   .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {
     color: #fff;
   }
@@ -108,7 +111,8 @@
           </div>
           <Menu-item name="微信公众号关键词分类">
             <Icon type="chatbubbles"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
+            <span class="layout-text"
+                  @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
           </Menu-item>
           <Menu-item name="微信公众号关键词">
             <Icon type="chatbubbles"></Icon>
@@ -119,15 +123,15 @@
             <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
           </Menu-item>
           <Menu-item name="新闻类文章管理">
-            <Icon type="ios-copy":size="iconSize"></Icon>
+            <Icon type="ios-copy" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
           </Menu-item>
           <Menu-item name="营销模式">
-            <Icon type="flag":size="iconSize"></Icon>
+            <Icon type="flag" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/eventmarketing','营销模式')">营销模式</span>
           </Menu-item>
           <Menu-item name="案例中心">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="briefcase"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>
           </Menu-item>
           <Menu-item name="系统推送">
@@ -135,7 +139,7 @@
             <span class="layout-text" @click="routerChange('/sysadmin/systempush','系统推送')">系统推送</span>
           </Menu-item>
           <Menu-item name="用户管理">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="person"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
           </Menu-item>
           <Menu-item name="节点管理">
@@ -188,8 +192,9 @@
 <script>
   import changepwd from './Account/Changepwd.vue';
   import logout from './Account/Logout.vue';
+
   export default {
-    data () {
+    data() {
       return {
         spanLeft: 4,
         spanRight: 20,
@@ -204,18 +209,18 @@
       logout
     },
     computed: {
-      iconSize () {
+      iconSize() {
         return this.spanLeft === 4 ? 14 : 24;
       }
     },
     methods: {
-      changePwd () {
+      changePwd() {
         this.$refs.changePwd.modal = true
       },
-      logOut(){
+      logOut() {
         this.$refs.logout.modal = true
       },
-      toggleClick () {
+      toggleClick() {
         if (this.spanLeft === 4) {
           this.spanLeft = 2;
           this.spanRight = 22;
@@ -224,13 +229,13 @@
           this.spanRight = 20;
         }
       },
-      routerChange (path, activeName) {
+      routerChange(path, activeName) {
         this.activeName = activeName;
         router.push(path);
       },
     },
     //created 是函数
-    created () {
+    created() {
       let rememberKey = Lockr.get('rememberKey')
 //      let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');
