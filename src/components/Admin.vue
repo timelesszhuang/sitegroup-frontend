@@ -166,6 +166,12 @@
                 &nbsp;&nbsp;事件营销
               </span>
             </Menu-item>
+            <Menu-item name="案例中心">
+              <span class="layout-text" @click="routerChange('/admin/casecenter','案例中心')">
+                <Icon type="alert"></Icon>
+                &nbsp;&nbsp;案例中心
+              </span>
+            </Menu-item>
           </Submenu>
           <Submenu name="8">
             <template slot="title">
