@@ -13,16 +13,15 @@
       </div>
       <Alert type="error">点击查看信息</Alert>
     </div>
-
-    <Modal v-model="systemMessage" title="信息">
+    <Modal  v-model="systemMessage" width="900" title="信息">
       <div style="width:auto;margin: 0 auto;font-size: 20px;text-align: center"> {{title}}</div>
-      <div v-html="content"style="width: auto;font-size: 20px;padding:15px;min-height: 300px">
+      <div v-html="content"style="font-size: 20px;padding:10px;min-height: 300px">
 
 
       </div>
 
     </Modal>
-  </div>
+</div>
 
 </template>
 
@@ -159,8 +158,11 @@
   }
 
 </script>
-<style>
 
+<style scoped>
+  .ivu-modal-content {
+    width: 900px;
+  }
 
 </style>
 

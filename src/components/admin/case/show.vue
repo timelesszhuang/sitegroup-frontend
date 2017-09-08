@@ -25,6 +25,12 @@
           <div v-html="form.content" style="overflow: hidden;font-size: 15px;padding: 20px" class="img"> </div>
           </Col>
         </Row>
+        <Row>
+          <Col span="24">
+          <div style="font-size: 20px;font-weight: 700;">核心解读:</div>
+          <div v-html="form.summary" style="overflow: hidden;font-size: 15px;" class="img"> </div>
+          </Col>
+        </Row>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="close">关闭</Button>

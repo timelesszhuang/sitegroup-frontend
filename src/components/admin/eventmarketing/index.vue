@@ -20,11 +20,23 @@
       <Row class="pad">
         <div v-for="(item,index) in datas">
           <Col span="8" style="padding: 20px; ">
-          <div style="width:100%;" @click="show(index)"><img class="imgsize"  style="margin:0 auto;display: block "
-                                        :src=formatter_str(item.img) target="_blank"></div>
+          <div style="width:100%;" @click="show(index)"><img class="imgsize"
+                                                             style="margin:0 auto;padding-right:5px;display: block "
+                                                             :src=formatter_str(item.img) target="_blank"></div>
           <div
             style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer "
             :title=item.title>{{item.title}}
+          </div>
+          <div
+            style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;height: auto "
+          >
+            <span style="color:red;font-size:10px"><i>关键词:</i></span>
+            {{item.keyword}}&nbsp;
+            <div>
+              <span style="color:red;font-size: 10px"><i>行业分类:</i></span>
+              {{item.industry_name}}&nbsp;
+            <!--<span style="color:red;font-size: 10px"><i>阅读次数:</i>{{item.readcount}}&nbsp;</span>-->
+            </div>
           </div>
           </Col>
         </div>
@@ -34,7 +46,7 @@
           <Page :total="total" :page-size="rows" :current="current" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -44,6 +56,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
   import eventshow from './show.vue';
+
   export default {
     data() {
       return {
@@ -63,7 +76,8 @@
         industry: [],
         industry_id: '',
         keyword: '',
-        content: ''
+        content: '',
+        img: 1111,
       }
     },
     components: {eventshow},
@@ -111,7 +125,6 @@
       },
 
       show(index) {
-        console.log(this.datas[index])
         let editid = this.datas[index].id
         this.apiGet('admin/Marketingmode/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -144,27 +157,36 @@
   }
 </script>
 <style>
+  .imgsize {
+    cursor: pointer;
+  }
+
   @media screen and (min-width: 1501px) {
     .imgsize {
       width: 230px;
       height: 350px;
     }
+
     .pad {
-      padding-left: 250px;
-      padding-right: 250px;
+      padding-left: 220px;
+      padding-right: 220px;
     }
   }
+
   /*1100分辨率（大于960px，小于1199px）*/
   @media screen and (min-width: 1200px) and (max-width: 1500px) {
     .imgsize {
       width: 200px;
       height: 300px;
-      cursor: pointer}
+      cursor: pointer
+    }
+
     .pad {
       padding-left: 150px;
       padding-right: 150px;
     }
-    }
+  }
+
   /*1100分辨率（大于960px，小于1199px）*/
   @media screen and (min-width: 960px) and (max-width: 1199px) {
     .imgsize {
@@ -187,6 +209,7 @@
       height: 250px;
       cursor: pointer
     }
+
     .pad {
       padding-left: 30px;
       padding-right: 30px;
@@ -208,6 +231,7 @@
       padding-right: 40px;
     }
   }
+
   /*440分辨率以下（小于479px）*/
 
   @media only screen and (max-width: 479px) {
@@ -216,9 +240,10 @@
       height: 250px;
       cursor: pointer
     }
+
     .pad {
       padding-left: 30px;
-      padding-right:30px;
+      padding-right: 30px;
     }
   }
 
