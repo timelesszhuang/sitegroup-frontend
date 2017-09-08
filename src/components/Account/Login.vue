@@ -60,8 +60,9 @@
 </template>
 <script>
   import http from '../../assets/js/http.js'
+
   export default {
-    data () {
+    data() {
       return {
         showlogin: false,
         loginform: {
@@ -95,11 +96,11 @@
       }
     },
     methods: {
-      showTitle(data){
+      showTitle(data) {
         this.systemName = data.SYSTEM_NAME;
         document.title = data.SYSTEM_NAME;
       },
-      showMsg(type, msg){
+      showMsg(type, msg) {
         switch (type) {
           case 'warning':
             this.warningMsg = msg;
@@ -118,7 +119,7 @@
       },
       checkIsRememberPwd() {
         if (Cookies.get('rememberMe')) {
-          this.$Message.success('正在尝试自动登录......');
+          this.$Message.success('正在自动登录......');
           let data = {
             remember: Lockr.get('rememberKey'),
             user_id: Lockr.get('user_id')
@@ -140,14 +141,6 @@
         }
       },
       handleSubmit(form) {
-//        if (Lockr.get('userInfo')['node_id'] == 0) {
-//          this.$Message.error("此用户无管理权限");
-//          //表示没有登陆
-//          setTimeout(() => {
-//            router.replace('/')
-//          }, 1200)
-//          return
-//        }
         if (this.loading) return
         this.$refs.loginform.validate((valid) => {
           if (valid) {
@@ -158,11 +151,11 @@
             this.loading = !this.loading
             this.apiPost('common/login/login', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
-               if(data.node_id == 0 && data.type== 2){
-                 this.loading = !this.loading
-                 this.showMsg('warning', '此用户无管理权限');
-                 return false
-              }
+                if (data.node_id == 0 && data.type == 2) {
+                  this.loading = !this.loading
+                  this.showMsg('warning', '此用户无管理权限');
+                  return false
+                }
                 if (this.rememberMe) {
                   Cookies.set('rememberMe', true, {expires: 7})
                   Cookies.set('code', data.remember, {expire: 7});
@@ -184,15 +177,14 @@
         })
       },
     },
-    created(){
-      let userAgent  = navigator.userAgent;
+    created() {
+      let userAgent = navigator.userAgent;
       let isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
       let isFF = userAgent.indexOf("Firefox") > -1;
-      if(!isChrome & !isFF){
-        this.boswer_show =true
+      if (!isChrome & !isFF) {
+        this.boswer_show = true
         return;
       }
-
       //第一次如果是记住密码的话  会到本地存储中取出相关数据 然后自动登录
       this.checkIsRememberPwd()
       //没有设置记住密码 的话 或者是第一次登陆的情况下 会到后台获取基本的配置数据

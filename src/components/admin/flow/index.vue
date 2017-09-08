@@ -2,7 +2,6 @@
   <div class="echarts">
   <div style="font-size:15px">  搜索引擎占比：</div>
     <div style="margin-left: 35%;padding-top:1%;padding-bottom: 5%">
-
       <Row>
         <Select v-model="site_id" style="width: 200px;" label-in-value filterable clearable>
           <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
@@ -12,11 +11,8 @@
         <Col span="9">
         <Date-picker type="daterange" v-model="time" placement="bottom-end" placeholder="选择日期查询" ></Date-picker>
         </Col>
-
-
         <Button type="primary" @click="queryData">查询</Button>
       </Row>
-
     </div>
     <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
     <!--<button @click="doRandom">Random</button>-->
