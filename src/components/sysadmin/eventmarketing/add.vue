@@ -146,7 +146,6 @@
 </script>
 <style>
   .vue-html5-editor>.content {
-
     max-height: 400px;
   }
 </style>
