@@ -160,7 +160,7 @@ Vue.use(VueHtml5Editor, {
   }
 })
 
-let domain = 'local.sitegroup.com'
+let domain = 'api.salesman.cc'
 
 // let domain = 'www.sitegroupback.com'
 
