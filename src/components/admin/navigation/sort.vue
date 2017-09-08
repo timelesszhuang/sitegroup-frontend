@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="200">
+      v-model="modal" width="250">
       <p slot="header">
         <span>修改排序</span>
       </p>
@@ -11,6 +11,7 @@
             <Input-number  :min="0" v-model="form.sort"  placeholder="请填写当前栏目的排序"></Input-number>
           </Form-item>
         </Form>
+        <Alert type="error">生成栏目的顺序</Alert>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="savetitle">保存</Button>

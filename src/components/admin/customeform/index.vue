@@ -17,7 +17,7 @@
     </div>
     <customefromadd ref="add"></customefromadd>
     <customefromcode ref="code" :form="getinfo"></customefromcode>
-    <customefromsave ref="save" :form="editinfo" :field1="field1" :field2="field2" :field3="field3" :field4="field4"></customefromsave>
+    <customefromsave ref="save" :info="info" :form="editinfo" :field1="field1" :field2="field2" :field3="field3" :field4="field4"></customefromsave>
   </div>
 </template>
 
@@ -46,7 +46,8 @@
         field2:{},
         field3:{},
         field4:{},
-        getinfo:{}
+        getinfo:{},
+        info:{}
 
       }
     },
@@ -93,6 +94,7 @@
         this.apiGet('admin/userdefinedform/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            this.info=data.form_info;
             this.field1 = data.form_info.field1
             this.field2 = data.form_info.field2
             this.field3 = data.form_info.field3

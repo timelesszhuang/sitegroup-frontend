@@ -12,6 +12,7 @@
               <Input type="text" v-model="form.detail" placeholder="请输入当前配置用途"></Input>
             </Form-item>
             <br/>
+
             <Row>
               <Col span="6">
               <Form-item label="分类名称" style="width: 240px;" prop="name1">
@@ -37,6 +38,7 @@
 
               </Col>
             </Row>
+
             <Row>
               <Col span="6">
               <Form-item label="分类名称2" style="width: 240px;" prop="name2">
@@ -85,30 +87,58 @@
               </Form-item>
               </Col>
             </Row>
+            <!--<div v-show="info.field4">-->
+            <!--<Row>-->
+            <!--<Col span="6">-->
+            <!--<Form-item label="分类名称4" style="width: 240px;" prop="name2">-->
+            <!--<Input type="text" v-if="info.field4" v-model="field4.name" placeholder="请输入名称"></Input>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
+            <!--<Col span="6">-->
+            <!--<Form-item label="placeholder4" style="width: 250px;" prop="placeholder2">-->
+            <!--<Input type="text" v-if="info.field4"v-model="field4.placeholder" placeholder="请输入placeholder配置"></Input>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
+            <!--<Col span="6">-->
+            <!--<Form-item label="type类型4" style="width: 250px;" prop="type2">-->
+            <!--<Select v-if="info.field4" v-model="field4.type" clearable style="width:150px">-->
+            <!--<Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+            <!--</Select>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
+            <!--<Col span="6">-->
+            <!--<Form-item label="是否必填" style="width: 100px;" prop="require">-->
+            <!--<Checkbox v-if="field4.require"v-model="field4.require"></Checkbox>-->
+            <!--</Form-item>-->
+            <!--</Col>-->
+            <!--</Row>-->
+            <!--</div>-->
+            <div v-show="info.field4">
             <Row>
-              <Col span="6">
-              <Form-item label="分类名称4" style="width: 240px;" prop="name2">
-                <Input type="text" v-model="field4.name" placeholder="请输入名称"></Input>
-              </Form-item>
-              </Col>
-              <Col span="6">
-              <Form-item label="placeholder4" style="width: 250px;" prop="placeholder2">
-                <Input type="text" v-model="field4.placeholder" placeholder="请输入placeholder配置"></Input>
-              </Form-item>
-              </Col>
-              <Col span="6">
-              <Form-item label="type类型4" style="width: 250px;" prop="type2">
-                <Select v-model="field4.type" clearable style="width:150px">
-                  <Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </Select>
-              </Form-item>
-              </Col>
-              <Col span="6">
-              <Form-item label="是否必填" style="width: 100px;" prop="require">
-                <Checkbox v-model="field4.require"></Checkbox>
-              </Form-item>
-              </Col>
+            <Col span="6">
+            <Form-item label="分类名称4" style="width: 240px;" prop="name2">
+            <Input type="text" v-if="info.field4" v-model="info.field4.name" placeholder="请输入名称"></Input>
+            </Form-item>
+            </Col>
+            <Col span="6">
+            <Form-item label="placeholder4" style="width: 250px;" prop="placeholder2">
+            <Input type="text" v-if="info.field4" v-model="field4.placeholder" placeholder="请输入placeholder配置"></Input>
+            </Form-item>
+            </Col>
+            <Col span="6">
+            <Form-item label="type类型4" style="width: 250px;" prop="type2">
+            <Select v-if="info.field4" v-model="field4.type" clearable style="width:150px">
+            <Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+            </Form-item>
+            </Col>
+            <Col span="6">
+            <Form-item label="是否必填" style="width: 100px;" prop="require">
+            <Checkbox v-if="info.field4" v-model="field4.require"></Checkbox>
+            </Form-item>
+            </Col>
             </Row>
+            </div>
           </Form>
         </div>
         <div slot="footer">
@@ -143,6 +173,8 @@
     },
     methods: {
       add() {
+        console.log(this.info)
+        return
         this.$refs.customesave.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
@@ -169,6 +201,9 @@
       }
     },
     props: {
+      info:{
+        default:Object
+      },
       form: {
         default: []
       },
