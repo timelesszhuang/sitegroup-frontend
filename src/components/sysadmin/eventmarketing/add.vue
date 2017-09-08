@@ -41,7 +41,7 @@
               <editor @change="updateData2" :content="form.summary " :height="100"></editor>
             </Form-item>
             <Form-item label="营销模式" prop="content">
-              <editor @change="updateData" :content="form.content " :height="300"></editor>
+              <editor @change="updateData" :content="form.content " :height="300" :max-height="400"></editor>
             </Form-item>
 
           </Form>
@@ -144,3 +144,9 @@
     mixins: [http]
   }
 </script>
+<style>
+  .vue-html5-editor>.content {
+
+    max-height: 400px;
+  }
+</style>

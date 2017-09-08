@@ -19,8 +19,8 @@
       <!--</Table>-->
       <Row class="pad">
         <div v-for="(item,index) in datas">
-          <Col span="8" style="padding: 20px; ">
-          <div style="width:100%;" @click="show(index)"><img class="imgsize"
+          <Col span="8" style="padding: 20px; "@click="show(index)">
+          <div style="width:100%;" ><img class="imgsize"
                                                              style="margin:0 auto;padding-right:5px;display: block "
                                                              :src=formatter_str(item.img) target="_blank"></div>
           <div
@@ -28,12 +28,12 @@
             :title=item.title>{{item.title}}
           </div>
           <div
-            style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;height: auto "
+            style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer;height: auto "
           >
-            <span style="color:red;font-size:10px"><i>关键词:</i></span>
+            <span style="color:red;font-size:10px" :title=item.keyword><i>关键词:</i></span>
             {{item.keyword}}&nbsp;
             <div>
-              <span style="color:red;font-size: 10px"><i>行业分类:</i></span>
+              <span style="color:red;font-size: 10px"  :title=item.industry_name><i>行业分类:</i></span>
               {{item.industry_name}}&nbsp;
             <!--<span style="color:red;font-size: 10px"><i>阅读次数:</i>{{item.readcount}}&nbsp;</span>-->
             </div>
