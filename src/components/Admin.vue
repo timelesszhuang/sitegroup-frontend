@@ -98,9 +98,6 @@
     background-color: #fff;
   }
 
-  .site {
-    height: 100%;
-  }
 
   .layout-content-main {
     height: 100%;
@@ -364,7 +361,7 @@
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
-        <div class="Site">
+        <div>
           <div class="layout-content">
             <div class="layout-content-main">
               <router-view></router-view>
