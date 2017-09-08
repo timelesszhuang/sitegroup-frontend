@@ -22,18 +22,20 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
     </div>
     <marketingadd ref="add" :industry="industry"></marketingadd>
     <marketingsave ref="save" :industry="industry" :form="editinfo"></marketingsave>
+    <eventshow ref="show" :form="editinfo"></eventshow>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
   import marketingadd from './add.vue';
   import marketingsave from './save.vue';
+  import eventshow from './show.vue';
   export default {
     data () {
       return {
@@ -51,10 +53,12 @@
         datas: [],
         editinfo: {},
         industry:[],
-        industry_id:''
+        industry_id:'',
+        content:'',
+        keyword:''
       }
     },
-    components: {marketingadd,marketingsave},
+    components: {marketingadd,marketingsave,eventshow},
     created () {
       this.getData();
       this.getIndustry();
@@ -66,7 +70,9 @@
             page: this.page,
             rows: this.rows,
             title: this.title,
-            industry_id:this.industry_id
+            industry_id:this.industry_id,
+            content:this.content,
+            keyword:this.keyword
           }
         }
         this.apiGet('sys/Marketingmode', data).then((data) => {
@@ -91,6 +97,22 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         });
+      },
+      show(index){
+        let editid = this.datas[index].id
+        this.apiGet('sys/Marketingmode/' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.show.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       changePage(page){
         this.page = page;
@@ -191,12 +213,13 @@
           {
             title: '操作',
             key: 'action',
-            width: 150,
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-            <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+            <i-button type="error" size="small" @click="remove(${index})">删除</i-button>
+<i-button type="error" size="small" @click="show(${index})">查看</i-button>
+`;
             }
           }
         );

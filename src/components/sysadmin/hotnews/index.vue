@@ -14,7 +14,7 @@
           <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
     </div>

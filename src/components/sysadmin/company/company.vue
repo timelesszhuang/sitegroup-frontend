@@ -3,7 +3,7 @@
     <div style="margin: 10px">
       公司名：
       <Input v-model="name" placeholder="要查询的公司名" style="width: 300px"></Input>
-      <Select v-model="industry_id" clearable label-in-value
+      <Select v-model="industry_id" clearable filterable label-in-value
               style="width:150px;text-align: left">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}

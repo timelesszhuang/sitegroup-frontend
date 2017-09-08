@@ -16,7 +16,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-ele vator show-sizer></Page>
+                show-ele vator ></Page>
         </div>
       </div>
     </div>

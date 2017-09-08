@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
             </Form-item>
             <Form-item label="推送节点" prop="node_ids">
-              <Select v-model="form.node_ids" multiple  style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;">
+              <Select v-model="form.node_ids" multiple filterable style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;">
                 <Option v-for="item in nodeids" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
                 </Option>

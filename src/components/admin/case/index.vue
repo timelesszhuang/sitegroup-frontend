@@ -2,7 +2,6 @@
   <div>
     <div class="top">
       案例中心:
-      <Input v-model="title" placeholder="案例中心" style="width:120px;"></Input>
       <Select v-model="industry_id" clearable label-in-value
               style="width:150px;text-align: left">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
@@ -10,7 +9,7 @@
         </Option>
       </Select>
       <Input v-model="keyword" placeholder="要查询的关键词" style="width: 300px"></Input>
-      <Input v-model="content" placeholder="要查询的案例中心内容关键词" style="width: 300px"></Input>
+      <Input v-model="content" placeholder="全文检索" style="width: 300px"></Input>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
     <div class="content" style="margin-top:10px;">
@@ -21,7 +20,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
     </div>
@@ -64,7 +63,6 @@
           params: {
             page: this.page,
             rows: this.rows,
-            title: this.title,
             industry_id:this.industry_id,
             keyword:this.keyword,
             content:this.content

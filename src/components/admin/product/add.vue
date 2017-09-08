@@ -120,7 +120,7 @@
       },
       add() {
         if (!this.image) {
-          this.$Message.error('请首先图片文件。');
+          this.$Message.error('请首先上传图片文件。');
           return
         }
         this.$refs.padd.validate((valid) => {

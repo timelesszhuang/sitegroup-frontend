@@ -8,21 +8,20 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
       <Alert type="error">点击查看信息</Alert>
     </div>
+    <Modal  v-model="systemMessage" width="900" title="信息">
+      <div style="width:auto;margin: 0 auto;font-size: 20px;text-align: center"> {{title}}</div>
+      <div v-html="content"style="font-size: 20px;padding:10px;min-height: 300px">
 
-    <Modal v-model="systemMessage" title="信息">
-      <div style="width: 100px;margin: 0 auto;font-size: 20px"> {{title}}</div>
-      <div style="width: auto;font-size: 20px;padding:15px;min-height: 300px">
-        {{content}}
 
       </div>
 
     </Modal>
-  </div>
+</div>
 
 </template>
 
@@ -159,8 +158,11 @@
   }
 
 </script>
-<style>
 
+<style scoped>
+  .ivu-modal-content {
+    width: 900px;
+  }
 
 </style>
 

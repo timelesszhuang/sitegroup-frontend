@@ -16,19 +16,13 @@
         <Row style="border-bottom:1px solid #e3e8ee;margin:20px;padding-bottom: 10px">
           <Col span="24">
           <div style="width: 60%;margin: 0 auto;text-align: center">
-            <div>行业分类：{{form.industry_name}} &nbsp;&nbsp;  |关键词:{{form.keyword}}|&nbsp; &nbsp;  来源：{{form.source}}</div>
+            <div>行业分类：{{form.industry_name}} &nbsp;&nbsp;  |关键词:{{form.keyword}}|&nbsp; &nbsp;  阅读：{{form.readcount}}</div>
           </div>
           </Col>
         </Row>
         <Row>
           <Col span="24">
-          <div v-html="form.content" style="overflow: hidden;font-size: 15px;padding: 20px" class="img"> </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="24">
-          <div style="font-size: 20px;font-weight: 700;">核心解读:</div>
-          <div v-html="form.summary" style="overflow: hidden;font-size: 15px;" class="img"> </div>
+          <div v-html="form.content" style="overflow: hidden;font-size: 15px" class="img"> </div>
           </Col>
         </Row>
       </div>
