@@ -25,7 +25,11 @@
              :filter-node-method="filterNode">
     </el-tree>
     <!--操作相关子组件-->
-    <Alert style="margin-top:20px;font-size:15px;font-weight: bold" type="warning">必须首先添加A类关键词,&nbsp;&nbsp;&nbsp;在A类关键词下批量添加B类关键词,&nbsp;&nbsp;&nbsp;同理,&nbsp;&nbsp;&nbsp;在B类关键词下批量添加C类关键词</Alert>
+    <Alert type="warning" style="margin-top: 10px">
+     <span style="margin-top:20px;font-size:16px;font-weight: bold">添加关键词注意事项</span>
+       <p style="font-size:14px;line-height: 23px">必须首先添加A类关键词,&nbsp;&nbsp;&nbsp;在A类关键词下批量添加B类关键词,&nbsp;&nbsp;&nbsp;同理,&nbsp;&nbsp;&nbsp;在B类关键词下批量添加C类关键词</p>
+       <p style="font-size:14px;">B,C类关键词不宜过多,B,C类关键词重复不会添加</p>
+    </Alert>
     <keywordUpload ref="upload" :id="checkedNodeId"></keywordUpload>
     <AkeywordAdd ref="akeywordadd"></AkeywordAdd>
     <BkeywordAdd ref="bkeywordadd" :pid="checkedNodeId"></BkeywordAdd>
