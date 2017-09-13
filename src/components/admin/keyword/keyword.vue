@@ -6,6 +6,7 @@
       <Button type="primary" shape="circle" icon="android-add" @click="addkeyword">批量上传关键词</Button>
       <Button type="success" shape="circle" icon="android-add" @click="addAkeyword">添加A类关键词</Button>
       <Button type="success" shape="circle" icon="android-add" @click="addBkeyword">添加B/C类关键词</Button>
+      <Button type="success" shape="circle" icon="android-done" @click="saveKeyword">修改关键词</Button>
       <Button type="error" shape="circle" icon="android-add" @click="removeKeyword">删除关键词</Button>
       </Col>
     </Row>
@@ -30,6 +31,7 @@
     <AkeywordAdd ref="akeywordadd"></AkeywordAdd>
     <BkeywordAdd ref="bkeywordadd" :pid="checkedNodeId"></BkeywordAdd>
     <CkeywordAdd ref="ckeywordadd"></CkeywordAdd>
+    <Updatekeyword ref="updatekeyword" :upid="update_id"></Updatekeyword>
   </div>
 </template>
 
@@ -40,6 +42,7 @@
   import AkeywordAdd from './Akeywordadd.vue';
   import BkeywordAdd from './Bkeywordadd.vue';
   import CkeywordAdd from './Ckeywordadd.vue';
+  import Updatekeyword from './Updatekeyword.vue';
 
   export default {
     watch: {
@@ -47,7 +50,7 @@
         this.$refs.tree.filter(val);
       }
     },
-    components: {keywordUpload, AkeywordAdd,BkeywordAdd,CkeywordAdd},
+    components: {keywordUpload, AkeywordAdd,BkeywordAdd,CkeywordAdd,Updatekeyword},
     data() {
       return {
         checkedNodeId: 0,
@@ -57,10 +60,20 @@
           children: 'children'
         },
         filterText: '',
-        ids:[]
+        ids:[],
+        update_id:0
       };
     },
     methods: {
+      saveKeyword() {
+        let node = this.$refs.tree.getCheckedNodes();
+        if (node.length !=1) {
+          this.$Message.info('请选择一个关键词');
+          return
+        }
+        this.update_id=node[0].id
+        this.$refs.updatekeyword.modal=true;
+      },
       change(data,current,sel) {
 
       },
