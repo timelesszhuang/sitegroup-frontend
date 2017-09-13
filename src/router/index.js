@@ -41,7 +41,6 @@ import Wangyiarticle from '../components/admin/163article/index.vue'
 import Tengxunarticle from '../components/admin/qqarticle/index.vue'
 import MainKwyword from '../components/admin/mainkeyword/index.vue'
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
-import Editor from '../components/admin/editor/index.vue'
 import Hotnews from '../components/admin/news/tab.vue'
 import Menutype from '../components/admin/menutype/index.vue'
 import Nav from '../components/admin/nav/tab.vue'
@@ -114,7 +113,6 @@ export default new Router({
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
         {path: 'mainkeyword', component: MainKwyword, name: 'mainkeyword'},
-        {path: 'editor', component: Editor, name: 'editor'},
         {path: 'recommendationkeyword', component: Recommendationkeyword, name: 'recommendationkeyword'},
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
         {path: 'menutype', component: Menutype, name: 'menutype'},

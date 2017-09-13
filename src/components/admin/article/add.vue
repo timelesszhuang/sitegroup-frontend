@@ -26,7 +26,7 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="form.content"  :height="300"></editor>
+            <editor @change="updateData" :content="form.content"  :height="300" :auto-height="false"></editor>
           </Form-item>
         </Form>
         <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;</Alert>

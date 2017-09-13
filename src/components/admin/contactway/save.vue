@@ -12,7 +12,7 @@
               <Input type="text" v-model="form.detail" placeholder="请输入名称"></Input>
             </Form-item>
             <Form-item label="html" prop="html" style="height:100%;">
-              <editor @change="updateData" :content="form.html"  :height="300"></editor>
+              <editor @change="updateData" :content="form.html"  :height="300" :auto-height="false"></editor>
             </Form-item>
           </Form>
         </div>

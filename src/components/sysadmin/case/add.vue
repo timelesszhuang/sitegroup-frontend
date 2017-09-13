@@ -26,10 +26,10 @@
               </Select>
             </Form-item>
             <Form-item label="核心解读" prop="summary">
-              <editor @change="updateData2" :content="form.summary " :height="100"></editor>
+              <editor @change="updateData2" :content="form.summary " :height="100" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="案例内容" prop="content">
-              <editor @change="updateData" :content="form.content " :height="300"></editor>
+              <editor @change="updateData" :content="form.content " :height="300" :auto-height="false"></editor>
             </Form-item>
 
           </Form>

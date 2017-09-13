@@ -30,18 +30,19 @@
               <Input type="text" v-model="form.keyword" placeholder="请输入关键词"></Input>
             </Form-item>
             <Form-item label="行业分类" prop="industry_id">
-              <Select v-model="form.industry_id" style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;"
-                      label-in-value　@on-change="changeIndustry" >
+              <Select v-model="form.industry_id"
+                      style="width:150px;text-align: left;position:relative;text-align: left;z-index: 10000;"
+                      label-in-value　@on-change="changeIndustry">
                 <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
                 </Option>
               </Select>
             </Form-item>
             <Form-item label="核心解读" prop="summary">
-              <editor @change="updateData2" :content="form.summary " :height="100"></editor>
+              <editor @change="updateData2" :content="form.summary " :height="100" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="营销模式" prop="content">
-              <editor @change="updateData" :content="form.content " :height="300" :max-height="400"></editor>
+              <editor @change="updateData" :content="form.content " :height="300" :auto-height="false"></editor>
             </Form-item>
 
           </Form>
@@ -57,6 +58,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -64,9 +66,9 @@
         modal_loading: false,
         action: HOST + 'sys/uploadMarketingmode',
         form: {
-          title:'',
-          keyword:'',
-          content:'',
+          title: '',
+          keyword: '',
+          content: '',
         },
         AddRule: {
           title: [
@@ -85,13 +87,13 @@
       }
     },
     methods: {
-      updateData2(data){
-        this.form.summary =data
+      updateData2(data) {
+        this.form.summary = data
       },
       updateData(data) {
         this.form.content = data
       },
-      changeIndustry(value){
+      changeIndustry(value) {
         this.form.industry_name = value.label;
         this.form.industry_id = value.value;
       },
@@ -105,36 +107,36 @@
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
-        add() {
-          if (!this.form.img) {
-            this.$Message.error('请首先图片文件。');
-            return
-          }
-          this.$refs.marketingadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('sys/Marketingmode', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.marketingadd.resetFields();
-                    this.$refs.upImg.clearFiles()
-                  }, (data, msg) => {
-
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
+      add() {
+        if (!this.form.img) {
+          this.$Message.error('请首先图片文件。');
+          return
         }
+        this.$refs.marketingadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('sys/Marketingmode', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.marketingadd.resetFields();
+                this.$refs.upImg.clearFiles()
+              }, (data, msg) => {
+
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
     props: {
       industry: {
@@ -144,8 +146,3 @@
     mixins: [http]
   }
 </script>
-<style>
-  .vue-html5-editor>.content {
-    max-height: 400px;
-  }
-</style>

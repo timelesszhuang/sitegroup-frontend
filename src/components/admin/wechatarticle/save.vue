@@ -17,9 +17,9 @@
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
-            <Select  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index:10000;"
+            <Select v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index:10000;"
                     label-in-value 　@on-change="changeArticletype">
-              <Option   v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
@@ -27,7 +27,7 @@
             关键词： <span style="font-size: 15px">{{form.keyword}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="form.content"  :height="300"></editor>
+            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
           </Form-item>
         </Form>
       </div>
@@ -60,11 +60,11 @@
           auther: [
             {required: true, message: '请填写作者', trigger: 'blur'},
           ],
-          content:[
-            {required:true,message:'请输入内容',trigger:'blur'}
+          content: [
+            {required: true, message: '请输入内容', trigger: 'blur'}
           ],
-          articletype_id:[
-            {required: true,validator: checkarticletype, trigger: 'blur'}
+          articletype_id: [
+            {required: true, validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }
@@ -77,7 +77,7 @@
 
     methods: {
       updateData(data) {
-       this.form.content = data
+        this.form.content = data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -142,7 +142,8 @@
     padding-bottom: 1em;
     max-height: 25em;
   }
-  .vue-html5-editor{
+
+  .vue-html5-editor {
     z-index: 1000;
   }
 

@@ -44,7 +44,7 @@
                      placeholder="请输入产品摘要 比如相关产品的介绍"></Input>
             </Form-item>
             <Form-item label="详情" prop="detail">
-              <editor @change="updateData" :content="form.detail" :height="300"></editor>
+              <editor @change="updateData" :content="form.detail" :height="300" :auto-height="false"></editor>
             </Form-item>
           </Form>
         </div>
