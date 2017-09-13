@@ -7,9 +7,9 @@
         <span>修改关键词</span>
       </p>
       <div>
-        <Form ref="savekeyword" :model="form" :label-width="90" :rules="akeyWordRule" class="company-add-form">
-          <Form-item label="关键词" prop="name">
-            <Input type="text" v-model="form.name" placeholder="请输入关键词"></Input>
+        <Form ref="savekeyword" :model="datas" :label-width="90" :rules="akeyWordRule" class="company-add-form">
+          <Form-item label="关键词" prop="label">
+            <Input type="text" v-model="datas.label" placeholder="请输入关键词"></Input>
           </Form-item>
         </Form>
       </div>
@@ -27,31 +27,27 @@
       return {
         modal:false,
         modal_loading:false,
-        form:{
-          name:''
-        },
         akeyWordRule: {
-          name: [
+          label: [
             {required: true, message: '请输入关键字', trigger: 'blur'}
           ]
         }
       }
     },
     props:{
-      upid:Number
+      datas:{
+        default:Object
+      }
     },
     mixins: [http],
     methods:{
       saveKeyword(){
-        let id=this.upid
-        let name=this.form["name"];
+        let id=this.datas.id
+        let name=this.datas.label;
         this.apiGet('admin/updateKeyword/'+id+"/"+name).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.$Message.success(msg);
             this.modal=false;
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
           }, (data, msg) => {
             this.$Message.error(msg);
           })

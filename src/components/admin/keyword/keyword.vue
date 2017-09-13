@@ -31,7 +31,7 @@
     <AkeywordAdd ref="akeywordadd"></AkeywordAdd>
     <BkeywordAdd ref="bkeywordadd" :pid="checkedNodeId"></BkeywordAdd>
     <CkeywordAdd ref="ckeywordadd"></CkeywordAdd>
-    <Updatekeyword ref="updatekeyword" :upid="update_id"></Updatekeyword>
+    <Updatekeyword ref="updatekeyword" :datas="form"></Updatekeyword>
   </div>
 </template>
 
@@ -61,7 +61,7 @@
         },
         filterText: '',
         ids:[],
-        update_id:0
+        form:{}
       };
     },
     methods: {
@@ -71,7 +71,7 @@
           this.$Message.info('请选择一个关键词');
           return
         }
-        this.update_id=node[0].id
+        this.form=node[0]
         this.$refs.updatekeyword.modal=true;
       },
       change(data,current,sel) {
