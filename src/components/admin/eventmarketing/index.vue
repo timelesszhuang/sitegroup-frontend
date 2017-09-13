@@ -19,17 +19,11 @@
       <!--</Table>-->
       <Row class="pad">
         <div v-for="(item,index) in datas">
-          <Col span="8" style="padding: 20px; "@click="show(index)">
-          <div style="width:100%;" ><img class="imgsize"
-                                                             style="margin:0 auto;padding-right:5px;display: block "
-                                                             :src=formatter_str(item.img) target="_blank"></div>
-          <div
-            style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer "
-            :title=item.title>{{item.title}}
-          </div>
-          <div
-            style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer;height: auto "
-          >
+          <div @click="show(index)">
+          <Col span="8" style="padding: 20px; ">
+          <div style="width:100%;" ><img class="imgsize" style="margin:0 auto;padding-right:5px;display: block " :src=formatter_str(item.img) target="_blank"></div>
+          <div style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer " :title=item.title>{{item.title}}</div>
+          <div style="text-align:center;font-size:15px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;cursor:pointer;height: auto ">
             <span style="color:red;font-size:10px" :title=item.keyword><i>关键词:</i></span>
             {{item.keyword}}&nbsp;
             <div>
@@ -39,6 +33,7 @@
             </div>
           </div>
           </Col>
+          </div>
         </div>
       </Row>
       <div style="margin: 10px;overflow: hidden">
