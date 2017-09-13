@@ -2,6 +2,7 @@
 <style scoped>
   .layout {
     border: 1px solid #d7dde4;
+    background: #f5f7f9;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
@@ -14,7 +15,7 @@
 
   .layout-content {
     min-height: 200px;
-    margin: 15px;
+    margin:15px 15px 50px 15px;
     background: #fff;
     border-radius: 4px;
   }
@@ -22,12 +23,20 @@
   .layout-content-main {
     padding: 10px;
   }
-
-  .layout-copy {
+  .layout-copy{
     text-align: center;
-    padding: 10px 0 20px;
+    display:block;
+    width:100%;
+  }
+
+  .layout-copy span{
     color: #9ea7b4;
-    margin-top: 5%;
+    position:fixed;
+    bottom:0;
+    display:block;
+    background-color:#fff;
+    padding:10px 0;
+    width:100%;
   }
 
   .layout-menu-left {
@@ -37,7 +46,6 @@
   .layout-header {
     height: 60px;
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   }
 
   .layout-logo-left {
@@ -99,7 +107,6 @@
   .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {
     color: #fff;
   }
-
 </style>
 <template>
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}">
@@ -181,7 +188,7 @@
           </div>
         </div>
         <div class="layout-copy">
-          2015-2017 &copy;  北京易至信科技有限公司
+          <span>2015-2017 &copy;  北京易至信科技有限公司</span>
         </div>
       </i-col>
     </Row>
