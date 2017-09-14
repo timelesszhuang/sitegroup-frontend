@@ -14,6 +14,7 @@ import News from '../components/sysadmin/news/tab.vue'
 import Marketmodel from '../components/sysadmin/marketmodel/index.vue'
 import Systempush from '../components/sysadmin/systempush/index.vue'
 import Case from '../components/sysadmin/case/index.vue'
+import Eventmarketingholiday from '../components/sysadmin/eventmarketingholiday/index.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -81,7 +82,8 @@ export default new Router({
         {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'},
         {path: 'marketmodel',component:Marketmodel,name:'marketmodel'},
         {path: 'systempush',component:Systempush,name:'systempush'},
-        {path: 'case',component:Case,name:'case'}
+        {path: 'case',component:Case,name:'case'},
+        {path: 'eventmarketingholiday',component:Eventmarketingholiday,name:'eventmarketingholiday'}
       ]
     },
     {
