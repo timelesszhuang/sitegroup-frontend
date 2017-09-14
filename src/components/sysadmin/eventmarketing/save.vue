@@ -10,6 +10,7 @@
           <div style="width: 200px;margin: 0 auto"><img width="200px" :src="this.url" alt=""></div>
           <Upload
             type="drag"
+            ref="upImg"
             with-credentials
             name="file_name"
             :format="['jpg','jpeg','png','gif']"

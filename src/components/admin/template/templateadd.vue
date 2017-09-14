@@ -9,6 +9,7 @@
         <div>
           <Upload
             type="drag"
+            ref="uploadzip"
             with-credentials
             name="file_name"
             :format="['zip']"
@@ -88,6 +89,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.templateadd.resetFields();
+                this.$refs.uploadzip.clearFiles()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);

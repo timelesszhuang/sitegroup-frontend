@@ -99,6 +99,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.save.resetFields();
+                this.$refs.upload.clearFiles();
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
