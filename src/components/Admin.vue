@@ -160,7 +160,7 @@
               </span>
             </Menu-item>
             <Menu-item name="营销模式">
-              <span class="layout-text" @click="routerChange('/admin/eventmarket','主题/营销模式')">
+              <span class="layout-text" @click="routerChange('/admin/marketingmodel','主题/营销模式')">
                 <Icon type="flag"></Icon>
                  营销模式
               </span>

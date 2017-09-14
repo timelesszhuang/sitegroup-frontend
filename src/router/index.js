@@ -11,7 +11,7 @@ import Syskeyword from '../components/sysadmin/wechatkeyword/index.vue'
 import Weixinarticle from '../components/sysadmin/wechatarticle/index.vue'
 import WechatKeywordType from '../components/sysadmin/wechatkeywordtype/index.vue'
 import News from '../components/sysadmin/news/tab.vue'
-import Eventmarketing from '../components/sysadmin/eventmarketing/index.vue'
+import Marketmodel from '../components/sysadmin/marketmodel/index.vue'
 import Systempush from '../components/sysadmin/systempush/index.vue'
 import Case from '../components/sysadmin/case/index.vue'
 
@@ -52,7 +52,7 @@ import Productmanage from '../components/admin/productmanage/tab.vue'
 import Newsmanage from '../components/admin/newsmanage/tab.vue'
 import Siteelement from '../components/admin/siteelement/index.vue'
 import Sitemanage from '../components/admin/sitemanage/index.vue'
-import Eventmarket from '../components/admin/eventmarketing/index.vue'
+import Marketingmodel from '../components/admin/marketingmodel/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
 import Casecenter from '../components/admin/case/index.vue';
 Vue.use(Router)
@@ -79,7 +79,7 @@ export default new Router({
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
         {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'},
-        {path: 'eventmarketing',component:Eventmarketing,name:'eventmarketing'},
+        {path: 'marketmodel',component:Marketmodel,name:'marketmodel'},
         {path: 'systempush',component:Systempush,name:'systempush'},
         {path: 'case',component:Case,name:'case'}
       ]
@@ -125,7 +125,7 @@ export default new Router({
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
         {path:'sitemanage',component:Sitemanage,name:'sitemanage'},
         {path: 'siteelement',component:Siteelement,name:'siteelement'},
-        {path: 'eventmarket',component:Eventmarket,name:'eventmarket'},
+        {path: 'marketingmodel',component:Marketingmodel,name:'marketingmodel'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
       ]
