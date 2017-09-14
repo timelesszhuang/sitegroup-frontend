@@ -6,14 +6,11 @@
         </logininfo>
       </Col>
     </Row>
-
-
     <div>
       <sitetype ref="sitetype" style="display: inline-block"></sitetype>
       <engine ref="engine" style="display: inline-block"></engine>
       <pv ref="pv" style="display: inline-block"></pv>
     </div>
-
   </div>
 </template>
 <script type="text/babel">

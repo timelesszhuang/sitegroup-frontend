@@ -321,14 +321,19 @@
       </i-col>
       <i-col :span="spanRight" style="overflow-y:scroll;padding-bottom:50px">
         <div class="layout-header">
-          <Row type="flex" justify="end" align="middle" class="code-row-bg">
-            <Col span="18" align="left" style="cursor: pointer">
+          <Row type="flex" justify="space-around" align="middle" class="code-row-bg">
+            <Col span="2" align="right" style="cursor: pointer">
             <span class="layout-text" @click="routerChange('/admin/index')">
                 <Icon type="home" style="font-size: 15px"></Icon>
                 首页
             </span>
             </Col>
-            <Col span="0.5" align="center">
+            <Col span="6" align="right" offset="8" style="cursor: pointer">
+            <span class="layout-text" style="font-weight: bolder;">
+                {{siteTitle}}
+            </span>
+            </Col>
+            <Col span="0.5"  align="center">
             <Badge :count="systemcount">
               <span @click="routerChange('/admin/systemp','推送消息')" title="系统推送消息" style="cursor:pointer;">
                 <Icon type="ios-email-outline" size="26"></Icon>
@@ -395,6 +400,7 @@
         count: '无',
         systemcount: '无',
         opennames: ['1'],
+        siteTitle: '未获取到'
       }
     },
     components: {
@@ -471,7 +477,7 @@
         return
       }
       this.sysname = Lockr.get('userInfo').node_name;
-      document.title = this.sysname
+      this.siteTitle =document.title = this.sysname
       let rememberKey = Lockr.get('rememberKey')
       let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');
