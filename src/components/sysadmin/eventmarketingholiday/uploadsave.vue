@@ -8,11 +8,13 @@
         </p>
         <div>
           <div style="width: 300px;margin: 20px auto 20px">
-            <Input v-model="pathform.template_name" placeholder="请输入模板名称" style="width: 300px"></Input>
-            <a v-bind:href="downloadPath" target="_blank">点击下载模板</a>
-            <a v-bind:href="viewPath" target="_blank">点击预览模板</a>
-          </div>
+            <div style="width: 300px;margin: 20px auto 20px;text-align: center">
+              <a :href=downloadPath() target="_blank">点击下载模板</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a  :href=viewPath() target="_blank">点击预览模板</a>
+            </div>
+            <Input v-model="form.template_name" placeholder="请输入模板名称" style="width: 300px"></Input>
 
+          </div>
           <Upload
             width="800"
             type="drag"
@@ -26,7 +28,7 @@
             :action="action">
             <div style="padding: 20px 0">
               <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>点击或将图片拖拽到这里上传 仅支持(jpg jpeg png gif)类型图片</p>
+              <p>修改上传图片 仅支持(jpg jpeg png gif)类型图片</p>
             </div>
           </Upload>
           <Upload
@@ -41,7 +43,7 @@
             :action="actionurl">
             <div style="padding: 20px 0">
               <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>点击或将模板文件拖拽到这里上传</p>
+              <p>修改模板zip文件</p>
             </div>
           </Upload>
 
@@ -65,11 +67,7 @@
         action: HOST + 'sys/uploadHtmlTemplateImg',
         actionurl: HOST + 'sys/uploadHtmlTemplate',
         pathform: {
-          img: '',
-          path: '',
-          holiday_id: this.form.id,
-          holiday_name: this.form.name,
-          template_name: '',
+
         },
         AddRule: {}
       }
@@ -80,6 +78,12 @@
       }
     },
     methods: {
+      downloadPath() {
+        return ROOTHOST + this.form.path;
+      },
+      viewPath () {
+        return ROOTHOST + this.form.generated_path;
+      },
       getResponse(response, file, filelist) {
         this.img = response.data;
         this.$Message.success(response.msg);
@@ -112,11 +116,11 @@
         this.modal_loading = true;
         this.pathform.img = this.img
         this.pathform.path = this.path
-        this.pathform.holiday_id = this.form.id
         this.pathform.holiday_name = this.form.name
-        this.pathform.template_name = this.pathform.template_name
+        this.pathform.template_name = this.form.template_name
         let data = this.pathform;
-        this.apiPost('sys/HtmlTemplate', data).then((res) => {
+        let id =  this.form.id;
+        this.apiPut('sys/HtmlTemplate/'+ id, data).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.modal = false;
             this.$parent.getData();

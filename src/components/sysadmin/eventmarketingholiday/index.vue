@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="font-weight: 700;font-size: 17px">
       时间轴:
+    </div>
+    <div style="margin: 10px">
+      <div style="float: left">
+      <DatePicker type="year" format="yyyy"   v-model="year" placeholder="选择年" @on-change="formatterData" style="width: 200px"></DatePicker>
+      </div>
+      <Button type="primary" icon="ios-search" @click="queryData">搜索</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="timemain" style="margin: 40px auto">
@@ -56,6 +62,7 @@
         datas: [
 
         ],
+        year:'',
         editinfo: {},
       }
     },
@@ -64,11 +71,19 @@
       this.getData();
     },
     methods: {
+      formatterData(str) {
+        this.year=str;
+      },
       formatter_str(str) {
         return ROOTHOST + str;
       },
       getData() {
-        this.apiGet('sys/eventmarketholiday').then((data) => {
+        let data = {
+          params: {
+            year: this.year,
+          }
+        }
+        this.apiGet('sys/eventmarketholiday',data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data
           }, (data, msg) => {
@@ -89,6 +104,9 @@
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
         })
+      },
+      queryData(){
+        this.getData();
       },
       add() {
         this.$refs.add.modal = true
