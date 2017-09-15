@@ -137,6 +137,10 @@
             <Icon type="flag" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/marketmodel','营销模式')">营销模式</span>
           </Menu-item>
+          <Menu-item name="事件营销">
+            <Icon type="alert" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/eventmarketingholiday','事件营销')">事件营销</span>
+          </Menu-item>
           <Menu-item name="案例中心">
             <Icon type="briefcase"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>

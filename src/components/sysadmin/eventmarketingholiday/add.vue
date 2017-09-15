@@ -14,7 +14,7 @@
             <Form-item label="日期" prop="time">
               <Date-picker type="daterange" v-model="form.time" placement="bottom-end" placeholder="选择日期"></Date-picker>
             </Form-item>
-            <Form-item label="日期" prop="lunar">
+            <Form-item label="阴历" prop="lunar">
               <Input type="text" v-model="form.lunar" placeholder="请输入当前节日的阴历"></Input>
             </Form-item>
             <Form-item label="desc" prop="desc">
