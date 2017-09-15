@@ -82,7 +82,8 @@
         return ROOTHOST + this.form.path;
       },
       viewPath () {
-        return ROOTHOST + this.form.generated_path;
+        return ROOTHOST +"upload/"+this.form.generated_path;
+
       },
       getResponse(response, file, filelist) {
         this.img = response.data;
@@ -105,19 +106,13 @@
         this.$Message.error('文件格式只支持 zip格式。');
       },
       uploadsave() {
-        if (!this.img) {
-          this.$Message.error('请首先上传图片文件。');
-          return
-        }
-        if (!this.path) {
-          this.$Message.error('请首先上传zip格式。');
-          return
-        }
+
         this.modal_loading = true;
         this.pathform.img = this.img
         this.pathform.path = this.path
         this.pathform.holiday_name = this.form.name
         this.pathform.template_name = this.form.template_name
+        this.pathform.id = this.form.id;
         let data = this.pathform;
         let id =  this.form.id;
         this.apiPut('sys/HtmlTemplate/'+ id, data).then((res) => {
