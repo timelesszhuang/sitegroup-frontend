@@ -205,21 +205,22 @@
           })
         }
         columns.push({
-          title: '模板名称',
-          key: 'template_name',
-          sortable: true
-        });
-        columns.push({
           title: '缩略图',
           width:'200',
 //          key: 'img',
           sortable: true,
           render(row, index) {
 //            + row.img + '
-            var type = '<div class="imggg"> <img :src=formatter_str(row.img) >    </div>';
+            var type = '<div class="templateimg"> <img  :src=formatter_str(row.img) >    </div>';
             return type;
           },
         });
+        columns.push({
+          title: '模板名称',
+          key: 'template_name',
+          sortable: true
+        });
+
         columns.push({
           title: '当前节日',
           key: 'holiday_name',
@@ -249,7 +250,12 @@
     font-size: 16px;
     font-weight: bold;
   }
+  .templateimg img{
+    width: 150px;
+    height: 200px;
 
+
+  }
   .timecontent {
     padding-left: 5px;
     font-size: 14px;
