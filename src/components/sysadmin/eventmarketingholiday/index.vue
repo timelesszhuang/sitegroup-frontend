@@ -18,7 +18,7 @@
           <p class="time" v-if="todo.color==1"style="color: red" >{{todo.startday}}</p>
           <p class="time"   v-else>{{todo.startday}}</p>
           <p>&nbsp;</p>
-          <p class="timecontent" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;
+          <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;
             <span @click="edit(index)"><Icon type="edit" ></Icon></span>
             &nbsp;&nbsp;
             <span @click="remove(index)">
