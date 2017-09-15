@@ -211,7 +211,7 @@
           sortable: true,
           render(row, index) {
 //            + row.img + '
-            var type = '<div class="templateimg"> <img  :src=formatter_str(row.img) >    </div>';
+            var type = '<div class="imggg"> <img :src=formatter_str(row.img) >    </div>';
             return type;
           },
         });
@@ -250,12 +250,7 @@
     font-size: 16px;
     font-weight: bold;
   }
-  .templateimg img{
-    width: 150px;
-    height: 200px;
 
-
-  }
   .timecontent {
     padding-left: 5px;
     font-size: 14px;
