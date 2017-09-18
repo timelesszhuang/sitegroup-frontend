@@ -28,10 +28,15 @@
   <script>
     $(function(){
       var url = "http://api.salesman.cc/admin/HtmlTemplate/25";
+      var success_jsonpCallback = function(data){
+       console.log(data)
+      };
       $.ajax({
         type:"get",
         url:url,
         dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback:"success_jsonpCallback",
         success:function(data) {
           console.log(data)
         }
