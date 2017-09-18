@@ -24,34 +24,30 @@
   <div class="starter-template">
     <h1>Bootstrap starter template</h1>
   </div>
-  <div id="text"></div>
-  <textarea  name="editor1">
+  <div ></div>
+  <textarea id="text" val name="editor1">
   </textarea>
   <script>
-    function success_jsonpCallback(data){
-      var result = JSON.stringify(data);
-      console.log(result)
-    };
     $(function(){
-      var url = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/25";
-
+      var url = "http://api.salesman.cc/admin/HtmlTemplate/25";
       $.ajax({
         type:"get",
         url:url,
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback:"success_jsonpCallback",
-        success: function (data) {
-          var result = JSON.stringify(data); //json对象转成字符串
-          alert(result)
-           },
-        error:function(data){
-          console.log(data);
+        success:function(data) {
+          var html = data.data;
+          $("#text").html(html);
+
+        },
+        error:function () {
+
         }
-      })
-    })
+      })})
     CKEDITOR.replace( 'editor1',{
       fullPage: true,
+      allowedContent:true,
     });
 
   </script>
