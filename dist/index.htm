@@ -25,8 +25,21 @@
   </div>
   <textarea name="editor1"></textarea>
   <script>
-    CKEDITOR.replace( 'editor1' );
+    CKEDITOR.replace( 'editor1',{
+      fullPage: true,
+    });
+    $(function(){
+      var url = "api.salesman.cc/admin/HtmlTemplate/25";
+      $.ajax({
+        type:"post",
+        url:url,
+        data:data,
+        success:function(data) {
+          alert(gong);
+        }
+        })})
   </script>
+
 </div>
 
 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
