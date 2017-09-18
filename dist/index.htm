@@ -7,7 +7,7 @@
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  <title>htmltemplate</title>
+  <title></title>
 
   <!-- Bootstrap -->
 
@@ -22,11 +22,13 @@
 <div class="container">
 
   <div class="starter-template">
-    <h2>
+    <h3>
       <div id="ti"></div>
-    </h2>
+    </h3>
     <textarea id="text" name="editor1"></textarea>
-    <button type="button" class="btn btn-lg btn-primary">Primary</button>
+    <div style="margin-top: 10px">
+    <button type="button" id="shengcheng" class="btn btn-lg btn-primary">生成</button>
+    </div>
   </div>
   <script>
     var cke = CKEDITOR.replace('editor1', {
@@ -48,13 +50,32 @@
             return;
           }
           var html = data.data;
-          $("#ti").text('111')
+          var temptitle = data.title
+          $("#ti").text(temptitle)
           cke.setData(html);
         },
         error: function () {
 
         }
       })
+      $("#shengcheng").click(function(){
+        var editurl = "http://api.salesman.cc/admin/HtmlTemplate/";
+        $.ajax({
+          type: "post",
+          url:editurl,
+          data:{
+            id:arr[1],
+            content:cke.getData()
+          },
+          dataType: "json",
+          success: function (data) {
+
+          },
+          error: function () {
+
+          }
+        })
+      });
     })
 
 
