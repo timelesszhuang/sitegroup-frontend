@@ -56,10 +56,7 @@ import Sitemanage from '../components/admin/sitemanage/index.vue'
 import Marketingmodel from '../components/admin/marketingmodel/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
 import Casecenter from '../components/admin/case/index.vue';
-<<<<<<< HEAD
-=======
 import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue';
->>>>>>> 1de6f38c7340033f595d21b765f3cecf2d8979ee
 
 Vue.use(Router)
 
@@ -131,11 +128,8 @@ export default new Router({
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
         {path: 'sitemanage', component: Sitemanage, name: 'sitemanage'},
         {path: 'siteelement', component: Siteelement, name: 'siteelement'},
-<<<<<<< HEAD
         {path: 'eventmarket', component: Eventmarket, name: 'eventmarket'},
-=======
         {path: 'marketingmodel', component: Marketingmodel, name: 'marketingmodel'},
->>>>>>> 1de6f38c7340033f595d21b765f3cecf2d8979ee
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
         {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'}
