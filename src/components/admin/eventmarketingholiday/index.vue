@@ -94,6 +94,12 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
+      edittemplate(index){
+        let editid = this.datas[index].id
+        let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid;
+        window.open(salesman)
+      },
+
       queryData() {
         this.getData();
       },
