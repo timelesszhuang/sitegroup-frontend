@@ -63,6 +63,9 @@
         $.ajax({
           type: "post",
           url:editurl,
+          xhrFields: {
+            withCredentials: true
+          },
           data:{
             id:arr[1],
             content:cke.getData()
