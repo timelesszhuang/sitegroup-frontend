@@ -27,13 +27,12 @@
   <textarea name="editor1"></textarea>
   <script>
     $(function(){
-      var url = "api.salesman.cc/admin/HtmlTemplate/25";
+      var url = "http://api.salesman.cc/admin/HtmlTemplate/25";
       $.ajax({
-        type:"post",
+        type:"get",
         url:url,
-        data:data,
         success:function(data) {
-          alert(gong);
+          console.log(data)
         }
       })})
     CKEDITOR.replace( 'editor1',{
