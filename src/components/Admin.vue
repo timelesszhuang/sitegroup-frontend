@@ -160,13 +160,13 @@
               </span>
             </Menu-item>
             <Menu-item name="营销模式">
-              <span class="layout-text" @click="routerChange('/admin/eventmarket','主题/营销模式')">
+              <span class="layout-text" @click="routerChange('/admin/marketingmodel','主题/营销模式')">
                 <Icon type="flag"></Icon>
                  营销模式
               </span>
             </Menu-item>
             <Menu-item name="事件营销">
-              <span class="layout-text" @click="ruanwenClick">
+              <span class="layout-text" @click="routerChange('/admin/eventmarketholiday','事件营销')">
                 <Icon type="alert"></Icon>
                 &nbsp;&nbsp;事件营销
               </span>
