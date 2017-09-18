@@ -24,23 +24,32 @@
   <div class="starter-template">
     <h1>Bootstrap starter template</h1>
   </div>
-  <textarea name="editor1"></textarea>
+  <div id="text"></div>
+  <textarea  name="editor1">
+  </textarea>
   <script>
+    function success_jsonpCallback(data){
+      var result = JSON.stringify(data);
+      console.log(result)
+    };
     $(function(){
-      var url = "http://api.salesman.cc/admin/HtmlTemplate/25";
-      var success_jsonpCallback = function(data){
-       console.log(data)
-      };
+      var url = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/25";
+
       $.ajax({
         type:"get",
         url:url,
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback:"success_jsonpCallback",
-        success:function(data) {
-          console.log(data)
+        success: function (data) {
+          var result = JSON.stringify(data); //json对象转成字符串
+          alert(result)
+           },
+        error:function(data){
+          console.log(data);
         }
-      })})
+      })
+    })
     CKEDITOR.replace( 'editor1',{
       fullPage: true,
     });
