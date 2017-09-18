@@ -55,8 +55,8 @@ import Sitemanage from '../components/admin/sitemanage/index.vue'
 import Eventmarket from '../components/admin/eventmarketing/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
 import Casecenter from '../components/admin/case/index.vue';
-Vue.use(Router)
 
+Vue.use(Router)
 
 
 export default new Router({
@@ -78,10 +78,10 @@ export default new Router({
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
         {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
-        {path: 'wechatkeywordtype', component:WechatKeywordType,name:'wechatkeywordtype'},
-        {path: 'eventmarketing',component:Eventmarketing,name:'eventmarketing'},
-        {path: 'systempush',component:Systempush,name:'systempush'},
-        {path: 'case',component:Case,name:'case'}
+        {path: 'wechatkeywordtype', component: WechatKeywordType, name: 'wechatkeywordtype'},
+        {path: 'eventmarketing', component: Eventmarketing, name: 'eventmarketing'},
+        {path: 'systempush', component: Systempush, name: 'systempush'},
+        {path: 'case', component: Case, name: 'case'}
       ]
     },
     {
@@ -123,9 +123,9 @@ export default new Router({
         {path: 'questionmanage', component: Questionmanage, name: 'questionmanage'},
         {path: 'productmanage', component: Productmanage, name: 'productmanage'},
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
-        {path:'sitemanage',component:Sitemanage,name:'sitemanage'},
-        {path: 'siteelement',component:Siteelement,name:'siteelement'},
-        {path: 'eventmarket',component:Eventmarket,name:'eventmarket'},
+        {path: 'sitemanage', component: Sitemanage, name: 'sitemanage'},
+        {path: 'siteelement', component: Siteelement, name: 'siteelement'},
+        {path: 'eventmarket', component: Eventmarket, name: 'eventmarket'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
       ]
