@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <title>htmltemplate</title>
 
   <!-- Bootstrap -->
@@ -25,9 +26,6 @@
   </div>
   <textarea name="editor1"></textarea>
   <script>
-    CKEDITOR.replace( 'editor1',{
-      fullPage: true,
-    });
     $(function(){
       var url = "api.salesman.cc/admin/HtmlTemplate/25";
       $.ajax({
@@ -37,7 +35,11 @@
         success:function(data) {
           alert(gong);
         }
-        })})
+      })})
+    CKEDITOR.replace( 'editor1',{
+      fullPage: true,
+    });
+
   </script>
 
 </div>
