@@ -38,10 +38,6 @@
 </template>
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import eventmarketingholidayadd from './add.vue';
-  import eventmarketingholidaysave from './save.vue';
-  import eventmarketingholidayupload from './upload.vue';
-  import uploadsave from './uploadsave.vue';
 
   export default {
     data() {
@@ -75,7 +71,7 @@
             year: this.year,
           }
         }
-        this.apiGet('sys/eventmarketholiday', data).then((data) => {
+        this.apiGet('admin/eventmarketholiday', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data
           }, (data, msg) => {
@@ -85,9 +81,10 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
+
       getTemplateData(index) {
         let editid = this.datas[index].id
-        this.apiGet('sys/AllHtmlTemplate/' + editid).then((data) => {
+        this.apiGet('admin/AllHtmlTemplate/' + editid).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.data = data
           }, (data, msg) => {
@@ -140,7 +137,18 @@
           key: 'holiday_name',
           sortable: true
         });
-
+        columns.push(
+          {
+            title: '操作',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            fixed: 'right',
+            render(row, column, index) {
+              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>`;
+            }
+          }
+        );
         return columns;
       }
     },
