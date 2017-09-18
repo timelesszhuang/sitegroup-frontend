@@ -128,7 +128,6 @@ export default new Router({
         {path: 'newsmanage', component: Newsmanage, name: 'newsmanage'},
         {path: 'sitemanage', component: Sitemanage, name: 'sitemanage'},
         {path: 'siteelement', component: Siteelement, name: 'siteelement'},
-        {path: 'eventmarket', component: Eventmarket, name: 'eventmarket'},
         {path: 'marketingmodel', component: Marketingmodel, name: 'marketingmodel'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
