@@ -95,7 +95,7 @@
         })
       },
       edittemplate(index){
-        let editid = this.datas[index].id
+        let editid = this.data[index].id
         let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid;
         window.open(salesman)
       },
