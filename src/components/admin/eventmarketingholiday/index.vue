@@ -25,13 +25,11 @@
         </Timeline>
         </Col>
         <Col span="17">
-        <div>模板</div>
+        <div style="font-size: 15px;font-weight: 700;margin-bottom: 10px">上传模板展示</div>
         <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
                :size="size" :data="data" :columns="tableColumns" style="width: 100%">
         </Table>
-        <div style="margin-top: 10px;font-size: 15px">
-          路径
-        </div>
+        <div style="margin-top: 10px;font-size: 15px;font-weight: 700;margin-bottom: 10px">已生成页面</div>
         <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
                :size="size" :data="holidaydata" :columns="tableColumn" style="width: 100%">
         </Table>
