@@ -63,7 +63,7 @@
     $(function () {
       var template_id = GetQueryString("template_id")
 //      var url = "http://api.salesman.cc/admin/HtmlTemplate/" + arr[1];
-      var url = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/" + template_id;
+      var url = "http://api.salesman.cc/admin/HtmlTemplate/" + template_id;
       $.ajax({
         type: "get",
         url: url,
@@ -86,7 +86,7 @@
         }
       })
       $("#shengcheng").click(function () {
-        var editurl = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/";
+        var editurl = "http://api.salesman.cc/admin/HtmlTemplate/";
 
         $.ajax({
           type: "post",
