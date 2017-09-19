@@ -73,6 +73,7 @@
         success: function (data) {
           if (data.data == "error") {
             alert('文件不存在');
+            location.reload();
             return;
           }
 //          holiday_id =
