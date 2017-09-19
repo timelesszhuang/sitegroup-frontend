@@ -18,7 +18,7 @@
             <p class="time" v-if="todo.color==1" style="color: red">{{todo.startday}}</p>
             <p class="time" v-else>{{todo.startday}}</p>
             <p>&nbsp;</p>
-            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;
+            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;<span  @click="getTemplateData(index)"><Icon type="paper-airplane"></Icon></span>
             </p>
             <!--<p>&nbsp;</p>-->
           </TimelineItem>
@@ -26,10 +26,22 @@
         </Col>
         <Col span="17">
         <div>模板</div>
-        <div v-show="datas">
-        <Table :context="self" :border="border"  :stripe="stripe" :show-header="showheader"
+        <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
                :size="size" :data="data" :columns="tableColumns" style="width: 100%">
         </Table>
+        <div style="margin-top: 10px;font-size: 15px">
+          路径
+        </div>
+        <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
+               :size="size" :data="holidaydata" :columns="tableColumn" style="width: 100%">
+        </Table>
+        <div style="margin: 10px;overflow: hidden">
+          <div style="float: right;">
+            <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
+                  @on-page-size-change="changePageSize"
+                  show-total
+                  show-elevator show-sizer></Page>
+          </div>
         </div>
         </Col>
       </Row>
@@ -42,16 +54,23 @@
   export default {
     data() {
       return {
+        page_show: true,
         self: this,
         border: true,
         stripe: true,
         showheader: true,
         showIndex: true,
         size: 'small',
+        total: 0,
+        page: 1,
+        rows: 10,
+        pageSize: 10,
+        current: 1,
         data: [],
         datas: [],
         year: '',
         editinfo: {},
+        holidaydata: []
       }
     },
     components: {},
@@ -93,14 +112,37 @@
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
         })
+        let data = {
+          params: {
+            page: this.page,
+            rows: this.rows,
+            holiday_id: this.datas[index].id
+          }
+        }
+        this.apiGet('admin/eventRecord', data).then((data) => {
+          this.handelResponse(data, (data, msg) => {
+            this.holidaydata = data.rows
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
       },
-      edittemplate(index){
+      edittemplate(index) {
         let editid = this.data[index].id
         let holiday_id = this.data[index].holiday_id
-        let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid+"&"+"holiday_id="+holiday_id;
+        let salesman = "http://admin.salesman.cc/index.htm?templateid" + "=" + editid + "&" + "holiday_id=" + holiday_id;
         window.open(salesman)
       },
-
+      changePage(page){
+        this.page = page;
+        this.getData();
+      },
+      changePageSize(pagesize){
+        this.rows = pagesize;
+        this.getData();
+      },
       queryData() {
         this.getData();
       },
@@ -152,11 +194,45 @@
             align: 'center',
             fixed: 'right',
             render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>`;
+              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>
+<i-button type="primary" size="small" @click="getPath(${index})">获取</i-button>
+`;
             }
           }
         );
         return columns;
+      },
+      tableColumn() {
+        let column = [];
+        if (this.showCheckbox) {
+          column.push({
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          })
+        }
+        if (this.showIndex) {
+          column.push({
+            type: 'index',
+            width: 60,
+            align: 'center'
+          })
+        }
+        column.push({
+          title: '当前节日',
+          key: 'holiday',
+          sortable: true
+        });
+        column.push({
+          title: '链接',
+          key:'path',
+          sortable: true,
+          render(row,index){
+            return '<a href="http://api.salesman.cc/upload/'+row.path+'" target="_blank">http://api.salesman.cc/upload/'+row.path+'</a>';
+          }
+        });
+
+        return column;
       }
     },
     mixins: [http]
