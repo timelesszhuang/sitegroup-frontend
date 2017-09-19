@@ -18,9 +18,9 @@
             <p class="time" v-if="todo.color==1" style="color: red">{{todo.startday}}</p>
             <p class="time" v-else>{{todo.startday}}</p>
             <p>&nbsp;</p>
-            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;<span  @click="getTemplateData(index)"><Icon type="paper-airplane"></Icon></span>
+            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;<span
+              @click="getTemplateData(index)"><Icon type="paper-airplane"></Icon></span>
             </p>
-            <!--<p>&nbsp;</p>-->
           </TimelineItem>
         </Timeline>
         </Col>
@@ -133,11 +133,11 @@
         let salesman = "http://admin.salesman.cc/index.htm?templateid" + "=" + editid + "&" + "holiday_id=" + holiday_id;
         window.open(salesman)
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
@@ -193,7 +193,7 @@
             fixed: 'right',
             render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>
-<i-button type="primary" size="small" @click="getPath(${index})">获取</i-button>
+
 `;
             }
           }
@@ -223,10 +223,10 @@
         });
         column.push({
           title: '链接',
-          key:'path',
+          key: 'path',
           sortable: true,
-          render(row,index){
-            return '<a href="http://api.salesman.cc/upload/'+row.path+'" target="_blank">http://api.salesman.cc/upload/'+row.path+'</a>';
+          render(row, index) {
+            return '<a href="http://api.salesman.cc/upload/' + row.path + '" target="_blank">http://api.salesman.cc/upload/' + row.path + '</a>';
           }
         });
 
