@@ -27,17 +27,45 @@
     </h3>
     <textarea id="text" name="editor1"></textarea>
     <div style="margin-top: 10px">
-    <button type="button" id="shengcheng" class="btn btn-lg btn-primary">生成</button>
+      <button type="button" id="shengcheng" class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#myModal">生成</button>
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">生成分享链接</h4>
+          </div>
+          <div  class="modal-body">
+            <a id="a1" target="_blank" href="">点击查看新模板</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <script>
+
+
+    function GetQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
     var cke = CKEDITOR.replace('editor1', {
       fullPage: true,
+      allowedContent:true,
+
     });
     $(function () {
-      var referrer = location.search;
-      var arr = referrer.split("=");
-      var url = "http://api.salesman.cc/admin/HtmlTemplate/" + arr[1];
+      var template_id = GetQueryString("template_id")
+//      var url = "http://api.salesman.cc/admin/HtmlTemplate/" + arr[1];
+      var url = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/" + template_id;
       $.ajax({
         type: "get",
         url: url,
@@ -49,6 +77,7 @@
             alert('文件不存在');
             return;
           }
+//          holiday_id =
           var html = data.data;
           var temptitle = data.title
           $("#ti").text(temptitle)
@@ -58,21 +87,25 @@
 
         }
       })
-      $("#shengcheng").click(function(){
-        var editurl = "http://api.salesman.cc/admin/HtmlTemplate/";
+      $("#shengcheng").click(function () {
+        var editurl = "http://local.sitegroup.com/index.php/admin/HtmlTemplate/";
+
         $.ajax({
           type: "post",
-          url:editurl,
+          url: editurl,
           xhrFields: {
             withCredentials: true
           },
-          data:{
-            id:arr[1],
-            content:cke.getData()
+          data: {
+            id: template_id,
+            content: cke.getData()
           },
           dataType: "json",
           success: function (data) {
-
+//            alert(1)
+            var value = data.data
+            console.log(value)
+            $('#a1').attr('href',value);
           },
           error: function () {
 
@@ -85,6 +118,10 @@
   </script>
 
 </div>
+
+
+
+<!-- Modal -->
 
 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"

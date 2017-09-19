@@ -96,7 +96,8 @@
       },
       edittemplate(index){
         let editid = this.data[index].id
-        let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid;
+        let holiday_id = this.data[index].holiday_id
+        let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid+"&"+"holiday_id="+holiday_id;
         window.open(salesman)
       },
 
