@@ -137,8 +137,6 @@
         this.path = "http://api.salesman.cc/upload/"+path;
         this.$refs.show.modal = true
       },
-
-
       edittemplate(index) {
         let editid = this.data[index].id
         let salesman = "http://admin.salesman.cc/index.htm?template_id" + "=" + editid;
@@ -228,8 +226,8 @@
           })
         }
         column.push({
-          title: '当前节日',
-          key: 'holiday',
+          title: '模板名称',
+          key: 'template_name',
           sortable: true
         });
         column.push({

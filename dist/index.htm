@@ -33,16 +33,16 @@
       <button type="button" id="shengcheng" class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#myModal">生成</button>
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" style="width: 250px;margin: 0 auto" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">生成分享链接</h4>
           </div>
-          <div>
+          <div style="width:100px; margin: 15px auto" >
           <a id="a1" target="_blank" href="">点击查看新模板</a>
           </div>
-          <div  class="modal-body" id="modal-body-id">
+          <div  class="modal-body" style="margin: 0 auto" id="modal-body-id">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -113,7 +113,7 @@
             var input=$("<input id='text1' type='hidden'/>");
             $(input).val(value);
             $("#modal-body-id").append(input)
-            var qrcode=$('<div id="qrcode" style="width:100px; height:100px; margin-top:15px;">');
+            var qrcode=$('<div id="qrcode" style="width:100px; height:100px; margin-top:15px;margin: 0 auto">');
             $("#modal-body-id").append(qrcode)
 
             makeCode2();
