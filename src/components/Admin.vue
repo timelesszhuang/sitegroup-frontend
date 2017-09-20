@@ -96,6 +96,7 @@
     height: 40px;
     width: 84%;
     background-color: #fff;
+    z-index: 1000;
   }
 
 

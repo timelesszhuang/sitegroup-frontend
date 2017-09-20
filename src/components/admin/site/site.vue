@@ -86,63 +86,16 @@
     },
     components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
     created () {
-      this.getCode();
+//      this.getCode();
       this.getData();
-      this.getMenuType((data) => {
-        this.menutype = data
-      });
-      this.getTempType((data) => {
-        this.temptype = data
-      });
-      this.getSiteType((data) => {
-        this.sitetype = data
-      });
-      this.getHotline((data) => {
-        this.hotline = data
-      });
-      this.getDomain((data) => {
-        this.domainlist = data
-      });
-      this.getUserType((data) => {
-        this.userlist = data
-      });
-      this.getKeyword((data) => {
-        this.keyword = data
-      });
-      this.getLink((data) => {
-        this.link = data
-      });
-      this.getMobileSite();
+      this.getCommontype()
+
     },
     methods: {
       init(){
-        this.getCode();
+//        this.getCode();
         this.getData();
-        this.getMenuType((data) => {
-          this.menutype = data
-        });
-        this.getTempType((data) => {
-          this.temptype = data
-        });
-        this.getSiteType((data) => {
-          this.sitetype = data
-        });
-        this.getHotline((data) => {
-          this.hotline = data
-        });
-        this.getDomain((data) => {
-          this.domainlist = data
-        });
-        this.getUserType((data) => {
-          this.userlist = data
-        });
-        this.getKeyword((data) => {
-          this.keyword = data
-        });
-        this.getLink((data) => {
-          this.link = data
-        });
-        this.getMobileSite();
+
       },
       sendActivity(id){
         this.site_id = id
@@ -161,10 +114,19 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getCode() {
-        this.apiGet('code/getAll').then((res) => {
+      getCommontype(){
+        this.apiGet('commontype').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.code = data;
+            this.code = data.code;
+            this.menutype = data.menutype
+            this.temptype = data.temptype
+            this.sitetype = data.sitetype
+            this.hotline = data.hotline
+            this.domainlist = data.domainlist
+            this.userlist = data.userlist
+            this.keyword = data.keyword
+            this.link = data.link
+            this.mobileSite = data.mobileSite;
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -246,105 +208,7 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      getMenuType(func) {
-        this.apiGet('menu/getMenu').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
 
-      getDomain(func) {
-        this.apiGet('domain/getDomain').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getSiteType(func) {
-        this.apiGet('sitetype/getSiteType').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getUserType(func) {
-        this.apiGet('siteuser/getUsers').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-//      获取关键词
-      getKeyword(func) {
-        this.apiGet('keyword').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-
-      getTempType(func) {
-        this.apiGet('template/getTemplate').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getHotline(func) {
-        this.apiGet('contactway/getContactway').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getLink(func) {
-        this.apiGet('links/getLinks').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
       changePage(page){
         this.page = page;
         this.getData();

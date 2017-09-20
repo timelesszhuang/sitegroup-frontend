@@ -22,6 +22,7 @@
     "vue": "2.3.4",
     "vue-echarts-v3": "1.0.4",
     "vue-html5-editor": "1.1.1",
+    "vue-qriously": "^1.1.1",
     "vue-quill-editor": "2.2.2",
     "vue-router": "2.6.0",
     "vue2-highcharts": "1.1.1"

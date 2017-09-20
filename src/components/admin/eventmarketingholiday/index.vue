@@ -2,6 +2,7 @@
   <div>
     <div class="top" style="font-weight: 700;font-size: 17px">
       时间轴:
+
     </div>
     <div style="margin: 10px">
       <div style="float: left">
@@ -44,10 +45,13 @@
         </Col>
       </Row>
     </div>
+    <showcode ref="show" :path="path"></showcode>
   </div>
+
 </template>
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import showcode from './show.vue'
 
   export default {
     data() {
@@ -68,10 +72,11 @@
         datas: [],
         year: '',
         editinfo: {},
-        holidaydata: []
+        holidaydata: [],
+        path:''
       }
     },
-    components: {},
+    components: {showcode},
     created() {
       this.getData();
     },
@@ -127,9 +132,16 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
+      getsharing(index) {
+        let path = this.holidaydata[index].path
+        this.path = "http://api.salesman.cc/upload/"+path;
+        this.$refs.show.modal = true
+      },
+
+
       edittemplate(index) {
         let editid = this.data[index].id
-        let salesman = "http://admin.salesman.cc/index.htm?template_id" + "=" + editid ;
+        let salesman = "http://admin.salesman.cc/index.htm?template_id" + "=" + editid;
         window.open(salesman)
       },
       changePage(page) {
@@ -228,7 +240,20 @@
             return '<a href="http://api.salesman.cc/upload/' + row.path + '" target="_blank">http://api.salesman.cc/upload/' + row.path + '</a>';
           }
         });
+        column.push(
+          {
+            title: '操作',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            fixed: 'right',
+            render(row, column, index) {
+              return `<i-button type="primary" size="small" @click="getsharing(${index})">获取手机分享链接</i-button>
 
+`;
+            }
+          }
+        );
         return column;
       }
     },
