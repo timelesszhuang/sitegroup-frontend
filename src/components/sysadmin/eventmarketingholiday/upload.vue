@@ -41,7 +41,7 @@
               <p>点击或将模板文件拖拽到这里上传</p>
             </div>
           </Upload>
-
+          <Alert type="error">html页面引入js和css等静态文件时,需要加上http://api.salesman.cc/upload/eventMarketingHtml/当前文件夹路径/</Alert>
         </div>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="upload">保存</Button>
