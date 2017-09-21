@@ -20,9 +20,9 @@
           <p>&nbsp;</p>
           <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;
             <span @click="edit(index)"><Icon type="edit" ></Icon></span>
-            &nbsp;&nbsp;
-            <span @click="remove(index)">
-            <Icon type="ios-close-outline"></Icon></span>  &nbsp;&nbsp;
+            <!--&nbsp;&nbsp;-->
+            <!--<span @click="remove(index)">-->
+            <!--<Icon type="ios-close-outline"></Icon></span>  &nbsp;&nbsp;-->
             <span @click="upload(index)"><Icon type="upload" style="font-size:16px"></Icon></span>
           </p>
           <!--<p>&nbsp;</p>-->

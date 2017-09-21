@@ -106,8 +106,7 @@
 
   .ivu-breadcrumb {
     color: #999;
-    font-size: 14px;
-    padding-top: 5%;
+    font-size: 14px;  margin-top:2%;
   }
 
   .layout-hide-text, .layout-text {
@@ -363,7 +362,7 @@
           </Row>
         </div>
         <div class="layout-breadcrumb">
-          <Breadcrumb style="padding-top: 4%;">
+          <Breadcrumb style="padding-top: 4.5%;">
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
