@@ -57,6 +57,8 @@ import Marketingmodel from '../components/admin/marketingmodel/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
 import Casecenter from '../components/admin/case/index.vue';
 import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue';
+import Trackkeyword from '../components/admin/trackkeyword/index.vue';
+import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue';
 
 Vue.use(Router)
 
@@ -131,7 +133,9 @@ export default new Router({
         {path: 'marketingmodel', component: Marketingmodel, name: 'marketingmodel'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
-        {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'}
+        {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'},
+        {path: 'trackkeyword', component: Trackkeyword, name: 'trackkeyword'},
+        {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'}
 
       ]
     }

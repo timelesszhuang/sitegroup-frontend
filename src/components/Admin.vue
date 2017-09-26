@@ -141,10 +141,10 @@
                 关键词管理
               </span>
             </Menu-item>
-            <Menu-item name="关键词推荐">
-              <span class="layout-text" @click="routerChange('/admin/recommendationkeyword','关键词推荐')">
+            <Menu-item name="关键词推荐与追踪">
+              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
                 <Icon type="ios-list-outline"></Icon>
-                关键词推荐
+                关键词推荐与追踪
               </span>
             </Menu-item>
           </Submenu>
