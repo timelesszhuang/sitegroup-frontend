@@ -21,7 +21,7 @@
                 color: ["#20a0ff", "#13CE66", "#F7BA2A", "#FF4949", "#61a0a8", "#BBFFFF", "#FF1493", "#FF34B3", "#FF00FF", '#FFDAB9'],
                 title: {
                     text: '爬虫统计',
-                    left: 'center',
+                  left: "7%",
                     top: 10
                 },
                 tooltip: {
@@ -29,11 +29,11 @@
                 },
                 legend: {
                     bottom: 'bottom',
-                    data: []
+//                    data: []
                 },
                 grid: {
-                    left: '5%',
-                    right: '25%',
+                    left: '10%',
+                    right: '10%',
                     bottom: '20%',
                     containLabel: true
 
@@ -105,12 +105,13 @@
 
 <style scoped>
   .echarts {
-    margin-top: 20px;
     max-width: 32%;
     min-width: 30%;
     height: 400px;
-    padding-bottom: 50px;
-    display:flex;
-    flex: 1;
+    display: block;
+    margin: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0px;
   }
 </style>
