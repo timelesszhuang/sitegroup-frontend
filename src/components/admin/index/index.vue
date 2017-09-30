@@ -64,6 +64,7 @@
       <engine ref="engine" style="height: 315px;background-color:white;display: inline-block"></engine>
       <keyword ref="keyword" style="height: 315px;background-color:white;display: inline-block"></keyword>
     </div>
+
     <div>
       <Row :gutter="60" style="margin: 10px;margin-bottom: -20px">
         <Col span="11" class="eventcss">
@@ -75,7 +76,7 @@
             <div @click="show(index)" class="eventmouse">
               <img style="display:block;margin: 0 auto" :src=formatter_str(item.img) :alt="item.title">
             </div>
-            <div class="eventfont">{{item.title}}</div>
+            <div class="eventfont">{{item.title}}-{{item.create_time}}</div>
           </CarouselItem>
         </Carousel>
         </Col>
@@ -236,8 +237,11 @@
   .eventfont {
     text-align: center;
     font-size: 15px;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    color: red;
+    font-weight: 700;
   }
+
 
   .companycss {
     background-color: white;
