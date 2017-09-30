@@ -1,7 +1,7 @@
 <template>
   <div class="homemain">
     <div>
-      <Row style="background-color: white;margin:15px;margin-top: -10px;margin-right:30px" :gutter="10" type="flex"
+      <Row style="background-color: white;margin:15px;margin-top: -10px;" :gutter="10" type="flex"
            justify="center" class="code-row-bg rowmain">
         <Col span="4">
         <div class="homehead">
@@ -59,7 +59,9 @@
         </Col>
       </Row>
     </div>
-    <div class="centercss" style="box-sizing: border-box">
+    <div class="centercss" style="box-sizing: border-box;display: flex;
+                justify-content: center;
+                align-items: center;">
       <pv ref="pv" style="width:31%;margin-left:20px;margin-right:10px;height: 315px;background-color:white;display: inline-block"></pv>
       <engine ref="engine" style="width:31%;margin-right:10px;height: 315px;background-color:white;display: inline-block"></engine>
       <keyword ref="keyword" style="margin-right:20px;margin-right:10px;width:31%;height: 315px;background-color:white;display: inline-block"></keyword>
