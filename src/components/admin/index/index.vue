@@ -1,7 +1,8 @@
 <template>
   <div class="homemain">
     <div>
-      <Row style="background-color: white;margin:15px;margin-top: -10px;margin-right:30px" :gutter="10" type="flex" justify="center" class="code-row-bg rowmain">
+      <Row style="background-color: white;margin:15px;margin-top: -10px;margin-right:30px" :gutter="10" type="flex"
+           justify="center" class="code-row-bg rowmain">
         <Col span="4">
         <div class="homehead">
           <div style="padding-bottom: 10px">
@@ -74,7 +75,7 @@
             <div @click="show(index)" class="eventmouse">
               <img style="display:block;margin: 0 auto" :src=formatter_str(item.img) :alt="item.title">
             </div>
-            <div class="eventfont" >{{item.title}}</div>
+            <div class="eventfont">{{item.title}}</div>
           </CarouselItem>
         </Carousel>
         </Col>
@@ -83,17 +84,13 @@
           <div style="padding: 6px"><h1>乐销易技术服务中心</h1></div>
           <div style="padding: 6px"><span style="font-size: 15px"><Icon type="paper-airplane"></Icon>&nbsp;&nbsp;北京易至信科技有限公司</span>
           </div>
-
           <div style="padding: 6px"><span style="font-size: 15px"><Icon type="android-call"></Icon>&nbsp;&nbsp;0531-88554123</span>
           </div>
-
           <div style="padding: 6px"><span style="font-size: 15px"><Icon type="ios-telephone-outline"></Icon> &nbsp;&nbsp; 4006360163</span>
           </div>
-
           <div style="padding: 6px"><span style="font-size: 15px"> <Icon type="ios-email-outline"></Icon>&nbsp;&nbsp;  jishu@cio.club</span>
           </div>
         </div>
-
         </Col>
       </Row>
 
@@ -235,10 +232,16 @@
     height: 190px;
     cursor: pointer
   }
-  .eventfont{
-    text-align: center;font-size: 15px;margin-bottom: 10px
+
+  .eventfont {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 10px
   }
-  .companycss{
-    background-color: white;margin:10px;height: 250px
+
+  .companycss {
+    background-color: white;
+    margin: 10px;
+    height: 250px
   }
 </style>
