@@ -109,6 +109,7 @@
     height: 400px;
     display: block;
     margin-left: 15px;
+
     margin-right: 20px;
     margin-top: 0px;
   }

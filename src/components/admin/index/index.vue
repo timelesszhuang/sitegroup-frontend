@@ -64,7 +64,7 @@
       <keyword ref="keyword" style="height: 315px;background-color:white;display: inline-block"></keyword>
     </div>
     <div>
-      <Row :gutter="60" style="margin: 10px">
+      <Row :gutter="60" style="margin: 10px;margin-bottom: -20px">
         <Col span="11" class="eventcss">
         <h2>
           <Icon type="ios-calendar-outline"></Icon>&nbsp;&nbsp;营销模式
