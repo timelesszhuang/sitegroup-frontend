@@ -92,16 +92,3 @@
 </script>
 
 
-<style scoped>
-  .echarts {
-    width: 30.5%;
-    height: 400px;
-    padding-right: 10px;
-    display: block;
-    margin: 20px;
-    margin-left: 15px;
-    margin-right: 25px;
-    margin-top: 0px;
-
-  }
-</style>

@@ -59,10 +59,10 @@
         </Col>
       </Row>
     </div>
-    <div class="centercss">
-      <pv ref="pv" style="height: 315px;background-color:white;display: inline-block"></pv>
-      <engine ref="engine" style="height: 315px;background-color:white;display: inline-block"></engine>
-      <keyword ref="keyword" style="height: 315px;background-color:white;display: inline-block"></keyword>
+    <div class="centercss" style="box-sizing: border-box">
+      <pv ref="pv" style="width:31%;margin-left:20px;margin-right:10px;height: 315px;background-color:white;display: inline-block"></pv>
+      <engine ref="engine" style="width:31%;margin-right:10px;height: 315px;background-color:white;display: inline-block"></engine>
+      <keyword ref="keyword" style="margin-right:20px;margin-right:10px;width:31%;height: 315px;background-color:white;display: inline-block"></keyword>
     </div>
 
     <div>

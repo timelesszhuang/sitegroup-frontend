@@ -96,14 +96,4 @@
   };
 </script>
 
-<style scoped>
-  .echarts {
-    width: 30.5%;
-    height: 400px;
-    display: block;
-    margin: 20px;
-    margin-right:20px;
-    margin-top: 0px;
 
-  }
-</style>
