@@ -105,13 +105,11 @@
 
 <style scoped>
   .echarts {
-    max-width: 32%;
-    min-width: 30%;
+    width: 30.5%;
     height: 400px;
     display: block;
-    margin: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 20px;
     margin-top: 0px;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="homemain">
     <div>
-      <Row :gutter="10" type="flex" justify="center" class="code-row-bg rowmain">
+      <Row style="background-color: white;margin:15px;margin-top: -10px;margin-right:30px" :gutter="10" type="flex" justify="center" class="code-row-bg rowmain">
         <Col span="4">
         <div class="homehead">
           <div style="padding-bottom: 10px">
@@ -12,6 +12,7 @@
           <div class="footborder" style="border:3px solid rgba(255, 223, 37, 1);"></div>
         </div>
         </Col>
+
         <Col span="4">
         <div style="height: 130px;padding: 15px">
           <div style="padding-bottom: 10px">
@@ -194,14 +195,11 @@
   .homemain {
     background-color: #f5f7f9;
     margin-top: -30px;
-    margin: -20px
+    margin: -15px
   }
 
   .rowmain {
-    background-color: white;
-    margin: 20px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+
   }
 
   .homehead {

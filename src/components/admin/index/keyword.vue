@@ -94,13 +94,13 @@
 
 <style scoped>
   .echarts {
-    max-width: 32%;
-    min-width: 30%;
+    width: 30.5%;
     height: 400px;
     padding-right: 10px;
     display: block;
     margin: 20px;
-    margin-left: 10px;
+    margin-left: 15px;
+    margin-right: 25px;
     margin-top: 0px;
 
   }
