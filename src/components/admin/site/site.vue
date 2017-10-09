@@ -19,7 +19,7 @@
           <div class="siteborder">
             <div class="sitewidth" :style=choose_bgimg(index)>
               <div class="siteclass">
-                <p>{{item.site_name}}</p>
+                <p :title=formatter_title(item)>{{item.site_name}}</p>
                 <p><a :href="item.url" target="_blank">{{item.url}}</a></p>
               </div>
             </div>
@@ -122,6 +122,9 @@
       this.getCommontype()
     },
     methods: {
+      formatter_title(str) {
+        return str.id+str.site_name+str.site_type_name
+      },
       choose_bgimg(index) {
         index = index % this.backgroundcolor.length
         return this.backgroundcolor[index]
