@@ -4,7 +4,7 @@
       站点管理:
       <Input v-model="site_name" placeholder="站点名字" style="width:200px;"></Input>
       <Input v-model="url" placeholder="url" style="width:200px;"></Input>
-      <Select v-model="site_type_id" style="width:200px;" placeholder="根据站点分类查询"label-in-value filterable clearable>
+      <Select v-model="site_type_id" style="width:200px;" placeholder="根据站点分类查询" label-in-value filterable clearable>
         <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
@@ -13,6 +13,62 @@
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
+      <div style="width: 90%;margin: 0px auto">
+        <Row>
+          <Col span="6">
+          <div
+            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%);">
+            <div
+              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
+              <p>山东企业邮箱网</p>
+              <p>http://hi-link.net</p>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div style="width:100%;max-width:281px;border: 2px solid #e9eaec;">
+            <div
+              style="height:203px;background-image: linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%);">
+              <div
+                style="text-align: center;width: 100%;color:#ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
+                <p>山东企业邮箱网</p>
+                <p>http://hi-link.net</p>
+              </div>
+            </div>
+            <div style="padding: 5px;text-align: center;">
+              <ButtonGroup>
+                <Button size="small" type="primary">修改</Button>
+                <Button size="small" type="info">静态化</Button>
+                <Button size="small" type="warning">发送模板</Button>
+                <Button size="small" type="success">其他操作</Button>
+              </ButtonGroup>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div
+            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(255, 0, 71) 0%, rgb(44, 52, 199) 100%);">
+            <div
+              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
+              <p>山东企业邮箱网</p>
+              <p>http://hi-link.net</p>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div
+            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(102, 244, 133) 0%, rgb(23, 172, 255) 100%);">
+            <div
+              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
+              <p>山东企业邮箱网</p>
+              <p>http://hi-link.net</p>
+            </div>
+          </div>
+          </Col>
+        </Row>
+      </div>
+      <br>
+
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
@@ -20,7 +76,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator >
+                show-elevator>
           </Page>
         </div>
       </div>
@@ -47,8 +103,9 @@
   import cdnsave from './cdn.vue';
   import win from './window.vue';
   import Activity from './activity.vue';
+
   export default {
-    data () {
+    data() {
       return {
         modal_loading: false,
         self: this,
@@ -80,24 +137,24 @@
         genarate_id: 0,
         site_id: 0,
         activity_data: [],
-        site_type_id:'',
-        url:''
+        site_type_id: '',
+        url: ''
       }
     },
     components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
-    created () {
+    created() {
 //      this.getCode();
       this.getData();
       this.getCommontype()
 
     },
     methods: {
-      init(){
+      init() {
 //        this.getCode();
         this.getData();
 
       },
-      sendActivity(id){
+      sendActivity(id) {
         this.site_id = id
         this.getActivity(id)
       },
@@ -114,7 +171,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getCommontype(){
+      getCommontype() {
         this.apiGet('commontype').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.code = data.code;
@@ -143,7 +200,7 @@
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
-            _this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
+            _this.apiGet('Site/ignoreFrontend/1' + "/" + index + "/template").then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -161,7 +218,7 @@
           }
         })
       },
-      removeCache(index){
+      removeCache(index) {
         let linkid = this.datas[index].id
         this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -193,8 +250,8 @@
             page: this.page,
             rows: this.rows,
             site_name: this.site_name,
-            site_type_id:this.site_type_id,
-            url:this.url
+            site_type_id: this.site_type_id,
+            url: this.url
           }
         }
         this.apiGet('Site', data).then((data) => {
@@ -209,21 +266,21 @@
         })
       },
 
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('site/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -266,7 +323,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      changeStatus(index, main_site){
+      changeStatus(index, main_site) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -330,20 +387,19 @@
         this.ftp_info.ftp_pwd = this.datas[index].ftp_pwd
         this.$refs.ftpsave.modal = true
       },
-      changeCdn(index){
+      changeCdn(index) {
         this.ftp_id = this.datas[index].id;
         this.cdn_info.cdn_type = this.datas[index].cdn_type
         this.cdn_info.cdn_ip = this.datas[index].cdn_ip
         this.$refs.cdnsave.modal = true
       },
-      generateStatic(index){
+      generateStatic(index) {
         this.genarate_id = index;
         this.$refs.windows.modal2 = true
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -370,27 +426,27 @@
         });
         columns.push({
           title: 'url',
-          key:'url',
+          key: 'url',
           sortable: true,
-          render(row,index){
-              return '<a href="'+row.url+'" target="_blank">'+row.url+'</a>';
+          render(row, index) {
+            return '<a href="' + row.url + '" target="_blank">' + row.url + '</a>';
           }
         });
-          columns.push({
-            title: '模板状态',
-            align: 'center',
-            render(row,index){
-                if(row.template_status==10){
-                  var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-                return type;
-                }else{
-                  var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-                  return type;
-                }
+        columns.push({
+          title: '模板状态',
+          align: 'center',
+          render(row, index) {
+            if (row.template_status == 10) {
+              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
+              return type;
+            } else {
+              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
+              return type;
+            }
 
-            },
-            sortable: true
-          });
+          },
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
@@ -398,7 +454,7 @@
             width: 580,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
               if (row.main_site == '20') {
                 //20 表示禁用 按钮应该为启用
