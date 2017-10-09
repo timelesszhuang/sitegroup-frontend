@@ -15,53 +15,27 @@
     <div class="content" style="margin-top:10px;">
       <div style="width: 90%;margin: 0px auto">
         <Row>
-          <Col span="6">
-          <div
-            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%);">
-            <div
-              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
-              <p>山东企业邮箱网</p>
-              <p>http://hi-link.net</p>
-            </div>
-          </div>
-          </Col>
-          <Col span="6">
-          <div style="width:100%;max-width:281px;border: 2px solid #e9eaec;">
-            <div
-              style="height:203px;background-image: linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%);">
-              <div
-                style="text-align: center;width: 100%;color:#ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
-                <p>山东企业邮箱网</p>
-                <p>http://hi-link.net</p>
+          <Col span="6" v-for="(item,index) in datas" :key="index">
+          <div class="siteborder">
+            <div class="sitewidth"
+                 :style=formatter_str(index)
+            >
+              <!--<img src="" alt="">-->
+
+              <!--style=";"-->
+              <div class="siteclass"
+              >
+                <p>{{item.site_name}}</p>
+                <p><a :href="item.url" target="_blank">{{item.url}}</a></p>
               </div>
             </div>
-            <div style="padding: 5px;text-align: center;">
+            <div class="sitebottom">
               <ButtonGroup>
-                <Button size="small" type="primary">修改</Button>
-                <Button size="small" type="info">静态化</Button>
-                <Button size="small" type="warning">发送模板</Button>
+                <Button size="small"  @click="edit(index)" type="primary">修改</Button>
+                <Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>
+                <Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>
                 <Button size="small" type="success">其他操作</Button>
               </ButtonGroup>
-            </div>
-          </div>
-          </Col>
-          <Col span="6">
-          <div
-            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(255, 0, 71) 0%, rgb(44, 52, 199) 100%);">
-            <div
-              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
-              <p>山东企业邮箱网</p>
-              <p>http://hi-link.net</p>
-            </div>
-          </div>
-          </Col>
-          <Col span="6">
-          <div
-            style="width:100%;max-width:281px;height: 203px;background-image: linear-gradient(45deg, rgb(102, 244, 133) 0%, rgb(23, 172, 255) 100%);">
-            <div
-              style="text-align: center;width: 100%;color: #ffffff;font-size:20px;font-weight: bold;padding-top: 60px">
-              <p>山东企业邮箱网</p>
-              <p>http://hi-link.net</p>
             </div>
           </div>
           </Col>
@@ -138,7 +112,12 @@
         site_id: 0,
         activity_data: [],
         site_type_id: '',
-        url: ''
+        url: '',
+        backgroundclass:[
+            "linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
+            "linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%)",
+            "url(../../../../src/assets/sitebackimg/blue.jpg) repeat right center;"
+        ]
       }
     },
     components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
@@ -149,6 +128,9 @@
 
     },
     methods: {
+      formatter_str(index) {
+        return "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)";
+      },
       init() {
 //        this.getCode();
         this.getData();
@@ -470,3 +452,27 @@
     mixins: [http]
   }
 </script>
+<style>
+  .siteborder {
+    width: 100%;
+    max-width: 281px;
+    border: 2px solid #e9eaec;
+  }
+
+  .siteclass {
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 60px
+  }
+
+  .sitebottom {
+    padding: 5px;
+    text-align: center;
+  }
+  .sitewidth{
+    height:203px;
+  }
+</style>
