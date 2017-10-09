@@ -17,21 +17,15 @@
         <Row>
           <Col span="6" v-for="(item,index) in datas" :key="index">
           <div class="siteborder">
-            <div class="sitewidth"
-                 :style=formatter_str(index)
-            >
-              <!--<img src="" alt="">-->
-
-              <!--style=";"-->
-              <div class="siteclass"
-              >
+            <div class="sitewidth" :style=choose_bgimg(index)>
+              <div class="siteclass">
                 <p>{{item.site_name}}</p>
                 <p><a :href="item.url" target="_blank">{{item.url}}</a></p>
               </div>
             </div>
             <div class="sitebottom">
               <ButtonGroup>
-                <Button size="small"  @click="edit(index)" type="primary">修改</Button>
+                <Button size="small" @click="edit(index)" type="primary">修改</Button>
                 <Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>
                 <Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>
                 <Button size="small" @click="other(item)" type="success">其他操作</Button>
@@ -42,18 +36,6 @@
         </Row>
       </div>
       <br>
-
-      <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
-      </Table>
-      <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-                show-total
-                show-elevator>
-          </Page>
-        </div>
-      </div>
     </div>
     <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
@@ -65,7 +47,7 @@
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
     <win ref="windows" :genaraterId="genarate_id"></win>
-    <other ref="other" :otherArr="others" ></other>
+    <other ref="other" :otherArr="others"></other>
     <Activity ref="activity" :datas="activity_data" :sid="site_id"></Activity>
   </div>
 </template>
@@ -111,33 +93,41 @@
         mobileSite: [],
         code: [],
         genarate_id: 0,
-        others:{},
+        others: {},
         site_id: 0,
         activity_data: [],
         site_type_id: '',
         url: '',
-        backgroundclass:[
-            "linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
-            "linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%)",
-            "url(../../../../src/assets/sitebackimg/blue.jpg) repeat right center;"
+        backgroundcolor: [
+          "background-image:url(static/sitebackimg/flower.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
+          "background-image:url(static/sitebackimg/blue.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #FFFF00 0%, #DAA520 100%)",
+          "background-image:url(static/sitebackimg/sky.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #DCDCDC 0%, #696969 100%)",
+          "background-image:url(static/sitebackimg/hand.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%)",
+          "background-image:linear-gradient(45deg, #B0E0E6 0%, #40E0D0 100%)",
+          "background-image:url(static/sitebackimg/cute.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(255, 0, 71) 0%, rgb(44, 52, 199) 100%)",
+          "background-image:linear-gradient(45deg, rgb(102, 244, 133) 0%, rgb(23, 172, 255) 100%)",
+          "background-image:url(static/sitebackimg/red.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #98F898 0%, #7FFF00 100%)",
         ]
       }
     },
-    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity,other},
+    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity, other},
     created() {
-//      this.getCode();
       this.getData();
       this.getCommontype()
-
     },
     methods: {
-      formatter_str(index) {
-        return "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)";
+      choose_bgimg(index) {
+        index = index % this.backgroundcolor.length
+        return this.backgroundcolor[index]
       },
       init() {
-//        this.getCode();
         this.getData();
-
       },
       sendActivity(id) {
         this.site_id = id
@@ -367,7 +357,7 @@
       },
       ftpInfo(index) {
         this.ftp_id = index.id;
-        this.ftp_info.ftp_place =index.ftp_place
+        this.ftp_info.ftp_place = index.ftp_place
         this.ftp_info.ftp_host = index.ftp_host
         this.ftp_info.ftp_user = index.ftp_user
         this.ftp_info.ftp_pwd = index.ftp_pwd
@@ -385,79 +375,12 @@
         this.genarate_id = index;
         this.$refs.windows.modal2 = true
       },
-      other(index){
+      other(index) {
         this.others = index
         this.$refs.other.modal2 = true
       }
     },
     computed: {
-      tableColumns() {
-        let columns = [];
-        if (this.showCheckbox) {
-          columns.push({
-            type: 'selection',
-            width: 60,
-            align: 'center'
-          })
-        }
-        columns.push({
-          title: '站点id',
-          key: 'id',
-          sortable: true
-        });
-
-        columns.push({
-          title: '名称',
-          key: 'site_name',
-          sortable: true
-        });
-        columns.push({
-          title: '网站分类',
-          key: 'site_type_name',
-          sortable: true
-        });
-        columns.push({
-          title: 'url',
-          key: 'url',
-          sortable: true,
-          render(row, index) {
-            return '<a href="' + row.url + '" target="_blank">' + row.url + '</a>';
-          }
-        });
-        columns.push({
-          title: '模板状态',
-          align: 'center',
-          render(row, index) {
-            if (row.template_status == 10) {
-              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-              return type;
-            } else {
-              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-              return type;
-            }
-
-          },
-          sortable: true
-        });
-        columns.push(
-          {
-            title: '操作',
-            key: 'action',
-            width: 580,
-            align: 'center',
-            fixed: 'right',
-            render(row, column, index) {
-              var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
-              if (row.main_site == '20') {
-                //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
-              }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="info" size="small" @click="sendActivity(${row.id})">发送主题模板</i-button> &nbsp;<i-button type="warning" @click="removeCache(${index})"size="small">清除缓存</i-button>&nbsp;` + btn + `&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
-            }
-          }
-        );
-        return columns;
-      }
     },
     mixins: [http]
   }
@@ -466,7 +389,9 @@
   .siteborder {
     width: 100%;
     max-width: 281px;
-    border: 2px solid #e9eaec;
+    border: 2px solid #07d0d3;
+    margin: 5px;
+    padding: 3px;
   }
 
   .siteclass {
@@ -478,11 +403,16 @@
     padding-top: 60px
   }
 
+  .siteclass a {
+    color: #ffffff;
+  }
+
   .sitebottom {
     padding: 5px;
     text-align: center;
   }
-  .sitewidth{
-    height:203px;
+
+  .sitewidth {
+    height: 203px;
   }
 </style>
