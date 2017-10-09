@@ -34,7 +34,7 @@
                 <Button size="small"  @click="edit(index)" type="primary">修改</Button>
                 <Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>
                 <Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>
-                <Button size="small" type="success">其他操作</Button>
+                <Button size="small" @click="other(item)" type="success">其他操作</Button>
               </ButtonGroup>
             </div>
           </div>
@@ -65,6 +65,7 @@
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
     <win ref="windows" :genaraterId="genarate_id"></win>
+    <other ref="other" :otherArr="others" ></other>
     <Activity ref="activity" :datas="activity_data" :sid="site_id"></Activity>
   </div>
 </template>
@@ -76,6 +77,7 @@
   import ftpsave from './ftp.vue';
   import cdnsave from './cdn.vue';
   import win from './window.vue';
+  import other from './other.vue';
   import Activity from './activity.vue';
 
   export default {
@@ -109,6 +111,7 @@
         mobileSite: [],
         code: [],
         genarate_id: 0,
+        others:{},
         site_id: 0,
         activity_data: [],
         site_type_id: '',
@@ -120,7 +123,7 @@
         ]
       }
     },
-    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
+    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity,other},
     created() {
 //      this.getCode();
       this.getData();
@@ -201,7 +204,7 @@
         })
       },
       removeCache(index) {
-        let linkid = this.datas[index].id
+        let linkid = index.id
         this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.getData()
@@ -300,6 +303,7 @@
           }, (data, msg) => {
             this.$Message.error(msg);
           })
+
         }, (res) => {
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
@@ -307,7 +311,7 @@
       },
       changeStatus(index, main_site) {
         //需要删除确认
-        let id = this.datas[index].id
+        let id = index.id
         let _this = this
         let data = {
           'main_site': main_site,
@@ -362,22 +366,28 @@
         }
       },
       ftpInfo(index) {
-        this.ftp_id = this.datas[index].id;
-        this.ftp_info.ftp_place = this.datas[index].ftp_place
-        this.ftp_info.ftp_host = this.datas[index].ftp_host
-        this.ftp_info.ftp_user = this.datas[index].ftp_user
-        this.ftp_info.ftp_pwd = this.datas[index].ftp_pwd
+        this.ftp_id = index.id;
+        this.ftp_info.ftp_place =index.ftp_place
+        this.ftp_info.ftp_host = index.ftp_host
+        this.ftp_info.ftp_user = index.ftp_user
+        this.ftp_info.ftp_pwd = index.ftp_pwd
         this.$refs.ftpsave.modal = true
+        this.$refs.other.modal2 = false
       },
       changeCdn(index) {
-        this.ftp_id = this.datas[index].id;
-        this.cdn_info.cdn_type = this.datas[index].cdn_type
-        this.cdn_info.cdn_ip = this.datas[index].cdn_ip
+        this.ftp_id = index.id;
+        this.cdn_info.cdn_type = index.cdn_type
+        this.cdn_info.cdn_ip = index.cdn_ip
         this.$refs.cdnsave.modal = true
+        this.$refs.other.modal2 = false
       },
       generateStatic(index) {
         this.genarate_id = index;
         this.$refs.windows.modal2 = true
+      },
+      other(index){
+        this.others = index
+        this.$refs.other.modal2 = true
       }
     },
     computed: {
