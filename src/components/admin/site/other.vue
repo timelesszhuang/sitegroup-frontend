@@ -10,7 +10,6 @@
       <Button type="info" @click="changeCdn">cdn信息</Button>
       <Button type="warning" @click="ftpInfo">FTP信息</Button>
       <Button type="error"@click="sendActivity">发送主题模板</Button>
-      <Button type="success" @click="removeCache">清除缓存</Button>
     </div>
     <div slot="footer">
     </div>
@@ -27,15 +26,9 @@
       }
     },
     methods: {
-
-      removeCache() {
-        let id = this.otherArr;
-        this.$parent.removeCache(id)
-      },
       changeCdn() {
         let id = this.otherArr;
         this.$parent.changeCdn(id)
-
       },
       ftpInfo() {
         let id = this.otherArr;
@@ -49,7 +42,6 @@
       changeStatus(main_site){
         let id = this.otherArr;
         this.$parent.changeStatus(id,main_site)
-
       }
     },
     props: {
