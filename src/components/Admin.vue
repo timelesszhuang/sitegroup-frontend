@@ -99,7 +99,6 @@
     z-index: 1000;
   }
 
-
   .layout-content-main {
     height: 100%;
   }
@@ -238,7 +237,6 @@
               </span>
             </Menu-item>
           </Submenu>
-
           <Submenu name="5">
             <template slot="title">
               <span class="parent-menu-title">
@@ -318,46 +316,62 @@
             </Menu-item>
           </Submenu>
         </Menu>
+        <div style="position:fixed;bottom:10px;padding: 20px;color: #ffffff;font-size: 13px">
+          <Row style="margin-top: 5px">
+            <Col span="24">
+            <span class="layout-text" @click="changePwd()" style="cursor:pointer">
+              <Icon type="android-lock"></Icon>
+              &nbsp;&nbsp;重置密码
+            </span>
+            </Col>
+          </Row>
+          <Row style="margin-top: 5px">
+            <Col span="24">
+            <span class="layout-text" @click="ruanwenClick" style="cursor:pointer">
+              <Icon type="cash"></Icon>
+              续费/充值
+            </span>
+            </Col>
+          </Row>
+        </div>
       </i-col>
       <i-col :span="spanRight" style="overflow-y:scroll;padding-bottom:50px">
         <div class="layout-header">
           <Row type="flex" justify="space-around" align="middle" class="code-row-bg">
-            <Col span="2" align="right" style="cursor: pointer">
+            <Col span="2" style="cursor: pointer;padding-left: 10px">
             <span class="layout-text" @click="routerChange('/admin/index')">
                 <Icon type="home" style="font-size: 15px"></Icon>
                 首页
             </span>
             </Col>
-            <Col span="6" align="right" offset="8" style="cursor: pointer">
+            <Col span="3" style="cursor: pointer">
             <span class="layout-text" style="font-weight: bolder;">
                 {{siteTitle}}
             </span>
             </Col>
-            <Col span="0.5"  align="center">
-            <Badge :count="systemcount">
-              <span @click="routerChange('/admin/systemp','推送消息')" title="系统推送消息" style="cursor:pointer;">
-                <Icon type="ios-email-outline" size="26"></Icon>
-              </span>
-            </Badge>
-            </Col>
-            <Col span="1" align="right">
-            <Badge :count="count">
-              <span @click="routerChange('/admin/messageLog','消息')" title="错误信息" style="cursor:pointer;">
+            <Col span="19" align="right" style="cursor: pointer;padding-right: 80px">
+            <div>
+              <div style="display: inline-block;padding: 0px 20px">
+                <Badge :count="systemcount">
+                  <span @click="routerChange('/admin/systemp','推送消息')" title="系统推送消息" style="cursor:pointer;">
+                    <Icon type="ios-email-outline" size="26"></Icon>
+                  </span>
+                </Badge>
+              </div>
+              <div style="display: inline-block;padding: 0px 20px">
+                <Badge :count="count">
+                <span @click="routerChange('/admin/messageLog','消息')" title="错误信息" style="cursor:pointer;">
                 <Icon type="ios-bell-outline" size="26"></Icon>
-              </span>
-            </Badge>
-            </Col>
-            <Col span="2" align="center" style="cursor: pointer">
-            <span class="layout-text" @click="changePwd()">
-              <Icon type="android-lock"></Icon>
-              重置密码
-            </span>
-            </Col>
-            <Col span="2" style="cursor: pointer">
-            <span class="layout-text" @click="logOut()">
-              <Icon type="log-out"></Icon>
-              退出系统
-            </span>
+                </span>
+                </Badge>
+              </div>
+              <div style="display: inline-block;padding: 0px 20px">
+                <span class="layout-text" @click="logOut()">
+                <Icon type="log-out"></Icon>
+                退出系统
+                </span>
+              </div>
+            </div>
             </Col>
           </Row>
         </div>
@@ -477,7 +491,7 @@
         return
       }
       this.sysname = Lockr.get('userInfo').node_name;
-      this.siteTitle =document.title = this.sysname
+      this.siteTitle = document.title = this.sysname
       let rememberKey = Lockr.get('rememberKey')
       let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');
