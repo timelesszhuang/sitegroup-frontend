@@ -263,7 +263,6 @@
                 站点管理
               </span>
             </Menu-item>
-
             <Menu-item name="模板管理">
               <span class="layout-text" @click="routerChange('/admin/templatemanage','模板管理')">
                 <Icon type="ios-browsers"></Icon>
@@ -345,7 +344,7 @@
             </span>
             </Col>
             <Col span="3" style="cursor: pointer">
-            <span class="layout-text" style="font-weight: bolder;">
+            <span class="layout-text" style="font-weight: bolder;" @click="routerChange('/admin/sitemanage','站点管理')">
                 {{siteTitle}}
             </span>
             </Col>
