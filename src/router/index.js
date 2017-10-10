@@ -61,6 +61,7 @@ import Casecenter from '../components/admin/case/index.vue';
 import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue';
 import Trackkeyword from '../components/admin/trackkeyword/index.vue';
 import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue';
+import Advertorial from '../components/admin/advertorial/index.vue';
 
 Vue.use(Router)
 
@@ -139,7 +140,8 @@ export default new Router({
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
         {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'},
         {path: 'trackkeyword', component: Trackkeyword, name: 'trackkeyword'},
-        {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'}
+        {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'},
+        {path: 'advertorial', component: Advertorial, name: 'advertorial'}
 
       ]
     }
