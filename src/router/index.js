@@ -15,6 +15,8 @@ import Marketmodel from '../components/sysadmin/marketmodel/index.vue'
 import Systempush from '../components/sysadmin/systempush/index.vue'
 import Case from '../components/sysadmin/case/index.vue'
 import Eventmarketingholiday from '../components/sysadmin/eventmarketingholiday/index.vue'
+import Mediatype from '../components/sysadmin/mediatype/index.vue'
+import Advertorialmanage from '../components/sysadmin/advertorial/tab.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -86,7 +88,9 @@ export default new Router({
         {path: 'marketmodel', component: Marketmodel, name: 'marketmodel'},
         {path: 'systempush', component: Systempush, name: 'systempush'},
         {path: 'case', component: Case, name: 'case'},
-        {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'}
+        {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'},
+        {path: 'mediatype', component: Mediatype, name: 'mediatype'},
+        {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'}
       ]
     },
     {
