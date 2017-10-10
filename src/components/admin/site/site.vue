@@ -4,7 +4,7 @@
       站点管理:
       <Input v-model="site_name" placeholder="站点名字" style="width:200px;"></Input>
       <Input v-model="url" placeholder="url" style="width:200px;"></Input>
-      <Select v-model="site_type_id" style="width:200px;" placeholder="根据站点分类查询"label-in-value filterable clearable>
+      <Select v-model="site_type_id" style="width:200px;" placeholder="根据站点分类查询" label-in-value filterable clearable>
         <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
@@ -13,17 +13,29 @@
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
-      <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
-      </Table>
-      <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-                show-total
-                show-elevator >
-          </Page>
-        </div>
+      <div style="width: 90%;margin: 0px auto">
+        <Row>
+          <Col span="6" v-for="(item,index) in datas" :key="index">
+          <div class="siteborder">
+            <div class="sitewidth" :style=choose_bgimg(index)>
+              <div class="siteclass">
+                <p :title=formatter_title(item)>{{item.site_name}}</p>
+                <p><a :href="item.url" target="_blank">{{item.url}}</a></p>
+              </div>
+            </div>
+            <div class="sitebottom">
+              <ButtonGroup>
+                <Button size="small" @click="edit(index)" type="primary">修改</Button>
+                <Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>
+                <Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>
+                <Button size="small" @click="other(item)" type="success">其他操作</Button>
+              </ButtonGroup>
+            </div>
+          </div>
+          </Col>
+        </Row>
       </div>
+      <br>
     </div>
     <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
@@ -35,6 +47,7 @@
     <ftpsave ref="ftpsave" :ftp_id="ftp_id" :form="ftp_info"></ftpsave>
     <cdnsave ref="cdnsave" :cdn_id="ftp_id" :form="cdn_info"></cdnsave>
     <win ref="windows" :genaraterId="genarate_id"></win>
+    <other ref="other" :otherArr="others"></other>
     <Activity ref="activity" :datas="activity_data" :sid="site_id"></Activity>
   </div>
 </template>
@@ -46,9 +59,11 @@
   import ftpsave from './ftp.vue';
   import cdnsave from './cdn.vue';
   import win from './window.vue';
+  import other from './other.vue';
   import Activity from './activity.vue';
+
   export default {
-    data () {
+    data() {
       return {
         modal_loading: false,
         self: this,
@@ -78,73 +93,46 @@
         mobileSite: [],
         code: [],
         genarate_id: 0,
+        others: {},
         site_id: 0,
         activity_data: [],
-        site_type_id:'',
-        url:''
+        site_type_id: '',
+        url: '',
+        backgroundcolor: [
+          "background-image:url(static/sitebackimg/flower.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
+          "background-image:url(static/sitebackimg/blue.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #FFFF00 0%, #DAA520 100%)",
+          "background-image:url(static/sitebackimg/sky.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #DCDCDC 0%, #696969 100%)",
+          "background-image:url(static/sitebackimg/hand.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%)",
+          "background-image:linear-gradient(45deg, #B0E0E6 0%, #40E0D0 100%)",
+          "background-image:url(static/sitebackimg/cute.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(255, 0, 71) 0%, rgb(44, 52, 199) 100%)",
+          "background-image:linear-gradient(45deg, rgb(102, 244, 133) 0%, rgb(23, 172, 255) 100%)",
+          "background-image:url(static/sitebackimg/red.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #98F898 0%, #7FFF00 100%)",
+        ]
       }
     },
-    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity},
-    created () {
-      this.getCode();
+    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity, other},
+    created() {
       this.getData();
-      this.getMenuType((data) => {
-        this.menutype = data
-      });
-      this.getTempType((data) => {
-        this.temptype = data
-      });
-      this.getSiteType((data) => {
-        this.sitetype = data
-      });
-      this.getHotline((data) => {
-        this.hotline = data
-      });
-      this.getDomain((data) => {
-        this.domainlist = data
-      });
-      this.getUserType((data) => {
-        this.userlist = data
-      });
-      this.getKeyword((data) => {
-        this.keyword = data
-      });
-      this.getLink((data) => {
-        this.link = data
-      });
-      this.getMobileSite();
+      this.getCommontype()
     },
     methods: {
-      init(){
-        this.getCode();
-        this.getData();
-        this.getMenuType((data) => {
-          this.menutype = data
-        });
-        this.getTempType((data) => {
-          this.temptype = data
-        });
-        this.getSiteType((data) => {
-          this.sitetype = data
-        });
-        this.getHotline((data) => {
-          this.hotline = data
-        });
-        this.getDomain((data) => {
-          this.domainlist = data
-        });
-        this.getUserType((data) => {
-          this.userlist = data
-        });
-        this.getKeyword((data) => {
-          this.keyword = data
-        });
-        this.getLink((data) => {
-          this.link = data
-        });
-        this.getMobileSite();
+      formatter_title(str) {
+        return str.id+str.site_name+str.site_type_name
       },
-      sendActivity(id){
+      choose_bgimg(index) {
+        index = index % this.backgroundcolor.length
+        return this.backgroundcolor[index]
+      },
+      init() {
+        this.getData();
+      },
+      sendActivity(id) {
         this.site_id = id
         this.getActivity(id)
       },
@@ -161,10 +149,19 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getCode() {
-        this.apiGet('code/getAll').then((res) => {
+      getCommontype() {
+        this.apiGet('commontype').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.code = data;
+            this.code = data.code;
+            this.menutype = data.menutype
+            this.temptype = data.temptype
+            this.sitetype = data.sitetype
+            this.hotline = data.hotline
+            this.domainlist = data.domainlist
+            this.userlist = data.userlist
+            this.keyword = data.keyword
+            this.link = data.link
+            this.mobileSite = data.mobileSite;
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -181,7 +178,7 @@
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
-            _this.apiGet('Site/ignoreFrontend/1' +"/"+ index+"/template").then((res) => {
+            _this.apiGet('Site/ignoreFrontend/1' + "/" + index + "/template").then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -197,6 +194,20 @@
           onCancel: () => {
             return false
           }
+        })
+      },
+      removeCache(index) {
+        let linkid = index.id
+        this.apiGet('Site/siteGetCurl/' + linkid + "/clearCache").then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.getData()
+            this.$Message.success(msg);
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
         })
       },
       getMobileSite() {
@@ -217,8 +228,8 @@
             page: this.page,
             rows: this.rows,
             site_name: this.site_name,
-            site_type_id:this.site_type_id,
-            url:this.url
+            site_type_id: this.site_type_id,
+            url: this.url
           }
         }
         this.apiGet('Site', data).then((data) => {
@@ -232,120 +243,22 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      getMenuType(func) {
-        this.apiGet('menu/getMenu').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
 
-      getDomain(func) {
-        this.apiGet('domain/getDomain').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getSiteType(func) {
-        this.apiGet('sitetype/getSiteType').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getUserType(func) {
-        this.apiGet('siteuser/getUsers').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-//      获取关键词
-      getKeyword(func) {
-        this.apiGet('keyword').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-
-      getTempType(func) {
-        this.apiGet('template/getTemplate').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getHotline(func) {
-        this.apiGet('contactway/getContactway').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      getLink(func) {
-        this.apiGet('links/getLinks').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
-      },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('site/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -383,14 +296,15 @@
           }, (data, msg) => {
             this.$Message.error(msg);
           })
+
         }, (res) => {
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      changeStatus(index, main_site){
+      changeStatus(index, main_site) {
         //需要删除确认
-        let id = this.datas[index].id
+        let id = index.id
         let _this = this
         let data = {
           'main_site': main_site,
@@ -445,94 +359,63 @@
         }
       },
       ftpInfo(index) {
-        this.ftp_id = this.datas[index].id;
-        this.ftp_info.ftp_place = this.datas[index].ftp_place
-        this.ftp_info.ftp_host = this.datas[index].ftp_host
-        this.ftp_info.ftp_user = this.datas[index].ftp_user
-        this.ftp_info.ftp_pwd = this.datas[index].ftp_pwd
+        this.ftp_id = index.id;
+        this.ftp_info.ftp_place = index.ftp_place
+        this.ftp_info.ftp_host = index.ftp_host
+        this.ftp_info.ftp_user = index.ftp_user
+        this.ftp_info.ftp_pwd = index.ftp_pwd
         this.$refs.ftpsave.modal = true
+        this.$refs.other.modal2 = false
       },
-      changeCdn(index){
-        this.ftp_id = this.datas[index].id;
-        this.cdn_info.cdn_type = this.datas[index].cdn_type
-        this.cdn_info.cdn_ip = this.datas[index].cdn_ip
+      changeCdn(index) {
+        this.ftp_id = index.id;
+        this.cdn_info.cdn_type = index.cdn_type
+        this.cdn_info.cdn_ip = index.cdn_ip
         this.$refs.cdnsave.modal = true
+        this.$refs.other.modal2 = false
       },
-      generateStatic(index){
+      generateStatic(index) {
         this.genarate_id = index;
         this.$refs.windows.modal2 = true
+      },
+      other(index) {
+        this.others = index
+        this.$refs.other.modal2 = true
       }
     },
     computed: {
-      tableColumns()
-      {
-        let columns = [];
-        if (this.showCheckbox) {
-          columns.push({
-            type: 'selection',
-            width: 60,
-            align: 'center'
-          })
-        }
-        columns.push({
-          title: '站点id',
-          key: 'id',
-          sortable: true
-        });
-
-        columns.push({
-          title: '名称',
-          key: 'site_name',
-          sortable: true
-        });
-        columns.push({
-          title: '网站分类',
-          key: 'site_type_name',
-          sortable: true
-        });
-        columns.push({
-          title: 'url',
-          key:'url',
-          sortable: true,
-          render(row,index){
-              return '<a href="'+row.url+'" target="_blank">'+row.url+'</a>';
-          }
-        });
-          columns.push({
-            title: '模板状态',
-            align: 'center',
-            render(row,index){
-                if(row.template_status==10){
-                  var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-                return type;
-                }else{
-                  var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-                  return type;
-                }
-
-            },
-            sortable: true
-          });
-        columns.push(
-          {
-            title: '操作',
-            key: 'action',
-            width: 580,
-            align: 'center',
-            fixed: 'right',
-            render (row, column, index) {
-              var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">设为主站</i-button>`;
-              if (row.main_site == '20') {
-                //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">取消主站</i-button>`;
-              }
-              return `<i-button type="info" size="small" @click="changeCdn(${index})">cdn信息</i-button>&nbsp;<i-button type="info" size="small" @click="ftpInfo(${index})">FTP信息</i-button>&nbsp;<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<i-button type="info" size="small" @click="sendTemp(${row.id})">发送模板</i-button> &nbsp;<i-button type="info" size="small" @click="sendActivity(${row.id})">发送主题模板</i-button> &nbsp;` + btn + `&nbsp;<i-button type="warning" @click="generateStatic(${row.id})" size="small">生成静态</i-button>`;
-            }
-          }
-        );
-        return columns;
-      }
     },
     mixins: [http]
   }
 </script>
+<style>
+  .siteborder {
+    width: 100%;
+    max-width: 281px;
+    border: 2px solid #07d0d3;
+    margin: 5px;
+    padding: 3px;
+  }
+
+  .siteclass {
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 60px
+  }
+
+  .siteclass a {
+    color: #ffffff;
+  }
+
+  .sitebottom {
+    padding: 5px;
+    text-align: center;
+  }
+
+  .sitewidth {
+    height: 203px;
+  }
+</style>

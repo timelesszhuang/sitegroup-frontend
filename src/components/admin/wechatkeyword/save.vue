@@ -15,7 +15,7 @@
               <Input type="text" v-model="form.detail" placeholder="请输入关键词描述"></Input>
             </Form-item>
             <Form-item label="关键词分类" prop="type_name">
-              <Select v-model="form.type_id" @on-change="changeType" style="width: 200px;" label-in-value filterable clearable >
+              <Select  ref="select" :clearable="selects" v-model="form.type_id" @on-change="changeType" style="width: 200px;" label-in-value filterable clearable >
                 <Option v-for="item in types" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -45,6 +45,7 @@
       };
       return {
         modal: false,
+        selects:true,
         modal_loading: false,
         keyword_type:'',
         AddRule: {
@@ -77,6 +78,7 @@
                     this.$Message.success(msg);
                     this.modal_loading = false;
                     this.$refs.wechatksave.resetFields();
+                    this.$refs.select.clearSingleSelect()
                   }, (data, msg) => {
                     this.modal_loading = false;
                     this.$Message.error(msg);

@@ -2,6 +2,7 @@
   <div>
     <div class="top" style="font-weight: 700;font-size: 17px">
       时间轴:
+
     </div>
     <div style="margin: 10px">
       <div style="float: left">
@@ -18,43 +19,64 @@
             <p class="time" v-if="todo.color==1" style="color: red">{{todo.startday}}</p>
             <p class="time" v-else>{{todo.startday}}</p>
             <p>&nbsp;</p>
-            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;
+            <p class="timecontent" style="cursor: pointer" @click="getTemplateData(index)">{{todo.name}}&nbsp; &nbsp;&nbsp;<span
+              @click="getTemplateData(index)"><Icon type="paper-airplane"></Icon></span>
             </p>
-            <!--<p>&nbsp;</p>-->
           </TimelineItem>
         </Timeline>
         </Col>
         <Col span="17">
-        <div>模板</div>
-        <div v-show="datas">
-        <Table :context="self" :border="border"  :stripe="stripe" :show-header="showheader"
+        <div style="font-size: 15px;font-weight: 700;margin-bottom: 10px">上传模板展示</div>
+        <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
                :size="size" :data="data" :columns="tableColumns" style="width: 100%">
         </Table>
+        <div style="margin-top: 10px;font-size: 15px;font-weight: 700;margin-bottom: 10px">已生成页面</div>
+        <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
+               :size="size" :data="holidaydata" :columns="tableColumn" style="width: 100%">
+        </Table>
+        <div style="margin: 10px;overflow: hidden">
+          <div style="float: right;">
+            <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
+                  @on-page-size-change="changePageSize"
+                  show-total
+                  show-elevator show-sizer></Page>
+          </div>
         </div>
         </Col>
       </Row>
     </div>
+    <showcode ref="show" :path="path"></showcode>
   </div>
+
 </template>
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import showcode from './show.vue'
 
   export default {
     data() {
       return {
+        page_show: true,
         self: this,
         border: true,
         stripe: true,
         showheader: true,
         showIndex: true,
         size: 'small',
+        total: 0,
+        page: 1,
+        rows: 10,
+        pageSize: 10,
+        current: 1,
         data: [],
         datas: [],
         year: '',
         editinfo: {},
+        holidaydata: [],
+        path:''
       }
     },
-    components: {},
+    components: {showcode},
     created() {
       this.getData();
     },
@@ -93,14 +115,41 @@
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
         })
+        let data = {
+          params: {
+            page: this.page,
+            rows: this.rows,
+            holiday_id: this.datas[index].id
+          }
+        }
+        this.apiGet('admin/eventRecord', data).then((data) => {
+          this.handelResponse(data, (data, msg) => {
+            this.holidaydata = data.rows
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (data) => {
+          this.$Message.error('网络异常，请稍后重试');
+        })
       },
-      edittemplate(index){
+      getsharing(index) {
+        let path = this.holidaydata[index].path
+        this.path = "http://api.salesman.cc/upload/"+path;
+        this.$refs.show.modal = true
+      },
+      edittemplate(index) {
         let editid = this.data[index].id
-        let holiday_id = this.data[index].holiday_id
-        let salesman = "http://admin.salesman.cc/index.htm?templateid"+"="+editid+"&"+"holiday_id="+holiday_id;
+        let salesman = "http://admin.salesman.cc/index.htm?template_id" + "=" + editid;
         window.open(salesman)
       },
-
+      changePage(page) {
+        this.page = page;
+        this.getData();
+      },
+      changePageSize(pagesize) {
+        this.rows = pagesize;
+        this.getData();
+      },
       queryData() {
         this.getData();
       },
@@ -152,11 +201,58 @@
             align: 'center',
             fixed: 'right',
             render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>`;
+              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>
+
+`;
             }
           }
         );
         return columns;
+      },
+      tableColumn() {
+        let column = [];
+        if (this.showCheckbox) {
+          column.push({
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          })
+        }
+        if (this.showIndex) {
+          column.push({
+            type: 'index',
+            width: 60,
+            align: 'center'
+          })
+        }
+        column.push({
+          title: '模板名称',
+          key: 'template_name',
+          sortable: true
+        });
+        column.push({
+          title: '链接',
+          key: 'path',
+          sortable: true,
+          render(row, index) {
+            return '<a href="http://api.salesman.cc/upload/' + row.path + '" target="_blank">http://api.salesman.cc/upload/' + row.path + '</a>';
+          }
+        });
+        column.push(
+          {
+            title: '操作',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            fixed: 'right',
+            render(row, column, index) {
+              return `<i-button type="primary" size="small" @click="getsharing(${index})">获取手机分享链接</i-button>
+
+`;
+            }
+          }
+        );
+        return column;
       }
     },
     mixins: [http]

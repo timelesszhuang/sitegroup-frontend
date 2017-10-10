@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <Input v-model="search" placeholder="名称" style="width:160px;"></Input>
-      <Select v-model="detail" style="width:160px;" label-in-value filterable clearable>
+      <Select v-model="detail" style="width:300px;" label-in-value filterable clearable>
         <Option v-for="item in userdefine" :value="item.id" :label="item.detail" :key="item">
           {{ item.detail }}
         </Option>

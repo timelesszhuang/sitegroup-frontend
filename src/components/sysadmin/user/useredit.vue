@@ -14,7 +14,7 @@
       <div>
         <Form ref="useredit" :model="form" :label-width="90" :rules="userEditRule" class="user-edit-form">
           <Form-item label="登录名" prop="user_name">
-            <Input type="text" v-model="form.user_name" placeholder="请输入登陆名"></Input>
+            <Input type="text" disabled v-model="form.user_name" placeholder="请输入登陆名"></Input>
           </Form-item>
           <Form-item label="新密码" prop="pwd">
             <Input type="password" v-model="form.pwd" placeholder="请输入新密码"></Input>

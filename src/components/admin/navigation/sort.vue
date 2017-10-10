@@ -11,7 +11,7 @@
             <Input-number  :min="0" v-model="form.sort"  placeholder="请填写当前栏目的排序"></Input-number>
           </Form-item>
         </Form>
-        <Alert type="error">生成栏目的顺序</Alert>
+        <Alert type="error">生成栏目的顺序,值越大生成的栏目越靠前</Alert>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="savetitle">保存</Button>

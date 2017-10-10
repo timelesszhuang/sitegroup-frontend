@@ -96,6 +96,7 @@
     height: 40px;
     width: 84%;
     background-color: #fff;
+    z-index: 1000;
   }
 
 
@@ -106,7 +107,6 @@
   .ivu-breadcrumb {
     color: #999;
     font-size: 14px;
-    padding-top: 5%;
   }
 
   .layout-hide-text, .layout-text {
@@ -141,10 +141,10 @@
                 关键词管理
               </span>
             </Menu-item>
-            <Menu-item name="关键词推荐">
-              <span class="layout-text" @click="routerChange('/admin/recommendationkeyword','关键词推荐')">
+            <Menu-item name="关键词推荐与追踪">
+              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
                 <Icon type="ios-list-outline"></Icon>
-                关键词推荐
+                关键词推荐与追踪
               </span>
             </Menu-item>
           </Submenu>
@@ -362,7 +362,7 @@
           </Row>
         </div>
         <div class="layout-breadcrumb">
-          <Breadcrumb style="padding-top: 4%;">
+          <Breadcrumb style="padding-top:60px;">
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>

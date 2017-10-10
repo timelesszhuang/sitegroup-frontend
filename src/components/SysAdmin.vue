@@ -145,6 +145,10 @@
             <Icon type="briefcase"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>
           </Menu-item>
+          <Menu-item name="软文管理">
+            <Icon type="briefcase"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/advertorialmanage','软文管理')">软文管理</span>
+          </Menu-item>
           <Menu-item name="系统推送">
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/systempush','系统推送')">系统推送</span>

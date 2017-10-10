@@ -175,8 +175,8 @@
     },
     methods: {
       add() {
-        console.log(this.info)
-        return
+//        console.log(this.info)
+//        return
         this.$refs.customesave.validate((valid) => {
           if (valid) {
             this.modal_loading = true;

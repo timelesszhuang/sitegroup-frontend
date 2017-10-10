@@ -15,6 +15,8 @@ import Marketmodel from '../components/sysadmin/marketmodel/index.vue'
 import Systempush from '../components/sysadmin/systempush/index.vue'
 import Case from '../components/sysadmin/case/index.vue'
 import Eventmarketingholiday from '../components/sysadmin/eventmarketingholiday/index.vue'
+import Mediatype from '../components/sysadmin/mediatype/index.vue'
+import Advertorialmanage from '../components/sysadmin/advertorial/tab.vue'
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -57,6 +59,8 @@ import Marketingmodel from '../components/admin/marketingmodel/index.vue'
 import Systemp from '../components/admin/systempush/systempush.vue';
 import Casecenter from '../components/admin/case/index.vue';
 import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue';
+import Trackkeyword from '../components/admin/trackkeyword/index.vue';
+import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue';
 
 Vue.use(Router)
 
@@ -84,7 +88,9 @@ export default new Router({
         {path: 'marketmodel', component: Marketmodel, name: 'marketmodel'},
         {path: 'systempush', component: Systempush, name: 'systempush'},
         {path: 'case', component: Case, name: 'case'},
-        {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'}
+        {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'},
+        {path: 'mediatype', component: Mediatype, name: 'mediatype'},
+        {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'}
       ]
     },
     {
@@ -131,7 +137,9 @@ export default new Router({
         {path: 'marketingmodel', component: Marketingmodel, name: 'marketingmodel'},
         {path: 'systemp', component: Systemp, name: 'systemp'},
         {path: 'casecenter', component: Casecenter, name: 'casecenter'},
-        {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'}
+        {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'},
+        {path: 'trackkeyword', component: Trackkeyword, name: 'trackkeyword'},
+        {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'}
 
       ]
     }

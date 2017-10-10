@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="top">
-      关键词:
+      追踪关键词:
       <Select v-model="keyword_type" style="width:200px" @on-change="changeKeyword">
         <Option v-for="items in keywordtype" :value="items.id" :key="items.text">{{ items.text }}</Option>
       </Select>
@@ -57,7 +57,7 @@
         this.currentKeyId=key
       },
       mainKeywordList() {
-        this.apiGet('admin/mainkeyword').then((data) => {
+        this.apiGet('admin/gettrack').then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.keywordtype=data
           }, (data, msg) => {

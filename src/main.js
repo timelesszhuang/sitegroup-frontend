@@ -12,7 +12,8 @@ import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
 import Highcharts from 'highcharts'
 Drilldown(Highcharts);
-
+import VueQriously from 'vue-qriously'
+Vue.use(VueQriously)
 import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
