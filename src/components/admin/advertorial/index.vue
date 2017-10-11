@@ -175,7 +175,7 @@
           title: '审核状态',
           align: 'center',
           render(row,index){
-            if(row.status==2){
+            if(row.is_check==2){
               var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
               return type;
             }else{
