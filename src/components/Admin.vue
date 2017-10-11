@@ -267,24 +267,6 @@
                 模板管理
               </span>
             </Menu-item>
-            <Menu-item name="SEO属性">
-              <span class="layout-text" @click="routerChange('/admin/seo','SEO属性')">
-                <Icon type="search"></Icon>
-                搜索引擎优化管理
-              </span>
-            </Menu-item>
-            <Menu-item name="站点静态化配置">
-              <span class="layout-text" @click="routerChange('/admin/staticconfig','站点静态化配置')">
-                <Icon type="android-cloud-circle"></Icon>
-                站点静态化配置
-              </span>
-            </Menu-item>
-            <Menu-item name="用户管理">
-              <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">
-                <Icon type="person"></Icon>
-                用户管理
-              </span>
-            </Menu-item>
           </Submenu>
           <Submenu name="7">
             <template slot="title">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="margin-left: 10px">
       <Button type="success" @click="add">添加配置</Button>
     </div>
     <div class="content" style="margin-top:10px;">

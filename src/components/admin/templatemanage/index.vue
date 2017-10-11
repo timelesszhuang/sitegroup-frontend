@@ -77,6 +77,9 @@
           this.$Message.error('请先选择站点->点击查询!');
         }
       },
+      init() {
+        this.getSiteType()
+      },
       editTemplate(row){
         let name = row.name
         if (this.site_id > 0) {

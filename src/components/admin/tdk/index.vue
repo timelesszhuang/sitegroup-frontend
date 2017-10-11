@@ -52,12 +52,13 @@
       }
     },
     components: {tdksave,savemain},
-    created () {
-//      this.getData();
-      this.getSiteType()
-    },
+
 
     methods: {
+      init () {
+//      this.getData();
+        this.getSiteType()
+      },
       getData() {
         let data = {
           params: {

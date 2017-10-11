@@ -3,19 +3,36 @@
     <div class="top">
       案例中心:
       <Select v-model="industry_id" clearable label-in-value
-              style="width:150px;text-align: left">
+              style="width:150px;text-align: left" placeholder="请选择行业分类">
         <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
           {{ item.name }}
         </Option>
       </Select>
-      <Input v-model="keyword" placeholder="要查询的关键词" style="width: 300px"></Input>
+      <Input v-model="keyword" placeholder="案例关键词" style="width: 300px"></Input>
       <Input v-model="content" placeholder="全文检索" style="width: 300px"></Input>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
     <div class="content" style="margin-top:10px;">
-      <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
-      </Table>
+      <div style="width:90%;margin: 0px auto">
+        <Row>
+          <Col span="6" v-for="(item,index) in datas" :key="index">
+          <div class="siteborder" style="cursor: pointer" @click="show(index)">
+            <div class="sitewidth" :style=choose_bgimg(index)>
+              <div class="siteclass">
+                <p style="font-size:18px" :title=item.title>{{item.title}}</p>
+                <p style="font-size: 15px" title="关键词">{{item.keyword}}</p>
+              </div>
+            </div>
+            <div class="sitebottom">
+              <Icon type="ios-navigate-outline"></Icon> <span style="font-size: 13px;display: inline-block;margin-right: 15px"> {{item.industry_name}}</span> <Icon type="ios-paperplane"></Icon><span  style="font-size: 13px">{{item.source}}</span>
+            </div>
+          </div>
+          </Col>
+        </Row>
+      </div>
+      <br>
+    </div>
+    <div class="content" style="margin-top:10px;">
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
@@ -42,7 +59,7 @@
         current: 1,
         total: 0,
         page: 1,
-        rows: 10,
+        rows: 8,
         title: '',
         datas: [],
         editinfo: {},
@@ -50,6 +67,22 @@
         industry_id:'',
         keyword:'',
         content:'',
+        backgroundcolor: [
+          "background-image:url(static/sitebackimg/flower.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
+          "background-image:url(static/sitebackimg/blue.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #FFFF00 0%, #DAA520 100%)",
+          "background-image:url(static/sitebackimg/sky.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #DCDCDC 0%, #696969 100%)",
+          "background-image:url(static/sitebackimg/hand.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(248, 240, 35) 0%, rgb(5, 174, 53) 100%)",
+          "background-image:linear-gradient(45deg, #B0E0E6 0%, #40E0D0 100%)",
+          "background-image:url(static/sitebackimg/cute.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, rgb(255, 0, 71) 0%, rgb(44, 52, 199) 100%)",
+          "background-image:linear-gradient(45deg, rgb(102, 244, 133) 0%, rgb(23, 172, 255) 100%)",
+          "background-image:url(static/sitebackimg/red.jpg);background-size: 100% 100%",
+          "background-image:linear-gradient(45deg, #98F898 0%, #7FFF00 100%)",
+        ]
       }
     },
     components: {caseshow},
@@ -58,6 +91,10 @@
       this.getIndustry();
     },
     methods: {
+      choose_bgimg(index) {
+        index = index % this.backgroundcolor.length
+        return this.backgroundcolor[index]
+      },
       getData() {
         let data = {
           params: {
@@ -120,60 +157,40 @@
       },
     },
     computed: {
-      tableColumns()
-      {
-        let columns = [];
-        if (this.showCheckbox) {
-          columns.push({
-            type: 'selection',
-            width: 60,
-            align: 'center'
-          })
-        }
-        if (this.showIndex) {
-          columns.push({
-            type: 'index',
-            width: 60,
-            align: 'center'
-          })
-        }
-        columns.push({
-          title: '标题',
-          key: 'title',
-          sortable: true
-        });
-        columns.push({
-          title: '行业',
-          key: 'industry_name',
-          sortable: true
-        });
-        columns.push({
-          title: '关键词',
-          key: 'keyword',
-          sortable: true
-        });
-        columns.push({
-          title: '来源',
-          key: 'source',
-          sortable: true
-        });
-        columns.push(
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            fixed: 'right',
-            render (row, column, index) {
-              return `
-            <i-button type="error" size="small" @click="show(${index})">查看</i-button>`;
-            }
-          }
-        );
 
-        return columns;
-      }
     },
     mixins: [http]
   }
 </script>
+<style>
+  .siteborder {
+    width: 100%;
+    max-width: 281px;
+    border: 2px solid #07d0d3;
+    margin: 5px;
+    padding: 3px;
+  }
+
+  .siteclass {
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 60px
+  }
+
+  .siteclass a {
+    color: #ffffff;
+    font-size: 18px;
+  }
+
+  .sitebottom {
+    padding: 5px;
+    text-align: center;
+  }
+
+  .sitewidth {
+    height: 203px;
+  }
+</style>

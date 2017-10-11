@@ -52,13 +52,14 @@
       }
     },
     components: {staticconfigadd, staticconfigsave},
-    created () {
-      this.getData();
-      this.getSite((data) => {
-        this.site = data
-      });
-    },
+
     methods: {
+      init () {
+        this.getData();
+        this.getSite((data) => {
+          this.site = data
+        });
+      },
       getSite(){
         this.apiGet('Site/getSites').then((res) => {
           this.handelResponse(res, (data, msg) => {
