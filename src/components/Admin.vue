@@ -112,11 +112,9 @@
     display: inline-block;
     width: 100%;
   }
-
   .parent-menu-title {
     color: #ffffff !important;
   }
-
 
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="homemain">
     <div>
-      <Row style="background-color: white;margin:15px;margin-top: -10px;" :gutter="10" type="flex"
+      <Row style="background-color: white;margin:19px;margin-top:-10px;" :gutter="10" type="flex"
            justify="center" class="code-row-bg rowmain">
         <Col span="4">
         <div class="homehead">
@@ -13,7 +13,6 @@
           <div class="footborder" style="border:3px solid rgba(255, 223, 37, 1);"></div>
         </div>
         </Col>
-
         <Col span="4">
         <div style="height: 130px;padding: 15px">
           <div style="padding-bottom: 10px">
@@ -23,7 +22,6 @@
           <div style="font-size: 15px;">今日爬取（spider）</div>
           <div class="footborder" style="border:3px solid  rgba(51, 204, 255, 1);"></div>
         </div>
-
         </Col>
         <Col span="4">
         <div style="height: 130px;padding: 15px">
@@ -35,7 +33,6 @@
           <div class="footborder" style="border:3px solid   rgba(51, 0, 204, 1);"></div>
         </div>
         </Col>
-
         <Col span="4">
         <div style="height: 130px;padding: 15px">
           <div style="padding-bottom: 10px">
@@ -46,7 +43,6 @@
           <div class="footborder" style="border:3px solid  rgba(255, 102, 102, 1);"></div>
         </div>
         </Col>
-
         <Col span="4">
         <div style="height: 130px;padding: 15px">
           <div style="padding-bottom: 10px">
@@ -59,16 +55,17 @@
         </Col>
       </Row>
     </div>
-    <div class="centercss" style="box-sizing: border-box;display: flex;
-                justify-content: center;
-                align-items: center;">
-      <pv ref="pv" style="width:31%;margin-left:20px;margin-right:10px;height: 315px;background-color:white;display: inline-block"></pv>
-      <engine ref="engine" style="width:31%;margin-right:10px;height: 315px;background-color:white;display: inline-block"></engine>
-      <keyword ref="keyword" style="margin-right:20px;margin-right:10px;width:31%;height: 315px;background-color:white;display: inline-block"></keyword>
+    <div class="centercss" style="box-sizing: border-box;display:flex;justify-content: center;align-items: center;">
+      <pv ref="pv"
+          style="width:32%;margin-left:0px;margin-right:10px;height:315px;background-color:white;display: inline-block">
+      </pv>
+      <engine ref="engine"
+              style="width:32%;margin-right:10px;height: 315px;background-color:white;display: inline-block"></engine>
+      <keyword ref="keyword"
+               style="margin-right:0px;width:32%;height: 315px;background-color:white;display: inline-block"></keyword>
     </div>
-
     <div>
-      <Row :gutter="60" style="margin: 10px;margin-bottom: -20px">
+      <Row :gutter="60" style="margin:10px -15px -20px 10px">
         <Col span="11" class="eventcss">
         <h2>
           <Icon type="ios-calendar-outline"></Icon>&nbsp;&nbsp;营销模式
@@ -96,7 +93,6 @@
         </div>
         </Col>
       </Row>
-
     </div>
     <eventshow ref="show" :form="editinfo"></eventshow>
   </div>
@@ -244,10 +240,9 @@
     font-weight: 700;
   }
 
-
   .companycss {
     background-color: white;
-    margin: 10px;
+    margin: 10px 0px 10px 10px;
     height: 250px
   }
 </style>
