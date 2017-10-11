@@ -13,7 +13,7 @@
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
-      <div style="width: 90%;margin: 0px auto">
+      <div style="width:90%;margin: 0px auto">
         <Row>
           <Col span="6" v-for="(item,index) in datas" :key="index">
           <div class="siteborder">
@@ -408,6 +408,7 @@
 
   .siteclass a {
     color: #ffffff;
+    font-size: 18px;
   }
 
   .sitebottom {
