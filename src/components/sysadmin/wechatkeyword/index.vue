@@ -53,11 +53,11 @@
       }
     },
     components: {wechatkadd,wechatksave},
-    created () {
-      this.getData();
-      this.getTypes();
-    },
     methods: {
+      init(){
+        this.getData();
+        this.getTypes();
+      },
       getTypes() {
         this.apiPost('sys/getKeyTypeList').then((data) => {
           this.handelResponse(data, (data, msg) => {

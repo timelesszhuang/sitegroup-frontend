@@ -17,6 +17,10 @@ import Case from '../components/sysadmin/case/index.vue'
 import Eventmarketingholiday from '../components/sysadmin/eventmarketingholiday/index.vue'
 import Mediatype from '../components/sysadmin/mediatype/index.vue'
 import Advertorialmanage from '../components/sysadmin/advertorial/tab.vue'
+import ArticleManage from '../components/sysadmin/articleManage/index.vue'
+
+
+
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -84,14 +88,13 @@ export default new Router({
         {path: 'node', component: Node, name: 'node'},
         {path: 'changepwd', component: Changepwd, name: 'changepwd'},
         {path: 'syskeyword', component: Syskeyword, name: 'syskeyword'},
-        {path: 'weixinarticle', component: Weixinarticle, name: 'weixinarticle'},
-        {path: 'wechatkeywordtype', component: WechatKeywordType, name: 'wechatkeywordtype'},
         {path: 'marketmodel', component: Marketmodel, name: 'marketmodel'},
         {path: 'systempush', component: Systempush, name: 'systempush'},
         {path: 'case', component: Case, name: 'case'},
         {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'},
         {path: 'mediatype', component: Mediatype, name: 'mediatype'},
-        {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'}
+        {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'},
+        {path: 'articlemanage', component: ArticleManage, name: 'articlemanage'}
       ]
     },
     {

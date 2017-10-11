@@ -60,16 +60,13 @@
       }
     },
     components: {wechatarticlesave},
-    created () {
-      this.getData();
-//      this.getArticleType((data) => {
-//        this.articletypelist = data
-//      });
-      this.getKeyword((data) => {
-        this.keywordtype = data
-      });
-    },
     methods: {
+      init(){
+        this.getData();
+        this.getKeyword((data) => {
+          this.keywordtype = data
+        });
+      },
       getData() {
         let data = {
           params: {

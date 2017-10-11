@@ -116,18 +116,10 @@
           <div class="layout-logo-left" @click="routerChange('/sysadmin/')">
             <img style="width:205px;display: block;margin: 0 auto" src="../../src/assets/img/logo.png" alt="">
           </div>
-          <Menu-item name="微信公众号关键词分类">
+          <Menu-item name="文章管理">
             <Icon type="chatbubbles"></Icon>
             <span class="layout-text"
-                  @click="routerChange('/sysadmin/wechatkeywordtype','微信公众号关键词分类')">微信公众号关键词分类</span>
-          </Menu-item>
-          <Menu-item name="微信公众号关键词">
-            <Icon type="chatbubbles"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/syskeyword','微信企业号关键词')">微信企业号关键词</span>
-          </Menu-item>
-          <Menu-item name="微信公众号文章">
-            <Icon type="chatbubbles"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/weixinarticle','微信企业号文章')">微信企业号文章</span>
+                  @click="routerChange('/sysadmin/articlemanage','文章管理')">文章管理</span>
           </Menu-item>
           <Menu-item name="新闻类文章管理">
             <Icon type="ios-copy" :size="iconSize"></Icon>
