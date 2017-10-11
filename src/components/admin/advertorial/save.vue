@@ -68,7 +68,7 @@
         selects:true,
         AddRule: {
           title: [
-            {required: true, message: '请输入媒体分类', trigger: 'blur'},
+            {required: true, message: '请输入标题', trigger: 'blur'},
           ],
           origin_id: [
             {required: true,validator: checkorigin, trigger: 'blur'}
