@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <advertorialadd ref="add"></advertorialadd>
-    <advertorialsave ref="save" :form="editinfo"></advertorialsave>
+    <advertorialadd ref="add" :origintype="origintype"></advertorialadd>
+    <advertorialsave ref="save" :origintype="origintype" :form="editinfo"></advertorialsave>
   </div>
 </template>
 
@@ -44,19 +44,21 @@
         rows: 10,
         datas: [],
         editinfo: {},
-        media:[]
+        media:[],
+        origintype:[]
       }
     },
     components: {
       advertorialadd, advertorialsave
     },
     created() {
-      this.getData()
+      this.getData();
+      this.getorigintype();
     },
     methods: {
       edit(index) {
         let editid = this.datas[index].id
-        this.apiGet('sys/mediaType/' + editid).then((res) => {
+        this.apiGet('admin/softText/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -94,10 +96,10 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      getmedia() {
-        this.apiGet('sys/mediaOrigin').then((res) => {
+      getorigintype() {
+        this.apiGet('admin/getOrigin').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.media = data
+            this.origintype = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -113,6 +115,33 @@
       changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
+      },
+      remove(index){
+        //需要删除确认
+        let id = this.datas[index].id
+        let _this = this
+        this.$Modal.confirm({
+          title: '确认删除',
+          content: '您确定删除该记录?',
+          okText: '删除',
+          cancelText: '取消',
+          onOk: (index) => {
+            _this.apiDelete('admin/softText/', id).then((res) => {
+              _this.handelResponse(res, (data, msg) => {
+                _this.getData()
+                _this.$Message.success(msg);
+              }, (data, msg) => {
+                _this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              _this.$Message.error('网络异常，请稍后重试');
+            })
+          },
+          onCancel: () => {
+            return false
+          }
+        })
       },
     },
     computed: {
@@ -169,6 +198,7 @@
             fixed: 'right',
             render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
+<i-button type="error" size="small" @click="remove(${index})">删除</i-button>
          `;
             }
           }
