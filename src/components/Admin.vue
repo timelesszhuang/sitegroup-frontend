@@ -195,7 +195,7 @@
               </span>
             </Menu-item>
             <Menu-item name="软文发布">
-              <span class="layout-text" @click="ruanwenClick">
+              <span class="layout-text" @click="routerChange('/admin/advertorial','软文发布')">
                 <Icon type="wand"></Icon>
                 软文发布
               </span>
