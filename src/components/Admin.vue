@@ -10,13 +10,15 @@
     width: 100%;
     background-color: #ffffff;
     height: 50px;
+    position: fixed;
+    top: 0px;
+    z-index: 999;
   }
 
   .logo {
     width: 150px;
     display: block;
     padding: 10px;
-    margin-left: 10%;
   }
 
   .layout-breadcrumb {
@@ -112,6 +114,7 @@
     display: inline-block;
     width: 100%;
   }
+
   .parent-menu-title {
     color: #ffffff !important;
   }
@@ -122,11 +125,12 @@
   <div class="layout" :class="{'layout-hide-text': spanLeft < 4}" @click="menuClick" ref="menuClickEle">
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
-        <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom: 80px" width="auto"
+        <div class="layout-logo-left" @click="routerChange('/admin/index')">
+          <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
+        </div>
+        <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom:80px;;margin-top: 50px"
+              width="auto"
               :open-names="opennames" accordion>
-          <div class="layout-logo-left" @click="routerChange('/admin/index')">
-            <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
-          </div>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
@@ -313,7 +317,8 @@
             </Menu-item>
           </Submenu>
         </Menu>
-        <div style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
+        <div
+          style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
           <Row style="margin-top: 5px">
             <Col span="24">
             <span class="layout-text" @click="changePwd()" style="cursor:pointer">
