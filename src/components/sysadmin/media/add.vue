@@ -53,6 +53,20 @@
   import http from '../../../assets/js/http.js';
   export default {
       data() {
+        const checkorigin = (rule, value, callback) => {
+          if (!value) {
+            callback(new Error('请选择地区'));
+          } else {
+            callback();
+          }
+        };
+        const checkmedia = (rule, value, callback) => {
+          if (!value) {
+            callback(new Error('请选择媒体'));
+          } else {
+            callback();
+          }
+        };
           return {
             modal: false,
             modal_loading: false,
@@ -72,7 +86,21 @@
               name: [
                 {required: true, message: '请输入媒体分类', trigger: 'blur'},
               ],
-
+              market_price:[
+                {required: true, message: '请输入市场价', trigger: 'blur'},
+              ],
+              assitant_price:[
+                {required: true, message: '请输入代理价', trigger: 'blur'},
+              ],
+              sale_price:[
+                {required: true, message: '请输入实际销售价', trigger: 'blur'},
+              ],
+              origin_id: [
+                {required: true,validator: checkorigin, trigger: 'blur'}
+              ],
+              media_type_id: [
+                {required: true,validator: checkmedia, trigger: 'blur'}
+              ]
             }
           }
         },

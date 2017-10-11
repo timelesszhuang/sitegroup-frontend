@@ -47,15 +47,35 @@
   import http from '../../../assets/js/http.js';
   export default {
     data() {
+      const checkorigin = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择地区'));
+        } else {
+          callback();
+        }
+      };
+      const checkmedia = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择媒体'));
+        } else {
+          callback();
+        }
+      };
       return {
         modal: false,
         modal_loading: false,
         media:[],
         selects:true,
         AddRule: {
-          name: [
+          title: [
             {required: true, message: '请输入媒体分类', trigger: 'blur'},
           ],
+          origin_id: [
+            {required: true,validator: checkorigin, trigger: 'blur'}
+          ],
+          media_id: [
+            {required: true,validator: checkmedia, trigger: 'blur'}
+          ]
         }
       }
     },
