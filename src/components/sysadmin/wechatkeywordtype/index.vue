@@ -53,6 +53,9 @@
          this.getData()
        },
        methods: {
+         init(){
+           this.getData()
+         },
          edit(index){
            let editid = this.datas[index].id
            this.apiGet('sys/keywordtype/' + editid).then((res) => {
