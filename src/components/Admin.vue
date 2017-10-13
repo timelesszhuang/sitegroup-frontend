@@ -265,10 +265,10 @@
                 站点管理
               </span>
             </Menu-item>
-            <Menu-item name="模板管理">
-              <span class="layout-text" @click="routerChange('/admin/templatemanage','模板管理')">
-                <Icon type="ios-browsers"></Icon>
-                模板管理
+            <Menu-item name="用户管理">
+              <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">
+                <Icon type="person"></Icon>
+                用户管理
               </span>
             </Menu-item>
           </Submenu>
