@@ -1,6 +1,12 @@
 <template>
     <div>
       <Tabs value="links" @on-click="tabClick">
+        <TabPane label="站点模板管理" name="templates">
+          <templates ref="templates"></templates>
+        </TabPane>
+        <TabPane label="自定义表单" name="customer">
+          <customer ref="customer"></customer>
+        </TabPane>
         <TabPane label="友情链接管理" name="links">
           <links ref="links"></links>
         </TabPane>
@@ -12,12 +18,6 @@
         </TabPane>
         <TabPane label="联系方式管理" name="contactway">
           <contactway ref="contactway"></contactway>
-        </TabPane>
-        <TabPane label="模板管理" name="templates">
-          <templates ref="templates"></templates>
-        </TabPane>
-        <TabPane label="自定义表单" name="customer">
-          <customer ref="customer"></customer>
         </TabPane>
       </Tabs>
     </div>
