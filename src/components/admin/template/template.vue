@@ -14,11 +14,15 @@
             <div class="sitewidth" :style=choose_bgimg(index)>
               <div class="siteclass">
                 <p>{{item.name}}</p>
+                <p>{{item.detail}}</p>
               </div>
             </div>
-            <div class="sitebottom">
+            <div class="sitebottom" style="text-align: left;">
               <ButtonGroup>
-                <!--<Button size="small" @click="edit(index)" type="primary">修改</Button>-->
+                <p>
+                  <Button size="small" @click="edit(index)" type="primary">修改</Button>
+                  <span>{{item.create_time}}</span>
+                </p>
                 <!--<Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>-->
                 <!--<Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>-->
                 <!--<Button size="small" @click="other(item)" type="success">其他操作</Button>-->
@@ -28,20 +32,14 @@
           </Col>
         </Row>
       </div>
+      <div style="float: right;">
+      <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+      show-total show-elevator>
+      </Page>
+      </div>
       <br>
     </div>
-    <!--<div class="content" style="margin-top:10px;">-->
-      <!--<Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"-->
-             <!--:size="size" :data="datas" :columns="tableColumns" style="width: 100%">-->
-      <!--</Table>-->
-      <!--<div style="margin: 10px;overflow: hidden">-->
-        <!--<div style="float: right;">-->
-          <!--<Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"-->
-                <!--show-total show-elevator>-->
-          <!--</Page>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+
     <templateadd ref="add"></templateadd>
     <templatesave ref="save" :form="editinfo"></templatesave>
   </div>
