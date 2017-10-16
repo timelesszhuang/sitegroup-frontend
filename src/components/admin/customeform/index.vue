@@ -46,7 +46,7 @@
         field2:{},
         field3:{},
         field4:{},
-        getinfo:{},
+        getinfo:"",
         info:{}
 
       }
@@ -99,7 +99,6 @@
             this.field2 = data.form_info.field2
             this.field3 = data.form_info.field3
             this.field4 = data.form_info.field4
-            console.log(this.fields)
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {

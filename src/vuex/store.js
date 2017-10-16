@@ -9,6 +9,7 @@ const Background= {
       "background-image:url(static/sitebackimg/flower.jpg);background-size: 100% 100%",
       "background-image:linear-gradient(45deg, rgb(252, 54, 253) 0%, rgb(93, 63, 218) 100%)",
       "background-image:url(static/sitebackimg/blue.jpg);background-size: 100% 100%",
+      "background-image:url(static/sitebackimg/arrow.jpg);background-size: 100% 100%",
       "background-image:linear-gradient(45deg, #FFFF00 0%, #DAA520 100%)",
       "background-image:url(static/sitebackimg/sky.jpg);background-size: 100% 100%",
       "background-image:linear-gradient(45deg, #DCDCDC 0%, #696969 100%)",
