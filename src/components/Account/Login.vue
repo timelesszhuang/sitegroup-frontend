@@ -73,11 +73,13 @@
         <li><a href="http://mail.qiyvkf.com/" target="_blank">易至信</a></li>
         <li><a href="http://www.youdao.so/" target="_blank">有道云协作</a></li>
         <li><a href="http://www.qiangbi.cc/" target="_blank">网站建设</a></li>
-        <li class="no_border">客服专线：4006-360-163</li>
+        <li class="no_border">2015-{{copytime}} &copy; 北京易至信科技有限公司</li>
       </ul>
-      <span class="login_bq">COPYRIGHT©北京易至信科技有限公司</span>
-    </div>
-
+      <!--<span class="login_bq"> 2015-{{copytime}} &copy; 北京易至信科技有限公司-->
+            <!--</span>-->
+      <br/>
+   <div style="text-align: center;padding-top: 20px" >京ICP12019481号</div>
+  </div>
 
   </div>
 </template>
@@ -115,7 +117,8 @@
         warningMsg: '',
         warningShow: false,
         rememberMe: true,
-        boswer_show: false
+        boswer_show: false,
+        copytime:''
       }
     },
     methods: {
@@ -210,6 +213,8 @@
       },
     },
     created() {
+      let date1 = new Date;
+      this.copytime =  date1.getFullYear()
       let userAgent = navigator.userAgent;
       let isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
       let isFF = userAgent.indexOf("Firefox") > -1;
@@ -240,7 +245,8 @@
 
   .innr1 {
     max-width: 1250px;
-    margin: 30px auto;
+    padding-top: 30px;
+    margin: 0px auto;
     overflow: hidden;
   }
   .loginlogo {
@@ -286,6 +292,7 @@
   .login_di ul .no_border {
     border-right: none;
     color: #444;
+    text-align: center;
   }
   .login_di ul li {
     font-size: 14px;
