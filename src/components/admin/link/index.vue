@@ -46,10 +46,10 @@
       }
     },
     components: {linkadd,linksave},
-    created () {
-      this.getData();
-    },
     methods: {
+      init() {
+        this.getData();
+      },
       getData() {
         let data = {
           params: {

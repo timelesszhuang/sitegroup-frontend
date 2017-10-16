@@ -7,17 +7,39 @@
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;">
-      <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
-             :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
-      </Table>
-      <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
-          <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-                show-total show-elevator>
-          </Page>
-        </div>
+      <div style="width:90%;margin: 0px auto">
+        <Row>
+          <Col span="6" v-for="(item,index) in datas" :key="index">
+          <div class="siteborder">
+            <div class="sitewidth" :style=choose_bgimg(index)>
+              <div class="siteclass">
+                <p>{{item.name}}</p>
+                <p>{{item.detail}}</p>
+              </div>
+            </div>
+            <div class="sitebottom" style="text-align: left;">
+              <ButtonGroup>
+                <p>
+                  <Button size="small" @click="edit(index)" type="primary">修改</Button>
+                  <span>{{item.create_time}}</span>
+                </p>
+                <!--<Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>-->
+                <!--<Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>-->
+                <!--<Button size="small" @click="other(item)" type="success">其他操作</Button>-->
+              </ButtonGroup>
+            </div>
+          </div>
+          </Col>
+        </Row>
       </div>
+      <div style="float: right;">
+      <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+      show-total show-elevator>
+      </Page>
+      </div>
+      <br>
     </div>
+
     <templateadd ref="add"></templateadd>
     <templatesave ref="save" :form="editinfo"></templatesave>
   </div>
@@ -50,6 +72,14 @@
       this.getData();
     },
     methods: {
+      init() {
+        this.getData();
+      },
+      choose_bgimg(index) {
+        let background=this.$store.state.background.backgroundcolor;
+        index = index % background.length
+        return background[index]
+      },
       getData() {
         let data = {
           params: {
