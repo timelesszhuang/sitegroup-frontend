@@ -1,6 +1,6 @@
 <template>
     <div>
-      <Tabs value="links" @on-click="tabClick">
+      <Tabs value="templates" @on-click="tabClick">
         <TabPane label="站点模板管理" name="templates">
           <templates ref="templates"></templates>
         </TabPane>
