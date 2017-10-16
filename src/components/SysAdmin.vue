@@ -188,7 +188,7 @@
           </div>
         </div>
         <div class="layout-copy">
-          <span>2015-2017 &copy;  北京易至信科技有限公司</span>
+          <span>2015-{{copytime}} &copy;  北京易至信科技有限公司</span>
         </div>
       </i-col>
     </Row>
@@ -208,7 +208,8 @@
         activeName: '',
         theme: 'dark',
         containerTitle: '',
-        showChangepwdModal: false
+        showChangepwdModal: false,
+        copytime:''
       }
     },
     components: {
@@ -243,6 +244,8 @@
     },
     //created 是函数
     created() {
+      let date = new Date;
+      this.copytime =  date.getFullYear
       let rememberKey = Lockr.get('rememberKey')
 //      let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');

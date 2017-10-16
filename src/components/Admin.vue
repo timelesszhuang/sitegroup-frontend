@@ -371,7 +371,7 @@
             </div>
           </div>
           <div class="layout-copy">
-            2015-2017 &copy; 北京易至信科技有限公司
+            2015-{{copytime}} &copy; 北京易至信科技有限公司
             <div>京ICP12019481号</div>
           </div>
         </div>
@@ -398,7 +398,8 @@
         count: '无',
         systemcount: '无',
         opennames: ['1'],
-        siteTitle: '未获取到'
+        siteTitle: '未获取到',
+        copytime:''
       }
     },
     components: {
@@ -412,6 +413,7 @@
       },
       ruanwenClick() {
         this.$refs.cueclick.modal = true
+
       },
 
       checkAlert() {
@@ -458,6 +460,9 @@
     },
     //created 是函数
     created() {
+      let date1 = new Date;
+     this.copytime =  date1.getFullYear()
+
       let _this = this;
       _this.checkAlert();
       _this.checkAlertstsyem();

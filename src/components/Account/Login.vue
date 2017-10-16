@@ -60,6 +60,7 @@
                 <Button type="primary" @click="handleSubmit('loginform')" size="large" :loading="loading" long
                         icon="log-in">登录
                 </Button>
+                <!--<Button @click="error(false)">错误</Button>-->
               </Form-item>
             </Form>
           </div>
@@ -122,11 +123,12 @@
         this.systemName = data.SYSTEM_NAME;
         document.title = data.SYSTEM_NAME;
       },
+
       showMsg(type, msg) {
         switch (type) {
           case 'warning':
             this.warningMsg = msg;
-            this.$Message.error(msg)
+            this.error(false)
             this.warningShow = true;
             break;
           case 'success':
@@ -134,6 +136,12 @@
             this.$Message.msg(msg)
             this.successShow = true;
         }
+      },
+      error (nodesc) {
+        this.$Notice.error({
+          title: this.warningMsg,
+          desc: nodesc ? '' : ''
+        });
       },
       refreshVerify() {
         this.verifyUrl = ''
