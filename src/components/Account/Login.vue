@@ -127,7 +127,6 @@
           this.apiPost('common/login/autoLogin', data).then((res) => {
             this.handelResponse(res, (data, msg) => {
               //成功的操作
-//              console.log(data);
               this.resetCommonData(data, msg)
             }, (data, msg) => {
               //失败的操作
