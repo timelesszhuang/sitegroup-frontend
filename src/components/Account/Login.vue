@@ -271,7 +271,7 @@
     border: 2px solid #8492A6;
     width: 400px;
     padding-top: 30px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,1);
     position: absolute;
     right: -10%;
     top: 12%;
