@@ -116,10 +116,10 @@
           <div class="layout-logo-left" @click="routerChange('/sysadmin/')">
             <img style="width:205px;display: block;margin: 0 auto" src="../../src/assets/img/logo.png" alt="">
           </div>
-          <Menu-item name="文章管理">
+          <Menu-item name="公众号文章管理">
             <Icon type="chatbubbles"></Icon>
             <span class="layout-text"
-                  @click="routerChange('/sysadmin/articlemanage','文章管理')">文章管理</span>
+                  @click="routerChange('/sysadmin/articlemanage','公众号文章管理')">公众号文章管理</span>
           </Menu-item>
           <Menu-item name="新闻类文章管理">
             <Icon type="ios-copy" :size="iconSize"></Icon>

@@ -4,10 +4,10 @@
       <TabPane label="微信公众号关键词分类" name="type">
         <WechatKeywordType ref="type"></WechatKeywordType>
       </TabPane>
-      <TabPane label="微信企业号关键词" name="keyword">
+      <TabPane label="微信公众号关键词" name="keyword">
         <Syskeyword ref="keyword"></Syskeyword>
       </TabPane>
-      <TabPane label="微信企业号文章" name="article">
+      <TabPane label="微信公众号文章" name="article">
         <Weixinarticle ref="article"></Weixinarticle>
       </TabPane>
     </Tabs>
