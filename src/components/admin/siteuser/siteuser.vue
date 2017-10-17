@@ -5,6 +5,7 @@
       <Input v-model="name" placeholder="" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
+      <Button type="error" @click="changePwd()">修改管理员密码</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -20,6 +21,7 @@
     </div>
     <siteuseradd ref="add"></siteuseradd>
     <siteusersave ref="save" :form="editinfo"></siteusersave>
+    <changepwd ref="changePwd"></changepwd>
   </div>
 </template>
 
@@ -27,6 +29,7 @@
   import http from '../../../assets/js/http.js';
   import siteuseradd from './add.vue';
   import siteusersave from './save.vue';
+  import changepwd from '../../Account/Changepwd.vue';
   export default {
     data () {
       return {
@@ -45,11 +48,14 @@
         editinfo: {}
       }
     },
-    components: {siteuseradd,siteusersave},
+    components: {siteuseradd,siteusersave,changepwd,},
     created () {
       this.getData();
     },
     methods: {
+      changePwd() {
+        this.$refs.changePwd.modal = true
+      },
       getData() {
         let data = {
           params: {

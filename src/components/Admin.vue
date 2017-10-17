@@ -303,9 +303,9 @@
           style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
           <Row style="margin-top: 5px">
             <Col span="24">
-            <span class="layout-text" @click="changePwd()" style="cursor:pointer">
+            <span class="layout-text" @click="company()" style="cursor:pointer">
               <Icon type="android-lock"></Icon>
-              &nbsp;&nbsp;重置密码
+              &nbsp;&nbsp;完善企业信息
             </span>
             </Col>
           </Row>
@@ -378,7 +378,8 @@
       </i-col>
     </Row>
     <logout ref="logout"></logout>
-    <changepwd ref="changePwd"></changepwd>
+    <!--<changepwd ref="changePwd"></changepwd>-->
+    <company ref="Company" :form="editinfo"></company>
     <cue ref="cueclick"></cue>
   </div>
 </template>
@@ -386,6 +387,7 @@
   import logout from './Account/Logout.vue';
   import changepwd from './Account/Changepwd.vue';
   import cue from './Account/cue.vue';
+  import company from './Account/company.vue';
   import http from '../assets/js/http.js';
 
   export default {
@@ -399,13 +401,15 @@
         systemcount: '无',
         opennames: ['1'],
         siteTitle: '未获取到',
-        copytime:''
+        copytime:'',
+        editinfo:{}
       }
     },
     components: {
       changepwd,
       logout,
-      cue
+      cue,
+      company
     },
     methods: {
       menuClick(e) {
@@ -449,6 +453,20 @@
       },
       changePwd() {
         this.$refs.changePwd.modal = true
+      },
+      company() {
+        this.apiGet('admin/Company/1' ).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.Company.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
       },
       logOut() {
         this.$refs.logout.modal = true

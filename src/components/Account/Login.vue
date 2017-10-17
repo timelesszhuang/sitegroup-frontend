@@ -131,6 +131,7 @@
         switch (type) {
           case 'warning':
             this.warningMsg = msg;
+            this.loading = false
             this.error(false)
             this.warningShow = true;
             break;
@@ -165,6 +166,7 @@
               this.resetCommonData(data, msg)
             }, (data, msg) => {
               //失败的操作
+              this.loading = false
               this.showMsg('warning', '自动登录失败，请重新登陆')
 
               Cookies.set('rememberMe', false)
@@ -199,11 +201,12 @@
               }, (data, msg) => {
                 //根据状态来判断登陆状态
                 this.refreshVerify()
-                this.loading = !this.loading
+//                this.loading = false
                 this.showMsg('warning', msg);
               })
             }, (res) => {
               //处理错误信息
+              this.loading = false
               this.showMsg('warning', '网络异常，请稍后重试');
             })
           } else {

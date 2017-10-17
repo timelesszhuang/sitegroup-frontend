@@ -58,9 +58,7 @@
           question: [
             {required: true, message: '请填写问题名', trigger: 'blur'},
           ],
-          content_paragraph: [
-            {required: true, message: '请填写答案', trigger: 'blur'},
-          ],
+
           questiontype_id: [
             {required: true,validator: checkquestiontype, trigger: 'blur'}
           ]

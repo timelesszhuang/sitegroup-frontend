@@ -245,7 +245,7 @@
     //created 是函数
     created() {
       let date = new Date;
-      this.copytime =  date.getFullYear
+      this.copytime =  date.getFullYear()
       let rememberKey = Lockr.get('rememberKey')
 //      let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');
