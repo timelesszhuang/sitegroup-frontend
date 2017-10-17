@@ -37,9 +37,10 @@
             <Col span="18">
             <div style="float: left">
               <Upload
+                ref="businesslicense"
                 with-credentials
                 name="businesslicense"
-                :format="['jpg','jpeg','png','gif']"
+                :format="['jpg','jpeg','png']"
                 :on-success="getResponse"
                 :on-error="getErrorInfo"
                 :on-format-error="formatError"
@@ -50,7 +51,7 @@
             </Col>
           </Row>
 
-          <div style="margin: 0 auto"><img style="max-width:700px " :src=Path()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src=Path()></div>
           <Form-item label="机构(企业)地址" prop="address">
             <Input type="text" v-model="form.address" placeholder="请输入机构(企业)地址"></Input>
           </Form-item>
@@ -66,9 +67,10 @@
             <Col span="19">
             <div style="float: left">
               <Upload
+                ref="artificialpersonid"
                 with-credentials
                 name="artificialpersonid"
-                :format="['jpg','jpeg','png','gif']"
+                :format="['jpg','jpeg','png']"
                 :on-success="getRes"
                 :on-error="getError"
                 :on-format-error="formatErr"
@@ -78,7 +80,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"> <img style="max-width:700px " :src=personPath()></div>
+          <div style="margin: 0 auto"> <img style="max-width:350px " :src=personPath()></div>
           <Form-item label="(法人)联系电话" prop="artificialperson_phone">
             <Input type="text" v-model="form.artificialperson_phone" placeholder="请输入(法人)联系电话"></Input>
           </Form-item>
@@ -105,9 +107,10 @@
             <Col span="18">
             <div style="float: left">
               <Upload
+                ref="trademark"
                 with-credentials
                 name="trademark"
-                :format="['jpg','jpeg','png','gif']"
+                :format="['jpg','jpeg','png']"
                 :on-success="getRe"
                 :on-error="getErr"
                 :on-format-error="formatE"
@@ -117,7 +120,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"><img style="max-width:700px " :src=trademarkPath()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px" :src=trademarkPath()></div>
           <Form-item label="主营业务" prop="manbusiness">
             <Input v-model="form.manbusiness" type="textarea" :rows="4" placeholder="请输入主营业务..."></Input>
           </Form-item>
@@ -200,11 +203,13 @@
       getResponse(response, file, filelist) {
         this.form.business_license = response.data;
         this.$Message.success(response.msg);
+
         this.Path()
       },
       getRes(respons, file, filelist) {
         this.form.artificialperson_id = respons.data;
         this.$Message.success(respons.msg);
+        this.$refs.artificialpersonid.clearFiles()
         this.personPath()
       },
       getRe(respon, file, filelist) {

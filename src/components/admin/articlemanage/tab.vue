@@ -18,6 +18,9 @@
       getdata(name) {
         if (name == "article") {
           this.$refs.articl.getData()
+          this.$refs.articl.getArticleType(((data) => {
+            this.$refs.articl.setArticleType(data)
+          }))
         } else if (name == "articletype") {
           this.$refs.articlet.getData()
         }

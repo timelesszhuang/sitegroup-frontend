@@ -65,6 +65,9 @@
       this.getData();
     },
     methods: {
+      setQuestionTypelist(data) {
+        this.questiontypelist = data
+      },
       getData() {
         let data = {
           params: {

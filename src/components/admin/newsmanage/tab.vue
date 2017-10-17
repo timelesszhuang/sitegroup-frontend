@@ -25,8 +25,14 @@
       getdata(name) {
         if (name == "scatteredarticle") {
           this.$refs.sca.getData()
+          this.$refs.sca.getScaType(((data) => {
+            this.$refs.wenda.setScaType(data)
+          }))
         } else if (name == "scatteredtype") {
           this.$refs.scatype.getData()
+          this.$refs.sca.getScaType(((data) => {
+            this.$refs.wenda.setScaType(data)
+          }))
         } else if (name == "titl") {
           this.$refs.tit.getData()
         }

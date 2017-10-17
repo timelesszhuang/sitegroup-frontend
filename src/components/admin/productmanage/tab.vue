@@ -19,6 +19,7 @@
       getdata(name) {
         if (name == "product") {
           this.$refs.chanpin.getData()
+          this.$refs.chanpin.getproducttype()
         } else if (name == "producttype") {
           this.$refs.chanpintype.getData()
         }

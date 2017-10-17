@@ -147,9 +147,7 @@
       this.getQuestionType((data) => {
         this.questiontypelist = data
       });
-      this.getmenutype((data) => {
-        this.navtype = data
-      });
+      this.getmenutype()
       this.getproducttype((data) => {
         this.ptype = data
       });
@@ -208,7 +206,7 @@
       getmenutype(func) {
         this.apiGet('admin/menutag/list').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            func(data)
+            this.navtype = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })

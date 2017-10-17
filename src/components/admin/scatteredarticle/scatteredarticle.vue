@@ -63,6 +63,9 @@
       this.getData();
     },
     methods: {
+      setScaType(data) {
+        this.articletypelist = data
+      },
       getData() {
         let data = {
           params: {

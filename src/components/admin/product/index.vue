@@ -58,12 +58,10 @@
     components: {padd,psave},
     created() {
       this.getData();
-      this.getproducttype((data) => {
-        this.ptype = data
-      });
+      this.getproducttype()
+
     },
     methods: {
-
       getData() {
         let data = {
           params: {
@@ -96,16 +94,16 @@
         this.getData();
       },
       getproducttype(func) {
-        this.apiGet('admin/getProductType').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            func(data)
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        });
+          this.apiGet('admin/getProductType').then((res) => {
+            this.handelResponse(res, (data, msg) => {
+              this.ptype = data;
+            }, (data, msg) => {
+              this.$Message.error(msg);
+            })
+          }, (res) => {
+            //处理错误信息
+            this.$Message.error('网络异常，请稍后重试。');
+          });
       },
       add() {
         this.$refs.add.modal = true

@@ -72,6 +72,9 @@
       });
     },
     methods: {
+      setArticleType(data) {
+        this.articletypelist = data
+      },
       getData() {
         let data = {
           params: {

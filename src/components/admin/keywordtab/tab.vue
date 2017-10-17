@@ -19,6 +19,7 @@
       getdata(name) {
         if (name == "recommendationkeyword") {
           this.$refs.recommend.getData()
+          this.$refs.recommend.mainKeywordList()
         } else if (name == "trackkeyword") {
           this.$refs.keywordtrack.getData()
         }

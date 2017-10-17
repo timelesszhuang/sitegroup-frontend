@@ -12,18 +12,21 @@
   import http from '../../../assets/js/http.js'
   import question from '../question/index.vue'
   import questiontype   from '../questiontype/questiontype.vue'
+  import common from '../../../assets/js/common';
   export default {
-
     components: {question, questiontype},
     methods: {
       getdata(name) {
         if (name == "question") {
           this.$refs.wenda.getData()
+          this.$refs.wenda.getQuestionType(((data) => {
+            this.$refs.wenda.setQuestionTypelist(data)
+          }))
         } else if (name == "questiontype") {
           this.$refs.wendatype.getData()
         }
       }
     },
-    mixins: [http]
+    mixins: [http,common]
   }
 </script>

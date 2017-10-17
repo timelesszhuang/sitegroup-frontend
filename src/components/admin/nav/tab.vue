@@ -18,6 +18,7 @@
       getdata(name) {
         if (name == "navigation") {
           this.$refs.men.getData()
+          this.$refs.men.getmenutype()
         } else if (name == "Menutype") {
           this.$refs.menutype.getData()
         }
