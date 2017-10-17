@@ -50,7 +50,7 @@
               </Select>
             </Form-item>
             <Form-item label="栏目" prop="menu">
-              <Select filterable v-model="form.menu" multiple style="text-align: left;width:350px;">
+              <Select filterable v-model="form.menu" multiple style="text-align: left;width:500px;">
                 <Option disabled :value="0"><span style="font-size: 15px;font-weight: bold">栏目名—栏目分类—栏目类型—所属文章分类—详情</span></Option>
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text}}—{{item.tag_name}}—{{item.flag_name}}

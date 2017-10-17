@@ -9,7 +9,7 @@
         <div>
           <Form ref="staticconfigsave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="站点选择" prop="site_id">
-              <Select v-model="form.site_id" style="width: 200px;" 　@on-change="changeSite"label-in-value filterable clearable >
+              <Select v-model="form.site_id" style="width: 400px;" 　@on-change="changeSite"label-in-value filterable clearable >
                 <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -37,7 +37,7 @@
               </el-time-select>
             </Form-item>
             <Form-item label="允许发布的数量" prop="staticcount">
-              <Input v-model="form.staticcount" placeholder="请输入数量"></Input>
+              <InputNumber  :min="1" v-model="form.staticcount" placeholder="请输入数量"></InputNumber>
             </Form-item>
             <Form-item label="生成类型" prop="type">
               <Select v-model="form.type" style="text-align: left;width:200px;">

@@ -5,6 +5,7 @@
 </style>
 <template>
   <div>
+
     <Modal
       v-model="modal">
       <p slot="header" style="color:#f60;">
@@ -18,10 +19,15 @@
           </Form-item>
         </Form>
       </div>
+      <Alert type="warning" style="margin-top: 10px">
+        <span style="margin-top:20px;font-size:16px;font-weight: bold">添加关键词注意事项</span>
+        <p style="font-size:14px;">添加每个关键词时需要换行</p>
+      </Alert>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="addAkeyword">保存</Button>
       </div>
     </Modal>
+
   </div>
 </template>
 <script>

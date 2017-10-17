@@ -119,7 +119,7 @@
           <Menu-item name="公众号文章管理">
             <Icon type="chatbubbles"></Icon>
             <span class="layout-text"
-                  @click="routerChange('/sysadmin/articlemanage','公众号文章管理')">公众号文章管理</span>
+                  @click="routerChange('/sysadmin/sysarticlemanage','公众号文章管理')">公众号文章管理</span>
           </Menu-item>
           <Menu-item name="新闻类文章管理">
             <Icon type="ios-copy" :size="iconSize"></Icon>

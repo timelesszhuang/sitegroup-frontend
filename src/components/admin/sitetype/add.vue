@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="900">
+        v-model="modal" width="500">
         <p slot="header">
           <span>添加站点分类</span>
         </p>
