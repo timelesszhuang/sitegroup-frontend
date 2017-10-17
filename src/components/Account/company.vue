@@ -277,7 +277,6 @@
             this.apiPut('admin/Company/' + data.id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
-                this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.mediaadd.resetFields();
