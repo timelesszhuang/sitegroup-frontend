@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900">
+      v-model="modal" width="600">
       <p slot="header">
         <span>修改问答型栏目</span>
       </p>
