@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900">
+      v-model="modal" width="550">
       <p slot="header">
         <span>添加</span>
       </p>
