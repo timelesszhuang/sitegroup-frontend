@@ -158,6 +158,13 @@
           })
         }
         columns.push({
+          title:'缩略图',
+          key:'imgsrc',
+          render(data) {
+            return '<img width="150" src="'+data.imgsrc+'">';
+          }
+        });
+        columns.push({
           title: '标题',
           key: 'title',
           sortable: true
