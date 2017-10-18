@@ -125,6 +125,10 @@
             <Icon type="ios-copy" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
           </Menu-item>
+          <Menu-item name="公共模板">
+            <Icon type="ios-upload" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/systemplate','公共模板')">公共模板</span>
+          </Menu-item>
           <Menu-item name="营销模式">
             <Icon type="flag" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/marketmodel','营销模式')">营销模式</span>

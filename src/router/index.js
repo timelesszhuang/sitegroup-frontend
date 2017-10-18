@@ -18,6 +18,7 @@ import Eventmarketingholiday from '../components/sysadmin/eventmarketingholiday/
 import Mediatype from '../components/sysadmin/mediatype/index.vue'
 import Advertorialmanage from '../components/sysadmin/advertorial/tab.vue'
 import SysarticleManage from '../components/sysadmin/articleManage/index.vue'
+import Systemplate from '../components/sysadmin/template/template.vue'
 
 
 
@@ -94,7 +95,9 @@ export default new Router({
         {path: 'eventmarketingholiday', component: Eventmarketingholiday, name: 'eventmarketingholiday'},
         {path: 'mediatype', component: Mediatype, name: 'mediatype'},
         {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'},
-        {path: 'sysarticlemanage', component: SysarticleManage, name: 'sysarticlemanage'}
+        {path: 'sysarticlemanage', component: SysarticleManage, name: 'sysarticlemanage'},
+        {path: 'systemplate', component: Systemplate, name: 'systemplate'},
+
       ]
     },
     {
