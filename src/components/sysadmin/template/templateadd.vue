@@ -52,6 +52,14 @@
             <Form-item label="模板名" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入模板名"></Input>
             </Form-item>
+            <Form-item label="行业分类" prop="industry_id">
+              <Select v-model="form.industry_id" style="width:150px;text-align: left"
+                      label-in-value　@on-change="changeIndustry">
+                <Option v-for="item in industry" :value="item.id" :label="item.name" :key="item">
+                  {{ item.name }}
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="模板说明" prop="detail">
               <Input type="text" v-model="form.detail" placeholder="请输入模板说明（模板的相关信息）"></Input>
             </Form-item>
@@ -81,7 +89,9 @@
           detail: '',
           path: '',
           thumbnails: '',
-          show_path: ''
+          show_path: '',
+          industry_id: 0,
+          industry_name: '',
         },
         AddRule: {
           name: [
@@ -94,6 +104,10 @@
       }
     },
     methods: {
+      changeIndustry(value){
+        this.form.industry_name = value.label;
+        this.form.industry_id = value.value;
+      },
       getResponse(response, file, filelist) {
         this.form.path = response.data;
         this.$Message.success(response.msg);
@@ -167,6 +181,11 @@
           }
         })
       }
+    },
+    props: {
+      industry: {
+        default: []
+      },
     },
     mixins: [http]
   }

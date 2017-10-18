@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <templateadd ref="add"></templateadd>
-    <templatesave ref="save" :form="editinfo"></templatesave>
+    <templateadd ref="add" :industry="industry"></templateadd>
+    <templatesave ref="save" :form="editinfo" :industry="industry"></templatesave>
   </div>
 </template>
 
@@ -42,12 +42,14 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: {}
+        editinfo: {},
+        industry:[]
       }
     },
     components: {templateadd, templatesave},
     created () {
       this.getData();
+      this.getIndustry();
     },
     methods: {
       getData() {
@@ -68,6 +70,18 @@
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
         })
+      },
+      getIndustry(){
+        this.apiGet('industry/getIndustry').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.industry = data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
       },
       changePage(page){
         this.page = page;
