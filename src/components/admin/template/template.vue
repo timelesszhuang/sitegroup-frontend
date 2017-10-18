@@ -20,7 +20,8 @@
             <div class="sitebottom" style="text-align: left;">
               <ButtonGroup>
                 <p>
-                  <Button size="small" @click="edit(index)" type="primary">修改</Button>
+                  <Button v-if="item.node_id != 0" size="small" @click="edit(index)" type="primary">修改</Button>
+                  <Button v-if="item.node_id == 0" size="small" @click="showhtml(index)" type="error">预览模板</Button>
                   <span>{{item.create_time}}</span>
                 </p>
                 <!--<Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>-->
@@ -33,9 +34,9 @@
         </Row>
       </div>
       <div style="float: right;">
-      <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
-      show-total show-elevator>
-      </Page>
+        <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
+              show-total show-elevator>
+        </Page>
       </div>
       <br>
     </div>
@@ -49,8 +50,9 @@
   import http from '../../../assets/js/http.js';
   import templateadd from './templateadd.vue';
   import templatesave from './temlatesave.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -68,17 +70,30 @@
       }
     },
     components: {templateadd, templatesave},
-    created () {
+    created() {
       this.getData();
     },
     methods: {
       init() {
         this.getData();
       },
+      showhtml(index){
+        let showdata= this.datas[index]
+        let showurl = ROOTHOST + showdata['show_path_href'];
+//        console.log(dataimg)
+        window.open(showurl);
+      },
       choose_bgimg(index) {
-        let background=this.$store.state.background.backgroundcolor;
+        let dataimg = this.datas[index]
+        let background = this.$store.state.background.backgroundcolor;
         index = index % background.length
-        return background[index]
+        if (dataimg['node_id'] == 0) {
+          var bgurl = ROOTHOST  + dataimg['thumbnails']
+          return "background-image:url(" + bgurl + ");background-size: 100% 100%"
+        }
+        else {
+          return background[index]
+        }
       },
       getData() {
         let data = {
@@ -99,21 +114,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('template/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -130,8 +145,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -169,8 +183,9 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+            render(row, column, index) {
+              var btn = `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+              return btn;
             }
           }
         );
