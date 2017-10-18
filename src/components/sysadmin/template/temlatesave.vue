@@ -15,9 +15,11 @@
             :on-success="getRes"
             :on-error="getError"
             :on-format-error="formatErr"
-            :action="imgaction">
+            :action="imgaction"
+            style="margin: 0 auto;width: 100px">
             <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
           </Upload>
+          <div style="margin: 0 auto;width: 500px"><img style="max-width:300px;margin: 0 auto;display: block" :src=imgPath()></div>
           <Upload
             ref="showpathup"
             type="drag"
@@ -109,6 +111,12 @@
       },
     },
     methods: {
+      imgPath(){
+        if(!this.form.thumbnails){
+          return ROOTHOST;
+        }
+        return ROOTHOST + this.form.thumbnails;
+      },
       changeIndustry(value) {
         this.form.industry_name = value.label;
         this.form.industry_id = value.value;
@@ -121,6 +129,7 @@
       getRes(respons, file, filelist) {
         this.form.thumbnails = respons.data;
         this.$Message.success(respons.msg);
+       this.imgPath()
 //        this.$refs.imgupload.clearFiles()
       },
       getRespon(respon, file, filelist) {

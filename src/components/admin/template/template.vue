@@ -23,6 +23,10 @@
                   <Button v-if="item.node_id != 0" size="small" @click="edit(index)" type="primary">修改</Button>
                   <Button v-if="item.node_id == 0" size="small" @click="showhtml(index)" type="error">预览模板</Button>
                   <span>{{item.create_time}}</span>
+                  &nbsp;
+                 <span v-if="item.industry_name">
+                  <Icon type="ios-navigate-outline"></Icon>
+                  <span style="font-size: 13px;"> {{item.industry_name}}</span></span>
                 </p>
                 <!--<Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>-->
                 <!--<Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>-->

@@ -142,6 +142,11 @@
           sortable: true
         });
         columns.push({
+          title: '行业分类',
+          key: 'industry_name',
+          sortable: true
+        });
+        columns.push({
           title: '创建时间',
           key: 'create_time',
           sortable: true

@@ -24,7 +24,10 @@
               </div>
             </div>
             <div class="sitebottom">
-              <Icon type="ios-navigate-outline"></Icon> <span style="font-size: 13px;display: inline-block;margin-right: 15px"> {{item.industry_name}}</span> <Icon type="ios-paperplane"></Icon><span  style="font-size: 13px">{{item.source}}</span>
+              <Icon type="ios-navigate-outline"></Icon>
+              <span style="font-size: 13px;display: inline-block;margin-right: 15px"> {{item.industry_name}}</span>
+              <Icon type="ios-paperplane"></Icon>
+              <span style="font-size: 13px">{{item.source}}</span>
             </div>
           </div>
           </Col>
@@ -37,7 +40,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -47,8 +50,9 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
   import caseshow from './show.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -63,20 +67,20 @@
         title: '',
         datas: [],
         editinfo: {},
-        industry:[],
-        industry_id:'',
-        keyword:'',
-        content:''
+        industry: [],
+        industry_id: '',
+        keyword: '',
+        content: ''
       }
     },
     components: {caseshow},
-    created () {
+    created() {
       this.getData();
       this.getIndustry();
     },
     methods: {
       choose_bgimg(index) {
-        let background=this.$store.state.background.backgroundcolor;
+        let background = this.$store.state.background.backgroundcolor;
         index = index % background.length
         return background[index]
       },
@@ -85,9 +89,9 @@
           params: {
             page: this.page,
             rows: this.rows,
-            industry_id:this.industry_id,
-            keyword:this.keyword,
-            content:this.content
+            industry_id: this.industry_id,
+            keyword: this.keyword,
+            content: this.content
           }
         }
         this.apiGet('admin/CaseCenter/', data).then((data) => {
@@ -101,7 +105,7 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      getIndustry(){
+      getIndustry() {
         this.apiGet('admin/getIndustry').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.industry = data;
@@ -113,7 +117,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      show(index){
+      show(index) {
         let editid = this.datas[index].id
         this.apiGet('admin/CaseCenter/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -129,21 +133,19 @@
         })
 
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
     },
-    computed: {
-
-    },
+    computed: {},
     mixins: [http]
   }
 </script>
@@ -159,7 +161,7 @@
   .siteclass {
     text-align: center;
     width: 100%;
-    color: #ffffff;
+    color: #cccccc;
     font-size: 20px;
     font-weight: bold;
     padding-top: 60px
