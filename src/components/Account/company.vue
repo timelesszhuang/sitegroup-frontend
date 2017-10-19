@@ -6,7 +6,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900"
+      v-model="modal" width="700"
       title="完善企业信息"
       ok-text="保存">
       <p slot="header" style="color:#f60;text-align:center">
@@ -14,7 +14,7 @@
         <span>完善企业信息</span>
       </p>
       <div style="text-align:center">
-        <Form ref="company" :model="form" :label-width="150" :rules="companyRule" class="change-pwd-form">
+        <Form ref="company" :model="form" :label-width="200" :rules="companyRule" class="change-pwd-form">
          <Alert v-if="form.is_checked==3">审核状态:已审核</Alert>
           <Alert type="error" v-if="form.is_checked==0">请完善信息</Alert>
           <Alert type="error" v-if="form.is_checked==2">审核失败原因:{{form.check_info}}</Alert>
@@ -34,11 +34,11 @@
             <Input type="text" v-model="form.tax_registration_number" placeholder="请输入税务登记号"></Input>
           </Form-item>
           <Row>
-            <Col span="6">
-            <div style="width: 150px;text-align:right;">上传企业营业执照
+            <Col span="8">
+            <div style="width: 200px;text-align:right;">上传企业营业执照
             </div>
             </Col>
-            <Col span="18">
+            <Col span="16">
             <div style="float: left">
               <Upload
                 ref="businesslicense"
@@ -49,7 +49,7 @@
                 :on-error="getErrorInfo"
                 :on-format-error="formatError"
                 :action="action">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
               </Upload>
             </div>
             </Col>
@@ -64,11 +64,11 @@
             <Input type="text" v-model="form.artificialperson" placeholder="请输入法人姓名"></Input>
           </Form-item>
           <Row>
-            <Col span="5">
-            <div style="width: 150px;text-align:right;">上传法人身份证
+            <Col span="8">
+            <div style="width: 200px;text-align:right;">上传法人身份证
             </div>
             </Col>
-            <Col span="19">
+            <Col span="16">
             <div style="float: left">
               <Upload
                 ref="artificialpersonid"
@@ -79,7 +79,7 @@
                 :on-error="getError"
                 :on-format-error="formatErr"
                 :action="actionperson">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
               </Upload>
             </div>
             </Col>
@@ -104,11 +104,11 @@
             <Input type="text" v-model="form.trademark_name" placeholder="请输入企业产品商标名称"></Input>
           </Form-item>
           <Row>
-            <Col span="6">
-            <div style="width: 150px;text-align:right;">上传企业产品商标
+            <Col span="8">
+            <div style="width: 200px;text-align:right;">上传企业产品商标
             </div>
             </Col>
-            <Col span="18">
+            <Col span="16">
             <div style="float: left">
               <Upload
                 ref="trademark"
@@ -119,7 +119,7 @@
                 :on-error="getErr"
                 :on-format-error="formatE"
                 :action="trademarkurl">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
               </Upload>
             </div>
             </Col>
