@@ -8,6 +8,7 @@
     </div>
     <div class="content" style="margin-top:10px;">
       <div style="width:90%;margin: 0px auto">
+
         <Row>
           <Col span="6" v-for="(item,index) in datas" :key="index">
           <div class="siteborder">
@@ -15,6 +16,8 @@
               <div class="siteclass">
                 <p>{{item.name}}</p>
                 <p>{{item.detail}}</p>
+                <span style="font-size: 12px"v-if="item.node_id != 0">定制版 </span>
+                <span style="font-size: 12px" v-if="item.node_id == 0">公共模板 </span>
               </div>
             </div>
             <div class="sitebottom" style="text-align: left;">
@@ -22,11 +25,11 @@
                 <p>
                   <Button v-if="item.node_id != 0" size="small" @click="edit(index)" type="primary">修改</Button>
                   <Button v-if="item.node_id == 0" size="small" @click="showhtml(index)" type="error">预览模板</Button>
-                  <span>{{item.create_time}}</span>
                   &nbsp;
                  <span v-if="item.industry_name">
                   <Icon type="ios-navigate-outline"></Icon>
                   <span style="font-size: 13px;"> {{item.industry_name}}</span></span>
+                  <span >{{item.create_time}}</span>
                 </p>
                 <!--<Button size="small" @click="generateStatic(item.id)" type="info">静态化</Button>-->
                 <!--<Button size="small" @click="sendTemp(item.id)" type="warning">发送模板</Button>-->

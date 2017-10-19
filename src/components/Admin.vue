@@ -303,9 +303,13 @@
           style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
           <Row style="margin-top: 5px">
             <Col span="24">
-            <span class="layout-text" @click="company()" style="cursor:pointer">
+            <span v-if="this.is_checked !=3"  class="layout-text" @click="company()" style="cursor:pointer">
               <Icon type="android-lock"></Icon>
               &nbsp;&nbsp;完善企业信息
+            </span>
+            <span v-else="this.is_checked==3"  class="layout-text" @click="showcompany()" style="cursor:pointer">
+              <Icon type="android-lock"></Icon>
+              &nbsp;&nbsp;企业信息
             </span>
             </Col>
           </Row>
@@ -380,6 +384,7 @@
     <logout ref="logout"></logout>
     <!--<changepwd ref="changePwd"></changepwd>-->
     <company ref="Company" :form="editinfo"></company>
+    <showcompany ref="showcompany" :form="editinfo"></showcompany>
     <cue ref="cueclick"></cue>
   </div>
 </template>
@@ -388,6 +393,7 @@
   import changepwd from './Account/Changepwd.vue';
   import cue from './Account/cue.vue';
   import company from './Account/company.vue';
+  import showcompany from './Account/showcompany.vue';
   import http from '../assets/js/http.js';
 
   export default {
@@ -402,14 +408,16 @@
         opennames: ['1'],
         siteTitle: '未获取到',
         copytime:'',
-        editinfo:{}
+        editinfo:{},
+        is_checked:'',
       }
     },
     components: {
       changepwd,
       logout,
       cue,
-      company
+      company,
+      showcompany
     },
     methods: {
       menuClick(e) {
@@ -468,6 +476,35 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
+      showcompany() {
+        this.apiGet('admin/Company/1' ).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.showcompany.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      validatecompany(){
+        this.apiGet('admin/verifyCompanyInfo' ).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+           this.is_checked = data.is_checked
+            this.modal = false;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+            this.company()
+            this.$refs.Company.modal = true
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       logOut() {
         this.$refs.logout.modal = true
       },
@@ -478,6 +515,7 @@
     },
     //created 是函数
     created() {
+      this.validatecompany()
       let date1 = new Date;
      this.copytime =  date1.getFullYear()
 

@@ -24,15 +24,26 @@
     <!--用户添加操作-->
     <Useradd ref="add" :industry="industry"></Useradd>
     <Useredit ref="edit" :form="editinfo" :industry="industry"></Useredit>
+    <Usershow ref="show" :form="editinfo"></Usershow>
+    <Modal v-model="validatecompany" title="输入未审核信息">
+      <Input type="text" v-model="check_info" placeholder="请输入未审核信息"></Input>
+      <div slot="footer">
+        <Button type="success" size="large"  @click="submitData()">保存</Button>
+      </div>
+    </Modal>
   </div>
 </template>
+
 <script>
   import http from '../../../assets/js/http.js';
   import Useradd from './companyadd.vue';
   import Useredit from './companyedit.vue';
+  import Usershow from './showcompany.vue';
+
   export default {
-    data () {
+    data() {
       return {
+        validatecompany: false,
         self: this,
         border: true,
         stripe: true,
@@ -46,16 +57,19 @@
         usertype: 'all',
         editinfo: {},
         industry: [],
-        industry_id: ''
+        industry_id: '',
+        check_info: '',
+        status: 0,
+        id:0
       }
     },
-    components: {Useradd, Useredit},
-    created () {
+    components: {Useradd, Useredit, Usershow},
+    created() {
       this.getData();
       this.getIndustry();
     },
     methods: {
-      getIndustry(){
+      getIndustry() {
         this.apiGet('industry/getIndustry').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.industry = data;
@@ -68,7 +82,7 @@
         });
       },
       //获取数据
-      getData(){
+      getData() {
         let data = {
           params: {
             'page': this.current,
@@ -89,23 +103,38 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      queryData(){
+
+      queryData() {
         this.getData();
       },
-      changePage(page){
+      changePage(page) {
         this.current = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.pagesize = pagesize
         this.getData()
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
-        //　需要删除确认
-        //　获取资源信息
+      show(index) {
+        let editid = this.companylist[index].id
+        this.apiGet('company/' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            delete  data.create_time;
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.show.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      edit(index) {
         let editid = this.companylist[index].id
         this.apiGet('company/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -121,7 +150,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove (index) {
+      remove(index) {
         //需要删除确认
         let id = this.companylist[index].id
         let _this = this
@@ -148,14 +177,61 @@
           }
         })
       },
+      submitData() {
+        let data = {
+          check_info: this.check_info,
+        }
+        this.sendPass(this.id,this.status,data)
+        this.validatecompany = false
+      },
+      changechecked(id, status) {
+        let title = '取消审核权限';
+        let content = '您确定取消?';
+        let data = {};
+        this.status=status
+        this.id=id
+        if (status == 1 || status==2) {
+          this.validatecompany = true
+        }else if(status == 3){
+          data=''
+          title = '通过审核';
+          content = '您确定通过?';
+          this.$Modal.confirm({
+            title: title,
+            content: content,
+            okText: '确定',
+            cancelText: '取消',
+            onOk: (index) => {
+                this.sendPass(id,status,data)
+            },
+            onCancel: () => {
+              return false
+            }
+          })
+        }
+      },
+      sendPass(id,status,data) {
+        this.apiPost('sys/checkPass/' + id + '/' + status, data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.getData();
+            this.$Message.success(msg);
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      }
     }
     ,
     computed: {
-      tableColumns3()
-      {
+      tableColumns3() {
         let columns = [
           {
-            type: 'index', width: 60, align: 'center'
+            type: 'index',
+            width: 60,
+            align: 'center'
           },
           {
             title: '公司名', key: 'name', sortable: true
@@ -184,11 +260,25 @@
           {
             title: '操作',
             key: 'action',
-            width: 150,
+            width: 300,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+            render(row, column, index) {
+              var btn = '';
+              var btn1 = '';
+              if (row.is_checked == 1) {
+                var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
+                var btn1 = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
+              }else if ( row.is_checked == 2) {
+                var btn = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
+              }
+              else if ( row.is_checked == 3) {
+                var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
+              }
+
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
+  <i-button type="primary" size="small" @click="show(${index})">预览</i-button>
+  <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;` + btn+'&nbsp;'+btn1;
             }
           }
         );

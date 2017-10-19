@@ -15,6 +15,10 @@
       </p>
       <div style="text-align:center">
         <Form ref="company" :model="form" :label-width="150" :rules="companyRule" class="change-pwd-form">
+         <Alert v-if="form.is_checked==3">审核状态:已审核</Alert>
+          <Alert type="error" v-if="form.is_checked==0">请完善信息</Alert>
+          <Alert type="error" v-if="form.is_checked==2">审核失败原因:{{form.check_info}}</Alert>
+          <Alert type="error" v-if="form.is_checked==1">审核状态:未审核</Alert>
           <Form-item label="公司名称" prop="name">
             <Input type="text" v-model="form.name" placeholder="请输入公司名称"></Input>
           </Form-item>
