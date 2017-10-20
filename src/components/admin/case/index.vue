@@ -18,7 +18,7 @@
           <Col span="6" v-for="(item,index) in datas" :key="index">
           <div class="siteborder" style="cursor: pointer" @click="show(index)">
             <div class="sitewidth" :style=choose_bgimg(index)>
-              <div class="siteclass">
+              <div class="caseclass">
                 <p style="font-size:18px" :title=item.title>{{item.title}}</p>
                 <p style="font-size: 15px" title="关键词">{{item.keyword}}</p>
               </div>
@@ -158,16 +158,16 @@
     padding: 3px;
   }
 
-  .siteclass {
+  .caseclass {
     text-align: center;
     width: 100%;
-    color: #cccccc;
+    color: #ffffff;
     font-size: 20px;
     font-weight: bold;
     padding-top: 60px
   }
 
-  .siteclass a {
+  .caseclass a {
     color: #ffffff;
     font-size: 18px;
   }
