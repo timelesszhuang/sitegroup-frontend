@@ -61,12 +61,6 @@
       return {
         editorOption: {
           modules: {
-            toolbar: [
-              [{ 'size': ['small', false, 'large'] }],
-              ['bold', 'italic'],
-              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-              ['link', 'image']
-            ],
             history: {
               delay: 1000,
               maxStack: 50,
