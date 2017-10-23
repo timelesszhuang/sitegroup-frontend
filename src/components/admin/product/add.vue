@@ -44,11 +44,13 @@
               <Button type="ghost" icon="ios-cloud-upload-outline">上传产品其他图片</Button>
             </Upload></Col>
              </Row>
-          <Carousel autoplay v-model="value1" style="width:500px;margin: 0 auto">
-            <CarouselItem    v-for="(item,index) in form.imgser" :key="index">
+          <div v-if="this.form.imgser">
+          <Carousel   autoplay v-model="value1" style="width:500px;margin: 0 auto">
+            <CarouselItem   v-for="(item,index) in form.imgser" :key="index">
            <div class="eventmouse"> <img style="display: block;margin: 0 auto;max-width: 300px"  :src=item></div>
             </CarouselItem>
           </Carousel>
+          </div>
           <Form ref="padd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入产品名称 （或其他名称）"></Input>
