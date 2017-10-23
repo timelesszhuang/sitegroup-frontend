@@ -26,6 +26,7 @@
     </div>
     <padd ref="add" :ptype="ptype"></padd>
     <psave ref="save"  :ptype="ptype":form="editinfo"></psave>
+    <editimg ref="editimg" :form="editinfo"></editimg>
   </div>
 </template>
 
@@ -33,10 +34,12 @@
   import http from '../../../assets/js/http.js';
   import padd from './add.vue';
   import psave from './save.vue';
+  import editimg from './editimg.vue';
 
   export default {
     data() {
       return {
+        action: HOST + 'admin/uploadProductSerImg',
         self: this,
         border: true,
         stripe: true,
@@ -55,7 +58,7 @@
       }
     },
 
-    components: {padd,psave},
+    components: {padd,psave,editimg},
     created() {
       this.getData();
       this.getproducttype()
@@ -123,6 +126,21 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
+      editimg(index){
+        let editid = this.datas[index].id
+        this.apiGet('admin/getProductImgList/' + editid).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.editinfo = data
+            this.modal = false;
+            this.$refs.editimg.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      }
     },
 
 
@@ -180,11 +198,12 @@
           {
             title: '操作',
             key: 'action',
-            width: 150,
+            width: 200,
             align: 'center',
             fixed: 'right',
             render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
+<i-button type="primary" size="small" @click="editimg(${index})">修改产品图片</i-button>`;
             }
           }
         );

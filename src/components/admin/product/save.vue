@@ -7,54 +7,31 @@
           <span>修改</span>
         </p>
         <div>
-          <Row>
-            <Col span="4"> <div style="width: 100px;text-align: right;margin-top: 30px">上传图片</div></Col>
-            <Col span="4">
-            <Upload
-              type="select"
-              ref="upImg"
-              with-credentials
-              name="img"
-              :format="['jpg','jpeg','png','gif']"
-              :on-success="getResponse"
-              :on-error="getErrorInfo"
-              :on-format-error="formatError"
-              :action="action"
-              style="text-align: right;margin-top: 10px">
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传主图</Button>
-            </Upload></Col>
-            <Col span="16">
-            <div style="margin:0 auto;max-width: 200px;margin-right: 300px"><img style="max-width: 200px;" :src=imgpath() alt=""></div>
-            </Col>   </Row>
-          <Row>
-            <Col span="4"> <div style="width: 100px;text-align: right;margin-top: 30px">产品其他图片</div></Col>
-            <Col span="5">
-            <Upload
-              multiple
-              type="select"
-              ref="upImgarr"
-              with-credentials
-              name="img"
-              :format="['jpg','jpeg','png','gif']"
-              :on-success="getRes"
-              :on-error="getError"
-              :on-format-error="formatE"
-              :action="otheraction"
-              style="text-align: right;margin-top: 10px">
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传产品其他图片</Button>
-            </Upload></Col>
-          </Row>
-          <div v-if="this.form.imgser">
-          <Carousel autoplay v-model="value1" style="width:500px;margin: 0 auto">
-            <CarouselItem    v-for="(item,index) in form.imgser" :key="index">
-              <div class="eventmouse"> <img style="display: block;margin: 0 auto;max-width: 300px"  :src=item></div>
-            </CarouselItem>
-          </Carousel>
-          </div>
+
+
           <Form ref="psave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入产品名称 （或其他名称）"></Input>
             </Form-item>
+            <Row>
+              <Col span="4"> <div style="width: 100px;text-align: right;margin-top: 30px">上传图片</div></Col>
+              <Col span="4">
+              <Upload
+                type="select"
+                ref="upImg"
+                with-credentials
+                name="img"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getResponse"
+                :on-error="getErrorInfo"
+                :on-format-error="formatError"
+                :action="action"
+                style="text-align: right;margin-top: 10px">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传主图</Button>
+              </Upload></Col>
+              <Col span="16">
+              <div style="margin:0 auto;max-width: 200px;margin-right: 300px"><img style="max-width: 200px;" :src=imgpath() alt=""></div>
+              </Col>   </Row>
             <Form-item label="编号" prop="sn">
               <Input type="text" v-model="form.sn" placeholder="请输入产品编号 （或其他编号）"></Input>
             </Form-item>
@@ -71,6 +48,31 @@
               <Input type="textarea" :autosize="{minRows: 2,maxRows: 10}" v-model="form.summary"
                      placeholder="请输入产品摘要 比如相关产品的介绍"></Input>
             </Form-item>
+            <Row>
+              <Col span="4"> <div style="width: 100px;text-align: right;margin-top: 30px">产品其他图片</div></Col>
+              <Col span="5">
+              <Upload
+                multiple
+                type="select"
+                ref="upImgarr"
+                with-credentials
+                name="img"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getRes"
+                :on-error="getError"
+                :on-format-error="formatE"
+                :action="otheraction"
+                style="text-align: right;margin-top: 10px">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传产品其他图片</Button>
+              </Upload></Col>
+            </Row>
+            <div v-if="this.form.imgser">
+              <Carousel  v-model="value1" style="width:500px;margin: 0 auto">
+                <CarouselItem    v-for="(item,index) in form.imgser" :key="index">
+                  <div class="eventmouse"> <img style="display: block;margin: 0 auto;max-width: 300px"  :src=item.osssrc></div>
+                </CarouselItem>
+              </Carousel>
+            </div>
             <Form-item label="详情" prop="detail">
               <editor @change="updateData" :content="form.detail" :height="300" :auto-height="false"></editor>
             </Form-item>
@@ -132,9 +134,6 @@
     },
     methods: {
       imgpath(){
-        if(!this.form.image){
-          return '';
-        }
         return this.form.image;
       },
       updateData(data) {
@@ -145,11 +144,16 @@
         this.form.type_id = value.value
         this.form.type_name = value.label
       },
+      //缩略图上传回调
       getResponse(response, file, filelist) {
-        this.form.image  = response.url;
-        this.$Message.success(response.msg);
+        this.form.image = response.url;
+        if (response.status) {
+          this.$Message.success(response.msg);
+          this.imgpath();
+        } else {
+          this.$Message.error(response.msg);
+        }
         this.$refs.upImg.clearFiles()
-        this.imgpath();
       },
       getErrorInfo(error, file, filelist) {
         this.$Message.error(error);
@@ -172,7 +176,6 @@
         this.$refs.psave.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            this.form.image = this.image
             let data = this.form;
             let id = data.id;
             this.apiPut('admin/product/' + id, data).then((res) => {
