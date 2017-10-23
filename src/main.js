@@ -19,12 +19,14 @@ import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
 import VueQuillEditor from 'vue-quill-editor'
-import VueHtml5Editor from 'vue-html5-editor'
+// import VueHtml5Editor from 'vue-html5-editor'
 import Store from './vuex/store.js'
 Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
+
+
 Vue.use(VueQuillEditor)
 Vue.use(VueHtml5Editor, {
   // 全局组件名称，使用new VueHtml5Editor(options)时该选项无效
@@ -181,6 +183,7 @@ window.axios = axios
 window.moment = moment
 window.Cookies = Cookies
 window.Lockr = Lockr
+
 
 /* eslint-disable no-new */
 new Vue({
