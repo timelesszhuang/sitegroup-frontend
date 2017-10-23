@@ -25,6 +25,8 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
+
+
 Vue.use(VueQuillEditor)
 Vue.use(VueHtml5Editor, {
   // 全局组件名称，使用new VueHtml5Editor(options)时该选项无效
@@ -181,6 +183,7 @@ window.axios = axios
 window.moment = moment
 window.Cookies = Cookies
 window.Lockr = Lockr
+
 
 /* eslint-disable no-new */
 new Vue({
