@@ -19,7 +19,7 @@ import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
 import VueQuillEditor from 'vue-quill-editor'
-// import VueHtml5Editor from 'vue-html5-editor'
+import VueHtml5Editor from 'vue-html5-editor'
 import Store from './vuex/store.js'
 Vue.config.productionTip = false
 Vue.use(iView);
