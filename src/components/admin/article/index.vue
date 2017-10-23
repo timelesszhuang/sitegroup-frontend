@@ -42,6 +42,7 @@
   import articlesave from './save.vue'
   import articleshow from './show.vue'
 
+
   export default {
     data () {
       return {

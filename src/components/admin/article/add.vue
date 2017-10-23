@@ -26,10 +26,16 @@
             </Select>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="form.content"  :height="300" :auto-height="false"></editor>
+            <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption"
+                          @change="updateData($event)">
+            </quill-editor>
           </Form-item>
         </Form>
         <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;</Alert>
+        <el-upload class="upload-demo" action="http://www.sitegroupback.com/admin/uploadarticleimage"  :data="uploadData" :on-success='upScuccess'
+                   ref="upload" with-credentials style="display:none">
+          <el-button size="small" type="primary" id="imgInput" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="插入中,请稍候">点击上传</el-button>
+        </el-upload>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
@@ -42,6 +48,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
@@ -52,8 +59,26 @@
         }
       };
       return {
+        editorOption: {
+          modules: {
+            toolbar: [
+              [{ 'size': ['small', false, 'large'] }],
+              ['bold', 'italic'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              ['link', 'image']
+            ],
+            history: {
+              delay: 1000,
+              maxStack: 50,
+              userOnly: false
+            }
+          }
+        },
         modal: false,
         modal_loading: false,
+        content:'',
+        fullscreenLoading:'',
+        uploadData:{},
         form: {
           title: "",
           auther: '',
@@ -79,11 +104,33 @@
         }
       }
     },
-    created() {
+    mounted() {
+      this.$refs.myQuillEditor.quill.getModule('toolbar').addHandler('image', this.imgHandler)
     },
     methods: {
+      upScuccess(e, file, fileList) {
+        if(!e.status){
+          this.$message.error("插入失败")
+        }
+        this.fullscreenLoading = false
+        let url = ''
+        if (this.uploadType === 'image') {    // 获得文件上传后的URL地址
+          url = e.url
+        }
+        if (url != null && url.length > 0) {  // 将文件上传后的URL地址插入到编辑器文本中
+          this.$refs.myQuillEditor.quill.insertEmbed(this.$refs.myQuillEditor.quill.getSelection(),"image",url);
+        }
+      },
+      // 点击图片ICON触发事件
+      imgHandler(state) {
+        if (state) {
+          let fileInput = document.getElementById('imgInput')
+          fileInput.click() // 加一个触发事件
+        }
+        this.uploadType = 'image'
+      },
       updateData(data) {
-        this.form.content = data
+        this.form.content = data.html
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
