@@ -107,7 +107,7 @@
       return {
         modal: false,
         modal_loading: false,
-        action: HOST + 'admin/uploadProductImg',
+        action: HOST + 'admin/uploadProductBigImg',
         otheraction: HOST + 'admin/uploadProductSerImg',
         type_name: '',
         value1: 0,
@@ -204,7 +204,10 @@
           sn: '',
           type_name: '',
           type_id: 0,
-          imgser:[]
+          imgser:[],
+          keywords:'',
+          title:'',
+          description:''
         }
       },
 
