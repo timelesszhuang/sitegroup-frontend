@@ -44,9 +44,9 @@
               <Button type="ghost" icon="ios-cloud-upload-outline">上传产品其他图片</Button>
             </Upload></Col>
              </Row>
-          <Carousel v-model="value1">
+          <Carousel autoplay v-model="value1" style="width:500px;margin: 0 auto">
             <CarouselItem    v-for="(item,index) in form.imgser" :key="index">
-            <img width="200px" :src=item>{{item}}
+           <div class="eventmouse"> <img style="display: block;margin: 0 auto;max-width: 300px"  :src=item></div>
             </CarouselItem>
           </Carousel>
           <Form ref="padd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
