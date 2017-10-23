@@ -13,8 +13,8 @@
           <Form-item label="标题" prop="title">
             <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
           </Form-item>
-          <Form-item label="作者" prop="auther">
-            <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
+          <Form-item label="作者" prop="author">
+            <Input type="text" v-model="form.author" placeholder="请输入作者"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
             <Select  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index:10000;"
@@ -50,7 +50,7 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
-          auther: [
+          author: [
             {required: true, message: '请填写作者', trigger: 'blur'},
           ]
         }
