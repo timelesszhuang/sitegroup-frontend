@@ -15,6 +15,20 @@
                 </CarouselItem>
               </Carousel>
             </div>
+            <Upload
+              multiple
+              type="select"
+              ref="upImgarr"
+              with-credentials
+              name="img"
+              :format="['jpg','jpeg','png','gif']"
+              :on-success="getRes"
+              :on-error="getError"
+              :on-format-error="formatE"
+              :action="otheraction"
+             >
+              <Button type="ghost" icon="ios-cloud-upload-outline">添加</Button>
+            </Upload>
             <Row>
               <Col span="8">
               <Form-item label="产品图片" prop="imgser">
@@ -73,6 +87,7 @@
         modal: false,
         modal_loading: false,
         action: HOST + 'admin/uploadProductSerImg/'+this.form.id+'/'+this.imgId,
+        otheraction: HOST + 'admin/uploadProductSerImg/'+this.imgId,
         value1: 0,
         img: '',
         imgId:0,
@@ -108,7 +123,18 @@
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
-
+      getRes(response, file, filelist) {
+        this.form.imgser.push(response.url)
+        this.$Message.success(response.msg);
+        this.$refs.upImgarr.clearFiles()
+        this.show = true
+      },
+      getError(error, file, filelist) {
+        this.$Message.error(error);
+      },
+      formatE() {
+        this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
+      },
       editimg() {
           let data = this.form;
         this.apiPost('admin/uploadProductSerImg', data).then((res) => {
