@@ -40,20 +40,20 @@
           </Row>
           <Row>
             <Col span="12">
-          <Form-item label="缩略图上传">
-            <Upload
-              type="select"
-              ref="upImg"
-              with-credentials
-              name="file"
-              :format="['jpg','jpeg','png','gif']"
-              :on-success="getResponse"
-              :on-error="getErrorInfo"
-              :on-format-error="formatError"
-              :action="action">
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
-            </Upload>
-          </Form-item>
+            <Form-item label="缩略图上传">
+              <Upload
+                type="select"
+                ref="upImg"
+                with-credentials
+                name="file"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getResponse"
+                :on-error="getErrorInfo"
+                :on-format-error="formatError"
+                :action="action">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+              </Upload>
+            </Form-item>
             </Col>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
@@ -65,8 +65,8 @@
                           @change="updateData($event)">
             </quill-editor>
           </Form-item>
-          <Form-item label="关键词" prop="keywords">
-            <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
+          <Form-item label="页面关键词" prop="keywords">
+            <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
           </Form-item>
         </Form>
 
@@ -113,15 +113,15 @@
             }
           }
         },
-        imgshow:false,
+        imgshow: false,
         modal: false,
         modal_loading: false,
         content: '',
         fullscreenLoading: '',
         uploadData: {},
         form: {
-          summary:'',
-          thumbnails:'',
+          summary: '',
+          thumbnails: '',
           keywords: '',
           readcount: 0,
           title: "",
