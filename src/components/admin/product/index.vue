@@ -26,7 +26,7 @@
     </div>
     <padd ref="add" :ptype="ptype"></padd>
     <psave ref="save" :ptype="ptype" :form="editinfo"></psave>
-    <editimg ref="editimg" :form="editinfo"></editimg>
+    <editimg ref="editimg" :form="imginfo"></editimg>
   </div>
 </template>
 
@@ -53,6 +53,7 @@
         name: '',
         datas: [],
         editinfo: {},
+        imginfo: {},
         ptype: [],
         type_id: '',
       }
@@ -128,8 +129,13 @@
         let editid = this.datas[index].id
         this.apiGet('admin/getProductImgList/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.editinfo = data
-            this.modal = false;
+            this.imginfo = data
+            if (data.imglist && data.imglist.length) {
+              this.$refs.editimg.is_show = true;
+            } else {
+              this.$refs.editimg.is_show = false;
+            }
+            this.$refs.editimg.img = '';
             this.$refs.editimg.modal = true
           }, (data, msg) => {
             this.$Message.error(msg);
