@@ -115,7 +115,7 @@
         useragent: 0,
         marketdata: [],
         shoulu: 0,
-        editinfo: []
+        editinfo: [],
       }
     },
 

@@ -11,11 +11,7 @@
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入产品名称 （或其他名称）"></Input>
             </Form-item>
-            <Row>
-              <Col span="4">
-              <div style="width: 100px;text-align: right;margin-top: 10px;margin-bottom: 20px">上传缩略图</div>
-              </Col>
-              <Col span="4">
+            <Form-item label="产品缩略图" prop="name">
               <Upload
                 type="select"
                 ref="upImg"
@@ -26,20 +22,21 @@
                 :on-error="getErrorInfo"
                 :on-format-error="formatError"
                 :action="action"
-                style="text-align: right;margin-top: 10px">
+                style="text-align:left;">
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
               </Upload>
-              </Col>
-              <Col span="16">
-              <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
-                <img style="max-width: 200px;" :src=imgpath() alt=""></div>
-              </Col>
-            </Row>
+              <div v-if="imgshow" style="display: inline-block;width: 100%">
+                <div style="margin:0px auto;width: 300px">
+                  <img style="max-width: 300px;" :src=imgpath() alt="">
+                </div>
+              </div>
+            </Form-item>
             <Form-item label="编号" prop="sn">
               <Input type="text" v-model="form.sn" placeholder="请输入产品编号 （或其他编号）"></Input>
             </Form-item>
             <Form-item label="产品分类" prop="type_name">
-              <Select v-model="type_name"  ref="select" :clearable="selects" style="width:200px;" placeholder="所属产品分类（或其他分类）" label-in-value filterable
+              <Select v-model="type_name" ref="select" :clearable="selects" style="width:200px;"
+                      placeholder="所属产品分类（或其他分类）" label-in-value filterable
                       clearable @on-change="changePtype">
                 <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
               </Select>
@@ -51,35 +48,6 @@
               <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
                      placeholder="请输入产品摘要 比如相关产品的介绍"></Input>
             </Form-item>
-            <Row>
-              <Col span="4">
-              <div style="width: 100px;text-align: right;margin-top:15px;margin-bottom:15px">产品其他图片</div>
-              </Col>
-              <Col span="5">
-              <Upload
-                multiple
-                type="select"
-                ref="upImgarr"
-                with-credentials
-                name="img"
-                :format="['jpg','jpeg','png','gif']"
-                :on-success="getRes"
-                :on-error="getError"
-                :on-format-error="formatE"
-                :action="otheraction"
-                style="text-align: right;margin-top: 10px">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传产品其他图片</Button>
-              </Upload>
-              </Col>
-            </Row>
-            <div v-if="show">
-              <Carousel autoplay v-model="value1" style="width:500px;margin: 0 auto">
-                <CarouselItem v-for="(item,index) in form.imgser" :key="index">
-                  <div class="eventmouse"><img style="display: block;margin: 0 auto;max-width: 300px" :src=item></div>
-                </CarouselItem>
-              </Carousel>
-            </div>
-
             <Form-item label="详情" prop="detail">
               <editor @change="updateData" :content="form.detail" :height="300" :auto-height="false"></editor>
             </Form-item>
@@ -120,10 +88,10 @@
         action: HOST + 'admin/uploadProductBigImg',
         otheraction: HOST + 'admin/uploadProductSerImg',
         type_name: '',
-        show:false,
-        imgshow:false,
+        show: false,
+        imgshow: false,
         value1: 0,
-        selects:true,
+        selects: true,
         form: {
           name: "",
           detail: "",
@@ -184,13 +152,6 @@
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
-      //其他图片上传 支持多张
-      getRes(response, file, filelist) {
-        this.form.imgser.push(response.url)
-        this.$Message.success(response.msg);
-        this.$refs.upImgarr.clearFiles()
-        this.show = true
-      },
       getError(error, file, filelist) {
         this.$Message.error(error);
       },
@@ -209,12 +170,9 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.show = false;
-                this.imgshow = false;
                 this.$refs.padd.resetFields();
                 this.$refs.select.clearSingleSelect()
-
               }, (data, msg) => {
-
                 this.modal_loading = false;
                 this.$Message.error(msg);
               })

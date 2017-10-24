@@ -22,13 +22,13 @@
         </Row>
         <Row>
           <Col span="24">
-          <div v-html="form.content" style="overflow: hidden;font-size: 15px;padding: 20px" class="img"> </div>
+          <div v-html="form.content" style="overflow: hidden;font-size: 15px;padding: 20px" class="img"></div>
           </Col>
         </Row>
         <Row>
           <Col span="24">
           <div style="font-size: 20px;font-weight: 700;">核心解读:</div>
-          <div v-html="form.summary" style="overflow: hidden;font-size: 15px;" class="img"> </div>
+          <div v-html="form.summary" style="overflow: hidden;font-size: 15px;" class="img"></div>
           </Col>
         </Row>
       </div>
@@ -41,6 +41,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -57,17 +58,15 @@
     mixins: [http],
     props: {
       form: {
-        default: {
-
-        }
+        default: {}
       }
     }
   }
 
 </script>
 <style scoped>
-  .img img{
-   max-width: 850px;
+  .img img {
+    max-width: 850px;
   }
 
 </style>

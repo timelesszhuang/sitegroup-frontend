@@ -4,7 +4,7 @@
       <Modal
         v-model="modal" width="900">
         <p slot="header">
-          <span>添加修改图片</span>
+          <span>修改</span>
         </p>
         <div>
           <Form ref="editimg" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">

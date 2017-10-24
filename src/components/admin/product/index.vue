@@ -3,7 +3,7 @@
     <div class="top">
       分类名:
       <Input v-model="name" placeholder="产品名" style="width:300px;"></Input>
-      <Select v-model="type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable   >
+      <Select v-model="type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable>
         <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
@@ -15,17 +15,17 @@
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
-
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator>
+          </Page>
         </div>
       </div>
     </div>
     <padd ref="add" :ptype="ptype"></padd>
-    <psave ref="save"  :ptype="ptype":form="editinfo"></psave>
+    <psave ref="save" :ptype="ptype" :form="editinfo"></psave>
     <editimg ref="editimg" :form="editinfo"></editimg>
   </div>
 </template>
@@ -53,16 +53,14 @@
         name: '',
         datas: [],
         editinfo: {},
-        ptype:[],
-        type_id:'',
+        ptype: [],
+        type_id: '',
       }
     },
-
-    components: {padd,psave,editimg},
+    components: {padd, psave, editimg},
     created() {
       this.getData();
       this.getproducttype()
-
     },
     methods: {
       getData() {
@@ -71,7 +69,7 @@
             page: this.page,
             rows: this.rows,
             name: this.name,
-            type_id:this.type_id
+            type_id: this.type_id
           }
         }
         this.apiGet('admin/product', data).then((data) => {
@@ -97,16 +95,16 @@
         this.getData();
       },
       getproducttype(func) {
-          this.apiGet('admin/getProductType').then((res) => {
-            this.handelResponse(res, (data, msg) => {
-              this.ptype = data;
-            }, (data, msg) => {
-              this.$Message.error(msg);
-            })
-          }, (res) => {
-            //处理错误信息
-            this.$Message.error('网络异常，请稍后重试。');
-          });
+        this.apiGet('admin/getProductType').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.ptype = data;
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
       },
       add() {
         this.$refs.add.modal = true
@@ -126,7 +124,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      editimg(index){
+      editimg(index) {
         let editid = this.datas[index].id
         this.apiGet('admin/getProductImgList/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -142,8 +140,6 @@
         })
       }
     },
-
-
     computed: {
       tableColumns() {
         let columns = [];
@@ -203,7 +199,7 @@
             fixed: 'right',
             render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="primary" size="small" @click="editimg(${index})">修改产品图片</i-button>`;
+                      <i-button type="info" size="small" @click="editimg(${index})">修改产品图片</i-button>`;
             }
           }
         );

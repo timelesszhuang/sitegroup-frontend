@@ -16,25 +16,69 @@
           <Form-item label="作者" prop="auther">
             <Input type="text" v-model="form.auther" placeholder="请输入作者" style="width: 200px;"></Input>
           </Form-item>
-          <Form-item label="文章分类" prop="articletype_id">
-            <Select ref="select" :clearable="selects"  v-model="form.articletype_id" style="position:relative;text-align: left;width:250px;z-index: 10000;"
-                    label-in-value filterable　@on-change="changeArticletype">
-              <Option disabled :value="0">分类名—标签</Option>
-              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.text }}
-              </Option>
-            </Select>
+          <Form-item label="文章描述" prop="summary">
+            <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
           </Form-item>
+          <Row>
+            <Col span="12">
+            <Form-item label="文章分类" prop="articletype_id">
+              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
+                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
+                      label-in-value filterable　@on-change="changeArticletype">
+                <Option disabled :value="0">分类名—标签</Option>
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            </Col>
+            <Col span="12">
+            <Form-item label="阅读次数" prop="readcount">
+              <InputNumber :min="1" v-model="form.readcount" placeholder="请输入作者"></InputNumber>
+            </Form-item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12">
+          <Form-item label="缩略图上传">
+            <Upload
+              type="select"
+              ref="upImg"
+              with-credentials
+              name="file"
+              :format="['jpg','jpeg','png','gif']"
+              :on-success="getResponse"
+              :on-error="getErrorInfo"
+              :on-format-error="formatError"
+              :action="action">
+              <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+            </Upload>
+          </Form-item>
+            </Col>
+            <Col span="12">
+            <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
+              <img style="max-width: 200px;" :src=imgpath() alt=""></div>
+            </Col>
+          </Row>
           <Form-item label="内容" prop="content" style="height:100%;">
             <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption"
                           @change="updateData($event)">
             </quill-editor>
           </Form-item>
+          <Form-item label="关键词" prop="keywords">
+            <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
+          </Form-item>
         </Form>
-        <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;</Alert>
-        <el-upload class="upload-demo" action="http://www.sitegroupback.com/admin/uploadarticleimage"  :data="uploadData" :on-success='upScuccess'
+
+        <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">
+          图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;
+        </Alert>
+        <el-upload class="upload-demo" :action="action"
+                   :data="uploadData" :on-success='upScuccess'
                    ref="upload" with-credentials style="display:none">
-          <el-button size="small" type="primary" id="imgInput" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="插入中,请稍候">点击上传</el-button>
+          <el-button size="small" type="primary" id="imgInput" v-loading.fullscreen.lock="fullscreenLoading"
+                     element-loading-text="插入中,请稍候">点击上传
+          </el-button>
         </el-upload>
       </div>
       <div slot="footer">
@@ -59,6 +103,7 @@
         }
       };
       return {
+        action: HOST + 'admin/uploadarticleimage',
         editorOption: {
           modules: {
             history: {
@@ -68,12 +113,17 @@
             }
           }
         },
+        imgshow:false,
         modal: false,
         modal_loading: false,
-        content:'',
-        fullscreenLoading:'',
-        uploadData:{},
+        content: '',
+        fullscreenLoading: '',
+        uploadData: {},
         form: {
+          summary:'',
+          thumbnails:'',
+          keywords: '',
+          readcount: 0,
           title: "",
           auther: '',
           come_from: '',
@@ -81,7 +131,7 @@
           articletype_name: '',
           content: '',
         },
-        selects:true,
+        selects: true,
         AddRule: {
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
@@ -93,7 +143,7 @@
             {required: true, message: '请填写文章作者', trigger: 'blur'},
           ],
           articletype_id: [
-            {required: true,validator: checkarticletype, trigger: 'blur'}
+            {required: true, validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }
@@ -102,8 +152,30 @@
       this.$refs.myQuillEditor.quill.getModule('toolbar').addHandler('image', this.imgHandler)
     },
     methods: {
+      imgpath() {
+        return this.form.thumbnails;
+      },
+      //缩略图上传回调
+      getResponse(response, file, filelist) {
+        this.form.thumbnails = response.url;
+        if (response.status) {
+          this.$Message.success(response.msg);
+          this.imgpath();
+          this.imgshow = true
+          this.$refs.upImg.clearFiles();
+        } else {
+          this.$Message.error(response.msg);
+        }
+        this.$refs.upImg.clearFiles()
+      },
+      getErrorInfo(error, file, filelist) {
+        this.$Message.error(error);
+      },
+      formatError() {
+        this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
+      },
       upScuccess(e, file, fileList) {
-        if(!e.status){
+        if (!e.status) {
           this.$message.error("插入失败")
         }
         this.fullscreenLoading = false
@@ -112,7 +184,7 @@
           url = e.url
         }
         if (url != null && url.length > 0) {  // 将文件上传后的URL地址插入到编辑器文本中
-          this.$refs.myQuillEditor.quill.insertEmbed(this.$refs.myQuillEditor.quill.getSelection(),"image",url);
+          this.$refs.myQuillEditor.quill.insertEmbed(this.$refs.myQuillEditor.quill.getSelection(), "image", url);
         }
       },
       // 点击图片ICON触发事件
@@ -141,6 +213,7 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
+                this.imgshow = false
                 this.$refs.add.resetFields();
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
