@@ -16,17 +16,57 @@
           <Form-item label="作者" prop="title">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
-          <Form-item label="文章分类" prop="articletype_id">
-            <Select v-model="form.articletype_id" style="text-align: left;width:250px;position: relative;z-index: 10000"
-                    label-in-value 　@on-change="changeArticletype">
-              <Option disabled :value="0">分类名—标签</Option>
-              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.text }}
-              </Option>
-            </Select>
+          <Form-item label="文章描述" prop="summary">
+            <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
           </Form-item>
+          <Row>
+            <Col span="12">
+            <Form-item label="文章分类" prop="articletype_id">
+              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
+                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
+                      label-in-value filterable　@on-change="changeArticletype">
+                <Option disabled :value="0">分类名—标签</Option>
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            </Col>
+            <Col span="12">
+            <Form-item label="阅读次数" prop="readcount">
+              <InputNumber :min="1" v-model="form.readcount" placeholder="请输入作者"></InputNumber>
+            </Form-item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12">
+            <Form-item label="缩略图上传">
+              <Upload
+                type="select"
+                ref="upImg"
+                with-credentials
+                name="file"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getResponse"
+                :on-error="getErrorInfo"
+                :on-format-error="formatError"
+                :action="action">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+              </Upload>
+            </Form-item>
+            </Col>
+            <Col span="12">
+            <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
+              <img style="max-width: 200px;" :src=imgpath() alt=""></div>
+            </Col>
+          </Row>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="form.content"  :height="300" :auto-height="false"></editor>
+            <quill-editor v-model="form.content" ref="myQuillEditor" :options="editorOption"
+                          @change="updateData($event)">
+            </quill-editor>
+          </Form-item>
+          <Form-item label="关键词" prop="keywords">
+            <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
           </Form-item>
         </Form>
       </div>
@@ -49,7 +89,20 @@
         }
       };
       return {
-        editorOption: {},
+        action: HOST + 'admin/uploadarticleimage',
+        imgshow:true,
+        editorOption: {
+          modules: {
+            history: {
+              delay: 1000,
+              maxStack: 50,
+              userOnly: false
+            }
+          }
+        },
+        selects: true,
+        fullscreenLoading: '',
+        uploadData: {},
         modal: false,
         modal_loading: false,
         AddRule: {
@@ -68,9 +121,56 @@
         }
       }
     },
+    mounted() {
+      this.$refs.myQuillEditor.quill.getModule('toolbar').addHandler('image', this.imgHandler)
+    },
     methods: {
+      imgpath() {
+        return this.form.thumbnails;
+      },
+      //缩略图上传回调
+      getResponse(response, file, filelist) {
+        this.form.thumbnails = response.url;
+        if (response.status) {
+          this.$Message.success(response.msg);
+          this.imgpath();
+          this.imgshow = true
+          this.$refs.upImg.clearFiles();
+        } else {
+          this.$Message.error(response.msg);
+        }
+        this.$refs.upImg.clearFiles()
+      },
+      getErrorInfo(error, file, filelist) {
+        this.$Message.error(error);
+      },
+      formatError() {
+        this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
+      },
+      upScuccess(e, file, fileList) {
+        if (!e.status) {
+          this.$message.error("插入失败")
+        }
+        this.fullscreenLoading = false
+        let url = ''
+        if (this.uploadType === 'image') {    // 获得文件上传后的URL地址
+          url = e.url
+        }
+        if (url != null && url.length > 0) {  // 将文件上传后的URL地址插入到编辑器文本中
+          this.$refs.myQuillEditor.quill.insertEmbed(this.$refs.myQuillEditor.quill.getSelection(), "image", url);
+        }
+      },
+      // 点击图片ICON触发事件
+      imgHandler(state) {
+        if (state) {
+          let fileInput = document.getElementById('imgInput')
+          fileInput.click() // 加一个触发事件
+        }
+        this.uploadType = 'image'
+      },
+
       updateData(data) {
-        this.form.content = data
+        this.form.content= data
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -80,6 +180,10 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
+//            for(var i in this.form){
+//              console.log(i)
+//            }
+//            return
             let data = this.form;
             let id = data.id;
             this.apiPut('article/' + id, data).then((res) => {
@@ -87,8 +191,10 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
+                this.imgshow = false
                 this.modal_loading = false;
-//                this.$refs.save.resetFields();
+                this.$refs.save.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
@@ -109,20 +215,14 @@
       },
       form: {
         default: {
-          title: "",
-          auther: '',
-          articletype_id: 0,
-          articletype_name: '',
-          content: ''
+
         }
       }
     }
   }
 </script>
 <style>
-  .ql-container .ql-editor {
-    min-height: 20em;
-    padding-bottom: 1em;
-    max-height: 25em;
+  .ql-editor {
+    max-height: 1000px !important;
   }
 </style>
