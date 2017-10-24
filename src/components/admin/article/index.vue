@@ -29,8 +29,8 @@
       </div>
     </div>
     <articleadd ref="add" :articletype="articletypelist"></articleadd>
-    <articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>
-    <articleshow ref="show" :form="editinfo"></articleshow>
+    <articlesave ref="save" :form="editinfo" :articletype="articletypelist" ></articlesave>
+    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
   </div>
 
 </template>
@@ -62,7 +62,7 @@
         article_type: 0,
         datas: [],
         editinfo: {},
-        articletypelist: []
+        articletypelist: [],
       }
     },
     components: {articleadd, articlesave, articleshow},
