@@ -69,6 +69,17 @@
             <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
           </Form-item>
         </Form>
+        <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">
+          图片上传限制:&nbsp;&nbsp;&nbsp;单张图片限制为512KB大小&nbsp;&nbsp;&nbsp;
+        </Alert>
+        <el-upload class="upload-demo" :action="action"
+                   :data="uploadData" :on-success='upScuccess'
+                   ref="upload" with-credentials style="display:none">
+          <el-button size="small" type="primary" id="imgInput_article_save"
+                     v-loading.fullscreen.lock="fullscreenLoading"
+                     element-loading-text="插入中,请稍候">点击上传
+          </el-button>
+        </el-upload>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
@@ -97,7 +108,6 @@
             history: {
               delay: 1000,
               maxStack: 50,
-              userOnly: false
             }
           }
         },
@@ -164,7 +174,7 @@
       // 点击图片ICON触发事件
       imgHandler(state) {
         if (state) {
-          let fileInput = document.getElementById('imgInput')
+          let fileInput = document.getElementById('imgInput_article_save')
           fileInput.click() // 加一个触发事件
         }
         this.uploadType = 'image'
