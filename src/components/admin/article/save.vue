@@ -79,6 +79,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
@@ -90,7 +91,7 @@
       };
       return {
         action: HOST + 'admin/uploadarticleimage',
-        imgshow:true,
+        imgshow: true,
         editorOption: {
           modules: {
             history: {
@@ -168,9 +169,8 @@
         }
         this.uploadType = 'image'
       },
-
       updateData(data) {
-        this.form.content= data
+        this.form.content = data.html
       },
       changeArticletype(value) {
         this.form.articletype_name = value.label
@@ -180,10 +180,6 @@
         this.$refs.save.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-//            for(var i in this.form){
-//              console.log(i)
-//            }
-//            return
             let data = this.form;
             let id = data.id;
             this.apiPut('article/' + id, data).then((res) => {
@@ -214,9 +210,7 @@
         default: {}
       },
       form: {
-        default: {
-
-        }
+        default: {}
       }
     }
   }
