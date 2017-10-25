@@ -20,8 +20,7 @@
               </Select>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">
-              <quill-editor v-model="form.content_paragraph" ref="myQuillEditor" :options="editorOption">
-              </quill-editor>
+              <editor @change="updateData" :content="form.content_paragraph"  :height="300" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="关键词" prop="keywords">
               <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
@@ -30,13 +29,6 @@
               <Input v-model="form.description" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
             </Form-item>
           </Form>
-          <el-upload class="upload-demo" :action="content_image"
-                     :data="uploadData" :on-success='upScuccess'
-                     ref="upload" with-credentials style="display:none">
-            <el-button size="small" type="primary" id="imgInput_question_save" v-loading.fullscreen.lock="fullscreenLoading"
-                       element-loading-text="插入中,请稍候">点击上传
-            </el-button>
-          </el-upload>
         </div>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
@@ -58,18 +50,6 @@
         }
       };
       return {
-        uploadData:{},
-        content_image:HOST + 'admin/uploadquestionimage',
-        editorOption: {
-          modules: {
-            history: {
-              delay: 1000,
-              maxStack: 50,
-              userOnly: false
-            }
-          }
-        },
-        fullscreenLoading: '',
         modal: false,
         selects:true,
         modal_loading: false,
@@ -86,31 +66,7 @@
         }
       }
     },
-    mounted() {
-      this.$refs.myQuillEditor.quill.getModule('toolbar').addHandler('image', this.imgHandler)
-    },
     methods: {
-      upScuccess(e, file, fileList) {
-        if (!e.status) {
-          this.$message.error("插入失败")
-        }
-        this.fullscreenLoading = false
-        let url = ''
-        if (this.uploadType === 'image') {    // 获得文件上传后的URL地址
-          url = e.url
-        }
-        if (url != null && url.length > 0) {  // 将文件上传后的URL地址插入到编辑器文本中
-          this.$refs.myQuillEditor.quill.insertEmbed(this.$refs.myQuillEditor.quill.getSelection(), "image", url);
-        }
-      },
-      // 点击图片ICON触发事件
-      imgHandler(state) {
-        if (state) {
-          let fileInput = document.getElementById('imgInput_question_save')
-          fileInput.click() // 加一个触发事件
-        }
-        this.uploadType = 'image'
-      },
       updateData(data) {
         this.form.content_paragraph = data
       },
