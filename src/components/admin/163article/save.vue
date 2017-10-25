@@ -18,6 +18,9 @@
           <Form-item label="作者" prop="auther">
             <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
           </Form-item>
+          <Form-item label="文章描述" prop="summary">
+            <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
+          </Form-item>
           <Row>
             <Col span="12">
             <Form-item label="文章分类" prop="articletype_id">
@@ -192,6 +195,7 @@
           articletype_id: 0,
           articletype_name: '',
           content: '',
+          readcount:0
         }
       }
     }
