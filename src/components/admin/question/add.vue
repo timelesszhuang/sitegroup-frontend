@@ -22,11 +22,11 @@
             <Form-item label="答案" prop="content_paragraph">
               <editor @change="updateData" :content="form.content_paragraph"  :height="300" :auto-height="false"></editor>
             </Form-item>
-            <Form-item label="关键词" prop="keywords">
-              <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
+            <Form-item label="页面关键词" prop="keywords">
+              <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
             </Form-item>
-            <Form-item label="文章描述" prop="description">
-              <Input v-model="form.description" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
+            <Form-item label="页面文章描述" prop="description">
+              <Input v-model="form.description" :rows="3" type="textarea" placeholder="请输入页面文章描述"></Input>
             </Form-item>
           </Form>
         </div>
