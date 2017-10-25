@@ -32,7 +32,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import wechatarticlesave from './save.vue'
+  import wechatarticlesave from '../163article/save.vue'
   export default {
     data () {
       return {
@@ -127,6 +127,9 @@
         this.apiGet('qq/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            this.editinfo.come_from = data.source
+            this.editinfo.createtime = data.ptime
+           // console.log(data)
 //            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);

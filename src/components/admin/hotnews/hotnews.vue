@@ -26,7 +26,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import hotnews from './save.vue'
+  import hotnews from '../163article/save.vue'
   export default {
     data () {
       return {
@@ -107,6 +107,9 @@
             this.editinfo = data
             this.editinfo.articletype_id = ''
             this.editinfo.articletype_name = ''
+            this.editinfo.come_from = data.source
+            this.editinfo.createtime = data.ptime
+            //console.log(this.editinfo)
           }, (data, msg) => {
             this.$Message.error(msg);
           })

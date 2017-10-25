@@ -129,7 +129,17 @@
         this.apiGet('wangyi/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-//            console.log(data.url)
+            this.editinfo.url = data.url
+            this.editinfo.title = data.title
+            this.editinfo.type_id = data.type_id
+            this.editinfo.type_name = data.type_name
+            this.editinfo.content = data.content
+            this.editinfo.summary = data.digest
+            this.editinfo.come_from = data.source
+            this.editinfo.createtime = data.createtime
+            this.editinfo.id = data.id
+            //console.log(data)
+            console.log( this.editinfo)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
