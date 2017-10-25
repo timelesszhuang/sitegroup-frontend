@@ -57,11 +57,11 @@
             </Col>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
-              <img style="max-width: 200px;" :src=imgpath() alt=""></div>
+              <img style="max-width: 200px;max-height: 200px; width:100px" :src=imgpath() alt=""></div>
             </Col>
           </Row>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="form.content"  :height="300" :auto-height="false"></editor>
+            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
           </Form-item>
         </Form>
         <Alert style="font-size:15px;font-weight: bold;text-align:center;" type="warning">
@@ -160,7 +160,6 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
-                this.imgshow = false
                 this.modal_loading = false;
                 this.$refs.save.resetFields();
                 this.$refs.select.clearSingleSelect()
