@@ -25,8 +25,6 @@
                 {{ item.text }}
               </Option>
             </Select>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp;
             <span>原分类：{{form.type_name}}</span>
           </Form-item>
           <Form-item label="内容" prop="content">

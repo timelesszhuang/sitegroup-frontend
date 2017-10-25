@@ -58,14 +58,14 @@ Vue.use(VueHtml5Editor, {
   // config image module
   image: {
     // 文件最大体积，单位字节  max file size
-    sizeLimit: 512 * 1024,
+    sizeLimit: 1024 * 1024,
     // 上传参数,默认把图片转为base64而不上传
     // upload config,default null and convert image to base64
     upload: {
-      url: null,
+      url: 'http://local.sitegroup.com/index.php/uploadimg',
       headers: {},
       params: {},
-      fieldName: {}
+      fieldName: 'img'
     },
     // 压缩参数,默认使用localResizeIMG进行压缩,设置为null禁止压缩
     // compression config,default resize image by localResizeIMG (https://github.com/think2011/localResizeIMG)
@@ -80,10 +80,10 @@ Vue.use(VueHtml5Editor, {
     uploadHandler(responseText){
       //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"}
       var json = JSON.parse(responseText)
-      if (!json.ok) {
+      if (!json.status) {
         alert(json.msg)
       } else {
-        return json.data
+        return json.url
       }
     }
   },
