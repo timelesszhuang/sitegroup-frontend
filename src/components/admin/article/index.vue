@@ -30,7 +30,7 @@
     </div>
     <articleadd ref="add" :articletype="articletypelist"></articleadd>
     <articlesave ref="save" :form="editinfo" :articletype="articletypelist" ></articlesave>
-    <!--<articleshow ref="show" :form="editinfo"></articleshow>-->
+    <articleshow ref="show" :form="editinfo"></articleshow>
   </div>
 
 </template>
