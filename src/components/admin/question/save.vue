@@ -23,6 +23,12 @@
               <quill-editor v-model="form.content_paragraph" ref="myQuillEditor" :options="editorOption">
               </quill-editor>
             </Form-item>
+            <Form-item label="关键词" prop="keywords">
+              <Input type="text" v-model="form.keywords" placeholder="请输入关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
+            </Form-item>
+            <Form-item label="文章描述" prop="description">
+              <Input v-model="form.description" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
+            </Form-item>
           </Form>
           <el-upload class="upload-demo" :action="content_image"
                      :data="uploadData" :on-success='upScuccess'
@@ -53,7 +59,7 @@
       };
       return {
         uploadData:{},
-        content_image:HOST + 'admin/uploadarticleimage',
+        content_image:HOST + 'admin/uploadquestionimage',
         editorOption: {
           modules: {
             history: {
