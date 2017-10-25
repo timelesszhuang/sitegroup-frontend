@@ -18,7 +18,7 @@ import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
 import Cookies from 'js-cookie'
-import VueQuillEditor from 'vue-quill-editor'
+
 import VueHtml5Editor from 'vue-html5-editor'
 import Store from './vuex/store.js'
 Vue.config.productionTip = false
@@ -26,8 +26,12 @@ Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
 
+let domain = 'api.salesman.cc'
 
-Vue.use(VueQuillEditor)
+// let domain = 'www.sitegroupback.com'
+
+var HOST = 'http://' + domain + '/index.php/'
+var ROOTHOST = 'http://' + domain + '/'
 Vue.use(VueHtml5Editor, {
   // 全局组件名称，使用new VueHtml5Editor(options)时该选项无效
   // global component name
@@ -62,7 +66,7 @@ Vue.use(VueHtml5Editor, {
     // 上传参数,默认把图片转为base64而不上传
     // upload config,default null and convert image to base64
     upload: {
-      url: 'http://local.sitegroup.com/index.php/uploadimg',
+      url: HOST+'uploadimg',
       headers: {},
       params: {},
       fieldName: 'img'
@@ -163,12 +167,7 @@ Vue.use(VueHtml5Editor, {
   }
 })
 
-// let domain = 'api.salesman.cc'
 
-let domain = 'local.sitegroup.com'
-
-var HOST = 'http://' + domain + '/index.php/'
-var ROOTHOST = 'http://' + domain + '/'
 
 axios.defaults.baseURL = HOST
 axios.defaults.timeout = 1000 * 15
