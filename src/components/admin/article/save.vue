@@ -54,6 +54,7 @@
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
               <img style="max-width: 200px;max-height: 200px; width:100px" :src=imgpath() alt=""></div>
             </Col>
+
           </Row>
           <Row>
             <Col span="12">
@@ -206,7 +207,9 @@
         default: {}
       },
       form: {
-        default: {}
+        default: {
+
+        }
       }
     }
   }

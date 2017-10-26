@@ -32,7 +32,7 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import wechatarticlesave from './save.vue'
+  import wechatarticlesave from '../article/save.vue'
   export default {
     data () {
       return {
