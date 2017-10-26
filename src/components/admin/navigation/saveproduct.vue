@@ -17,7 +17,7 @@
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
-          <Form-item label="产品分类" prop="type_name">
+          <Form-item label="产品分类" prop="type_id">
             <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
                     @on-change="changeProtype">
               <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
@@ -32,6 +32,7 @@
             </Select>
           </Form-item>
         </Form>
+
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="saveproduct">保存</Button>
@@ -61,8 +62,8 @@
       };
       return {
         modal: false,
-        type_name: '',
         modal_loading: false,
+        type_name:'',
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -88,9 +89,9 @@
         this.form.tag_id = value.value
       },
       changeProtype(value) {
-//        console.log(value)
         this.form.type_id = value.value
         this.type_name = value.label
+        //console.log(this.form.type_name)
       },
       saveproduct() {
         this.$refs.data.validate((valid) => {
@@ -98,7 +99,7 @@
             this.modal_loading = true;
             this.form.type_name = this.type_name
             let data = this.form;
-            console.log(this.form);
+            console.log(data)
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -130,6 +131,7 @@
       },
       form: {
         default: {
+          type_name:'',
           name: "",
           title: '',
         }
