@@ -88,7 +88,6 @@
         action: HOST + 'admin/uploadProductBigImg',
         otheraction: HOST + 'admin/uploadProductSerImg',
         type_name: '',
-        show: false,
         imgshow: false,
         value1: 0,
         selects: true,
@@ -169,7 +168,8 @@
                 this.$parent.getData();
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.show = false;
+                this.imgshow = false;
+                this.form.image = '';
                 this.$refs.padd.resetFields();
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {

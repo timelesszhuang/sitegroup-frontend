@@ -7,9 +7,18 @@
           <span>产品图片管理</span>
         </p>
         <div>
-          <Form ref="editimg" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <div v-if="is_show" style="padding: 10px">
+            <Carousel v-model="value1" autoplay >
+              <CarouselItem v-for="(item,index) in form.imglist" :key="index">
+                <div class="eventmouse" style="width:100%;height:auto;max-height: 400px;">
+                  <img :src=item style="width: 100%;">
+                </div>
+              </CarouselItem>
+            </Carousel>
+          </div>
 
-            <div>
+          <Form ref="editimg" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <div style="margin-bottom:20px ">
               <Upload
                 type="select"
                 ref="addImg"
@@ -25,13 +34,6 @@
                 <Button type="primary" icon="ios-cloud-upload-outline">添加产品图片</Button>
               </Upload>
             </div>
-            <div v-if="is_show" style="padding: 10px">
-              <Carousel v-model="value1" style="width:500px;margin: 0 auto" autoplay>
-                <CarouselItem v-for="(item,index) in form.imglist" :key="index">
-                  <div class="eventmouse"><img style="display: block;margin: 0 auto;max-width: 300px" :src=item></div>
-                </CarouselItem>
-              </Carousel>
-            </div>
             <Row v-if="is_show">
               <Col span="8">
               <Form-item label="修改产品图片" prop="imgser">
@@ -41,13 +43,12 @@
                 </Select>
               </Form-item>
               </Col>
-              <Col span="6">
-              <div>
-                <img style="max-width: 170px" :src=img>
-              </div>
-              </Col>
-              </Col>
               <Col span="10">
+                <div>
+                  <img style="max-width: 270px" :src=img>
+                </div>
+              </Col>
+              <Col span="6">
               <div>
                 <Upload
                   v-if="this.img"
@@ -62,17 +63,21 @@
                   :action="action"
                   :data="editotherdata"
                 >
-                  <Button type="ghost" icon="ios-cloud-upload-outline">修改</Button>
+                  <Button type="ghost" icon="ios-cloud-upload-outline">替换</Button>
                 </Upload>
                 <Button v-if="this.img" type="warning" @click="delimg()">删除</Button>
               </div>
               </Col>
             </Row>
-            <Alert v-show="!is_show">
-              该产品暂时没有图片
-              <template slot="desc">请添加产品图片</template>
-            </Alert>
           </Form>
+          <Alert type="warning" v-show="is_show">
+            提示
+            <template slot="desc">替换删除图片请慎重！</template>
+          </Alert>
+          <Alert v-show="!is_show">
+            该产品暂时没有图片
+            <template slot="desc">请添加产品图片</template>
+          </Alert>
         </div>
         <div slot="footer">
         </div>
