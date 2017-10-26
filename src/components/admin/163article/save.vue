@@ -3,40 +3,34 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-
-        <span>添加到文章库</span>
+        <span>添加到私有文章库</span>&nbsp;&nbsp;&nbsp; <a v-bind:href="url" target="_blank">点此查看原文章</a>
       </p>
       <div>
-
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Form-item label="原文">
-            <a v-bind:href="url" target="_blank">点击查看原文章</a>
-          </Form-item>
-          <Form-item label="标题" prop="title">
-            <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
-          </Form-item>
-          <Form-item label="作者" prop="auther">
-            <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
-          </Form-item>
-          <Form-item label="文章描述" prop="summary">
-            <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
-          </Form-item>
+          <Row>
+            <Col span="17">
+            <Form-item label="标题" prop="title">
+              <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="8">
+            <Form-item label="简略标题" prop="shorttitle">
+              <Input type="text" v-model="form.shorttitle" placeholder="请输入简略标题"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+
           <Row>
             <Col span="12">
-            <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
-                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option disabled :value="0">分类名—标签</Option>
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.text }}
-                </Option>
-              </Select>
+            <Form-item label="来源" prop="come_from">
+              <Input type="text" v-model="form.come_from" placeholder="请输入来源" style="width: 200px;"></Input>
             </Form-item>
             </Col>
             <Col span="12">
-            <Form-item label="阅读次数" prop="readcount">
-              <InputNumber :min="1" v-model="form.readcount" placeholder="请输入作者"></InputNumber>
+            <Form-item label="作者" prop="auther">
+              <Input type="text" v-model="form.auther" placeholder="请输入作者"></Input>
             </Form-item>
             </Col>
           </Row>
@@ -62,12 +56,38 @@
               <img style="max-width: 200px;" :src=imgpath() alt=""></div>
             </Col>
           </Row>
+          <Row>
+            <Col span="12">
+            <Form-item label="文章分类" prop="articletype_id">
+              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
+                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
+                      label-in-value filterable　@on-change="changeArticletype">
+                <Option disabled :value="0">分类名—标签</Option>
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            </Col>
+            <Col span="12">
+            <Form-item label="阅读次数" prop="readcount">
+              <InputNumber :min="1" v-model="form.readcount" placeholder="请输入作者"></InputNumber>
+            </Form-item>
+            </Col>
+          </Row>
+          <Form-item label="文章描述" prop="summary">
+            <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
+          </Form-item>
           <Form-item label="内容" prop="content">
-            <editor @change="updateData" :content="form.content"   :height="300" :auto-height="false"></editor>
+            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
           </Form-item>
-          <Form-item label="页面关键词" prop="keywords">
-            <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词(尽量用英文符号分割)" style="width: 200px;"></Input>
-          </Form-item>
+          <Row>
+            <Col span="12">
+            <Form-item label="页面关键词" prop="keywords">
+              <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词(请用英文符号,分割)"></Input>
+            </Form-item>
+            </Col>
+          </Row>
         </Form>
       </div>
       <div slot="footer">
@@ -79,6 +99,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
@@ -98,18 +119,21 @@
           title: [
             {required: true, message: '请填写文章标题', trigger: 'blur'},
           ],
+          come_from: [
+            {required: true, message: '请填写文章来源', trigger: 'blur'},
+          ],
           auther: [
             {required: true, message: '请填写作者', trigger: 'blur'},
           ],
-          articletype_id:[
-            {required: true,validator: checkarticletype, trigger: 'blur'}
+          articletype_id: [
+            {required: true, validator: checkarticletype, trigger: 'blur'}
           ]
         }
       }
     },
     computed: {
       url: function () {
-        return  this.form.url;
+        return this.form.url;
       },
 
     },
@@ -148,18 +172,17 @@
           if (valid) {
             this.modal_loading = true;
             let data = {
-              articletype_id:this.form.articletype_id,
-              articletype_name:this.form.articletype_name,
-              auther:this.form.auther,
-              summary:this.form.summary,
-              title:this.form.title,
+              articletype_id: this.form.articletype_id,
+              articletype_name: this.form.articletype_name,
+              auther: this.form.auther,
+              summary: this.form.summary,
+              title: this.form.title,
               content: this.form.content,
-              come_from:this.form.come_from,
-              posttime:this.form.createtime,
-              thumbnails:this.form.thumbnails,
-              readcount:this.form.readcount,
-              keywords:this.form.keywords
-
+              come_from: this.form.come_from,
+              posttime: this.form.createtime,
+              thumbnails: this.form.thumbnails,
+              readcount: this.form.readcount,
+              keywords: this.form.keywords
             }
 //            let data = this.form;
             this.apiPost('wangyi/addArticle', data).then((res) => {
@@ -195,7 +218,7 @@
           articletype_id: 0,
           articletype_name: '',
           content: '',
-          readcount:0
+          readcount: 0
         }
       }
     }

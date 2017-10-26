@@ -127,7 +127,7 @@
         return this.form.image;
       },
       updateData(data) {
-        this.form.detail = data.html
+        this.form.detail = data
       },
       changePtype(value) {
         this.form.type_id = value.value
