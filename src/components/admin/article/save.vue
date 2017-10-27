@@ -228,7 +228,8 @@
               thumbnails: this.form.thumbnails,
               readcount: this.form.readcount,
               keywords: this.form.keywords,
-              shorttitle:this.form.shorttitle
+              shorttitle:this.form.shorttitle,
+              is_collection:this.form.is_collection
             }
 //            let data = this.form;
             this.apiPost('article', data).then((res) => {
