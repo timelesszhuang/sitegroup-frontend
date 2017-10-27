@@ -167,16 +167,16 @@
           title: '编号',
           key: 'sn',
         });
-//        columns.push({
-//          title: '缩略图',
-//          width:'200',
-//          key: 'base64',
-//          sortable: true,
-//          render(row, index) {
-//            var type = ' <img height="150px" width="200"  src="'+row.base64+'" alt="">';
-//            return type;
-//          },
-//        });
+        columns.push({
+          title: '缩略图',
+          width:'200',
+          key: 'base64',
+          sortable: true,
+          render(row, index) {
+            var type = ' <img  style="max-width: 190px;max-height: 150px"  src="'+row.image+'" alt="">';
+            return type;
+          },
+        });
         columns.push({
           title: '产品名称',
           key: 'name',

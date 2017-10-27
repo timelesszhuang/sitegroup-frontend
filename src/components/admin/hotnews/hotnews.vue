@@ -29,6 +29,7 @@
   import hotnews from '../article/save.vue'
   export default {
     data () {
+
       return {
         page_show: true,
         self: this,

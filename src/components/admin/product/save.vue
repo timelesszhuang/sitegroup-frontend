@@ -118,6 +118,7 @@
         return this.form.image;
       },
       updateData(data) {
+        console.log(data)
         this.form.detail = data
       },
       changePtype(value) {
@@ -186,7 +187,8 @@
           type_id: 0,
           keywords: '',
           title: '',
-          description: ''
+          description: '',
+          content:''
         }
       },
       ptype: {
