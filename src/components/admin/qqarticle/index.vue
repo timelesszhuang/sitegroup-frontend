@@ -127,6 +127,7 @@
         this.apiGet('qq/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             data.thumbnails='';
+            data.readcount = 0;
             this.editinfo = data
             this.editinfo.come_from = data.source
             this.editinfo.createtime = data.ptime

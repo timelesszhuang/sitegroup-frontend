@@ -3,7 +3,7 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>添加到私有文章库</span>&nbsp;&nbsp;&nbsp; <a v-bind:href="url" target="_blank">点此查看原文章</a>
+        <span>添加到私有文章库&nbsp;&nbsp;&nbsp; <a v-bind:href="url" target="_blank">点此查看原文章</a></span>
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
@@ -91,6 +91,7 @@
         </Form>
       </div>
       <div slot="footer">
+        <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
         <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
       </div>
     </Modal>
