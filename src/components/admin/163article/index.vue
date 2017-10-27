@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top" >
+    <div class="top">
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
@@ -20,21 +20,22 @@
           <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator>
+          </Page>
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
+    <wechatarticlesave ref="save" :form="editinfo" :articletype="articletypelist"></wechatarticlesave>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
   import wechatarticlesave from '../article/save.vue'
+
   export default {
-    data () {
+    data() {
       return {
         page_show: true,
         self: this,
@@ -50,15 +51,16 @@
         pageSize: 10,
         title: '',
         article_type: 0,
-        keyword_type:0,
+        keyword_type: 0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+        },
         articletypelist: [],
-        keywordtype:[]
+        keywordtype: []
       }
     },
     components: {wechatarticlesave},
-    created () {
+    created() {
       this.getData();
 //      console.log(3434)
       this.getArticleType((data) => {
@@ -90,25 +92,25 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.page = 1
         this.page_show = false
         this.getData();
         this.page_show = true
       },
-      edit(index){
+      edit(index) {
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
+      show(index) {
         this.getArticle(index);
         this.$refs.show.modal = true
       },
@@ -124,22 +126,14 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      getArticle(index){
+      getArticle(index) {
         let editid = this.datas[index].id
         this.apiGet('wangyi/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            data.thumbnails='';
             this.editinfo = data
-            this.editinfo.url = data.url
-            this.editinfo.title = data.title
-            this.editinfo.type_id = data.type_id
-            this.editinfo.type_name = data.type_name
-            this.editinfo.content = data.content
             this.editinfo.summary = data.digest
             this.editinfo.come_from = data.source
-            this.editinfo.createtime = data.createtime
-            this.editinfo.id = data.id
-            //console.log(data)
-            console.log( this.editinfo)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -150,8 +144,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -168,10 +161,10 @@
           })
         }
         columns.push({
-          title:'缩略图',
-          key:'imgsrc',
+          title: '缩略图',
+          key: 'imgsrc',
           render(data) {
-            return '<img width="150" src="'+data.imgsrc+'">';
+            return '<img width="150" src="' + data.imgsrc + '">';
           }
         });
         columns.push({
@@ -186,14 +179,14 @@
         });
         columns.push({
           title: '简介',
-          width:'300px',
+          width: '300px',
           key: 'digest',
           sortable: true
         });
         columns.push({
           title: '来源',
           key: 'source',
-          width:'300px',
+          width: '300px',
           sortable: true
         });
         columns.push({
@@ -207,7 +200,7 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
             }
           }

@@ -52,7 +52,7 @@
             </Col>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
-              <img style="max-width: 200px;max-height: 200px; width:100px" :src=imgpath() alt=""></div>
+              <img style="max-width: 200px;max-height: 200px; width:100px" :src='imgpath()' alt=""></div>
             </Col>
 
           </Row>
@@ -144,12 +144,17 @@
         }
       }
     },
+    computed: {},
     methods: {
       imgpath() {
-        return this.form.thumbnails;
+        if (this.form.thumbnails) {
+          return this.form.thumbnails;
+        }
+        return '';
       },
       //缩略图上传回调
       getResponse(response, file, filelist) {
+        console.log('dsadsa');
         this.form.thumbnails = response.url;
         if (response.status) {
           this.$Message.success(response.msg);
@@ -185,6 +190,7 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
+                this.imgPath();
                 this.modal_loading = false;
                 this.$refs.save.resetFields();
                 this.$refs.select.clearSingleSelect()
@@ -207,9 +213,7 @@
         default: {}
       },
       form: {
-        default: {
-
-        }
+        default: {}
       }
     }
   }
