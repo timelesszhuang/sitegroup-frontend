@@ -107,6 +107,7 @@
           this.handelResponse(res, (data, msg) => {
             data.thumbnails='';
             data.readcount = 0;
+            data.is_collection = 20
             this.editinfo = data
             this.editinfo.articletype_id = ''
             this.editinfo.articletype_name = ''

@@ -231,7 +231,7 @@
               shorttitle:this.form.shorttitle
             }
 //            let data = this.form;
-            this.apiPost('wangyi/addArticle', data).then((res) => {
+            this.apiPost('article', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

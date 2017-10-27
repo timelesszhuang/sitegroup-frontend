@@ -132,6 +132,7 @@
           this.handelResponse(res, (data, msg) => {
             data.thumbnails='';
             data.readcount = 0;
+            data.is_collection = 20
             this.editinfo = data
             this.editinfo.summary = data.digest
             this.editinfo.come_from = data.source
