@@ -5,7 +5,7 @@
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
       <Select v-model="keyword_type" style="width:200px">
-        <Option-group  v-for="(item,index) in keywordtype" :label="index" :key="item">
+        <Option-group v-for="(item,index) in keywordtype" :label="index" :key="item">
           <Option v-for="items in item" :value="items.id" :key="items.value">{{ items.text }}</Option>
         </Option-group>
       </Select>
@@ -20,11 +20,11 @@
           <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
+    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo"></wechatarticlesave>
   </div>
 
 </template>
@@ -32,9 +32,10 @@
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
-  import wechatarticlesave from './save.vue'
+  import wechatarticlesave from '../article/save.vue'
+
   export default {
-    data () {
+    data() {
       return {
         page_show: true,
         self: this,
@@ -50,15 +51,15 @@
         pageSize: 10,
         title: '',
         article_type: 0,
-        keyword_type:0,
+        keyword_type: 0,
         datas: [],
         editinfo: {},
         articletypelist: [],
-        keywordtype:[]
+        keywordtype: []
       }
     },
     components: {wechatarticlesave},
-    created () {
+    created() {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
@@ -101,34 +102,37 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.page = 1
         this.page_show = false
         this.getData();
         this.page_show = true
       },
-      edit(index){
+      edit(index) {
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
+      show(index) {
         this.getArticle(index);
         this.$refs.show.modal = true
       },
-      getArticle(index){
+      getArticle(index) {
         let editid = this.datas[index].id
         this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            data.thumbnails = '';
+            data.is_collection = 20
+            data.readcount = 0;
+            this.editinfo.come_from = data.source
             this.editinfo = data
-//            console.log(data.url)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -139,8 +143,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -168,7 +171,7 @@
         });
         columns.push({
           title: '简介',
-          width:'300px',
+          width: '300px',
           key: 'summary',
           sortable: true
         });
@@ -188,7 +191,7 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
             }
           }
