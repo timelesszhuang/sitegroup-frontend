@@ -104,6 +104,7 @@
         let editid = this.datas[index].id
         this.apiGet('admin/hotnews/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            data.thumbnails='';
             this.editinfo = data
             this.editinfo.articletype_id = ''
             this.editinfo.articletype_name = ''

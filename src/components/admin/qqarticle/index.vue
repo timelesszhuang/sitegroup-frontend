@@ -126,6 +126,7 @@
         let editid = this.datas[index].id
         this.apiGet('qq/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
+            data.thumbnails='';
             this.editinfo = data
             this.editinfo.come_from = data.source
             this.editinfo.createtime = data.ptime

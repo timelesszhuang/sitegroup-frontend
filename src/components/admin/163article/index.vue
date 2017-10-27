@@ -131,9 +131,11 @@
         this.apiGet('wangyi/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             data.thumbnails='';
+            data.readcount = 0;
             this.editinfo = data
             this.editinfo.summary = data.digest
             this.editinfo.come_from = data.source
+            console.log(this.editinfo)
           }, (data, msg) => {
             this.$Message.error(msg);
           })

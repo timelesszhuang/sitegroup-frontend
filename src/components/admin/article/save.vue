@@ -3,7 +3,8 @@
     <Modal
       v-model="modal" width="900">
       <p slot="header">
-        <span>修改文章</span>
+        <span v-if="this.form.url">添加到私有文章库&nbsp;&nbsp;&nbsp; <a v-bind:href="url" target="_blank">点此查看原文章</a></span>
+        <span v-else >修改文章</span>
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
@@ -94,7 +95,9 @@
         </Alert>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="save">保存</Button>
+        <Button type="success"  v-if="this.form.url" size="large" :loading="modal_loading" @click="add">添加</Button>
+        <Button type="success" size="large" v-else :loading="modal_loading" @click="save">保存</Button>
+
       </div>
     </Modal>
   </div>
@@ -144,7 +147,12 @@
         }
       }
     },
-    computed: {},
+    computed: {
+        url: function () {
+          return this.form.url;
+        },
+
+      },
     methods: {
       imgpath() {
         if (this.form.thumbnails) {
@@ -154,7 +162,6 @@
       },
       //缩略图上传回调
       getResponse(response, file, filelist) {
-        console.log('dsadsa');
         this.form.thumbnails = response.url;
         if (response.status) {
           this.$Message.success(response.msg);
@@ -205,7 +212,47 @@
             })
           }
         })
+      },
+      add() {
+        this.$refs.save.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = {
+              articletype_id: this.form.articletype_id,
+              articletype_name: this.form.articletype_name,
+              auther: this.form.auther,
+              summary: this.form.summary,
+              title: this.form.title,
+              content: this.form.content,
+              come_from: this.form.come_from,
+              posttime: this.form.createtime,
+              thumbnails: this.form.thumbnails,
+              readcount: this.form.readcount,
+              keywords: this.form.keywords,
+              shorttitle:this.form.shorttitle
+            }
+//            let data = this.form;
+            this.apiPost('wangyi/addArticle', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.save.resetFields();
+                this.$refs.select.clearSingleSelect()
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
       }
+
     },
     mixins: [http],
     props: {
@@ -213,7 +260,9 @@
         default: {}
       },
       form: {
-        default: {}
+        default: {
+          readcount: 0
+        }
       }
     }
   }
