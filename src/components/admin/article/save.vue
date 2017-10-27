@@ -96,8 +96,7 @@
       </div>
       <div slot="footer">
         <Button type="success"  v-if="this.form.url" size="large" :loading="modal_loading" @click="add">添加</Button>
-        <Button type="success" size="large" v-else :loading="modal_loading" @click="save">保存</Button>
-
+        <Button type="success" size="large" v-else-if="!this.form.url" :loading="modal_loading" @click="save">保存</Button>
       </div>
     </Modal>
   </div>
