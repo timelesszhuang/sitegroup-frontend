@@ -196,7 +196,7 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
-                this.imgPath();
+                this.imgpath();
                 this.modal_loading = false;
                 this.$refs.save.resetFields();
                 this.$refs.select.clearSingleSelect()
