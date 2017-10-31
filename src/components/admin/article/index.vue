@@ -30,8 +30,9 @@
       </div>
     </div>
     <articleadd ref="add" :articletype="articletypelist"></articleadd>
-    <articlesave ref="save" :form="editinfo" :articletype="articletypelist" ></articlesave>
+    <articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>
     <articleshow ref="show" :form="editinfo"></articleshow>
+    <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
 
 </template>
@@ -42,10 +43,11 @@
   import articleadd from './add.vue'
   import articlesave from './save.vue'
   import articleshow from './show.vue'
+  import showhtml from './showhtml.vue'
 
 
   export default {
-    data () {
+    data() {
       return {
         page_show: true,
         self: this,
@@ -64,10 +66,11 @@
         datas: [],
         editinfo: {},
         articletypelist: [],
+        showhtmldata: []
       }
     },
-    components: {articleadd, articlesave, articleshow},
-    created () {
+    components: {articleadd, articlesave, articleshow, showhtml},
+    created() {
       this.getData();
       this.getArticleType((data) => {
         this.articletypelist = data
@@ -98,32 +101,32 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.page = 1
         this.page_show = false
         this.getData();
         this.page_show = true
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
+      show(index) {
         this.getArticle(index);
         this.$refs.show.modal = true
       },
-      getArticle(index){
+      getArticle(index) {
         let editid = this.datas[index].id
         this.apiGet('article/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -136,7 +139,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -163,7 +166,28 @@
           }
         })
       },
-      changeSync(index, is_sync){
+      showhtml(index) {
+        let data = this.datas[index]
+        this.apiPost('articleshowhtml', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            if (data.length == 1) {
+              window.open(data[0].url);
+            } else {
+              this.showhtmldata = data;
+              this.$refs.showhtml.modal = true
+            }
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      changeSync(index, is_sync) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -223,8 +247,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -234,11 +257,11 @@
           })
         }
         columns.push({
-            title: 'ID',
-            key: 'id',
-            width: 60,
-            align: 'center'
-          })
+          title: 'ID',
+          key: 'id',
+          width: 60,
+          align: 'center'
+        })
         columns.push({
           title: '标题',
           key: 'title',
@@ -265,22 +288,11 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              var btn = '';
-              if (row.site_id != '0') {
-                var btn = `<i-button type="primary" size="small" title="取消文章同步到其他站点" @click="changeSync(${index},'10')">取消同步文章</i-button>`;
-                if (row.is_sync == '10') {
-                  //20 表示禁用 按钮应该为启用
-                  btn = `<i-button type="error" size="small" title="同步文章到其他站点" @click="changeSync(${index},'20')">文章同步主站</i-button>`;
-                }
-              }
+            render(row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
 <i-button type="info" size="small" @click="show(${index})">预览</i-button>
-
-                      <!--<i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;-->
-
-
-` + btn;
+<i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;
+`;
             }
           }
         );

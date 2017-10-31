@@ -15,7 +15,7 @@
       </p>
       <div style="text-align:center">
         <Form ref="company" :model="form" :label-width="200" :rules="companyRule" class="change-pwd-form">
-         <Alert v-if="form.is_checked==3">审核状态:已审核</Alert>
+          <Alert v-if="form.is_checked==3">审核状态:已审核</Alert>
           <Alert type="error" v-if="form.is_checked==0">请完善信息</Alert>
           <Alert type="error" v-if="form.is_checked==2">审核失败原因:{{form.check_info}}</Alert>
           <Alert type="error" v-if="form.is_checked==1">审核状态:未审核</Alert>
@@ -84,7 +84,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"> <img style="max-width:350px " :src=personPath()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src=personPath()></div>
           <Form-item label="(法人)联系电话" prop="artificialperson_phone">
             <Input type="text" v-model="form.artificialperson_phone" placeholder="请输入(法人)联系电话"></Input>
           </Form-item>
@@ -185,7 +185,7 @@
             {required: true, message: '请输入企业产品商标名称', trigger: 'blur'},
           ],
           industry_id: [
-            {required: true,validator: checkindustry, trigger: 'blur'}
+            {required: true, validator: checkindustry, trigger: 'blur'}
           ]
         }
 
@@ -196,19 +196,19 @@
     },
     methods: {
       Path() {
-        if(!this.form.business_license){
+        if (!this.form.business_license) {
           return ROOTHOST;
         }
         return ROOTHOST + this.form.business_license;
       },
       personPath() {
-        if(!this.form.artificialperson_id){
+        if (!this.form.artificialperson_id) {
           return ROOTHOST;
         }
         return ROOTHOST + this.form.artificialperson_id;
       },
       trademarkPath() {
-        if(!this.form.trademark_img){
+        if (!this.form.trademark_img) {
           return ROOTHOST;
         }
         return ROOTHOST + this.form.trademark_img;
@@ -303,6 +303,7 @@
     props: {
       form: {
         id: Number,
+        is_checked: Number,
         name: '',
         tax_registration_number: "",
         artificialperson: '',

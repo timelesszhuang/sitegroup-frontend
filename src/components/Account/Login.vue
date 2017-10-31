@@ -136,6 +136,7 @@
             this.warningShow = true;
             break;
           case 'success':
+            //this.error(true)
             this.successMsg = msg;
             this.$Message.msg(msg)
             this.successShow = true;

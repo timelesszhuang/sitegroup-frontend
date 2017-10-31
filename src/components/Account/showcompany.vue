@@ -124,7 +124,6 @@
     props: {
       form: {
         id: Number,
-        name: '',
         tax_registration_number: "",
         artificialperson: '',
         url: '',

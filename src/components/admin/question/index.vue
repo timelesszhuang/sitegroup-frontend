@@ -27,6 +27,7 @@
     </div>
     <questionadd ref="add" :questiontype="questiontypelist"></questionadd>
     <questionsave ref="save" :form="editinfo" :questiontype="questiontypelist"></questionsave>
+    <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
 
 </template>
@@ -36,6 +37,8 @@
   import common from '../../../assets/js/common';
   import questionadd from './add.vue';
   import questionsave from './save.vue';
+  import showhtml from './showhtml.vue'
+
   export default {
     data () {
       return {
@@ -53,10 +56,11 @@
         type_id: 0,
         datas: [],
         editinfo: {},
-        questiontypelist: []
+        questiontypelist: [],
+        showhtmldata:[]
       }
     },
-    components: {questionadd, questionsave},
+    components: {questionadd, questionsave,showhtml},
     created () {
       //该 函数封装在 common 中
       this.getQuestionType((data) => {
@@ -117,6 +121,27 @@
           })
         }, (res) => {
           //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
+      showhtml(index) {
+        let data = this.datas[index]
+        this.apiPost('questionshowhtml', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            if (data.length == 1) {
+              window.open(data[0].url);
+            } else {
+              this.showhtmldata = data;
+              this.$refs.showhtml.modal = true
+            }
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
@@ -187,7 +212,8 @@
             align: 'center',
             fixed: 'right',
             render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>
+&nbsp;<i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;`;
             }
           }
         );

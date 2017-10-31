@@ -27,6 +27,7 @@
     <padd ref="add" :ptype="ptype"></padd>
     <psave ref="save" :ptype="ptype" :form="editinfo"></psave>
     <editimg ref="editimg" :form="imginfo"></editimg>
+    <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
 </template>
 
@@ -35,6 +36,8 @@
   import padd from './add.vue';
   import psave from './save.vue';
   import editimg from './editimg.vue';
+  import showhtml from './showhtml.vue'
+
 
   export default {
     data() {
@@ -56,9 +59,10 @@
         imginfo: {},
         ptype: [],
         type_id: '',
+        showhtmldata:[]
       }
     },
-    components: {padd, psave, editimg},
+    components: {padd, psave, editimg,showhtml},
     created() {
       this.getData();
       this.getproducttype()
@@ -109,6 +113,27 @@
       },
       add() {
         this.$refs.add.modal = true
+      },
+      showhtml(index) {
+        let data = this.datas[index]
+        this.apiPost('productshowhtml', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            if (data.length == 1) {
+              window.open(data[0].url);
+            } else {
+              this.showhtmldata = data;
+              this.$refs.showhtml.modal = true
+            }
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
+        })
       },
       edit(index) {
         let editid = this.datas[index].id
@@ -164,10 +189,6 @@
           })
         }
         columns.push({
-          title: '编号',
-          key: 'sn',
-        });
-        columns.push({
           title: '缩略图',
           width:'200',
           key: 'base64',
@@ -177,6 +198,12 @@
             return type;
           },
         });
+        columns.push({
+          width:'150',
+          title: '编号',
+          key: 'sn',
+        });
+
         columns.push({
           title: '产品名称',
           key: 'name',
@@ -192,20 +219,17 @@
           key: 'payway',
           sortable: true
         });
-//        columns.push({
-//          title: '描述',
-//          key: 'detail'
-//        });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 200,
+            width: 250,
             align: 'center',
             fixed: 'right',
             render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-                      <i-button type="info" size="small" @click="editimg(${index})">修改产品图片</i-button>`;
+                      <i-button type="info" size="small" @click="editimg(${index})">修改产品图片</i-button>
+&nbsp;<i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;`;
             }
           }
         );
