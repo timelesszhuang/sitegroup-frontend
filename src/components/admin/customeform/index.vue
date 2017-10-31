@@ -3,7 +3,7 @@
     <div class="top" style="margin-left: 10px">
       <Button type="success" @click="add">添加配置</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>

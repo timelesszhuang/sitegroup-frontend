@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="padding-left: 5px;margin-left: 5px;margin-right: 5px">
       站点管理:
       <Input v-model="site_name" placeholder="站点名字" style="width:200px;"></Input>
       <Input v-model="url" placeholder="url" style="width:200px;"></Input>

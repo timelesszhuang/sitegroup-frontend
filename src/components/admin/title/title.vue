@@ -1,7 +1,7 @@
 <template>
   <!--该文件是段落的 标题-->
   <div>
-    <div class="top">
+    <div class="top" style="margin-left: 5px;margin-right: 5px">
       标题:
       <Input v-model="title" placeholder="标题" style="width:300px;"></Input>
       <Select v-model="article_type" style="width:300px;">
@@ -12,7 +12,7 @@
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>

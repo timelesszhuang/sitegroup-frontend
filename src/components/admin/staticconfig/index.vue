@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="padding-left: 5px;padding-right: 5px">
     站点静态化配置:
       <Select v-model="site_id" style="width:300px" label-in-value filterable clearable>
         <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
@@ -10,7 +10,7 @@
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>

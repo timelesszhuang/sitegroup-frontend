@@ -131,24 +131,6 @@
         <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom:80px;;margin-top: 50px"
               width="auto"
               :open-names="opennames" accordion>
-          <Submenu name="1">
-            <template slot="title">
-              <Icon type="ios-navigate"></Icon>
-              <span class="parent-menu-title">站点关键词</span>
-            </template>
-            <Menu-item name="关键词管理">
-              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">
-                <Icon type="key"></Icon>
-                关键词管理
-              </span>
-            </Menu-item>
-            <Menu-item name="关键词推荐与追踪">
-              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
-                <Icon type="ios-list-outline"></Icon>
-                关键词推荐与追踪
-              </span>
-            </Menu-item>
-          </Submenu>
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
@@ -176,66 +158,6 @@
               <span class="layout-text" @click="routerChange('/admin/casecenter','案例中心')">
                <Icon type="ionic"></Icon>
                案例中心
-              </span>
-            </Menu-item>
-          </Submenu>
-          <Submenu name="8">
-            <template slot="title">
-              <Icon type="ios-box"></Icon>
-              <span class="parent-menu-title">资源聚合</span>
-            </template>
-            <Menu-item name="新闻管理">
-              <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
-                <Icon type="social-designernews"></Icon>
-                新闻管理
-              </span>
-            </Menu-item>
-            <Menu-item name="公众号">
-              <span class="layout-text" @click="routerChange('/admin/wechat','公众号')">
-                <Icon type="cube"></Icon>
-                公众号
-              </span>
-            </Menu-item>
-            <Menu-item name="软文发布">
-              <span class="layout-text" @click="routerChange('/admin/advertorial','软文发布')">
-                <Icon type="wand"></Icon>
-                软文发布
-              </span>
-            </Menu-item>
-            <Menu-item name="视频资源">
-              <span class="layout-text" @click="ruanwenClick">
-                <Icon type="videocamera"></Icon>
-                视频资源
-              </span>
-            </Menu-item>
-          </Submenu>
-          <Submenu name="3">
-            <template slot="title">
-              <Icon type="ios-keypad"></Icon>
-              <span class="parent-menu-title">内容管理</span>
-            </template>
-            <Menu-item name="文章管理">
-              <span class="layout-text" @click="routerChange('/admin/articlemanage','文章管理')">
-                <Icon type="document"></Icon>
-                文章管理
-              </span>
-            </Menu-item>
-            <Menu-item name="问答管理">
-              <span class="layout-text" @click="routerChange('/admin/questionmanage','问答管理')">
-                <Icon type="ios-help-empty"></Icon>
-                 问答管理
-              </span>
-            </Menu-item>
-            <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
-                <Icon type="ios-grid-view"></Icon>
-                产品管理
-              </span>
-            </Menu-item>
-            <Menu-item name="文章段落管理">
-              <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
-                <Icon type="social-buffer-outline"></Icon>
-                文章段落管理
               </span>
             </Menu-item>
           </Submenu>
@@ -269,6 +191,84 @@
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">
                 <Icon type="person"></Icon>
                 用户管理
+              </span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="1">
+            <template slot="title">
+              <Icon type="ios-navigate"></Icon>
+              <span class="parent-menu-title">站点关键词</span>
+            </template>
+            <Menu-item name="关键词管理">
+              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">
+                <Icon type="key"></Icon>
+                关键词管理
+              </span>
+            </Menu-item>
+            <Menu-item name="关键词推荐与追踪">
+              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
+                <Icon type="ios-list-outline"></Icon>
+                关键词推荐与追踪
+              </span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="3">
+            <template slot="title">
+              <Icon type="ios-keypad"></Icon>
+              <span class="parent-menu-title">内容管理</span>
+            </template>
+            <Menu-item name="文章管理">
+              <span class="layout-text" @click="routerChange('/admin/articlemanage','文章管理')">
+                <Icon type="document"></Icon>
+                文章管理
+              </span>
+            </Menu-item>
+            <Menu-item name="问答管理">
+              <span class="layout-text" @click="routerChange('/admin/questionmanage','问答管理')">
+                <Icon type="ios-help-empty"></Icon>
+                 问答管理
+              </span>
+            </Menu-item>
+            <Menu-item name="产品管理">
+              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
+                <Icon type="ios-grid-view"></Icon>
+                产品管理
+              </span>
+            </Menu-item>
+            <Menu-item name="文章段落管理">
+              <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
+                <Icon type="social-buffer-outline"></Icon>
+                文章段落管理
+              </span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="ios-box"></Icon>
+              <span class="parent-menu-title">资源聚合</span>
+            </template>
+            <Menu-item name="新闻管理">
+              <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
+                <Icon type="social-designernews"></Icon>
+                新闻管理
+              </span>
+            </Menu-item>
+            <Menu-item name="公众号">
+              <span class="layout-text" @click="routerChange('/admin/wechat','公众号')">
+                <Icon type="cube"></Icon>
+                公众号
+              </span>
+            </Menu-item>
+            <Menu-item name="软文发布">
+              <span class="layout-text" @click="routerChange('/admin/advertorial','软文发布')">
+                <Icon type="wand"></Icon>
+                软文发布
+              </span>
+            </Menu-item>
+            <Menu-item name="视频资源">
+              <span class="layout-text" @click="ruanwenClick">
+                <Icon type="videocamera"></Icon>
+                视频资源
               </span>
             </Menu-item>
           </Submenu>

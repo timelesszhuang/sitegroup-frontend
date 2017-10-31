@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top"style="padding-left: 5px;padding-right: 5px">
      站点分类管理:
       <Input v-model="name" placeholder="站点分类名称" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>

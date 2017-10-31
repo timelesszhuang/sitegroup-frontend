@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="margin-left: 5px;margin-right: 5px">
       查询:
       <Input v-model="content" placeholder="问答" style="width:300px;"></Input>
       文章分类:
@@ -12,7 +12,7 @@
       <Button type="primary" @click="queryData">查询分段</Button>
       <Button type="success" @click="add">添加分段</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>

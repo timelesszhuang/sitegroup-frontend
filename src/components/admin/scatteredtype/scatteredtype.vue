@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="margin-left: 5px;margin-right: 5px">
       查询:
       <Input v-model="name" placeholder="分类" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询分类</Button>
       <Button type="success" @click="add">添加分类</Button>
     </div>
-    <div class="content" style="margin-top:10px;">
+    <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
+
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
