@@ -64,7 +64,7 @@
                       style="position:relative;text-align: left;width:250px;z-index: 10000;"
                       label-in-value filterable　@on-change="changeArticletype">
                 <Option disabled :value="0">分类名—标签</Option>
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                <Option v-for="item in articletype" :value="item.id" :label="item.type_name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
