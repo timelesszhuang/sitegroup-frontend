@@ -1,10 +1,13 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900">
+      v-model="modal"
+      width="900"
+      :styles="{top: '20px'}"
+    >
       <p slot="header">
         <span v-if="this.form.url">添加到私有文章库&nbsp;&nbsp;&nbsp; <a v-bind:href="url" target="_blank">点此查看原文章</a></span>
-        <span v-else >修改文章</span>
+        <span v-else>修改文章</span>
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
@@ -95,8 +98,9 @@
         </Alert>
       </div>
       <div slot="footer">
-        <Button type="success"  v-if="this.form.url" size="large" :loading="modal_loading" @click="add">添加</Button>
-        <Button type="success" size="large" v-else-if="!this.form.url" :loading="modal_loading" @click="save">保存</Button>
+        <Button type="success" v-if="this.form.url" size="large" :loading="modal_loading" @click="add">添加</Button>
+        <Button type="success" size="large" v-else-if="!this.form.url" :loading="modal_loading" @click="save">保存
+        </Button>
       </div>
     </Modal>
   </div>
@@ -147,11 +151,11 @@
       }
     },
     computed: {
-        url: function () {
-          return this.form.url;
-        },
-
+      url: function () {
+        return this.form.url;
       },
+
+    },
     methods: {
       imgpath() {
         if (this.form.thumbnails) {
@@ -228,8 +232,8 @@
               thumbnails: this.form.thumbnails,
               readcount: this.form.readcount,
               keywords: this.form.keywords,
-              shorttitle:this.form.shorttitle,
-              is_collection:this.form.is_collection
+              shorttitle: this.form.shorttitle,
+              is_collection: this.form.is_collection
             }
 //            let data = this.form;
             this.apiPost('article', data).then((res) => {

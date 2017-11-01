@@ -2,7 +2,10 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="800">
+        v-model="modal"
+        width="800"
+        :styles="{top: '20px'}"
+      >
         <p slot="header">
           <span>修改问答</span>
         </p>

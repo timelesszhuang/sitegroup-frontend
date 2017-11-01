@@ -1,7 +1,10 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900">
+      v-model="modal"
+      width="900px"
+      :styles="{top: '20px'}"
+    >
       <p slot="header">
         <span>添加文章</span>
       </p>
