@@ -165,7 +165,7 @@
             <template slot="title">
               <span class="parent-menu-title">
                 <Icon type="briefcase"></Icon>
-                站点设置
+                子站点设置
               </span>
             </template>
             <Menu-item name="栏目管理">
@@ -215,7 +215,7 @@
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
-              <span class="parent-menu-title">内容管理</span>
+              <span class="parent-menu-title">分站内容管理</span>
             </template>
             <Menu-item name="文章管理">
               <span class="layout-text" @click="routerChange('/admin/articlemanage','文章管理')">
@@ -245,7 +245,7 @@
           <Submenu name="8">
             <template slot="title">
               <Icon type="ios-box"></Icon>
-              <span class="parent-menu-title">资源聚合</span>
+              <span class="parent-menu-title">文章资源聚合</span>
             </template>
             <Menu-item name="新闻管理">
               <span class="layout-text" @click="routerChange('/admin/hotnews','新闻管理')">
@@ -276,7 +276,7 @@
             <template slot="title">
               <span class="parent-menu-title">
                 <Icon type="ios-analytics"></Icon>
-                市场反馈
+                市场反馈分析
               </span>
             </template>
             <Menu-item name="主关键词排名">
