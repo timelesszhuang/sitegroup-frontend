@@ -139,6 +139,12 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
+      error(nodesc) {
+        this.$Notice.error({
+          title: '预览模板页被浏览器拦截,请允许',
+          desc: nodesc ? '' : ''
+        });
+      },
       remove(index) {
         //需要删除确认
         let id = this.datas[index].id
@@ -171,7 +177,10 @@
         this.apiPost('articleshowhtml', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
             if (data.length == 1) {
-              window.open(data[0].url);
+              let open = window.open(data[0].url);
+              if (!open) {
+                this.error(false);
+              }
             } else {
               this.showhtmldata = data;
               this.$refs.showhtml.modal = true

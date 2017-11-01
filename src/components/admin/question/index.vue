@@ -106,6 +106,12 @@
       add(){
         this.$refs.add.modal = true
       },
+      error(nodesc) {
+        this.$Notice.error({
+          title: '预览模板页被浏览器拦截,请允许',
+          desc: nodesc ? '' : ''
+        });
+      },
       edit(index){
         let editid = this.datas[index].id
         this.apiGet('question/' + editid).then((res) => {
@@ -129,7 +135,10 @@
         this.apiPost('questionshowhtml', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
             if (data.length == 1) {
-              window.open(data[0].url);
+              let open = window.open(data[0].url);
+              if (!open) {
+                this.error(false);
+              }
             } else {
               this.showhtmldata = data;
               this.$refs.showhtml.modal = true
