@@ -2,7 +2,7 @@
   <div>
     <Modal
       v-model="modal"
-      width="900px"
+      width="900"
       :styles="{top: '20px'}"
     >
       <p slot="header">
