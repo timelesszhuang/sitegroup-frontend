@@ -2,7 +2,8 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600">
+        v-model="modal" width="600"
+        :styles="{top: '20px'}">
         <p slot="header">
           <span>添加活动/创意</span>
         </p>
