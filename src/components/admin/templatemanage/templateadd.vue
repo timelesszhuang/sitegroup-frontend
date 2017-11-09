@@ -3,7 +3,7 @@
     <Form ref="formInline" :model="form" :rules="ruleInline">
       <Form-item prop="filename">
         <Row>
-          <Col span="4">
+          <Col span="3">
           文件名:</Col>
           <Col span="20">
             <Input v-model="form.filename" placeholder="请输入..." style="width: 300px"></Input>
@@ -12,9 +12,9 @@
       </Form-item>
       <Form-item prop="content">
         <Row>
-          <Col span="4">
+          <Col span="3">
           内容:</Col>
-          <Col span="20">
+          <Col span="21">
             <Input v-model="form.content" type="textarea" :rows="7"></Input>
           </Col>
         </Row>

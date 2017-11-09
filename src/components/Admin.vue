@@ -229,18 +229,18 @@
                  问答管理
               </span>
             </Menu-item>
-            <Menu-item name="产品管理">
-              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
+            <Menu-item name="产品/活动管理">
+              <span class="layout-text" @click="routerChange('/admin/productmanage','产品/活动管理')">
                 <Icon type="ios-grid-view"></Icon>
-                产品管理
+                产品/活动管理
               </span>
             </Menu-item>
-            <Menu-item name="文章段落管理">
+            <!--<Menu-item name="文章段落管理">
               <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
                 <Icon type="social-buffer-outline"></Icon>
                 文章段落管理
               </span>
-            </Menu-item>
+            </Menu-item>-->
           </Submenu>
           <Submenu name="8">
             <template slot="title">

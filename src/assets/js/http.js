@@ -19,7 +19,6 @@ const ajaxMethods = {
     apiPost(url, data){
       return new Promise(function (resolve, reject) {
         axios.post(url, data).then((response) => {
-          // console.log(response.data);
           resolve(response.data)
         }).catch(function (response) {
           reject(response)
@@ -60,7 +59,6 @@ const ajaxMethods = {
     },
     resetCommonData(data) {
       //salt
-      console.log(data)
       Lockr.set('salt', data.salt)            // 权限认证
       //记住我
       Lockr.set('rememberKey', data.remember)      // 记住密码的加密字符串
