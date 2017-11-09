@@ -18,7 +18,6 @@
         </div>
       </div>
     </div>
-    <Alert type="error">模板zip包中不允许有二级目录</Alert>
     <activityadd ref="add"></activityadd>
     <activitysave ref="save" :form="editinfo"></activitysave>
   </div>

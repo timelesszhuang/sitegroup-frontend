@@ -136,12 +136,6 @@
               <Icon type="ios-bookmarks-outline"></Icon>
               <span class="parent-menu-title">营销计划</span>
             </template>
-            <Menu-item name="主题/活动创意">
-              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
-                <Icon type="beer"></Icon>
-                主题/活动创意管理
-              </span>
-            </Menu-item>
             <Menu-item name="营销模式">
               <span class="layout-text" @click="routerChange('/admin/marketingmodel','主题/营销模式')">
                 <Icon type="flag"></Icon>
@@ -229,10 +223,16 @@
                  问答管理
               </span>
             </Menu-item>
-            <Menu-item name="产品/活动管理">
-              <span class="layout-text" @click="routerChange('/admin/productmanage','产品/活动管理')">
+            <Menu-item name="产品管理">
+              <span class="layout-text" @click="routerChange('/admin/productmanage','产品管理')">
                 <Icon type="ios-grid-view"></Icon>
-                产品/活动管理
+                产品管理
+              </span>
+            </Menu-item>
+            <Menu-item name="主题/活动创意">
+              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
+                <Icon type="beer"></Icon>
+                主题/活动管理
               </span>
             </Menu-item>
             <!--<Menu-item name="文章段落管理">
