@@ -301,7 +301,6 @@
               return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
 <i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;
 <i-button type="info" size="small" @click="show(${index})">查看</i-button>
-
 `;
             }
           }

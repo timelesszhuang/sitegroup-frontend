@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="600">
+      v-model="modal" width="600"  :styles="{top: '20px'}">
       <p slot="header">
         <span>修改文章段落型</span>
       </p>

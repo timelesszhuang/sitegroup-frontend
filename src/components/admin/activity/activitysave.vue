@@ -1,7 +1,8 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900">
+      v-model="modal" width="900"
+      :styles="{top: '20px'}">
       <p slot="header">
         <span>修改模板</span>
       </p>
