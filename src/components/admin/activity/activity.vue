@@ -5,6 +5,7 @@
       <Input v-model="name" placeholder="请输入活动名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
+      <Button type="success" @click="urladd">添加外站</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -19,6 +20,7 @@
       </div>
     </div>
     <activityadd ref="add"></activityadd>
+    <urladd ref="urladd"></urladd>
     <activitysave ref="save" :form="editinfo"></activitysave>
   </div>
 
@@ -28,6 +30,7 @@
   import http from '../../../assets/js/http.js';
   import common from '../../../assets/js/common.js';
   import activityadd from './activityadd.vue';
+  import urladd from './urladd.vue';
   import activitysave from './activitysave.vue';
 
   export default {
@@ -48,7 +51,7 @@
         editinfo: {}
       }
     },
-    components: {activityadd, activitysave},
+    components: {activityadd, activitysave,urladd},
     created () {
       this.getData();
     },
@@ -85,6 +88,9 @@
       },
       add(){
         this.$refs.add.modal = true
+      },
+      urladd(){
+        this.$refs.urladd.modal = true
       },
       edit(index){
         this.getActivity(index);

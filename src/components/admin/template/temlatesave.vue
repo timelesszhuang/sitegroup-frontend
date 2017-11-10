@@ -11,7 +11,7 @@
             type="drag"
             ref="uploadzip"
             with-credentials
-            name="file_name"
+            name="file"
             :format="['zip']"
             :on-success="getResponse"
             :on-error="getErrorInfo"
@@ -64,7 +64,7 @@
     },
     methods: {
       getResponse(response, file, filelist){
-        this.form.path = response.data;
+        this.form.path_oss = response.data;
         this.$Message.success(response.msg);
       },
       getErrorInfo(error, file, filelist){
@@ -105,7 +105,7 @@
         default: {
           name: '',
           detail: '',
-          path: ''
+          path_oss: ''
         }
       }
     },

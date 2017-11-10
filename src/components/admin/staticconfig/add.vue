@@ -68,7 +68,7 @@
         form: {
           starttime: '',
           stoptime: '',
-          staticcount:"",
+          staticcount:0,
           site_id:'',
           site_name:'',
           type:'',

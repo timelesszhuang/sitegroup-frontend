@@ -10,7 +10,7 @@
           <Upload
             ref="imgupload"
             with-credentials
-            name="thumbnails"
+            name="file"
             :format="['jpg','jpeg','png']"
             :on-success="getRes"
             :on-error="getError"
@@ -24,7 +24,7 @@
             ref="showpathup"
             type="drag"
             with-credentials
-            name="template"
+            name="file"
             :format="['zip']"
             :on-success="getRespon"
             :on-error="getE"
@@ -39,7 +39,7 @@
             ref="pathup"
             type="drag"
             with-credentials
-            name="phptemplate"
+            name="file"
             :format="['zip']"
             :on-success="getResponse"
             :on-error="getErrorInfo"
@@ -90,6 +90,7 @@
           name: "",
           detail: '',
           path: '',
+          path_oss:'',
           thumbnails: '',
           show_path: '',
           industry_id: 0,
@@ -109,15 +110,16 @@
       imgPath(){
         if(!this.form.thumbnails){
           return ROOTHOST;
+
         }
-        return ROOTHOST + this.form.thumbnails;
+        return  this.form.thumbnails;
       },
       changeIndustry(value){
         this.form.industry_name = value.label;
         this.form.industry_id = value.value;
       },
       getResponse(response, file, filelist) {
-        this.form.path = response.data;
+        this.form.path_oss = response.data;
         this.$Message.success(response.msg);
 
       },
@@ -127,9 +129,14 @@
         this.imgPath()
       },
       getRespon(respon, file, filelist) {
-        this.form.show_path = respon.data;
+        this.form.show_path = respon.data.url;
+        this.form.show_path_href = respon.data.data;
+        if(respon.status == "failed"){
+          this.$Message.error(respon.msg);
+          this.$refs.showpathup.clearFiles()
+        }else {
         this.$Message.success(respon.msg);
-
+        }
       },
       getErrorInfo(error, file, filelist) {
         this.$Message.error(error);
@@ -151,10 +158,6 @@
       },
 
       add() {
-        if (!this.form.path) {
-          this.$Message.error('请首先上传php模板文件。');
-          return
-        }
         if (!this.form.show_path) {
           this.$Message.error('请首先上传原始模板文件。');
           return
