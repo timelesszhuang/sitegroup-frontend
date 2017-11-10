@@ -74,7 +74,10 @@
         this.$Message.error('文件格式只支持 zip格式。');
       },
       add() {
-
+        if (!this.form.path_oss) {
+          this.$Message.error('请首先上传模板文件。');
+          return
+        }
         this.$refs.templateadd.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
