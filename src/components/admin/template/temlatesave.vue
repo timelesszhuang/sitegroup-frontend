@@ -59,7 +59,7 @@
     },
     computed: {
       downloadPath: function () {
-        return ROOTHOST + this.form.path;
+        return this.form.path_oss;
       }
     },
     methods: {
