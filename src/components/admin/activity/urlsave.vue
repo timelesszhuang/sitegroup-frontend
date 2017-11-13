@@ -26,7 +26,7 @@
                 :on-format-error="formatError"
                 :action="action"
                 style="text-align:left;">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传活动图</Button>
               </Upload>
               <div v-if="imgshow" style="display: inline-block;width: 100%">
                 <div style="margin:0px auto;width: 300px">
@@ -60,9 +60,14 @@
         value1: 0,
         AddRule: {
           title: [
-            {required: true, message: '请输入活动名称', trigger: 'blur'},
+            {required: true, message: '请输入活动名称。', trigger: 'blur'},
           ],
-
+          url: [
+            {required: true, message: '请输入页面的url。', trigger: 'blur'},
+          ],
+          oss_img_src: [
+            {required: true, message: '请上传活动图。', trigger: 'blur'},
+          ],
         }
       }
     },
@@ -131,8 +136,7 @@
       }
     },
     props: {
-      form: {
-      },
+      form: {},
     },
     mixins: [http],
   }

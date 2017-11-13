@@ -26,17 +26,13 @@
                 :on-format-error="formatError"
                 :action="action"
                 style="text-align:left;">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传活动图</Button>
               </Upload>
               <div v-if="imgshow" style="display: inline-block;width: 100%">
                 <div style="margin:0px auto;width: 300px">
                   <img style="max-width: 300px;" :src=imgpath() alt="">
                 </div>
               </div>
-            </Form-item>
-            <Form-item label="页面描述" prop="summary">
-              <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
-                     placeholder="请输入页面描述"></Input>
             </Form-item>
             <Form-item label="活动描述" prop="activity_summary">
               <editor @change="updateData2" :content="form.activity_summary" :height="100" :auto-height="false"></editor>
@@ -45,10 +41,15 @@
               <editor @change="updateData3" :content="form.rule" :height="100" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="详情" prop="content">
-              <editor @change="updateData" :content="form.content" :height="100" :auto-height="false"></editor>
+              <editor @change="updateData" :content="form.content" :height="200" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="页面关键词" prop="keywords">
               <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词"></Input>
+            </Form-item>
+            <Form-item label="页面描述" prop="summary">
+              <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
+                     placeholder="请输入页面描述">
+              </Input>
             </Form-item>
           </Form>
         </div>

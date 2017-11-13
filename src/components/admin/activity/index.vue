@@ -4,8 +4,8 @@
       活动标题名:
       <Input v-model="title" placeholder="活动名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
-      <Button type="success" @click="add">添加</Button>
-      <Button type="success" @click="urladd">添加外站</Button>
+      <Button type="success" @click="add">添加活动</Button>
+      <Button type="success" @click="urladd">添加外站活动</Button>
     </div>
     <div>
     </div>
@@ -22,6 +22,10 @@
         </div>
       </div>
     </div>
+    <Alert type="success" show-icon>
+      说明:
+      <span slot="desc">活动创意部分支持站内活动跟站外活动，站外活动选择添加站外活动，添加需要链接到的网址。 </span>
+    </Alert>
     <padd ref="add"></padd>
     <psave ref="save" :form="editinfo"></psave>
     <urladd ref="urladd"></urladd>
@@ -139,7 +143,7 @@
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
-            _this.apiGet('admin/changeactivityStatus/' + editid+ "/10" ).then((res) => {
+            _this.apiGet('admin/changeactivityStatus/' + editid + "/10").then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -166,7 +170,7 @@
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
-            _this.apiGet('admin/changeactivityStatus/' + editid+ "/20" ).then((res) => {
+            _this.apiGet('admin/changeactivityStatus/' + editid + "/20").then((res) => {
               _this.handelResponse(res, (data, msg) => {
                 _this.getData()
                 _this.$Message.success(msg);
@@ -227,27 +231,25 @@
           width: '200',
           sortable: true,
           render(row, index) {
-            var type = ' <img  style="max-width: 190px;max-height: 150px"  src="' + row.oss_img_src + '" alt="">';
+            var type = ' <img  style="max-width:190px;max-height: 150px;padding:5px"  src="' + row.oss_img_src + '" alt="">';
             return type;
           },
         });
         columns.push({
-          width: '150',
           title: '标题',
           key: 'title',
-        });
-
-
-        columns.push({
-          title: '外站链接',
-          key: 'url',
-          sortable: true
+          render(row, index) {
+            if (row.url) {
+              return ' <a href="' + row.url + '"  alt="">' + row.title + '</a>';
+            }
+            return row.title;
+          },
         });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 250,
+            width: 350,
             align: 'center',
             fixed: 'right',
             render(row, column, index) {

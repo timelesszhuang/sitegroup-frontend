@@ -26,7 +26,7 @@
                 :on-format-error="formatError"
                 :action="action"
                 style="text-align:left;">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传活动图</Button>
               </Upload>
               <div v-if="imgshow" style="display: inline-block;width: 100%">
                 <div style="margin:0px auto;width: 300px">
@@ -34,23 +34,28 @@
                 </div>
               </div>
             </Form-item>
-            <Form-item label="页面描述" prop="summary">
-              <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
-                     placeholder="请输入页面描述"></Input>
-            </Form-item>
             <Form-item label="活动描述" prop="activity_summary">
-              <editor @change="updateData2" :content="form.activity_summary" :height="100" :auto-height="false"></editor>
+              <editor @change="updateData2" :content="form.activity_summary" :height="100"
+                      :auto-height="false"></editor>
             </Form-item>
             <Form-item label="活动规则" prop="rule">
               <editor @change="updateData3" :content="form.rule" :height="100" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="详情" prop="content">
-              <editor @change="updateData" :content="form.content" :height="100" :auto-height="false"></editor>
+              <editor @change="updateData" :content="form.content" :height="200" :auto-height="false"></editor>
             </Form-item>
             <Form-item label="页面关键词" prop="keywords">
               <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词"></Input>
             </Form-item>
+            <Form-item label="页面描述" prop="summary">
+              <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
+                     placeholder="请输入页面描述"></Input>
+            </Form-item>
           </Form>
+          <Alert type="success" show-icon>
+            说明:
+            <span slot="desc">页面关键词、页面描述用于活动页面SEO优化。 </span>
+          </Alert>
         </div>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
@@ -77,19 +82,19 @@
           summary: '',
           keywords: '',
           title: '',
-          content:'',
-          rule:"",
-          activity_summary:''
+          content: '',
+          rule: "",
+          activity_summary: ''
         },
         AddRule: {
           title: [
             {required: true, message: '请输入活动名称', trigger: 'blur'},
           ],
-          summary: [
-            {required: true, message: '请输入页面描述', trigger: 'blur'},
+          oss_img_src: [
+            {required: true, message: '请上传活动图', trigger: 'blur'},
           ],
-          keywords: [
-            {required: true, message: '请输入关键词', trigger: 'blur'},
+          content: [
+            {required: true, message: '请输入活动详情', trigger: 'blur'},
           ],
         }
       }
@@ -107,7 +112,6 @@
       updateData3(data) {
         this.form.rule = data
       },
-
       //缩略图上传回调
       getResponse(response, file, filelist) {
         this.form.oss_img_src = response.url;
@@ -156,9 +160,7 @@
       }
     },
     mixins: [http],
-    props: {
-
-    }
+    props: {}
   }
 </script>
 
