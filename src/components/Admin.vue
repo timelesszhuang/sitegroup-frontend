@@ -353,6 +353,13 @@
                 </span>
                 </Badge>
               </div>
+
+              <div style="display: inline-block;padding: 0px 20px">
+                <span class="layout-text">
+                <Icon type="log-out"></Icon>
+                  <a :href="yiqishowurl" target="_blank">易企秀</a>
+                </span>
+              </div>
               <div style="display: inline-block;padding: 0px 20px">
                 <span class="layout-text" @click="logOut()">
                 <Icon type="log-out"></Icon>
@@ -410,6 +417,7 @@
         copytime:'',
         editinfo:{},
         is_checked:'',
+        yiqishowurl:HOST+'yiqixiu'
       }
     },
     components: {

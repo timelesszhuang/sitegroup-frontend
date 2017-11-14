@@ -46,6 +46,9 @@
           <Form-item label="微信" prop="wechat">
             <Input type="text" v-model="form.wechat" placeholder="请输入微信账号"></Input>
           </Form-item>
+          <Form-item label="易企秀帐号" prop="yqx_account">
+            <Input type="text" v-model="form.yqx_account" placeholder="请输入易企秀账号"></Input>
+          </Form-item>
         </Form>
       </div>
       <div slot="footer">
@@ -70,7 +73,8 @@
           mobile: '',
           tel: '',
           email: '',
-          wechat: ''
+          wechat: '',
+          yqx_account:''
         },
         userAddRule: {
           user_name: [
@@ -92,7 +96,7 @@
           ],
           mobile: [
             {required: true, message: '请输入手机号码', trigger: 'blur'},
-          ],
+          ]
         },
         type: [
           {

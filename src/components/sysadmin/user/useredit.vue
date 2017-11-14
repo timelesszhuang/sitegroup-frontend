@@ -40,6 +40,9 @@
           <Form-item label="微信" prop="wechat">
             <Input type="text" v-model="form.wechat" placeholder="请输入微信账号"></Input>
           </Form-item>
+          <Form-item label="易企秀帐号" prop="yqx_account">
+            <Input type="text" v-model="form.yqx_account" placeholder="请输入易企秀账号"></Input>
+          </Form-item>
           <Alert type="error">账号类型不允许修改</Alert>
           <Alert type="error">密码留空不修改</Alert>
         </Form>
