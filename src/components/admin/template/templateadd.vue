@@ -11,7 +11,7 @@
             type="drag"
             ref="uploadzip"
             with-credentials
-            name="file_name"
+            name="file"
             :format="['zip']"
             :on-success="getResponse"
             :on-error="getErrorInfo"
@@ -50,7 +50,7 @@
         form: {
           name: "",
           detail: '',
-          path: '',
+          path_oss: '',
         },
         AddRule: {
           name: [
@@ -64,7 +64,7 @@
     },
     methods: {
       getResponse(response, file, filelist){
-        this.form.path = response.data;
+        this.form.path_oss = response.data;
         this.$Message.success(response.msg);
       },
       getErrorInfo(error, file, filelist){
@@ -74,7 +74,7 @@
         this.$Message.error('文件格式只支持 zip格式。');
       },
       add() {
-        if (!this.form.path) {
+        if (!this.form.path_oss) {
           this.$Message.error('请首先上传模板文件。');
           return
         }

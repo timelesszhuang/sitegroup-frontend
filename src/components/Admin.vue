@@ -229,10 +229,10 @@
                 产品管理
               </span>
             </Menu-item>
-            <Menu-item name="主题/活动创意">
-              <span class="layout-text" @click="routerChange('/admin/activity','主题/活动创意')">
+            <Menu-item name="活动创意">
+              <span class="layout-text" @click="routerChange('/admin/activity','活动创意')">
                 <Icon type="beer"></Icon>
-                主题/活动管理
+                活动创意管理
               </span>
             </Menu-item>
             <!--<Menu-item name="文章段落管理">

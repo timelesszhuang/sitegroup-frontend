@@ -14,7 +14,7 @@
                 <div class="ivu-table-cell"><span>id</span></div>
               </th>
               <th>
-                <div class="ivu-table-cell"><span>模板姓名</span></div>
+                <div class="ivu-table-cell"><span>活动标题</span></div>
               </th>
               <th>
                 <div class="ivu-table-cell"><span>是否同步</span></div>
@@ -74,6 +74,7 @@
           this.handelResponse(res, (data, msg) => {
             this.modal = false;
             this.modal_loading = false;
+            this.$parent.sendActivity(this.sid)
             this.$Message.success(msg);
           }, (data, msg) => {
             this.modal_loading = false;

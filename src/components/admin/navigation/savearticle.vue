@@ -11,9 +11,6 @@
             <Input type="text"
                    v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
           </Form-item>
-          <Form-item label="英文名" prop="generate_name">
-            <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名"></Input>
-          </Form-item>
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
@@ -73,9 +70,6 @@
           ],
           type_id: [
             {required: true,validator: checkarticletype, trigger: 'blur'}
-          ],
-          generate_name:[
-            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
             {required: true,validator: checkNavtype, trigger: 'blur'}
