@@ -66,9 +66,7 @@
           name: [
             {required: true, message: '请填写LOGO名字', trigger: 'blur'},
           ],
-          detail: [
-            {required: true, message: '请填写LOGO相关信息', trigger: 'blur'},
-          ],
+
           oss_logo_path: [
             {required: true, message: '请上传logo', trigger: 'blur'}
           ]
