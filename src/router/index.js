@@ -23,7 +23,6 @@ import Systemplate from '../components/sysadmin/template/template.vue'
 
 
 
-
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articlemanage from '../components/admin/articlemanage/tab.vue'
 import Title from '../components/admin/title/title.vue'
@@ -67,6 +66,7 @@ import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.
 import Trackkeyword from '../components/admin/trackkeyword/index.vue';
 import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue';
 import Advertorial from '../components/admin/advertorial/index.vue';
+import Yqx from '../components/admin/yiqixiu/index.vue';
 
 Vue.use(Router)
 
@@ -147,8 +147,8 @@ export default new Router({
         {path: 'eventmarketholiday', component: Eventmarketholiday, name: 'eventmarketholiday'},
         {path: 'trackkeyword', component: Trackkeyword, name: 'trackkeyword'},
         {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'},
-        {path: 'advertorial', component: Advertorial, name: 'advertorial'}
-
+        {path: 'advertorial', component: Advertorial, name: 'advertorial'},
+        {path: 'yqx', component: Yqx, name: 'yqx'}
       ]
     }
   ]

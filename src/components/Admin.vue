@@ -148,6 +148,12 @@
                 &nbsp;&nbsp;事件营销
               </span>
             </Menu-item>
+            <Menu-item name="易企秀">
+              <span class="layout-text" @click="routerChange('/admin/yqx','易企秀')">
+                <Icon type="alert"></Icon>
+                &nbsp;&nbsp;易企秀
+              </span>
+            </Menu-item>
             <Menu-item name="案例中心">
               <span class="layout-text" @click="routerChange('/admin/casecenter','案例中心')">
                <Icon type="ionic"></Icon>
@@ -356,8 +362,8 @@
 
               <div style="display: inline-block;padding: 0px 20px">
                 <span class="layout-text">
-                <Icon type="log-out"></Icon>
-                  <a :href="yiqishowurl" target="_blank">易企秀</a>
+                <Icon type="ios-game-controller-b-outline"></Icon>
+                  <a :href="yiqishowurl" target="_blank">场景秀</a>
                 </span>
               </div>
               <div style="display: inline-block;padding: 0px 20px">
