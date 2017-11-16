@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="top" style="padding-left: 10px">
-     LOGO管理:
       <Button type="success" @click="add">添加</Button>
     </div>
     <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
