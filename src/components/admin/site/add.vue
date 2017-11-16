@@ -25,6 +25,14 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="LOGO选择" prop="sitelogo_id">
+              <Select v-model="form.sitelogo_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeLogo">
+                <Option v-for="item in logodata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.oss_logo_path>
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="网站应用" prop="is_mobile">
               <Radio-group v-model="form.is_mobile">
                 <Radio label=10>
@@ -215,7 +223,8 @@
           url:'',
           is_mobile:10,
           m_site_id:0,
-          walterString:''
+          walterString:'',
+          sitelogo_id:0
         },
         AddRule: {
           site_name: [
@@ -259,6 +268,9 @@
       },
       changeLink(){
 
+      },
+      changeLogo(value){
+        this.form.sitelogo_id = value.value
       },
       changeUser(value){
         this.form.user_name = value.label
@@ -347,6 +359,10 @@
         []
     },
     link:{
+      default:
+        []
+    },
+    logodata:{
       default:
         []
     },

@@ -37,10 +37,10 @@
       </div>
       <br>
     </div>
-    <siteadd ref="add" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <siteadd ref="add" :code="code" :logodata="logodata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
-             :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :code="code" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+             :sitetype="sitetype"  :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
+    <sitesave ref="save" :code="code" :logodata="logodata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
               :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"
               :mobileSite="mobileSite"></sitesave>
@@ -97,20 +97,22 @@
         site_id: 0,
         activity_data: [],
         site_type_id: '',
+        logodata:[],
         url: ''
       }
     },
     components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity, other},
     created() {
       this.getData();
-      this.getCommontype()
+      this.getCommontype();
+      this.getLogo()
     },
     methods: {
       formatter_title(str) {
-        return str.id+str.site_name+str.site_type_name
+        return str.id + str.site_name + str.site_type_name
       },
       choose_bgimg(index) {
-        let background=this.$store.state.background.backgroundcolor;
+        let background = this.$store.state.background.backgroundcolor;
         index = index % background.length
         return background[index]
       },
@@ -154,6 +156,19 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
+      },
+      getLogo(){
+        this.apiGet('admin/getsitelogolist').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.logodata = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       sendTemp(index) {
         let _this = this
@@ -367,8 +382,7 @@
         this.$refs.other.modal2 = true
       }
     },
-    computed: {
-    },
+    computed: {},
     mixins: [http]
   }
 </script>

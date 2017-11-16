@@ -25,6 +25,14 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="LOGO选择" prop="sitelogo_id">
+              <Select v-model="form.sitelogo_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeLogo">
+                <Option v-for="item in logodata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.oss_logo_path>
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="网站应用" prop="is_mobile">
               <Radio-group v-model="form.is_mobile">
                 <Radio label=10>
@@ -38,15 +46,16 @@
               </Radio-group>
             </Form-item>
             <Form-item label="手机网站" prop="m_site_id">
-              <Select v-model="form.m_site_id"  clearable style="text-align: left;width:200px;"
-                      label-in-value >
+              <Select v-model="form.m_site_id" clearable style="text-align: left;width:200px;"
+                      label-in-value>
                 <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
             </Form-item>
             <Form-item label="关键词" prop="keyword_ids">
-              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;" 　@on-change="changekeyword">
+              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;"
+                      　@on-change="changekeyword">
                 <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
                   {{ item.label }}
                 </Option>
@@ -54,7 +63,8 @@
             </Form-item>
             <Form-item label="栏目" prop="menu">
               <Select filterable v-model="form.menu" multiple style="text-align: left;width:500px;">
-                <Option disabled :value="0"><span style="font-size: 15px;font-weight: bold">栏目名—栏目分类—栏目类型—所属文章分类—详情</span></Option>
+                <Option disabled :value="0"><span
+                  style="font-size: 15px;font-weight: bold">栏目名—栏目分类—栏目类型—所属文章分类—详情</span></Option>
                 <Option v-for="item in menutype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text}}—{{item.tag_name}}—{{item.flag_name}}
                   <span v-if="item.type_name ==''">{{item.type_name}}</span>
@@ -96,7 +106,7 @@
               </Select>
             </Form-item>
             <Form-item label="友链选择" prop="link_id">
-              <Select v-model="form.link_id" multiple  style="text-align: left;width:200px;">
+              <Select v-model="form.link_id" multiple style="text-align: left;width:200px;">
                 <Option v-for="item in link" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -138,21 +148,22 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkmenutype = (rule, value, callback) => {
-        if (value=="") {
+        if (value == "") {
           callback(new Error('请选择栏目分类'));
         } else {
           callback();
         }
       };
       const checkkeyword = (rule, value, callback) => {
-        if (value=="") {
+        if (value == "") {
           callback(new Error('请选择关键词'));
-        } else if(value.length>5){
+        } else if (value.length > 5) {
           callback(new Error('关键词不能超过5个'));
-        }else {
+        } else {
           callback();
         }
 
@@ -205,27 +216,27 @@
             {required: true, message: '请输入公司名', trigger: 'blur'},
           ],
           menu: [
-            {required: true,validator: checkmenutype, trigger: 'blur'},
+            {required: true, validator: checkmenutype, trigger: 'blur'},
           ],
           keyword_ids: [
-            {required: true,validator: checkkeyword, trigger: 'blur'},
+            {required: true, validator: checkkeyword, trigger: 'blur'},
           ],
           template_id: [
-            {required: true,validator: checktemptype, trigger: 'blur'},
+            {required: true, validator: checktemptype, trigger: 'blur'},
           ],
           support_hotline: [
-            {required: true,validator: checkhotlinetype, trigger: 'blur'},
+            {required: true, validator: checkhotlinetype, trigger: 'blur'},
           ],
           site_type: [
-            {required: true,validator: checksitetype, trigger: 'blur'},
+            {required: true, validator: checksitetype, trigger: 'blur'},
           ],
           domain_id: [
-            {required: true,validator: checkdomain, trigger: 'blur'},
+            {required: true, validator: checkdomain, trigger: 'blur'},
           ],
           user_id: [
-            {required: true,validator: checkuser, trigger: 'blur'},
+            {required: true, validator: checkuser, trigger: 'blur'},
           ],
-          url:[
+          url: [
             {required: true, message: '请输入url', trigger: 'blue'}
           ]
 
@@ -234,7 +245,7 @@
     },
     methods: {
       changeMenutype(value) {
-          this.form.menu = value.label
+        this.form.menu = value.label
       },
       changeHotline(value) {
         this.form.support_hotline = value.value
@@ -243,11 +254,11 @@
         this.form.site_type = value.value
         this.form.site_type_name = value.label
       },
-      changeUser(value){
+      changeUser(value) {
         this.form.user_name = value.label
         this.form.user_id = value.value
       },
-      changekeyword(){
+      changekeyword() {
 
       },
 
@@ -258,37 +269,37 @@
         this.form.domain = value.label
         this.form.domain_id = value.value
       },
-        add() {
-          this.$refs.sitesave.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                if(!this.form.walterString){
-                  this.form.walterString=this.form.site_name
-                }
-                let data = this.form;
-                let id = data.id;
-                this.apiPut('site/'+ id, data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+      add() {
+        this.$refs.sitesave.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            if (!this.form.walterString) {
+              this.form.walterString = this.form.site_name
+            }
+            let data = this.form;
+            let id = data.id;
+            this.apiPut('site/' + id, data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
     props: {
       code: {
-        default:[]
+        default: []
       },
       menutype: {
         default:
@@ -310,22 +321,24 @@
           []
       }
       ,
-      domainlist:{
+      domainlist: {
         default:
           []
       },
-      userlist:{
+      userlist: {
         default:
           []
       },
-      keyword:{
+      keyword: {
         default:
           []
       },
-      mobileSite:{
-
+      logodata:{
+        default:
+          []
       },
-      link:{
+      mobileSite: {},
+      link: {
         default:
           []
       },
@@ -335,13 +348,13 @@
           com_name: "",
           menu: "",
           link_id: "",
-          template_id:"",
-          support_hotline:"",
-          site_type:"",
-          domain_id:"",
-          before_header_jscode:"",
-          other_jscode:"",
-          keyword_ids:"",
+          template_id: "",
+          support_hotline: "",
+          site_type: "",
+          domain_id: "",
+          before_header_jscode: "",
+          other_jscode: "",
+          keyword_ids: "",
         }
       }
     },
