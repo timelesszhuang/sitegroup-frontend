@@ -19,6 +19,9 @@
         <TabPane label="联系方式管理" name="contactway">
           <contactway ref="contactway"></contactway>
         </TabPane>
+        <TabPane label="站点LOGO管理" name="sitelogo">
+          <sitelogo ref="sitelogo"></sitelogo>
+        </TabPane>
       </Tabs>
     </div>
 </template>
@@ -30,6 +33,7 @@
   import contactway from '../contactway/contactway.vue'
   import templates from '../template/template.vue'
   import customer from '../customeform/index.vue'
+  import sitelogo from '../sitelogo/index.vue'
   export default {
     data() {
       return {
@@ -37,7 +41,7 @@
       }
     },
     components:{
-      links,domain,codes,contactway,templates,customer
+      links,domain,codes,contactway,templates,customer,sitelogo
     },
     methods: {
       tabClick(name) {

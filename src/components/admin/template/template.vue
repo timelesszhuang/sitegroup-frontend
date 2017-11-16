@@ -95,7 +95,7 @@
         let background = this.$store.state.background.backgroundcolor;
         index = index % background.length
         if (dataimg['node_id'] == 0) {
-          var bgurl = ROOTHOST  + dataimg['thumbnails']
+          var bgurl =  dataimg['thumbnails']
           return "background-image:url(" + bgurl + ");background-size: 100% 100%"
         }
         else {
