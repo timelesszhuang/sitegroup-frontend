@@ -107,7 +107,7 @@
         return this.form.path_oss;
       },
       showPathdown: function () {
-        return this.form.show_path_href;
+        return    ROOTHOST+ this.form.show_path_href;
       },
     },
     methods: {

@@ -107,10 +107,10 @@
     },
     methods: {
       formatter_title(str) {
-        return str.id+str.site_name+str.site_type_name
+        return str.id + str.site_name + str.site_type_name
       },
       choose_bgimg(index) {
-        let background=this.$store.state.background.backgroundcolor;
+        let background = this.$store.state.background.backgroundcolor;
         index = index % background.length
         return background[index]
       },
@@ -367,8 +367,7 @@
         this.$refs.other.modal2 = true
       }
     },
-    computed: {
-    },
+    computed: {},
     mixins: [http]
   }
 </script>
