@@ -265,7 +265,8 @@
       },
       form: {
         default: {
-          readcount: 0
+          readcount: 0,
+          summary:String,
         }
       }
     }
