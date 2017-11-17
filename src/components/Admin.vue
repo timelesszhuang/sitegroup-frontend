@@ -142,16 +142,16 @@
                  营销模式
               </span>
             </Menu-item>
-            <Menu-item name="事件营销">
-              <span class="layout-text" @click="routerChange('/admin/eventmarketholiday','事件营销')">
-                <Icon type="alert"></Icon>
-                &nbsp;&nbsp;事件营销
-              </span>
-            </Menu-item>
-            <Menu-item name="易企秀">
-              <span class="layout-text" @click="routerChange('/admin/yqx','易企秀')">
-                <Icon type="alert"></Icon>
-                &nbsp;&nbsp;易企秀
+            <!--<Menu-item name="事件营销">-->
+              <!--<span class="layout-text" @click="routerChange('/admin/eventmarketholiday','事件营销')">-->
+                <!--<Icon type="alert"></Icon>-->
+                <!--&nbsp;&nbsp;事件营销-->
+              <!--</span>-->
+            <!--</Menu-item>-->
+            <Menu-item name="场景秀">
+              <span class="layout-text" @click="routerChange('/admin/yqx','场景秀')">
+                <Icon type="ios-game-controller-b-outline"></Icon>
+                &nbsp;&nbsp;场景秀
               </span>
             </Menu-item>
             <Menu-item name="案例中心">
@@ -309,11 +309,11 @@
           style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
           <Row style="margin-top: 5px">
             <Col span="24">
-            <span v-if="this.is_checked !=3"  class="layout-text" @click="company()" style="cursor:pointer">
+            <span v-if="this.is_checked !=3" class="layout-text" @click="company()" style="cursor:pointer">
               <Icon type="android-lock"></Icon>
               &nbsp;&nbsp;完善企业信息
             </span>
-            <span v-else="this.is_checked==3"  class="layout-text" @click="showcompany()" style="cursor:pointer">
+            <span v-else="this.is_checked==3" class="layout-text" @click="showcompany()" style="cursor:pointer">
               <Icon type="android-lock"></Icon>
               &nbsp;&nbsp;企业信息
             </span>
@@ -358,13 +358,6 @@
                 <Icon type="ios-bell-outline" size="26"></Icon>
                 </span>
                 </Badge>
-              </div>
-
-              <div style="display: inline-block;padding: 0px 20px">
-                <span class="layout-text">
-                <Icon type="ios-game-controller-b-outline"></Icon>
-                  <a :href="yiqishowurl" target="_blank">场景秀</a>
-                </span>
               </div>
               <div style="display: inline-block;padding: 0px 20px">
                 <span class="layout-text" @click="logOut()">
@@ -420,10 +413,10 @@
         systemcount: '无',
         opennames: ['1'],
         siteTitle: '未获取到',
-        copytime:'',
-        editinfo:{},
-        is_checked:'',
-        yiqishowurl:HOST+'yiqixiu'
+        copytime: '',
+        editinfo: {},
+        is_checked: '',
+        yiqishowurl: HOST + 'yiqixiu'
       }
     },
     components: {
@@ -435,13 +428,10 @@
     },
     methods: {
       menuClick(e) {
-
       },
       ruanwenClick() {
         this.$refs.cueclick.modal = true
-
       },
-
       checkAlert() {
         this.apiGet('article/getErrorStatus').then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -477,7 +467,7 @@
         this.$refs.changePwd.modal = true
       },
       company() {
-        this.apiGet('admin/Company/1' ).then((res) => {
+        this.apiGet('admin/Company/1').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -491,7 +481,7 @@
         })
       },
       showcompany() {
-        this.apiGet('admin/Company/1' ).then((res) => {
+        this.apiGet('admin/Company/1').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -504,10 +494,10 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      validatecompany(){
-        this.apiGet('admin/verifyCompanyInfo' ).then((res) => {
+      validatecompany() {
+        this.apiGet('admin/verifyCompanyInfo').then((res) => {
           this.handelResponse(res, (data, msg) => {
-           this.is_checked = data.is_checked
+            this.is_checked = data.is_checked
             this.modal = false;
           }, (data, msg) => {
             this.$Message.error(msg);
@@ -531,8 +521,7 @@
     created() {
       this.validatecompany()
       let date1 = new Date;
-     this.copytime =  date1.getFullYear()
-
+      this.copytime = date1.getFullYear()
       let _this = this;
       _this.checkAlert();
       _this.checkAlertstsyem();
