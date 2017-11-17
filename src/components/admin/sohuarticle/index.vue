@@ -20,21 +20,22 @@
           <Page v-show="page_show" :total="total" :current="current" :page-size="pageSize" @on-change="changePage"
                 @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator>
+          </Page>
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo" ></wechatarticlesave>
+    <wechatarticlesave ref="save" :form="editinfo" :articletype="articletypelist"></wechatarticlesave>
   </div>
-
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
   import wechatarticlesave from '../article/save.vue'
+
   export default {
-    data () {
+    data() {
       return {
         page_show: true,
         self: this,
@@ -50,15 +51,18 @@
         pageSize: 10,
         title: '',
         article_type: 0,
-        keyword_type:0,
+        keyword_type: 0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+        },
         articletypelist: [],
-        keywordtype:[]
+        keywordtype: []
       }
     },
     components: {wechatarticlesave},
-    created () {
+    created() {
+     // this.getData();
+//      console.log(3434)
       this.getArticleType((data) => {
         this.articletypelist = data
       });
@@ -76,7 +80,7 @@
             type_id: this.keyword_type
           }
         }
-        this.apiGet('qq/article', data).then((data) => {
+        this.apiGet('admin/souhu', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -88,30 +92,30 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.page = 1
         this.page_show = false
         this.getData();
         this.page_show = true
       },
-      edit(index){
+      edit(index) {
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
+      show(index) {
         this.getArticle(index);
         this.$refs.show.modal = true
       },
       getKeyword(func) {
-        this.apiGet('article/articleAllType').then((res) => {
+        this.apiGet('admin/souhuList').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
           }, (data, msg) => {
@@ -122,19 +126,18 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      getArticle(index){
+      getArticle(index) {
         let editid = this.datas[index].id
-        this.apiGet('qq/getOneArticle/' + editid).then((res) => {
+        this.apiGet('admin/souhu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             data.thumbnails='';
-            data.summary='';
-            data.is_collection = 20
             data.readcount = 0;
+            data.summary = ''
+            this.editinfo.shorttitle = data.short_title
+            data.is_collection = 20
             this.editinfo = data
             this.editinfo.come_from = data.source
-            this.editinfo.createtime = data.ptime
-           // console.log(data)
-//            console.log(data.url)
+            console.log(this.editinfo)
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -145,9 +148,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
-
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -164,6 +165,13 @@
           })
         }
         columns.push({
+          title: '缩略图',
+          key: 'imgsrc',
+          render(row, column, index){
+            return '<img width="150" src="' + row.thumbnail + '">';
+          }
+        });
+        columns.push({
           title: '标题',
           key: 'title',
           sortable: true
@@ -176,6 +184,7 @@
         columns.push({
           title: '来源',
           key: 'source',
+          width: '300px',
           sortable: true
         });
         columns.push({
@@ -189,7 +198,7 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
+            render(row, column, index) {
               return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
             }
           }
