@@ -1,8 +1,9 @@
 <template>
-
-  <div class="accept-container" style="height:auto">
-    <iframe :src="iframe" v-show="iframeState" id="show-iframe" width="100%" frameborder=0     name="showHere"
-            scrolling=auto></iframe>
+  <div class="accept-container" style="height:100%">
+    <iframe :src="iframe" v-show="iframeState" id="show-iframe" width="100%" frameborder=0
+    name="showHere"
+    scrolling=auto>
+    </iframe>
   </div>
 </template>
 
@@ -13,7 +14,7 @@
     data() {
       return {
         iframeState: true,
-        iframe: ''
+        iframe: '',
       }
     },
     created() {
@@ -24,9 +25,8 @@
       //const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
       //oIframe.style.width = deviceWidth + 'px';
-      oIframe.style.height = deviceHeight + 'px';
+      oIframe.style.height = deviceHeight - 167 + 'px';
     },
-
     methods: {
       index() {
         this.apiGet('yiqixiu/').then((res) => {
