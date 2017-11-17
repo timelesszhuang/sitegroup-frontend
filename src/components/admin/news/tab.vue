@@ -3,15 +3,16 @@
     <Tab-pane label="163新闻" name="newsarticle">
       <Newsarticle></Newsarticle>
     </Tab-pane>
+    <Tab-pane label="搜狐新闻" name="sohunew">
+      <Sohu ref="sohunews"></Sohu>
+    </Tab-pane>
     <Tab-pane label="腾讯新闻" name="qqarticle">
       <Qqarticle ref="qqwenzhang"></Qqarticle>
     </Tab-pane>
     <Tab-pane label="热点新闻" name="hotnews">
       <Hotnews ref="newswenzhang"></Hotnews>
     </Tab-pane>
-    <Tab-pane label="搜狐新闻" name="sohunew">
-      <Sohu ref="sohunews"></Sohu>
-    </Tab-pane>
+
   </Tabs>
 </template>
 <script>
