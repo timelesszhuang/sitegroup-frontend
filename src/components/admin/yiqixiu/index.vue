@@ -1,5 +1,5 @@
 <template>
-  <div class="accept-container" style="height:100%">
+  <div class="accept-container" style="height:100%" v-loading.fullscreen.lock="fullscreenLoading">
     <iframe :src="iframe" v-show="iframeState" id="show-iframe" width="100%" frameborder=0
     name="showHere"
     scrolling=auto>
@@ -13,7 +13,8 @@
   export default {
     data() {
       return {
-        iframeState: true,
+        fullscreenLoading:true,
+        iframeState: false,
         iframe: '',
       }
     },
@@ -22,18 +23,19 @@
     },
     mounted() {
       const oIframe = document.getElementById('show-iframe');
-      //const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
-      //oIframe.style.width = deviceWidth + 'px';
       oIframe.style.height = deviceHeight - 167 + 'px';
     },
     methods: {
       index() {
         this.apiGet('yiqixiu/').then((res) => {
           this.handelResponse(res, (data, msg) => {
+            this.iframeState=true
             this.iframe = data
+            this.fullscreenLoading=false;
           }, (data, msg) => {
             this.$Message.error(msg);
+            this.fullscreenLoading=false;
           })
         }, (res) => {
           //处理错误信息
