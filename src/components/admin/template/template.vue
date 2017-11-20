@@ -70,7 +70,7 @@
         current: 1,
         total: 0,
         page: 1,
-        rows: 10,
+        rows: 12,
         name: '',
         datas: [],
         editinfo: {}
