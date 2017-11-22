@@ -55,7 +55,7 @@
             </Col>
           </Row>
 
-          <div style="margin: 0 auto"><img style="max-width:350px " :src=Path()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src="business_url"></div>
           <Form-item label="机构(企业)地址" prop="address">
             <Input type="text" v-model="form.address" placeholder="请输入机构(企业)地址"></Input>
           </Form-item>
@@ -84,7 +84,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"><img style="max-width:350px " :src=personPath()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src="artificialpersonid_url"></div>
           <Form-item label="(法人)联系电话" prop="artificialperson_phone">
             <Input type="text" v-model="form.artificialperson_phone" placeholder="请输入(法人)联系电话"></Input>
           </Form-item>
@@ -124,7 +124,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"><img style="max-width:350px" :src=trademarkPath()></div>
+          <div style="margin: 0 auto"><img style="max-width:350px" :src="icon_url"></div>
           <Form-item label="主营业务" prop="manbusiness">
             <Input v-model="form.manbusiness" type="textarea" :rows="4" placeholder="请输入主营业务..."></Input>
           </Form-item>
@@ -149,6 +149,12 @@
         }
       };
       return {
+        // 营业执照
+        business_url:'',
+        // 法人
+        artificialpersonid_url:'',
+        // 图标
+        icon_url:'',
         modal: false,
         modal_loading: false,
         action: HOST + 'admin/uploadBusinessLicense',
@@ -195,12 +201,6 @@
       this.getIndustry();
     },
     methods: {
-      Path() {
-        if (!this.form.business_license) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.business_license;
-      },
       personPath() {
         if (!this.form.artificialperson_id) {
           return ROOTHOST;
@@ -214,19 +214,16 @@
         return ROOTHOST + this.form.trademark_img;
       },
       getResponse(response, file, filelist) {
-        this.form.business_license = response.data;
         this.$Message.success(response.msg);
-
-        this.Path()
+        this.form.business_license=this.business_url=response.url
       },
       getRes(respons, file, filelist) {
-        this.form.artificialperson_id = respons.data;
+        this.form.artificialperson_id=this.artificialpersonid_url = respons.url;
         this.$Message.success(respons.msg);
         this.$refs.artificialpersonid.clearFiles()
-        this.personPath()
       },
       getRe(respon, file, filelist) {
-        this.form.trademark_img = respon.data;
+        this.icon_url = respon.url;
         this.$Message.success(respon.msg);
         this.trademarkPath()
       },
@@ -283,7 +280,6 @@
                 this.modal = false;
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.$refs.mediaadd.resetFields();
                 this.$refs.select.clearSingleSelect()
                 this.$refs.select2.clearSingleSelect()
               }, (data, msg) => {
@@ -319,8 +315,6 @@
         address: '',
         business_license: '',
         artificialperson_id: '',
-
-
       },
 
     },
