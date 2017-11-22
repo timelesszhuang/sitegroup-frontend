@@ -56,7 +56,7 @@
             </Col>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
-              <img style="max-width: 200px;max-height: 200px; width:100px" :src='imgpath()' alt=""></div>
+              <img style="max-width: 200px;max-height: 200px; width:100px" :src=imgpath() alt=""></div>
             </Col>
 
           </Row>

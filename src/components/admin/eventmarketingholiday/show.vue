@@ -25,7 +25,6 @@
       return {
         modal: false,
         modal_loading: false,
-        path:this.path
       }
     },
     created(){
@@ -38,7 +37,7 @@
     },
     mixins: [http],
     props: {
-      path:''
+      path:String
     }
   }
 </script>
