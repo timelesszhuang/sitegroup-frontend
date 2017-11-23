@@ -244,6 +244,9 @@
       }
     },
     methods: {
+      changeLogo(value){
+        this.form.sitelogo_id = value.value
+      },
       changeMenutype(value) {
         this.form.menu = value.label
       },
