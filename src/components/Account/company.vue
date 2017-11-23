@@ -55,7 +55,7 @@
             </Col>
           </Row>
 
-          <div style="margin: 0 auto"><img style="max-width:350px " :src="business_url"></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src=Path()></div>
           <Form-item label="机构(企业)地址" prop="address">
             <Input type="text" v-model="form.address" placeholder="请输入机构(企业)地址"></Input>
           </Form-item>
@@ -84,7 +84,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"><img style="max-width:350px " :src="artificialpersonid_url"></div>
+          <div style="margin: 0 auto"><img style="max-width:350px " :src=personPath()></div>
           <Form-item label="(法人)联系电话" prop="artificialperson_phone">
             <Input type="text" v-model="form.artificialperson_phone" placeholder="请输入(法人)联系电话"></Input>
           </Form-item>
@@ -124,7 +124,7 @@
             </div>
             </Col>
           </Row>
-          <div style="margin: 0 auto"><img style="max-width:350px" :src="icon_url"></div>
+          <div style="margin: 0 auto"><img style="max-width:350px" :src=trademarkPath()></div>
           <Form-item label="主营业务" prop="manbusiness">
             <Input v-model="form.manbusiness" type="textarea" :rows="4" placeholder="请输入主营业务..."></Input>
           </Form-item>
@@ -149,12 +149,6 @@
         }
       };
       return {
-        // 营业执照
-        business_url:'',
-        // 法人
-        artificialpersonid_url:'',
-        // 图标
-        icon_url:'',
         modal: false,
         modal_loading: false,
         action: HOST + 'admin/uploadBusinessLicense',
@@ -201,6 +195,9 @@
       this.getIndustry();
     },
     methods: {
+      Path() {
+        return  this.form.business_license;
+      },
       personPath() {
         return this.form.artificialperson_id;
       },
@@ -208,16 +205,18 @@
         return  this.form.trademark_img;
       },
       getResponse(response, file, filelist) {
+        this.form.business_license = response.url;
         this.$Message.success(response.msg);
-        this.form.business_license=this.business_url=response.url
+        this.Path()
       },
       getRes(respons, file, filelist) {
-        this.form.artificialperson_id=this.artificialpersonid_url = respons.url;
+        this.form.artificialperson_id = respons.url;
         this.$Message.success(respons.msg);
         this.$refs.artificialpersonid.clearFiles()
+        this.personPath()
       },
       getRe(respon, file, filelist) {
-        this.icon_url = respon.url;
+        this.form.trademark_img = respon.url;
         this.$Message.success(respon.msg);
         this.trademarkPath()
       },
@@ -309,6 +308,8 @@
         address: '',
         business_license: '',
         artificialperson_id: '',
+
+
       },
 
     },

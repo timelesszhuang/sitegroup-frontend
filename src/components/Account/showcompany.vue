@@ -101,7 +101,7 @@
     },
     methods: {
       Path() {
-        return ROOTHOST + this.form.business_license;
+        return  this.form.business_license;
       },
       personPath() {
         return  this.form.artificialperson_id;
