@@ -10,7 +10,7 @@
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询分段</Button>
-      <Button type="success" @click="add">添加分段</Button>
+      <!--<Button type="success" @click="add">添加分段</Button>-->
     </div>
     <div class="content" style="margin-top:10px;margin-left: 5px;margin-right: 5px">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
