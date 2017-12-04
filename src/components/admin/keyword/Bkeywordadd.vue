@@ -63,7 +63,7 @@
                 this.$refs.bkeywordadd.resetFields();
                 setTimeout(function () {
                   location.reload();
-                }, 1000);
+                }, 1);
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
