@@ -1,15 +1,15 @@
 <template>
-  <Modal v-model="modal" title="ftp信息" style="position:relative;z-index: 11000">
-    <Form ref="cdn" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-      <Form-item label="cdn品牌" prop="cdn_type">
-        <Input type="text" v-model="form.cdn_type" placeholder="请输入cdn品牌"></Input>
+  <Modal v-model="modal" title="主动推送地址" style="position:relative;z-index: 10000">
+
+    <Form ref="ping" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+      <Form-item label="链接地址" prop="cdn_type">
+        <Input type="text" v-model="form.pingbaiduurl" placeholder="请输入链接地址"></Input>
       </Form-item>
-      <Form-item label="cdn绑定ip" prop="cdn_ip">
-        <Input type="text" v-model="form.cdn_ip" placeholder="请输入cdn绑定ip"></Input>
-      </Form-item>
+
     </Form>
+
     <div slot="footer">
-      <Button type="success" size="large" :loading="modal_loading" @click="submitFtp">保存</Button>
+      <Button type="success" size="large" :loading="modal_loading" @click="saveping">保存</Button>
     </div>
   </Modal>
 
@@ -23,21 +23,18 @@
         modal: false,
         modal_loading: false,
         AddRule: {
-          cdn_type: [
-            {required: true, message: '请输入名称', trigger: 'blur'},
-          ],
-          cdn_ip: [
-            {required: true, message: '请输入cdn ip地址', trigger: 'blur'},
-          ],
-        }
+          pingbaiduurl: [
+            {required: true, message: '请输入链接地址', trigger: 'blur'},
+          ],}
       }
     },
     methods: {
-      submitFtp(){
-        this.$refs.cdn.validate((valid) => {
+      saveping(){
+        this.$refs.ping.validate((valid) => {
           if (valid) {
             let data = this.form;
-            let id = this.cdn_id;
+            let id = this.ping_id;
+            //console.log(data)
             this.apiPut('Site/saveFtp/'+ id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal_loading = false;
@@ -63,7 +60,7 @@
 
         }
       },
-      cdn_id:Number
+      ping_id:Number
     },
     mixins:[http]
   }

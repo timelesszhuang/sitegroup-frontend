@@ -49,6 +49,7 @@
     <win ref="windows" :genaraterId="genarate_id"></win>
     <other ref="other" :otherArr="others"></other>
     <Activity ref="activity" :datas="activity_data" :sid="site_id"></Activity>
+    <activepush  :ping_id="ping_id" :form="ping" ref="activepush" ></activepush>
   </div>
 </template>
 
@@ -61,6 +62,7 @@
   import win from './window.vue';
   import other from './other.vue';
   import Activity from './activity.vue';
+  import activepush from './activepush.vue'
 
   export default {
     data() {
@@ -98,10 +100,13 @@
         activity_data: [],
         site_type_id: '',
         logodata:[],
-        url: ''
+        url: '',
+        ping:{},
+        ping_id :0,
+
       }
     },
-    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity, other},
+    components: {siteadd, sitesave, ftpsave, cdnsave, win, Activity, other,activepush},
     created() {
       this.getData();
       this.getCommontype();
@@ -371,7 +376,11 @@
         this.cdn_info.cdn_type = index.cdn_type
         this.cdn_info.cdn_ip = index.cdn_ip
         this.$refs.cdnsave.modal = true
-        this.$refs.other.modal2 = false
+      },
+      activepush(index){
+        this.ping_id = index.id;
+        this.ping.pingbaiduurl = index.pingbaiduurl
+        this.$refs.activepush.modal= true;
       },
       generateStatic(index) {
         this.genarate_id = index;
