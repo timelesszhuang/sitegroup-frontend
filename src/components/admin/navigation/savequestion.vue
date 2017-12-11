@@ -19,7 +19,7 @@
           </Form-item>
           <Form-item label="问答分类" prop="type_id">
             <Select v-model="form.type_id" style="text-align: left;width:200px;"
-                    label-in-value 　@on-change="changeQuestiontype">
+              multiple>
               <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                 {{ item.name }}
               </Option>
@@ -29,6 +29,14 @@
             <Select v-model="form.tag_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeNavtype">
               <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
+          <Form-item label="上级分类" prop="p_id">
+            <Select v-model="form.p_id"  style="text-align: left;width:250px;"
+                    label-in-value @on-change="changeArticletype">
+              <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
@@ -71,9 +79,6 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_id: [
-            {required: true,validator: checkquestiontype, trigger: 'blur'}
-          ],
           generate_name:[
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
@@ -88,9 +93,8 @@
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
-      changeQuestiontype(value) {
-        this.form.type_name= value.label
-        this.form.type_id = value.value
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       savequestion() {
         this.$refs.questionadd.validate((valid) => {
@@ -124,6 +128,9 @@
         default: {
 
         }
+      },
+      pidtype: {
+        default: []
       },
       navtype: {
         default: []

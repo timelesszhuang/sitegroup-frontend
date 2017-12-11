@@ -205,8 +205,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      getpidtype(func) {
-        this.apiGet('menu/upmenu').then((res) => {
+      getpidtype(flag) {
+        this.apiGet('menu/upmenu/' + flag).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.pidtype = data
           }, (data, msg) => {
@@ -233,15 +233,18 @@
         this.$refs.adddetails.modal = true
       },
       addquestion() {
+        this.getpidtype(2)
         this.$refs.addquestion.modal = true
       },
       addarticle() {
+        this.getpidtype(3)
         this.$refs.addarticle.modal = true
       },
       addtitle() {
         this.$refs.addtitle.modal = true
       },
       addproduct() {
+        this.getpidtype(5)
         this.$refs.addproduct.modal = true
       },
       modify(index) {
@@ -271,20 +274,21 @@
               })
             }
             this.editinfo.type_id = ArticleAar
-            console.log(ArticleAar)
-
             this.modal = false;
             if (data.flag == 1) {
               this.$refs.savedetails.modal = true
             }
             else if (data.flag == 2) {
+              this.getpidtype(data.flag)
               this.$refs.savequestion.modal = true
             } else if (data.flag == 3) {
+              this.getpidtype(data.flag)
               this.$refs.savearticle.modal = true
             }
             else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
             } else if (data.flag == 5) {
+              this.getpidtype(data.flag)
               this.$refs.saveproduct.modal = true
             }
           }, (data, msg) => {

@@ -91,9 +91,6 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_name: [
-            {required: true,validator: checkquestiontype, trigger: 'blur'}
-          ],
           generate_name:[
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],

@@ -18,8 +18,7 @@
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="产品分类" prop="type_id">
-            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
-                    @on-change="changeProtype">
+            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" multiple>
               <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
             </Select>
           </Form-item>
@@ -31,8 +30,16 @@
               </Option>
             </Select>
           </Form-item>
-        </Form>
 
+        <Form-item label="上级分类" prop="p_id">
+          <Select v-model="form.p_id"  style="text-align: left;width:250px;"
+                  label-in-value @on-change="changeArticletype">
+            <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+              {{ item.text }}
+            </Option>
+          </Select>
+        </Form-item>
+        </Form>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="saveproduct">保存</Button>
@@ -53,26 +60,15 @@
           callback();
         }
       };
-      const checkptype = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请选择分类'));
-        } else {
-          callback();
-        }
-      };
       return {
         modal: false,
         modal_loading: false,
-        type_name:'',
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
           ],
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
-          ],
-          type_name: [
-            {required: true, validator: checkptype, trigger: 'blur'}
           ],
           generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
@@ -88,18 +84,14 @@
         this.form.tag_name = value.label
         this.form.tag_id = value.value
       },
-      changeProtype(value) {
-        this.form.type_id = value.value
-        this.type_name = value.label
-        //console.log(this.form.type_name)
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       saveproduct() {
         this.$refs.data.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            this.form.type_name = this.type_name
             let data = this.form;
-            console.log(data)
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -126,14 +118,15 @@
       ptype: {
         default: []
       },
+      pidtype: {
+        default: []
+      },
       navtype: {
         default: []
       },
       form: {
         default: {
-          type_name:'',
-          name: "",
-          title: '',
+
         }
       }
     }
