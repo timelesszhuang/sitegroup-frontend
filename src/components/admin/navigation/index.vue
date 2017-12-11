@@ -267,6 +267,7 @@
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            this.editinfo.content = ""
             let ArticleAar = [];
             if (this.editinfo.type_id !== "") {
               this.editinfo.type_id.split(",").map(function (key) {
