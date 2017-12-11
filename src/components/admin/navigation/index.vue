@@ -15,7 +15,7 @@
       <Button type="success" @click="addproduct" shape="circle" size="small">添加产品型</Button>
       <Button type="success" @click="addquestion" shape="circle" size="small">添加问答型</Button>
       <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
-      <Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>
+      <!--<Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>-->
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -250,6 +250,13 @@
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            let ArticleAar = [];
+            if (this.editinfo.type_id !== "") {
+              this.editinfo.menu.split(",").map(function (key) {
+                ArticleAar.push(Number(key))
+              })
+            }
+            this.editinfo.type_id = ArticleAar
             this.modal = false;
             if (data.flag == 1) {
               this.$refs.savedetails.modal = true

@@ -11,13 +11,16 @@
             <Form-item label="栏目/菜单名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
             </Form-item>
+            <Form-item label="英文名" prop="generate_name">
+              <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名(不要输入.html)"></Input>
+            </Form-item>
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
 
             <Form-item label="文章分类" prop="type_id">
               <Select v-model="form.type_id" ref="select" :clearable="selects"  style="text-align: left;width:250px;"
-                      label-in-value filterable　@on-change="changeArticletype">
+                      label-in-value  multiple　>
                 <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
@@ -27,6 +30,14 @@
               <Select v-model="form.tag_id" ref="select" :clearable="selects" style="text-align: left;width:200px;"
                       label-in-value filterable 　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="上级分类" prop="p_id">
+              <Select  ref="select" :clearable="selects"  style="text-align: left;width:250px;"
+                      label-in-value @on-change="changeArticletype">
+                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
@@ -64,6 +75,7 @@
         modal: false,
         modal_loading: false,
         form: {
+          type_id:[],
           name: "",
           title: "",
           flag:"3",
@@ -84,6 +96,9 @@
           type_id: [
             {required: true,validator: checkarticletype, trigger: 'blur'}
           ],
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
+          ],
           tag_name: [
             {required: true,validator: checkNavtype, trigger: 'blur'}
           ],
@@ -97,8 +112,7 @@
         this.form.tag_id = value.value
       },
       changeArticletype(value) {
-        this.form.type_name = value.label
-        this.form.type_id = value.value
+        this.form.p_id = value.value
       },
       addarticle() {
           this.$refs.articleadd.validate((valid) => {
