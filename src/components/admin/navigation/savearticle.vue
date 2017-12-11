@@ -18,8 +18,7 @@
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="type_id">
-            <Select v-model="form.type_id" style="text-align: left;width:250px;"
-                    label-in-value 　@on-change="changeArticletype">
+            <Select v-model="form.type_id"  style="text-align: left;width:250px;" multiple>
               <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>
@@ -33,6 +32,15 @@
               </Option>
             </Select>
           </Form-item>
+          <Form-item label="上级分类" prop="p_id">
+            <Select v-model="form.p_id"  style="text-align: left;width:250px;"
+                    label-in-value @on-change="changeArticletype">
+              <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
+
         </Form>
       </div>
       <div slot="footer">
@@ -89,8 +97,7 @@
         this.form.tag_id = value.value
       },
       changeArticletype(value) {
-        this.type_name = value.label
-        this.form.type_id = value.value
+        this.form.p_id = value.value
       },
       savearticle() {
         this.$refs.data.validate((valid) => {
@@ -129,6 +136,9 @@
     navtype: {
       default: []
     },
+      pidtype: {
+        default: []
+      },
       form: {
         default: {
           name: "",

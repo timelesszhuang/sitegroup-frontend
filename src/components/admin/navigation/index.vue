@@ -45,16 +45,16 @@
         </div>
       </div>
     </div>
-    <productadd ref="addproduct" :navtype="navtype"  :ptype="ptype"></productadd>
-    <productsave ref="saveproduct" :navtype="navtype" :form="editinfo" :ptype="ptype"></productsave>
+    <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype"  :ptype="ptype"></productadd>
+    <productsave ref="saveproduct" :navtype="navtype"  :pidtype="pidtype":form="editinfo" :ptype="ptype"></productsave>
     <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
-    <questionadd ref="addquestion" :navtype="navtype" :questiontype="questiontypelist"></questionadd>
+    <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
-    <questionsave ref="savequestion" :navtype="navtype" :questiontype="questiontypelist"
+    <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
-    <articlesave ref="savearticle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></articlesave>
-    <articleadd ref="addarticle" :navtype="navtype" :articletype="articletypelist"></articleadd>
+    <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist" :form="editinfo"></articlesave>
+    <articleadd ref="addarticle" :navtype="navtype"  :pidtype="pidtype" :articletype="articletypelist"></articleadd>
     <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
     <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
@@ -92,6 +92,7 @@
         page: 1,
         rows: 10,
         name: '',
+        pidtype:[],
         datas: [],
         editinfo: {},
         info: {},
@@ -151,6 +152,7 @@
       this.getproducttype((data) => {
         this.ptype = data
       });
+      this.getpidtype()
     },
     methods: {
       changeNavtype(value) {
@@ -195,6 +197,18 @@
         this.apiGet('admin/getProductType').then((res) => {
           this.handelResponse(res, (data, msg) => {
             func(data)
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
+      getpidtype(func) {
+        this.apiGet('menu/upmenu').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.pidtype = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -252,11 +266,13 @@
             this.editinfo = data
             let ArticleAar = [];
             if (this.editinfo.type_id !== "") {
-              this.editinfo.menu.split(",").map(function (key) {
+              this.editinfo.type_id.split(",").map(function (key) {
                 ArticleAar.push(Number(key))
               })
             }
             this.editinfo.type_id = ArticleAar
+            console.log(ArticleAar)
+
             this.modal = false;
             if (data.flag == 1) {
               this.$refs.savedetails.modal = true

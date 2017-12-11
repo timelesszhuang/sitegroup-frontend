@@ -18,7 +18,7 @@
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
             <Form-item label="产品分类" prop="type_name">
-              <Select v-model="type_name" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable @on-change="changePtype">
+              <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询"  multiple>
                 <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
               </Select>
             </Form-item>
@@ -26,6 +26,14 @@
               <Select v-model="form.tag_id" ref="select" :clearable="selects" style="text-align: left;width:200px;"
                       label-in-value filterable 　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="上级分类" prop="p_id">
+              <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
+                      label-in-value @on-change="changeArticletype">
+                <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
@@ -64,6 +72,7 @@
         modal_loading: false,
         type_name: '',
         form: {
+          type_id:[],
           name: "",
           title: "",
           flag:"5",
@@ -78,9 +87,6 @@
           ],
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
-          ],
-          type_name: [
-            {required: true,validator: checkarticletype, trigger: 'blur'}
           ],
           generate_name:[
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
@@ -97,10 +103,8 @@
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
-      changePtype(value) {
-//        console.log(value)
-        this.form.type_id = value.value
-        this.form.type_name =  value.label
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       addproduct() {
           this.$refs.productadd.validate((valid) => {
@@ -136,7 +140,10 @@
       },
       ptype: {
         default: []
-      }
+      },
+      pidtype: {
+        default: []
+      },
     }
   }
 </script>

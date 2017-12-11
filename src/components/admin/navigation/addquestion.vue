@@ -19,7 +19,7 @@
             </Form-item>
             <Form-item label="问答分类" prop="type_name">
               <Select v-model="form.type_id" ref="select" :clearable="selects" style="text-align: left;width:250px;"
-                      label-in-value filterable　@on-change="changeQuestiontype">
+                      multiple>
                 <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
                   {{ item.name }}
                 </Option>
@@ -29,6 +29,14 @@
               <Select v-model="form.tag_id"  ref="select" :clearable="selects"style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="上级分类" prop="p_id">
+              <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
+                      label-in-value @on-change="changeArticletype">
+                <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
@@ -71,7 +79,7 @@
           title: "",
           flag:"2",
           flag_name:"问答型",
-          type_id:'',
+          type_id:[],
           type_name:'',
           generate_name:''
         },
@@ -100,9 +108,8 @@
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
-      changeQuestiontype(value) {
-        this.form.type_name= value.label
-        this.form.type_id = value.value
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       addquestion() {
           this.$refs.questionadd.validate((valid) => {
@@ -137,7 +144,10 @@
       },
       navtype: {
         default: []
-      }
+      },
+      pidtype: {
+        default: []
+      },
     }
   }
 </script>
