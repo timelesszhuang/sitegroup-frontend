@@ -152,7 +152,6 @@
       this.getproducttype((data) => {
         this.ptype = data
       });
-      this.getpidtype()
     },
     methods: {
       changeNavtype(value) {
@@ -205,8 +204,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      getpidtype(flag) {
-        this.apiGet('menu/upmenu/' + flag).then((res) => {
+      getpidtype(flag,id) {
+        this.apiGet('menu/upmenu/' + flag+"/"+id).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.pidtype = data
           }, (data, msg) => {
@@ -280,16 +279,16 @@
               this.$refs.savedetails.modal = true
             }
             else if (data.flag == 2) {
-              this.getpidtype(data.flag)
+              this.getpidtype(data.flag,editid)
               this.$refs.savequestion.modal = true
             } else if (data.flag == 3) {
-              this.getpidtype(data.flag)
+              this.getpidtype(data.flag,editid)
               this.$refs.savearticle.modal = true
             }
             else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
             } else if (data.flag == 5) {
-              this.getpidtype(data.flag)
+              this.getpidtype(data.flag,editid)
               this.$refs.saveproduct.modal = true
             }
           }, (data, msg) => {
