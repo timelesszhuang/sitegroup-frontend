@@ -232,18 +232,18 @@
         this.$refs.adddetails.modal = true
       },
       addquestion() {
-        this.getpidtype(2)
+        this.getpidtype(2,0)
         this.$refs.addquestion.modal = true
       },
       addarticle() {
-        this.getpidtype(3)
+        this.getpidtype(3,0)
         this.$refs.addarticle.modal = true
       },
       addtitle() {
         this.$refs.addtitle.modal = true
       },
       addproduct() {
-        this.getpidtype(5)
+        this.getpidtype(5,0)
         this.$refs.addproduct.modal = true
       },
       modify(index) {

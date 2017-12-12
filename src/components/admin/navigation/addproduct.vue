@@ -72,6 +72,7 @@
         modal_loading: false,
         type_name: '',
         form: {
+          p_id:'',
           type_id:[],
           name: "",
           title: "",

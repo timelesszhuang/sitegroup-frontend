@@ -75,6 +75,7 @@
         modal: false,
         modal_loading: false,
         form: {
+          p_id:'',
           name: "",
           title: "",
           flag:"2",
