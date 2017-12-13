@@ -19,6 +19,7 @@
     width: 150px;
     display: block;
     padding: 10px;
+    margin-left: 20px;
   }
 
   .layout-breadcrumb {

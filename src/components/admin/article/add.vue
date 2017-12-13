@@ -100,8 +100,6 @@
       </div>
     </Modal>
   </div>
-
-
 </template>
 
 <script type="text/ecmascript-6">

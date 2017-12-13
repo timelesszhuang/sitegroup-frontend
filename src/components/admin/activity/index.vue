@@ -5,7 +5,7 @@
       <Input v-model="title" placeholder="活动名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加活动</Button>
-      <Button type="success" @click="urladd">添加外站活动</Button>
+      <Button type="success" @click="urladd">添加链接活动</Button>
     </div>
     <div>
     </div>
@@ -24,7 +24,7 @@
     </div>
     <Alert type="success" show-icon>
       说明:
-      <span slot="desc">活动创意部分支持站内活动跟站外活动，站外活动选择添加站外活动，添加需要链接到的网址。 </span>
+      <span slot="desc">活动创意部分支持站内活动跟链接活动，链接活动选择添加链接活动，添加需要链接到的网址。 </span>
     </Alert>
     <padd ref="add"></padd>
     <psave ref="save" :form="editinfo"></psave>
