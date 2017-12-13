@@ -34,8 +34,8 @@
                 </div>
               </div>
             </Form-item>
-            <Form-item label="外站链接" prop="url">
-              <Input type="text" v-model="form.url" placeholder="请输入外站链接"></Input>
+            <Form-item label="活动链接" prop="url">
+              <Input type="text" v-model="form.url" placeholder="请输入活动链接"></Input>
             </Form-item>
           </Form>
         </div>
@@ -62,9 +62,9 @@
           title: [
             {required: true, message: '请输入活动名称。', trigger: 'blur'},
           ],
-          url: [
-            {required: true, message: '请输入页面的url。', trigger: 'blur'},
-          ],
+//          url: [
+//            {required: true, message: '请输入页面的url。', trigger: 'blur'},
+//          ],
           oss_img_src: [
             {required: true, message: '请上传活动图。', trigger: 'blur'},
           ],
@@ -125,7 +125,7 @@
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
-              })
+              })-
             }, (res) => {
               //处理错误信息
               this.modal_loading = false;
