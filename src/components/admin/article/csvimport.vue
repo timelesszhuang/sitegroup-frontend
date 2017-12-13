@@ -74,7 +74,7 @@
     },
     methods: {
       getResponse(response, file, filelist){
-        this.form.csvupload = response.data;
+        this.form.csvupload = response.url;
         this.$Message.success(response.msg);
       },
       getErrorInfo(error, file, filelist){
