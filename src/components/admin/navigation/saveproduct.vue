@@ -6,30 +6,49 @@
         <span>修改产品型栏目</span>
       </p>
       <div>
-        <Form ref="data" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+        <Form ref="data" :model="form" :label-width="150" :rules="AddRule" class="node-add-form">
           <Form-item label="栏目/菜单名称" prop="name">
             <Input type="text"
                    v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
+          </Form-item>
+          <Form-item label="英文名" prop="generate_name">
+            <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名(不要输入.html)"></Input>
           </Form-item>
           <Form-item label="详情" prop="title">
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="产品分类" prop="type_id">
-            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable
-                    @on-change="changeProtype">
+            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" multiple>
               <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
             </Select>
           </Form-item>
           <Form-item label="分类" prop="tag_name">
-            <Select v-model="form.tag_id" style="text-align: left;width:200px;"
+            <Select  ref="select" :clearable="selects" v-model="form.tag_id" style="text-align: left;width:200px;"
                     label-in-value filterable　@on-change="changeNavtype">
               <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
           </Form-item>
-        </Form>
 
+        <Form-item label="上级分类" prop="p_id">
+          <Select v-model="form.p_id"  style="text-align: left;width:250px;"
+                  label-in-value @on-change="changeArticletype">
+            <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+              {{ item.text }}
+            </Option>
+          </Select>
+        </Form-item>
+          <Form-item label="列表页面模板名" prop="listtemplate">
+            <Input type="text" v-model="form.listtemplate" placeholder="请填写列表页面模板名(加.html)"></Input>
+          </Form-item>
+          <Form-item label="详情页面的相关模板名" prop="detailtemplate">
+            <Input type="text" v-model="form.detailtemplate" placeholder="请填写详情页面的相关模板名(加.html)"></Input>
+          </Form-item>
+          <Form-item label="栏目列表调取的数量" prop="listsize">
+            <Input-number  :min="0" v-model="form.listsize"  placeholder="请填写当前栏目列表调取的数量"></Input-number>
+          </Form-item>
+        </Form>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="saveproduct">保存</Button>
@@ -50,17 +69,10 @@
           callback();
         }
       };
-      const checkptype = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请选择分类'));
-        } else {
-          callback();
-        }
-      };
       return {
         modal: false,
         modal_loading: false,
-        type_name:'',
+        selects: true,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -68,10 +80,9 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_name: [
-            {required: true, validator: checkptype, trigger: 'blur'}
+          generate_name: [
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
-
           tag_name: [
             {required: true, validator: checkNavtype, trigger: 'blur'}
           ],
@@ -83,18 +94,14 @@
         this.form.tag_name = value.label
         this.form.tag_id = value.value
       },
-      changeProtype(value) {
-        this.form.type_id = value.value
-        this.type_name = value.label
-        //console.log(this.form.type_name)
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       saveproduct() {
         this.$refs.data.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            this.form.type_name = this.type_name
             let data = this.form;
-            console.log(data)
             let id = data.id;
             this.apiPut('menu/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
@@ -103,6 +110,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.data.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
@@ -121,14 +129,15 @@
       ptype: {
         default: []
       },
+      pidtype: {
+        default: []
+      },
       navtype: {
         default: []
       },
       form: {
         default: {
-          type_name:'',
-          name: "",
-          title: '',
+
         }
       }
     }

@@ -8,11 +8,11 @@
         </p>
         <div>
           <Form ref="siteusersave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="名称" prop="detail">
-              <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
+            <Form-item label="昵称" prop="name">
+              <Input type="text" v-model="form.name" placeholder="请输入昵称"></Input>
             </Form-item>
             <Form-item label="账号" prop="account">
-              <Input type="text" v-model="form.account" disabled></Input>
+              <Input type="text" v-model="form.account" placeholder="请输入账号"></Input>
             </Form-item>
             <Form-item label="邮箱" prop="email">
               <Input type="text" v-model="form.email" placeholder="请输入邮箱"></Input>

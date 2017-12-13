@@ -196,37 +196,27 @@
     },
     methods: {
       Path() {
-        if (!this.form.business_license) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.business_license;
+        return  this.form.business_license;
       },
       personPath() {
-        if (!this.form.artificialperson_id) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.artificialperson_id;
+        return this.form.artificialperson_id;
       },
       trademarkPath() {
-        if (!this.form.trademark_img) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.trademark_img;
+        return  this.form.trademark_img;
       },
       getResponse(response, file, filelist) {
-        this.form.business_license = response.data;
+        this.form.business_license = response.url;
         this.$Message.success(response.msg);
-
         this.Path()
       },
       getRes(respons, file, filelist) {
-        this.form.artificialperson_id = respons.data;
+        this.form.artificialperson_id = respons.url;
         this.$Message.success(respons.msg);
         this.$refs.artificialpersonid.clearFiles()
         this.personPath()
       },
       getRe(respon, file, filelist) {
-        this.form.trademark_img = respon.data;
+        this.form.trademark_img = respon.url;
         this.$Message.success(respon.msg);
         this.trademarkPath()
       },
@@ -283,7 +273,6 @@
                 this.modal = false;
                 this.$Message.success(msg);
                 this.modal_loading = false;
-                this.$refs.mediaadd.resetFields();
                 this.$refs.select.clearSingleSelect()
                 this.$refs.select2.clearSingleSelect()
               }, (data, msg) => {

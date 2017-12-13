@@ -117,7 +117,6 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.imgshow = false;
-                this.form.image = '';
                 this.$refs.padd.resetFields();
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {

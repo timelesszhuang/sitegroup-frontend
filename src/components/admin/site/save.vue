@@ -74,8 +74,11 @@
               </Select>
             </Form-item>
             <Form-item label="模板" prop="template_id">
-              <Select v-model="form.template_id" style="text-align: left;width:200px;"
+
+              <Select v-model="form.template_id" style="text-align: left;width:350px;"
                       label-in-value 　@on-change="changeTemptype">
+                <Option disabled :value="0"><span
+                  style="font-size: 15px;font-weight: bold">模板名—模板分类—公私模板</span></Option>
                 <Option v-for="item in temptype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -244,6 +247,9 @@
       }
     },
     methods: {
+      changeLogo(value){
+        this.form.sitelogo_id = value.value
+      },
       changeMenutype(value) {
         this.form.menu = value.label
       },

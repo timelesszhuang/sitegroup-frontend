@@ -7,15 +7,18 @@
           <span>添加产品型栏目</span>
         </p>
         <div>
-          <Form ref="productadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <Form ref="productadd" :model="form" :label-width="150" :rules="AddRule" class="node-add-form">
             <Form-item label="栏目/菜单名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请填写栏目/菜单名字"></Input>
+            </Form-item>
+            <Form-item label="英文名" prop="generate_name">
+              <Input type="text" v-model="form.generate_name" placeholder="请填写英文名，用于生成静态页命名(不要输入.html)"></Input>
             </Form-item>
             <Form-item label="详情" prop="title">
               <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
             </Form-item>
             <Form-item label="产品分类" prop="type_name">
-              <Select v-model="type_name" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable @on-change="changePtype">
+              <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询"  multiple>
                 <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
               </Select>
             </Form-item>
@@ -26,6 +29,23 @@
                   {{ item.text }}
                 </Option>
               </Select>
+            </Form-item>
+            <Form-item label="上级分类" prop="p_id">
+              <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
+                      label-in-value @on-change="changeArticletype">
+                <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="列表页面模板名" prop="listtemplate">
+              <Input type="text" v-model="form.listtemplate" placeholder="请填写列表页面模板名(加.html)"></Input>
+            </Form-item>
+            <Form-item label="详情页面的相关模板名" prop="detailtemplate">
+              <Input type="text" v-model="form.detailtemplate" placeholder="请填写详情页面的相关模板名(加.html)"></Input>
+            </Form-item>
+            <Form-item label="栏目列表调取的数量" prop="listsize">
+              <Input-number  :min="0" v-model="form.listsize"  placeholder="请填写当前栏目列表调取的数量"></Input-number>
             </Form-item>
           </Form>
         </div>
@@ -61,6 +81,8 @@
         modal_loading: false,
         type_name: '',
         form: {
+          p_id:'',
+          type_id:[],
           name: "",
           title: "",
           flag:"5",
@@ -76,8 +98,8 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          type_name: [
-            {required: true,validator: checkarticletype, trigger: 'blur'}
+          generate_name:[
+            {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
             {required: true,validator: checkNavtype, trigger: 'blur'}
@@ -91,10 +113,8 @@
         this.form.tag_name= value.label
         this.form.tag_id = value.value
       },
-      changePtype(value) {
-//        console.log(value)
-        this.form.type_id = value.value
-        this.form.type_name =  value.label
+      changeArticletype(value) {
+        this.form.p_id = value.value
       },
       addproduct() {
           this.$refs.productadd.validate((valid) => {
@@ -130,7 +150,10 @@
       },
       ptype: {
         default: []
-      }
+      },
+      pidtype: {
+        default: []
+      },
     }
   }
 </script>

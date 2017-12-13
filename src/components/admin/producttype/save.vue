@@ -11,8 +11,14 @@
             <Form-item label="分类名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入节点名"></Input>
             </Form-item>
+            <Form-item label="英文名" prop="alias">
+              <Input type="text"  v-model="form.alias" placeholder="请输入英文名"></Input>
+            </Form-item>
             <Form-item label="详情" prop="detail">
               <Input type="text" v-model="form.detail" placeholder="请输入节点相关信息"></Input>
+            </Form-item>
+            <Form-item label="英文名" prop="alias">
+              <Input type="text"  v-model="form.alias" placeholder="请输入英文名"></Input>
             </Form-item>
           </Form>
         </div>
@@ -33,6 +39,9 @@
         modal: false,
         modal_loading: false,
         AddRule: {
+          alias: [
+            {required: true, message: '请填写英文名', trigger: 'blur'},
+          ],
           name: [
             {required: true, message: '请填写分类', trigger: 'blur'},
           ],
@@ -75,7 +84,8 @@
         default: {
           name: '',
           detail: '',
-          tag:''
+          tag:'',
+          alias:''
         }
       }
     },

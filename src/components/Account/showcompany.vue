@@ -101,22 +101,13 @@
     },
     methods: {
       Path() {
-        if (!this.form.business_license) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.business_license;
+        return  this.form.business_license;
       },
       personPath() {
-        if (!this.form.artificialperson_id) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.artificialperson_id;
+        return  this.form.artificialperson_id;
       },
       trademarkPath() {
-        if (!this.form.trademark_img) {
-          return ROOTHOST;
-        }
-        return ROOTHOST + this.form.trademark_img;
+        return  this.form.trademark_img;
       },
 
 

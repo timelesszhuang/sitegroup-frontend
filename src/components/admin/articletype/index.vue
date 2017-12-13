@@ -129,6 +129,11 @@
           sortable: true
         });
         columns.push({
+          title: '英文名',
+          key: 'alias',
+          sortable: true
+        });
+        columns.push({
           title: '描述',
           key: 'detail'
         });

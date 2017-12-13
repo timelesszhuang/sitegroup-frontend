@@ -25,6 +25,9 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="封面模板" prop="covertemplate">
+              <Input type="text" v-model="form.covertemplate" placeholder="封面模板(加.html)"></Input>
+            </Form-item>
             <Form-item label="内容" prop="content" style="height:100%;">
               <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
             </Form-item>
@@ -62,6 +65,7 @@
           flag_name: "详情型",
           generate_name: '',
           content:'',
+          covertemplate:'',
         },
         selects:true,
         AddRule: {

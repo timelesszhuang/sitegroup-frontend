@@ -122,6 +122,11 @@
           sortable: true
         });
         columns.push({
+          title: '英文名',
+          key: 'alias',
+          sortable: true
+        });
+        columns.push({
           title: '创建时间',
           key: 'create_time',
           sortable: true

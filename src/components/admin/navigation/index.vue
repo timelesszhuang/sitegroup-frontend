@@ -15,7 +15,7 @@
       <Button type="success" @click="addproduct" shape="circle" size="small">添加产品型</Button>
       <Button type="success" @click="addquestion" shape="circle" size="small">添加问答型</Button>
       <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
-      <Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>
+      <!--<Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>-->
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -45,16 +45,16 @@
         </div>
       </div>
     </div>
-    <productadd ref="addproduct" :navtype="navtype"  :ptype="ptype"></productadd>
-    <productsave ref="saveproduct" :navtype="navtype" :form="editinfo" :ptype="ptype"></productsave>
+    <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype"  :ptype="ptype"></productadd>
+    <productsave ref="saveproduct" :navtype="navtype"  :pidtype="pidtype":form="editinfo" :ptype="ptype"></productsave>
     <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
-    <questionadd ref="addquestion" :navtype="navtype" :questiontype="questiontypelist"></questionadd>
+    <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
-    <questionsave ref="savequestion" :navtype="navtype" :questiontype="questiontypelist"
+    <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
-    <articlesave ref="savearticle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></articlesave>
-    <articleadd ref="addarticle" :navtype="navtype" :articletype="articletypelist"></articleadd>
+    <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist" :form="editinfo"></articlesave>
+    <articleadd ref="addarticle" :navtype="navtype"  :pidtype="pidtype" :articletype="articletypelist"></articleadd>
     <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
     <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
@@ -92,6 +92,7 @@
         page: 1,
         rows: 10,
         name: '',
+        pidtype:[],
         datas: [],
         editinfo: {},
         info: {},
@@ -203,6 +204,18 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
+      getpidtype(flag,id) {
+        this.apiGet('menu/upmenu/' + flag+"/"+id).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.pidtype = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        });
+      },
       getmenutype(func) {
         this.apiGet('admin/menutag/list').then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -219,15 +232,18 @@
         this.$refs.adddetails.modal = true
       },
       addquestion() {
+        this.getpidtype(2,0)
         this.$refs.addquestion.modal = true
       },
       addarticle() {
+        this.getpidtype(3,0)
         this.$refs.addarticle.modal = true
       },
       addtitle() {
         this.$refs.addtitle.modal = true
       },
       addproduct() {
+        this.getpidtype(5,0)
         this.$refs.addproduct.modal = true
       },
       modify(index) {
@@ -250,18 +266,29 @@
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            this.editinfo.content = ""
+            let ArticleAar = [];
+            if (this.editinfo.type_id !== "") {
+              this.editinfo.type_id.split(",").map(function (key) {
+                ArticleAar.push(Number(key))
+              })
+            }
+            this.editinfo.type_id = ArticleAar
             this.modal = false;
             if (data.flag == 1) {
               this.$refs.savedetails.modal = true
             }
             else if (data.flag == 2) {
+              this.getpidtype(data.flag,editid)
               this.$refs.savequestion.modal = true
             } else if (data.flag == 3) {
+              this.getpidtype(data.flag,editid)
               this.$refs.savearticle.modal = true
             }
             else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
             } else if (data.flag == 5) {
+              this.getpidtype(data.flag,editid)
               this.$refs.saveproduct.modal = true
             }
           }, (data, msg) => {

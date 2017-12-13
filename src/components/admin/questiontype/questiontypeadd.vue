@@ -11,6 +11,9 @@
             <Form-item label="分类名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入分类名"></Input>
             </Form-item>
+            <Form-item label="英文名" prop="alias">
+              <Input type="text"  v-model="form.alias" placeholder="请输入英文名"></Input>
+            </Form-item>
           </Form>
         </div>
         <div slot="footer">
@@ -31,8 +34,12 @@
         modal_loading: false,
         form: {
           name: "",
+          alias:''
         },
         AddRule: {
+          alias: [
+            {required: true, message: '请填写英文名', trigger: 'blur'},
+          ],
           name: [
             {required: true, message: '请填写问答分类', trigger: 'blur'},
           ],

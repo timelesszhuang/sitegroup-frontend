@@ -73,7 +73,7 @@
               </Select>
             </Form-item>
             <Form-item label="模板" prop="template_id">
-              <Select v-model="form.template_id" style="text-align: left;width:200px;"
+              <Select v-model="form.template_id" style="text-align: left;width:400px;"
                       label-in-value filterable　@on-change="changeTemptype">
                 <Option v-for="item in temptype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
