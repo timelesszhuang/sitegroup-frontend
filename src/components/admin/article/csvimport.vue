@@ -26,16 +26,18 @@
         </Upload>
         <Form ref="addcsv" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
           <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
-                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option disabled :value="0">分类名—标签</Option>
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.text }}
-                </Option>
-              </Select>
-            </Form-item>
+            <Select ref="select" :clearable="selects" v-model="form.articletype_id"
+                    style="position:relative;text-align: left;width:250px;z-index: 10000;"
+                    label-in-value filterable　@on-change="changeArticletype">
+              <Option disabled :value="0">分类名—标签</Option>
+              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
         </Form>
+
+        <div> {{ddddd}}</div>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="addcsv">保存</Button>
@@ -61,26 +63,25 @@
       return {
         action: HOST + 'article/csvupload',
         modal: false,
-        importcsv:true,
+        importcsv: true,
         modal_loading: false,
+        ddddd: "",
         form: {
-          csvupload:''
+          csvupload: ''
         },
         selects: true,
-        AddRule: {
-
-        }
+        AddRule: {}
       }
     },
     methods: {
-      getResponse(response, file, filelist){
+      getResponse(response, file, filelist) {
         this.form.csvupload = response.url;
         this.$Message.success(response.msg);
       },
-      getErrorInfo(error, file, filelist){
+      getErrorInfo(error, file, filelist) {
         this.$Message.error(error);
       },
-      formatError(){
+      formatError() {
         this.$Message.error('文件格式只支持 csv格式。');
       },
       changeArticletype(value) {
@@ -92,7 +93,7 @@
           if (valid) {
             this.modal_loading = true;
             let data = this.form;
-            this.apiPost('csvimport', data).then((res) => {
+            this.apiPost('article/csvimport', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();
@@ -102,6 +103,7 @@
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 //this.modal_loading = false;
+                  this.importcsv = true
                 this.$Message.error(msg);
               })
             }, (res) => {
