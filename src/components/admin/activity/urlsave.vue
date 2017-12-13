@@ -125,7 +125,7 @@
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
-              })-
+              })
             }, (res) => {
               //处理错误信息
               this.modal_loading = false;
