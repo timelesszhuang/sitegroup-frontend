@@ -6,7 +6,6 @@ import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 import '../my-theme/index.less'
-
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
@@ -25,8 +24,7 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
-
-let domain = 'api.salesman.cc'
+let domain = 'local.sitegroup.com'
 
 // let domain = 'www.sitegroupback.com'
 

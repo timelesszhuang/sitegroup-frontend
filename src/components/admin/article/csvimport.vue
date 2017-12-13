@@ -36,8 +36,7 @@
             </Select>
           </Form-item>
         </Form>
-
-        <div> {{ddddd}}</div>
+        <div> {{errorinfo}}</div>
       </div>
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="addcsv">保存</Button>
@@ -65,7 +64,7 @@
         modal: false,
         importcsv: true,
         modal_loading: false,
-        ddddd: "",
+        errorinfo: "",
         form: {
           csvupload: ''
         },
@@ -102,9 +101,10 @@
                 this.$refs.add.resetFields();
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
-                //this.modal_loading = false;
-                  this.importcsv = true
-                this.$Message.error(msg);
+                this.importcsv = false
+                this.errorinfo = msg
+                this.modal_loading = false;
+                //this.$Message.error(msg);
               })
             }, (res) => {
               //处理错误信息
