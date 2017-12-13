@@ -34,7 +34,7 @@
               </Select>
             </Form-item>
             <Form-item label="上级分类" prop="p_id">
-              <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
+              <Select ref="select"  filterable :clearable="selects" style="text-align: left;width:250px;"
                       label-in-value @on-change="changeArticletype">
                 <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
@@ -84,6 +84,7 @@
         modal: false,
         modal_loading: false,
         form: {
+          listsize:0,
           p_id:'',
           name: "",
           title: "",

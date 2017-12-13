@@ -35,13 +35,16 @@
             </Form-item>
             <Form-item label="上级分类" prop="p_id">
               <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
-                      label-in-value @on-change="changeArticletype">
+                      label-in-value  filterable @on-change="changeArticletype">
                 <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
               </Select>
             </Form-item>
             <Form-item label="列表页面模板名" prop="listtemplate">
+              <!--<Input v-model="form.listtemplate" placeholder="请填写列表页面模板名(加.html)">-->
+              <!--<span slot="append">.com</span>-->
+              <!--</Input>-->
               <Input type="text" v-model="form.listtemplate" placeholder="请填写列表页面模板名(加.html)"></Input>
             </Form-item>
             <Form-item label="详情页面的相关模板名" prop="detailtemplate">
