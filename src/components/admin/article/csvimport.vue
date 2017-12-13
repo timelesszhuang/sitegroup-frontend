@@ -61,9 +61,10 @@
       return {
         action: HOST + 'article/csvupload',
         modal: false,
+        importcsv:true,
         modal_loading: false,
         form: {
-
+          csvupload:''
         },
         selects: true,
         AddRule: {
@@ -96,11 +97,11 @@
                 this.modal = false;
                 this.$parent.getData();
                 this.$Message.success(msg);
-                this.modal_loading = false;
+                //this.modal_loading = false;
                 this.$refs.add.resetFields();
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
-                this.modal_loading = false;
+                //this.modal_loading = false;
                 this.$Message.error(msg);
               })
             }, (res) => {
