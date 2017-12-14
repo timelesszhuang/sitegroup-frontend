@@ -25,6 +25,9 @@
           </div>
         </Upload>
         <Form ref="addcsv" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+          <Form-item label="下载模板">
+            <a v-bind:href=this.csvpath target="_blank">点击下载模板</a>
+          </Form-item>
           <Form-item label="文章分类" prop="articletype_id">
             <Select ref="select" :clearable="selects" v-model="form.articletype_id"
                     style="position:relative;text-align: left;width:250px;z-index: 10000;"
@@ -36,10 +39,16 @@
             </Select>
           </Form-item>
         </Form>
-        <div> {{errorinfo}}</div>
       </div>
+      <div v-if="!importcsv">
+      <div  style="font-weight: bold">导入信息:</div>
+      <div style="font-size: 20px;margin-left:50px" v-for="(item,index) in dataerror">
+        {{item.message}}
+      </div>
+    </div>
       <div slot="footer">
-        <Button type="success" size="large" :loading="modal_loading" @click="addcsv">保存</Button>
+        <Button v-if="!importcsv" type="error" size="large" :loading="modal_loading" @click="close">关闭</Button>
+        <Button  type="success" size="large" :loading="modal_loading" @click="addcsv">导入</Button>
       </div>
     </Modal>
   </div>
@@ -62,6 +71,8 @@
       return {
         action: HOST + 'article/csvupload',
         modal: false,
+        dataerror:[],
+        csvpath:'https://lexiaoyi.oss-cn-beijing.aliyuncs.com/article/csv/20171213/cb374588b7e0fb2082460ad05a46bf22.csv',
         importcsv: true,
         modal_loading: false,
         errorinfo: "",
@@ -87,6 +98,16 @@
         this.form.articletype_name = value.label
         this.form.articletype_id = value.value
       },
+      close(){
+        this.modal_loading = false;
+        this.modal = false
+        this.importcsv = true
+
+      },
+      csvclose(){
+        this.importcsv = true
+
+      },
       addcsv() {
         this.$refs.addcsv.validate((valid) => {
           if (valid) {
@@ -94,17 +115,19 @@
             let data = this.form;
             this.apiPost('article/csvimport', data).then((res) => {
               this.handelResponse(res, (data, msg) => {
-                this.modal = false;
+                if(data.error){
+                  this.dataerror =  data.error
+                  this.importcsv = false
+                }
                 this.$parent.getData();
                 this.$Message.success(msg);
-                //this.modal_loading = false;
-                this.$refs.add.resetFields();
-                this.$refs.select.clearSingleSelect()
-              }, (data, msg) => {
-                this.importcsv = false
-                this.errorinfo = msg
                 this.modal_loading = false;
-                //this.$Message.error(msg);
+                this.$refs.addcsv.resetFields();
+                this.$refs.select.clearSingleSelect()
+                this.$refs.uploadcsv.clearFiles()
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
               })
             }, (res) => {
               //处理错误信息

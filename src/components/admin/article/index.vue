@@ -122,6 +122,7 @@
       },
       importadd() {
         this.$refs.csvimport.modal = true
+        this.$refs.csvimport.csvclose()
       },
       edit(index) {
         this.getArticle(index);
