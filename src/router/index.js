@@ -21,8 +21,6 @@ import SysarticleManage from '../components/sysadmin/articleManage/index.vue'
 import Systemplate from '../components/sysadmin/template/template.vue'
 
 
-
-
 import Keyword from '../components/admin/keyword/keyword.vue'
 import Articlemanage from '../components/admin/articlemanage/tab.vue'
 import Title from '../components/admin/title/title.vue'
@@ -35,38 +33,69 @@ import Siteuser from '../components/admin/siteuser/siteuser.vue'
 import Sitetype from '../components/admin/sitetype/sitetype.vue'
 import Site from '../components/admin/site/site.vue'
 import Link from '../components/admin/link/index.vue'
-import MessageLog from '../components/messageLog/messageLog.vue';
-import Flow from '../components/admin/flow/index.vue';
+import MessageLog from '../components/messageLog/messageLog.vue'
+import Flow from '../components/admin/flow/index.vue'
 import Index from '../components/admin/index/index.vue'
+//静态化配置
 import Staticconfig from '../components/admin/staticconfig/index.vue'
+//甩单
 import Rejection from '../components/admin/rejection/index.vue'
+//模板管理
 import Templatemanage from '../components/admin/templatemanage/index.vue'
+//seo优化
 import Seo from '../components/admin/tdk/index.vue'
+//微信关键词
 import Wechatkeyword from '../components/admin/wechatkeyword/index.vue'
+//微信文章
 import Wechatarticle from '../components/admin/wechatarticle/index.vue'
+//网易文章
 import Wangyiarticle from '../components/admin/163article/index.vue'
+//腾讯列表
 import Tengxunarticle from '../components/admin/qqarticle/index.vue'
-import MainKwyword from '../components/admin/mainkeyword/index.vue'
+//主关键词
+import MainKeyword from '../components/admin/mainkeyword/index.vue'
+//推荐关键词
 import Recommendationkeyword from '../components/admin/recommendationkeyword/index.vue'
+//热点新闻
 import Hotnews from '../components/admin/news/tab.vue'
+//菜单分类
 import Menutype from '../components/admin/menutype/index.vue'
+//
 import Nav from '../components/admin/nav/tab.vue'
+//用户自定义表单
 import Customeform from '../components/admin/customeform/index.vue'
+//pageview
 import Pageview from '../components/admin/pageview/index.vue'
+//企业微信
 import Wechat from '../components/admin/wechat/tab.vue'
+//问答管理
 import Questionmanage from '../components/admin/questionmanage/tab.vue'
+//产品管理
 import Productmanage from '../components/admin/productmanage/tab.vue'
+//新闻管理
 import Newsmanage from '../components/admin/newsmanage/tab.vue'
+//站点元素
 import Siteelement from '../components/admin/siteelement/index.vue'
+//站点管理
 import Sitemanage from '../components/admin/sitemanage/index.vue'
+//营销模式
 import Marketingmodel from '../components/admin/marketingmodel/index.vue'
-import Systemp from '../components/admin/systempush/systempush.vue';
-import Casecenter from '../components/admin/case/index.vue';
-import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue';
-import Trackkeyword from '../components/admin/trackkeyword/index.vue';
-import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue';
-import Advertorial from '../components/admin/advertorial/index.vue';
-import Yqx from '../components/admin/yiqixiu/index.vue';
+//系统推送
+import Systemp from '../components/admin/systempush/systempush.vue'
+//案例中心
+import Casecenter from '../components/admin/case/index.vue'
+//时间营销 之前是时间轴
+import Eventmarketholiday from '../components/admin/eventmarketingholiday/index.vue'
+//追踪关键词
+import Trackkeyword from '../components/admin/trackkeyword/index.vue'
+import Trackrecommendkeyword from '../components/admin/keywordtab/tab.vue'
+//软文管理
+import Advertorial from '../components/admin/advertorial/index.vue'
+//乐销易秀
+import Yqx from '../components/admin/yiqixiu/index.vue'
+//
+import Imglist from '../components/admin/imglist/index.vue'
+
 
 Vue.use(Router)
 
@@ -97,7 +126,6 @@ export default new Router({
         {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'},
         {path: 'sysarticlemanage', component: SysarticleManage, name: 'sysarticlemanage'},
         {path: 'systemplate', component: Systemplate, name: 'systemplate'},
-
       ]
     },
     {
@@ -128,7 +156,7 @@ export default new Router({
         {path: 'wechatarticle', component: Wechatarticle, name: 'wechatarticle'},
         {path: 'wangyiarticle', component: Wangyiarticle, name: 'wangyiarticle'},
         {path: 'tengxunarticle', component: Tengxunarticle, name: 'tengxunarticle'},
-        {path: 'mainkeyword', component: MainKwyword, name: 'mainkeyword'},
+        {path: 'mainkeyword', component: MainKeyword, name: 'mainkeyword'},
         {path: 'recommendationkeyword', component: Recommendationkeyword, name: 'recommendationkeyword'},
         {path: 'hotnews', component: Hotnews, name: 'hotnews'},
         {path: 'menutype', component: Menutype, name: 'menutype'},
@@ -148,7 +176,8 @@ export default new Router({
         {path: 'trackkeyword', component: Trackkeyword, name: 'trackkeyword'},
         {path: 'trackrecommendkeyword', component: Trackrecommendkeyword, name: 'trackrecommendkeyword'},
         {path: 'advertorial', component: Advertorial, name: 'advertorial'},
-        {path: 'yqx', component: Yqx, name: 'yqx'}
+        {path: 'yqx', component: Yqx, name: 'yqx'},
+        {path: 'imglist', component: Imglist, name: 'imglist'},
       ]
     }
   ]

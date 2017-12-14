@@ -144,11 +144,17 @@
               </span>
             </Menu-item>
             <!--<Menu-item name="事件营销">-->
-              <!--<span class="layout-text" @click="routerChange('/admin/eventmarketholiday','事件营销')">-->
-                <!--<Icon type="alert"></Icon>-->
-                <!--&nbsp;&nbsp;事件营销-->
-              <!--</span>-->
+            <!--<span class="layout-text" @click="routerChange('/admin/eventmarketholiday','事件营销')">-->
+            <!--<Icon type="alert"></Icon>-->
+            <!--&nbsp;&nbsp;事件营销-->
+            <!--</span>-->
             <!--</Menu-item>-->
+            <Menu-item name="活动创意">
+              <span class="layout-text" @click="routerChange('/admin/activity','活动创意')">
+                <Icon type="beer"></Icon>
+                活动创意管理
+              </span>
+            </Menu-item>
             <Menu-item name="场景秀">
               <span class="layout-text" @click="routerChange('/admin/yqx','场景秀')">
                 <Icon type="ios-game-controller-b-outline"></Icon>
@@ -236,10 +242,10 @@
                 产品管理
               </span>
             </Menu-item>
-            <Menu-item name="活动创意">
-              <span class="layout-text" @click="routerChange('/admin/activity','活动创意')">
-                <Icon type="beer"></Icon>
-                活动创意管理
+            <Menu-item name="图片集管理">
+              <span class="layout-text" @click="routerChange('/admin/imglist','图片集管理')">
+                <Icon type="image"></Icon>
+                图片集管理
               </span>
             </Menu-item>
             <!--<Menu-item name="文章段落管理">
@@ -355,7 +361,7 @@
               </div>
               <div style="display: inline-block;padding: 0px 20px">
                 <Badge :count="count">
-                <span @click="routerChange('/admin/messageLog','消息')" title="错误信息" style="cursor:pointer;">
+                <span @click="routerChange('/admin/messageLog','错误消息')" title="错误信息" style="cursor:pointer;">
                 <Icon type="ios-bell-outline" size="26"></Icon>
                 </span>
                 </Badge>

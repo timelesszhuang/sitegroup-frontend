@@ -7,7 +7,8 @@
       <Select v-model="flag" style="width:200px;" placeholder="根据栏目类型查询" label-in-value filterable clearable>
         <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
       </Select>
-      <Select v-model="tag_id" style="width:200px;" placeholder="根据栏目分类查询" label-in-value filterable clearable @on-change="changeNavtype">
+      <Select v-model="tag_id" style="width:200px;" placeholder="根据栏目分类查询" label-in-value filterable clearable
+              @on-change="changeNavtype">
         <Option v-for="item in navtype" :value="item.id" :key="item">{{ item.text }}</Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
@@ -45,16 +46,17 @@
         </div>
       </div>
     </div>
-    <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype"  :ptype="ptype"></productadd>
-    <productsave ref="saveproduct" :navtype="navtype"  :pidtype="pidtype":form="editinfo" :ptype="ptype"></productsave>
+    <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype" :ptype="ptype"></productadd>
+    <productsave ref="saveproduct" :navtype="navtype" :pidtype="pidtype" :form="editinfo" :ptype="ptype"></productsave>
     <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
     <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
-    <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist" :form="editinfo"></articlesave>
-    <articleadd ref="addarticle" :navtype="navtype"  :pidtype="pidtype" :articletype="articletypelist"></articleadd>
+    <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"
+                 :form="editinfo"></articlesave>
+    <articleadd ref="addarticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"></articleadd>
     <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
     <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
@@ -92,7 +94,7 @@
         page: 1,
         rows: 10,
         name: '',
-        pidtype:[],
+        pidtype: [],
         datas: [],
         editinfo: {},
         info: {},
@@ -100,8 +102,8 @@
         questiontypelist: [],
         flag: '',
         navtype: [],
-        tag_id:'',
-        ptype:[],
+        tag_id: '',
+        ptype: [],
         flag_type: [
           {
             value: '1',
@@ -204,8 +206,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      getpidtype(flag,id) {
-        this.apiGet('menu/upmenu/' + flag+"/"+id).then((res) => {
+      getpidtype(flag, id) {
+        this.apiGet('menu/upmenu/' + flag + "/" + id).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.pidtype = data
           }, (data, msg) => {
@@ -232,22 +234,22 @@
         this.$refs.adddetails.modal = true
       },
       addquestion() {
-        this.getpidtype(2,0)
+        this.getpidtype(2, 0)
         this.$refs.addquestion.modal = true
       },
       addarticle() {
-        this.getpidtype(3,0)
+        this.getpidtype(3, 0)
         this.$refs.addarticle.modal = true
       },
       addtitle() {
         this.$refs.addtitle.modal = true
       },
       addproduct() {
-        this.getpidtype(5,0)
+        this.getpidtype(5, 0)
         this.$refs.addproduct.modal = true
       },
-      modify(index) {
-        let editid = this.datas[index].id
+      modify(params) {
+        let editid = params.row.id
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.info = data
@@ -261,8 +263,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      edit(index) {
-        let editid = this.datas[index].id
+      edit(params) {
+        let editid = params.row.id
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
@@ -279,16 +281,16 @@
               this.$refs.savedetails.modal = true
             }
             else if (data.flag == 2) {
-              this.getpidtype(data.flag,editid)
+              this.getpidtype(data.flag, editid)
               this.$refs.savequestion.modal = true
             } else if (data.flag == 3) {
-              this.getpidtype(data.flag,editid)
+              this.getpidtype(data.flag, editid)
               this.$refs.savearticle.modal = true
             }
             else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
             } else if (data.flag == 5) {
-              this.getpidtype(data.flag,editid)
+              this.getpidtype(data.flag, editid)
               this.$refs.saveproduct.modal = true
             }
           }, (data, msg) => {
@@ -326,7 +328,7 @@
           }
         })
       },
-      update(){
+      update() {
         this.getmenutype((data) => {
           this.navtype = data
         });
@@ -334,6 +336,7 @@
     },
     computed: {
       tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -395,10 +398,40 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-                <i-button type="error" size="small" @click="modify(${index})">排序</i-button>`;
-            }
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.modify(params)
+                    }
+                  }
+                }, '排序')
+              ]);
+            },
           }
         );
         return columns;

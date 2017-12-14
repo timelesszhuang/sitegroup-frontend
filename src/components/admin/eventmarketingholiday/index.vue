@@ -2,7 +2,6 @@
   <div>
     <div class="top" style="font-weight: 700;font-size: 17px">
       时间轴:
-
     </div>
     <div style="margin: 10px">
       <div style="float: left">

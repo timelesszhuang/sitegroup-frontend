@@ -104,8 +104,8 @@
       urladd() {
         this.$refs.urladd.modal = true
       },
-      edit(index) {
-        let editid = this.datas[index].id
+      edit(params) {
+        let editid = params.row.id
         this.apiGet('admin/activityabout/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
@@ -119,8 +119,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      urledit(index) {
-        let editid = this.datas[index].id
+      urledit(params) {
+        let editid = params.row.id
         this.apiGet('admin/activityabout/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
@@ -134,8 +134,8 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      start(index) {
-        let editid = this.datas[index].id
+      start(params) {
+        let editid = params.row.id
         let _this = this
         this.$Modal.confirm({
           title: '确认',
@@ -161,8 +161,8 @@
           }
         })
       },
-      stop(index) {
-        let editid = this.datas[index].id
+      stop(params) {
+        let editid = params.row.id
         let _this = this
         this.$Modal.confirm({
           title: '确认',
@@ -188,8 +188,8 @@
           }
         })
       },
-      editimg(index) {
-        let editid = this.datas[index].id
+      editimg(params) {
+        let editid = params.row.id
         this.apiGet('admin/getImgSer/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.imginfo = data
@@ -211,6 +211,7 @@
     },
     computed: {
       tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -230,19 +231,64 @@
           title: '活动图',
           width: '200',
           sortable: true,
-          render(row, index) {
-            var type = ' <img  style="max-width:190px;max-height: 150px;padding:5px"  src="' + row.oss_img_src + '" alt="">';
-            return type;
+          render(h, params) {
+            return h('img', {
+              props: {
+                type: 'checkmark'
+              },
+              attrs: {
+                src: params.row.oss_img_src,
+                title: params.row.title,
+                style: 'max-width:190px;max-height: 150px;padding:5px;'
+              },
+            })
           },
         });
         columns.push({
           title: '标题',
           key: 'title',
-          render(row, index) {
-            if (row.url) {
-              return ' <a href="' + row.url + '"  alt="">' + row.title + '</a>';
+          render(h, params) {
+            if (params.row.url) {
+              return h('a', {
+                attrs: {
+                  target:'_blank',
+                  href: params.row.url,
+                  title: params.row.title,
+                },
+              }, params.row.title)
             }
-            return row.title;
+            return params.row.title;
+          },
+        });
+        columns.push({
+          title: '状态',
+          key: 'title',
+          width: '100',
+          render(h, params) {
+            if (params.row.status == '10') {
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'checkmark'
+                  },
+                  attrs: {
+                    title: '启用',
+                    style: 'color:green'
+                  },
+                })
+              ]);
+            }
+            return h('div', [
+              h('Icon', {
+                props: {
+                  type: 'close-round'
+                },
+                attrs: {
+                  title: '禁用',
+                  style: 'color:red'
+                },
+              })
+            ]);
           },
         });
         columns.push(
@@ -252,14 +298,84 @@
             width: 350,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button v-if="row.url" type="primary" size="small" @click="urledit(${index})">修改</i-button>
-                      <i-button v-if="!row.url" type="primary" size="small" @click="edit(${index})">修改</i-button>
-                      <i-button type="info" size="small" @click="editimg(${index})">修改活动轮播图</i-button>
-                      <i-button v-if="row.status == 20" type="primary" size="small" @click="start(${index})">启用</i-button>
-                       <i-button v-if="row.status == 10" type="error" size="small" @click="stop(${index})">禁用</i-button>
-&nbsp;&nbsp;`;
-            }
+            render(h, params) {
+              let statusbutton = '';
+              if (params.row.status == '20') {
+                //20 状态为禁用 应该启用
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      _this.start(params)
+                    }
+                  }
+                }, '启用')
+              } else {
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  on: {
+                    click: function () {
+                      _this.stop(params)
+                    }
+                  }
+                }, '禁用')
+              }
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      if (params.row.url) {
+                        _this.urledit(params)
+                      } else {
+                        _this.edit(params)
+                      }
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      _this.editimg(params)
+                    }
+                  }
+                }, '修改图集'),
+                statusbutton
+              ]);
+            },
           }
         );
         return columns;
