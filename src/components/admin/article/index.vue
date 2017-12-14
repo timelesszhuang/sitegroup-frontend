@@ -9,11 +9,12 @@
           分类名—标签
         </Option>
         <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          <span >{{ item.text }}</span>
+          <span>{{ item.text }}</span>
         </Option>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
+      <Button type="error" @click="importadd">csv导入</Button>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -32,6 +33,7 @@
     <articleadd ref="add" :articletype="articletypelist"></articleadd>
     <articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>
     <articleshow ref="show" :form="editinfo"></articleshow>
+    <articlecsv ref="csvimport" :articletype="articletypelist"></articlecsv>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
 
@@ -43,8 +45,8 @@
   import articleadd from './add.vue'
   import articlesave from './save.vue'
   import articleshow from './show.vue'
+  import articlecsv from './csvimport.vue'
   import showhtml from './showhtml.vue'
-
 
   export default {
     data() {
@@ -69,7 +71,7 @@
         showhtmldata: []
       }
     },
-    components: {articleadd, articlesave, articleshow, showhtml},
+    components: {articleadd, articlesave, articleshow, showhtml, articlecsv},
     created() {
       this.getData();
       this.getArticleType((data) => {
@@ -117,6 +119,10 @@
       },
       add() {
         this.$refs.add.modal = true
+      },
+      importadd() {
+        this.$refs.csvimport.modal = true
+        this.$refs.csvimport.csvclose()
       },
       edit(index) {
         this.getArticle(index);

@@ -35,7 +35,7 @@
           </Form-item>
           <Form-item label="上级分类" prop="p_id">
             <Select v-model="form.p_id" ref="sel" :clearable="sele"  style="text-align: left;width:250px;"
-                    label-in-value @on-change="changeArticletype">
+                    label-in-value filterable @on-change="changeArticletype">
               <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>

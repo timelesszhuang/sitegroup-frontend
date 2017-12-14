@@ -272,6 +272,7 @@
             let keyAar = [];
             let link_id = [];
             let code = [];
+            console.log(this.editinfo.menu)
             if (this.editinfo.menu !== "") {
               this.editinfo.menu.split(",").map(function (key) {
                 tempNUmber.push(Number(key))
@@ -292,6 +293,7 @@
                 code.push(Number(key))
               })
             }
+
             this.editinfo.menu = tempNUmber
             this.editinfo.keyword_ids = keyAar
             this.editinfo.link_id = link_id

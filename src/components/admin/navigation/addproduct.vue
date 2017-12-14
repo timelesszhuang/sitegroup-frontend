@@ -32,7 +32,7 @@
             </Form-item>
             <Form-item label="上级分类" prop="p_id">
               <Select ref="select" :clearable="selects" style="text-align: left;width:250px;"
-                      label-in-value @on-change="changeArticletype">
+                      label-in-value filterable @on-change="changeArticletype">
                 <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                   {{ item.text }}
                 </Option>
@@ -81,6 +81,7 @@
         modal_loading: false,
         type_name: '',
         form: {
+          listsize:0,
           p_id:'',
           type_id:[],
           name: "",
