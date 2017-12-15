@@ -25,8 +25,9 @@
   import http from '../../../assets/js/http.js';
   import Industryadd from './industryadd.vue';
   import Industryedit from './industryedit.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -42,11 +43,11 @@
       }
     },
     components: {Industryadd, Industryedit},
-    created () {
+    created() {
     },
     methods: {
       //获取数据
-      getData(){
+      getData() {
         let data = {
           params: {
             'page': this.current,
@@ -65,21 +66,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      changePage(page){
+      changePage(page) {
         this.current = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.pagesize = pagesize
         this.getData()
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         //　需要删除确认
         //　获取资源信息
         let editid = this.industrylist[index].id
@@ -98,7 +99,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove (index) {
+      remove(index) {
         //需要删除确认
         let id = this.industrylist[index].id
         let _this = this
@@ -128,8 +129,7 @@
     }
     ,
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [
           {
             type: 'index', width: 60, align: 'center'
@@ -154,9 +154,39 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>   <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
-            }
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  on: {
+                    click: function () {
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
+            },
           }
         );
         return columns;

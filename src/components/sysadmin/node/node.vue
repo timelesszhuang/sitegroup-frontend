@@ -195,6 +195,7 @@
     computed: {
       tableColumns3()
       {
+        let _this = this
         let columns = [
           {
             type: 'index', width: 60, align: 'center'
@@ -215,38 +216,109 @@
             title: '添加时间', key: 'create_time',
           }
         ];
+
+
+        columns.push({
+          title: '审核状态',
+          key: 'title',
+          width: '100',
+          render(h, params) {
+            if (params.row.status == 'on') {
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'checkmark'
+                  },
+                  attrs: {
+                    title: '启用',
+                    style: 'color:green'
+                  },
+                })
+              ]);
+            }
+            return h('div', [
+              h('Icon', {
+                props: {
+                  type: 'close-round'
+                },
+                attrs: {
+                  title: '禁用',
+                  style: 'color:red'
+                },
+              })
+            ]);
+          },
+        });
         columns.push(
           {
-            title: '账号状态',
-            key: 'status',
+            title: '操作',
+            key: 'action',
+            width: 150,
             align: 'center',
-            render (row, column, index) {
-              if (row.status == 'on') {
-                return '<span style="font-weight: bold;" title="启用"><Icon type="ios-checkmark-empty" size="30"></Icon></span>';
-              } else {
-                return '<span style="color: red;font-weight: bold;" title="禁用"><Icon type="ios-close-empty" size="30" ></Icon> </span>'
+            fixed: 'right',
+            render(h, params) {
+              let statusbutton = '';
+              if (params.row.status == 'off') {
+                //20 状态为禁用 应该启用
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.on(params.index)
+                    }
+                  }
+                }, '启用')
+              }else{
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.off(params.index)
+                    }
+                  }
+                }, '禁用')
               }
-            }
-          }),
-          columns.push(
-            {
-              title: '操作',
-              key: 'action',
-              width: 150,
-              align: 'center',
-              fixed: 'right',
-              render (row, column, index) {
-                let btn = ''
-                if (row.status == 'off') {
-                  btn = `<i-button type="error" size="small" @click="on(${index})">启用</i-button>`;
-                } else {
-                  btn = `<i-button type="error" size="small" @click="off(${index})">禁用</i-button>`;
-                }
-                return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button> ` + btn;
 
-              }
-            }
-          );
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.edit(params.index)
+
+                    }
+                  }
+                }, '修改'),
+                statusbutton,
+
+              ]);
+            },
+          }
+        );
         return columns;
       }
     },

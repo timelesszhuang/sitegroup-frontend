@@ -28,7 +28,7 @@
     <Modal v-model="validatecompany" title="输入未审核信息">
       <Input type="text" v-model="check_info" placeholder="请输入未审核信息"></Input>
       <div slot="footer">
-        <Button type="success" size="large"  @click="submitData()">保存</Button>
+        <Button type="success" size="large" @click="submitData()">保存</Button>
       </div>
     </Modal>
   </div>
@@ -60,7 +60,7 @@
         industry_id: '',
         check_info: '',
         status: 0,
-        id:0
+        id: 0
       }
     },
     components: {Useradd, Useredit, Usershow},
@@ -181,19 +181,19 @@
         let data = {
           check_info: this.check_info,
         }
-        this.sendPass(this.id,this.status,data)
+        this.sendPass(this.id, this.status, data)
         this.validatecompany = false
       },
       changechecked(id, status) {
         let title = '取消审核权限';
         let content = '您确定取消?';
         let data = {};
-        this.status=status
-        this.id=id
-        if (status == 1 || status==2) {
+        this.status = status
+        this.id = id
+        if (status == 1 || status == 2) {
           this.validatecompany = true
-        }else if(status == 3){
-          data=''
+        } else if (status == 3) {
+          data = ''
           title = '通过审核';
           content = '您确定通过?';
           this.$Modal.confirm({
@@ -202,7 +202,7 @@
             okText: '确定',
             cancelText: '取消',
             onOk: (index) => {
-                this.sendPass(id,status,data)
+              this.sendPass(id, status, data)
             },
             onCancel: () => {
               return false
@@ -210,7 +210,7 @@
           })
         }
       },
-      sendPass(id,status,data) {
+      sendPass(id, status, data) {
         this.apiPost('sys/checkPass/' + id + '/' + status, data).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.getData();
@@ -227,6 +227,7 @@
     ,
     computed: {
       tableColumns3() {
+        let _this = this
         let columns = [
           {
             type: 'index',
@@ -256,30 +257,168 @@
             title: '添加时间', key: 'create_time',
           }
         ];
+
+
         columns.push(
+          //         {
+          //           title: '操作',
+          //           key: 'action',
+          //           width: 300,
+          //           align: 'center',
+          //           fixed: 'right',
+          //           render(row, column, index) {
+          //             var btn = '';
+          //             var btn1 = '';
+          //             if (row.is_checked == 1) {
+          //               var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
+          //               var btn1 = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
+          //             }else if ( row.is_checked == 2) {
+          //               var btn = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
+          //             }
+          //             else if ( row.is_checked == 3) {
+          //               var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
+          //             }
+          //
+          //             return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
+          // <i-button type="primary" size="small" @click="show(${index})">预览</i-button>
+          // <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;` + btn+'&nbsp;'+btn1;
+          //           }
+          //         }
           {
             title: '操作',
             key: 'action',
             width: 300,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              var btn = '';
-              var btn1 = '';
-              if (row.is_checked == 1) {
-                var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
-                var btn1 = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
-              }else if ( row.is_checked == 2) {
-                var btn = `<i-button type="primary" size="small" @click="changechecked(${row.id},3)">通过审核</i-button>`;
+            render(h, params) {
+              let statusbutton = '';
+              let statusbut = '';
+              if (params.row.is_checked == 1 ) {
+                //20 状态为禁用 应该启用
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.changechecked(params.row.id, 2)
+                    }
+                  }
+                }, '否决审核')
+                statusbut =  h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.changechecked(params.row.id, 3)
+                    }
+                  }
+                }, '通过审核')
+              }else if(params.row.is_checked ==2) {
+                statusbut =  h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.changechecked(params.row.id, 3)
+                    }
+                  }
+                }, '通过审核')
               }
-              else if ( row.is_checked == 3) {
-                var btn = `<i-button type="error" size="small" @click="changechecked(${row.id},2)">否决审核</i-button>`;
+              else if(params.row.is_checked == 3) {
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.changechecked(params.row.id, 2)
+                    }
+                  }
+                }, '否决审核')
               }
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.edit(params.index)
 
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-  <i-button type="primary" size="small" @click="show(${index})">预览</i-button>
-  <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;` + btn+'&nbsp;'+btn1;
-            }
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.show(params.index)
+
+                    }
+                  }
+                }, '预览'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: function () {
+                      _this.remove(params.index)
+
+                    }
+                  }
+                }, '删除'),
+                statusbutton,
+                statusbut
+              ]);
+            },
           }
         );
         return columns;

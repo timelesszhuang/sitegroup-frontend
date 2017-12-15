@@ -153,6 +153,7 @@
     },
     computed: {
       tableColumns() {
+        let _this =this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -170,13 +171,24 @@
         }
         columns.push({
           title: '缩略图',
-          align: 'center',
-          render(row, index) {
-            var type = '<div class="img1">' + row.base64img + '</div>';
-            return type;
+          key: 'thumbnail',
+          render(h, params) {
+            if(params.row.base64img){
+              return h('img', {
+                attrs: {
+                  src: params.row.base64img,
+                  title: params.row.title,
+                  style: 'max-width:190px;max-height: 150px;padding:5px;'
+                },
+              })
+            }
+            return h('img', {
+              attrs: {
+                style: 'max-width:190px;max-height: 150px;padding:5px;'
+              },
+            })
+
           },
-          width:'200',
-          sortable: true
         });
         columns.push({
           title: '标题',
@@ -201,12 +213,44 @@
           {
             title: '操作',
             key: 'action',
+            width: 200,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
-                      <i-button type="error" size="small" @click="remove(${index})">删除</i-button>&nbsp;`;
-            }
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
+            },
           }
         );
         return columns;

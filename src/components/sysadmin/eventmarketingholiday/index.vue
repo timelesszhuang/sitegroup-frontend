@@ -189,6 +189,7 @@
     computed: {
       tableColumns()
       {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -206,13 +207,22 @@
         }
         columns.push({
           title: '缩略图',
-          width:'200',
-//          key: 'img',
-          sortable: true,
-          render(row, index) {
-//            + row.img + '
-            var type = '<div class="imggg"> <img :src=formatter_str(row.img) >    </div>';
-            return type;
+          key: 'thumbnail',
+          render(h, params) {
+            if(params.row.base64img){
+              return h('img', {
+                attrs: {
+                  src: params.row.img,
+                  style: 'max-width:190px;max-height: 150px;padding:5px;'
+                },
+              })
+            }
+            return h('img', {
+              attrs: {
+                style: 'max-width:190px;max-height: 150px;padding:5px;'
+              },
+            })
+
           },
         });
         columns.push({
@@ -233,10 +243,27 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edittemplate(${index})">修改</i-button>
-         `;
-            }
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edittemplate(params.index)
+                    }
+                  }
+                }, '修改'),
+              ]);
+            },
           }
         );
         return columns;

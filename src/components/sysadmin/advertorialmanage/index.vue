@@ -198,6 +198,7 @@
     computed: {
       tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -222,18 +223,37 @@
           key: 'media_name',
           sortable: true
         });
+
         columns.push({
           title: '审核状态',
-          align: 'center',
-          render(row,index){
-            if(row.is_check==2){
-              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-              return type;
-            }else{
-              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-              return type;
-            }},
-          sortable: true
+          key: 'title',
+          width: '100',
+          render(h, params) {
+            if (params.row.is_check == '2') {
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'checkmark'
+                  },
+                  attrs: {
+                    title: '启用',
+                    style: 'color:green'
+                  },
+                })
+              ]);
+            }
+            return h('div', [
+              h('Icon', {
+                props: {
+                  type: 'close-round'
+                },
+                attrs: {
+                  title: '禁用',
+                  style: 'color:red'
+                },
+              })
+            ]);
+          },
         });
         columns.push({
           title: '时间',
@@ -241,25 +261,78 @@
           sortable: true
         });
         columns.push(
-          {
-            title: '操作',
+        {
+          title: '操作',
             key: 'action',
-            width: 200,
-            align: 'center',
-            fixed: 'right',
-            render(row, column, index) {
-              var btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'2')">通过审核</i-button>`;
-              if (row.is_check == '2') {
-                //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="error" size="small" @click="changeStatus(${index},'1')">否决审核</i-button>`;
+          width: 300,
+          align: 'center',
+          fixed: 'right',
+          render(h, params) {
+          let statusbutton = '';
+          if (params.row.is_check == '2') {
+            //20 状态为禁用 应该启用
+            statusbutton = h('Button', {
+              props: {
+                size: 'small'
+              },
+              attrs: {
+                type: 'error'
+              },
+              style: {
+                marginRight: '5px'
+              },
+              on: {
+                click: function () {
+                  _this.changeStatus(params.index,'1')
+                }
               }
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="error" size="small" @click="remove(${index})">删除</i-button>
-
-         `+btn;
-            }
+            }, '否决审核')
+          }else{
+            statusbutton = h('Button', {
+              props: {
+                size: 'small'
+              },
+              attrs: {
+                type: 'primary'
+              },
+              style: {
+                marginRight: '5px'
+              },
+              on: {
+                click: function () {
+                  _this.changeStatus(params.index,'2')
+                }
+              }
+            }, '通过审核')
           }
+
+          return h('div', [
+            h('Button', {
+              props: {
+                size: 'small'
+              },
+              attrs: {
+                type: 'primary'
+              },
+              style: {
+                marginRight: '5px'
+              },
+              on: {
+                click: function () {
+                  _this.edit(params.index)
+
+                }
+              }
+            }, '修改'),
+            statusbutton,
+
+          ]);
+        },
+        }
         );
+
+
+
         return columns;
       }
     },
