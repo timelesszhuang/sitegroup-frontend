@@ -30,7 +30,7 @@
   import savemain from './savemain.vue';
 
   export default {
-    data () {
+    data() {
       return {
         sitetype: [],
         site_type_id: '',
@@ -46,16 +46,14 @@
         rows: 10,
         datas: [],
         editinfo: {},
-        keyArr:{},
-        menuid:0,
-        oldKeyId:''
+        keyArr: {},
+        menuid: 0,
+        oldKeyId: ''
       }
     },
-    components: {tdksave,savemain},
-
-
+    components: {tdksave, savemain},
     methods: {
-      init () {
+      init() {
 //      this.getData();
         this.getSiteType()
       },
@@ -67,7 +65,7 @@
 //            tdkd
           }
         }
-        this.apiGet('getTdk/'+this.site_type_id ,data).then((data) => {
+        this.apiGet('getTdk/' + this.site_type_id, data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -78,21 +76,21 @@
           this.$Message.error('请先选择站点->点击查询!');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('getTdkOne/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -119,11 +117,11 @@
           this.$Message.error('网络异常，请稍后重试。');
         });
       },
-      editMain(id){
-        this.menuid =this.datas[id].id;
-        this.oldKeyId=this.datas[id].akeyword_id;
+      editMain(id) {
+        this.menuid = this.datas[id].id;
+        this.oldKeyId = this.datas[id].akeyword_id;
         this.$refs.mainsave.modal = true
-        this.apiGet('admin/getAkeywordA/'+this.site_type_id).then((res) => {
+        this.apiGet('admin/getAkeywordA/' + this.site_type_id).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.keyArr = data
           }, (data, msg) => {
@@ -136,9 +134,9 @@
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -188,12 +186,42 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              var mainkey=''
-              if(row.akeyword_id!=0){
-                return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>&nbsp;<span style="display:inline-block;width:100%;margin:5px"><i-button type="primary" size="small" @click="editMain(${index})">修改主关键词</i-button></span>`;
+            render(h, params) {
+              let statusbutton = '';
+              let editbutton = h('Button', {
+                props: {
+                  size: 'small'
+                },
+                attrs: {
+                  type: 'primary'
+
+                },
+                on: {
+                  click: function () {
+                    //不知道为什么这个地方不是我需要的this
+                    _this.edit(params.index)
+                  }
+                }
+              }, '修改');
+              if (params.row.akeyword_id != 0) {
+                statusbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.editMain(params.index)
+                    }
+                  }
+                }, '修改主关键词');
               }
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+              return h('div', [
+                editbutton,statusbutton
+              ]);
             }
           }
         );

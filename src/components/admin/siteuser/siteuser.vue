@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-     用户管理:
+      用户管理:
       <Input v-model="name" placeholder="" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
@@ -15,7 +15,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -30,8 +30,9 @@
   import siteuseradd from './add.vue';
   import siteusersave from './save.vue';
   import changepwd from '../../Account/Changepwd.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -48,8 +49,8 @@
         editinfo: {}
       }
     },
-    components: {siteuseradd,siteusersave,changepwd,},
-    created () {
+    components: {siteuseradd, siteusersave, changepwd,},
+    created() {
       this.getData();
     },
     methods: {
@@ -75,21 +76,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('siteuser/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -104,15 +105,15 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      changeStatus(index, is_on){
+      changeStatus(index, is_on) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
         let data = {
           'is_on': is_on,
-           id:id
+          id: id
         }
-        if(data.is_on == 20){
+        if (data.is_on == 20) {
           this.$Modal.confirm({
             title: '确认禁用',
             content: '您确定禁用该活动?',
@@ -135,7 +136,7 @@
               return false
             }
           })
-        }else if(is_on==10){
+        } else if (is_on == 10) {
           this.$Modal.confirm({
             title: '确认启用',
             content: '您确定启用该活动?',
@@ -164,8 +165,8 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -181,9 +182,13 @@
             align: 'center'
           })
         }
-
         columns.push({
-          title: '名称',
+          title: '账号名',
+          key: 'account',
+          sortable: true
+        });
+        columns.push({
+          title: '昵称',
           key: 'name',
           sortable: true
         });
@@ -192,19 +197,38 @@
           key: 'email',
         });
         columns.push(
-        {
-          title: '状态',
+          {
+            title: '状态',
             key: 'action',
-          align: 'center',
-          fixed: 'center',
-          render (row, column, index) {
-          if (row.is_on == '20') {
-            //20 表示禁用 按钮应该为启用
-            return '禁用'
+            align: 'center',
+            fixed: 'center',
+            render(h, params) {
+              if (params.row.is_on == '10') {
+                return h('div', [
+                  h('Icon', {
+                    props: {
+                      type: 'checkmark'
+                    },
+                    attrs: {
+                      title: '已启用',
+                      style: 'color:green'
+                    },
+                  })
+                ]);
+              }
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'close-round'
+                  },
+                  attrs: {
+                    title: '已禁用',
+                    style: 'color:red'
+                  },
+                })
+              ]);
+            },
           }
-          return '启用'
-        }
-        }
         );
         columns.push(
           {
@@ -213,14 +237,61 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              var btn = `<i-button type="error" size="small" @click="changeStatus(${index},'20')">禁用</i-button>`;
-              if (row.is_on == '20') {
-                //20 表示禁用 按钮应该为启用
-                btn = `<i-button type="primary" size="small" @click="changeStatus(${index},'10')">启用</i-button>`;
+            render(h, params) {
+              let onbutton = '';
+              if (params.row.is_on == '20') {
+                onbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.changeStatus(params.index, '10')
+                    }
+                  }
+                }, '启用');
+              } else {
+                onbutton = h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.changeStatus(params.index, '20')
+                    }
+                  }
+                }, '禁用');
               }
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button> ` + btn;
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                onbutton
+              ]);
             }
+
+
           }
         );
         return columns;

@@ -100,6 +100,7 @@
     computed: {
       tableColumns()
       {
+        let _this=this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -118,14 +119,19 @@
 
         columns.push({
           title: 'LOGO',
-          width:'200',
           sortable: true,
-          render(row, index) {
-            var type = ' <img  style="max-width: 190px;max-height: 150px"  src="'+row.oss_logo_path+'">';
-            return type;
+          render(h, params) {
+            return h('img', {
+              attrs: {
+                src: params.row.oss_logo_path,
+                title: params.row.detail,
+                style: 'max-height: 250px'
+              },
+            })
           },
         });
         columns.push({
+          width:'200',
           title: 'LOGO信息',
           key: 'detail',
           sortable: true
@@ -137,10 +143,25 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-          `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改')
+              ]);
             }
+
           }
         );
         return columns;

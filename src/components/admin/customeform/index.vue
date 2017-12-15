@@ -11,13 +11,14 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
     <customefromadd ref="add"></customefromadd>
     <customefromcode ref="code" :form="getinfo"></customefromcode>
-    <customefromsave ref="save" :info="info" :form="editinfo" :field1="field1" :field2="field2" :field3="field3" :field4="field4"></customefromsave>
+    <customefromsave ref="save" :info="info" :form="editinfo" :field1="field1" :field2="field2" :field3="field3"
+                     :field4="field4"></customefromsave>
   </div>
 </template>
 
@@ -26,8 +27,9 @@
   import customefromadd from './add.vue';
   import customefromsave from './save.vue';
   import customefromcode from './code.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -42,16 +44,16 @@
         name: '',
         datas: [],
         editinfo: {},
-        field1:{},
-        field2:{},
-        field3:{},
-        field4:{},
-        getinfo:"",
-        info:{}
+        field1: {},
+        field2: {},
+        field3: {},
+        field4: {},
+        getinfo: "",
+        info: {}
 
       }
     },
-    components: {customefromadd,customefromsave,customefromcode},
+    components: {customefromadd, customefromsave, customefromcode},
     methods: {
       init() {
         this.getData();
@@ -75,26 +77,26 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('admin/userdefinedform/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            this.info=data.form_info;
+            this.info = data.form_info;
             this.field1 = data.form_info.field1
             this.field2 = data.form_info.field2
             this.field3 = data.form_info.field3
@@ -104,12 +106,12 @@
           }, (data, msg) => {
             this.$Message.error(msg);
           })
-        }, (res)  => {
+        }, (res) => {
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getcode(index){
+      getcode(index) {
         let getid = this.datas[index].id
         this.apiGet('admin/userdefinedformcode/' + getid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -124,7 +126,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -153,9 +155,9 @@
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -182,10 +184,38 @@
             width: 200,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="primary" size="small" @click="getcode(${index})">获取代码</i-button>
-      `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.getcode(params.index)
+                    }
+                  }
+                }, '获取代码'),
+              ]);
             }
           }
         );

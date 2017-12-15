@@ -59,10 +59,10 @@
         imginfo: {},
         ptype: [],
         type_id: '',
-        showhtmldata:[]
+        showhtmldata: []
       }
     },
-    components: {padd, psave, editimg,showhtml},
+    components: {padd, psave, editimg, showhtml},
     created() {
       this.getData();
       this.getproducttype()
@@ -174,6 +174,7 @@
     computed: {
       tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -190,16 +191,21 @@
         }
         columns.push({
           title: '缩略图',
-          width:'200',
+          width: '200',
           key: 'base64',
           sortable: true,
-          render(row, index) {
-            var type = ' <img  style="max-width: 190px;max-height: 150px"  src="'+row.image+'" alt="">';
-            return type;
+          render(h, params) {
+            return h('img', {
+              attrs: {
+                src: params.row.image,
+                title: params.row.name,
+                style: 'max-width: 190px;max-height: 150px'
+              },
+            })
           },
         });
         columns.push({
-          width:'150',
+          width: '150',
           title: '编号',
           key: 'sn',
         });
@@ -226,10 +232,53 @@
             width: 250,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-                      <i-button type="info" size="small" @click="editimg(${index})">修改产品图片</i-button>
-&nbsp;<i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'default'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.editimg(params.index)
+                    }
+                  }
+                }, '修改产品图集'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.showhtml(params.index)
+                    }
+                  }
+                }, '页面预览'),
+              ]);
             }
           }
         );

@@ -44,8 +44,8 @@
         rows: 10,
         datas: [],
         editinfo: {},
-        media:[],
-        origintype:[]
+        media: [],
+        origintype: []
       }
     },
     components: {
@@ -116,7 +116,7 @@
         this.rows = pagesize;
         this.getData();
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -147,6 +147,7 @@
     computed: {
       tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -174,14 +175,32 @@
         columns.push({
           title: '审核状态',
           align: 'center',
-          render(row,index){
-            if(row.is_check==2){
-              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-              return type;
-            }else{
-              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-              return type;
-            }},
+          render(h, params) {
+            if (params.row.is_check == 2) {
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'checkmark'
+                  },
+                  attrs: {
+                    title: '已审核通过',
+                    style: 'color:#2db7f5;font-size: 18px'
+                  },
+                })
+              ]);
+            }
+            return h('div', [
+              h('Icon', {
+                props: {
+                  type: 'close-round'
+                },
+                attrs: {
+                  title: '未审核',
+                  style: 'color:red;font-size: 18px'
+                },
+              })
+            ]);
+          },
           sortable: true
         });
         columns.push({
@@ -196,11 +215,41 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="error" size="small" @click="remove(${index})">删除</i-button>
-         `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
             }
+
+
           }
         );
         return columns;

@@ -233,9 +233,6 @@
           sortable: true,
           render(h, params) {
             return h('img', {
-              props: {
-                type: 'checkmark'
-              },
               attrs: {
                 src: params.row.oss_img_src,
                 title: params.row.title,

@@ -16,11 +16,11 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
-    <menuadd ref="add" ></menuadd>
+    <menuadd ref="add"></menuadd>
     <menusave ref="save" :form="editinfo"></menusave>
   </div>
 </template>
@@ -88,8 +88,8 @@
       add() {
         this.$refs.add.modal = true
       },
-      edit(index) {
-        let editid = this.datas[index].id
+      edit(params) {
+        let editid = params.row.id
         this.apiGet('admin/menutag/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
@@ -106,6 +106,7 @@
     },
     computed: {
       tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -139,7 +140,25 @@
             fixed: 'right',
             render(row, column, index) {
               return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
-            }
+            },
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params)
+                    }
+                  }
+                }, '修改')
+              ]);
+            },
           }
         );
         return columns;
