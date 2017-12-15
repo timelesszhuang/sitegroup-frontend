@@ -96,9 +96,6 @@
     padding: 10px 15px 0;
   }
 
-  .ivu-menu-dark {
-    background: #16b8be;
-  }
 
   .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
     color: #fff;

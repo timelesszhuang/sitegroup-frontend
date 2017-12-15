@@ -38,46 +38,13 @@
     padding: 10px;
   }
 
-  .ivu-menu-dark {
-    background: #009ca2;
-    color: #ffffff;
-  }
-
   .ivu-row-flex {
     height: 100%;
-  }
-
-  /**图标颜色改为 白色*/
-  .ivu-menu .ivu-icon {
-    color: #ffffff;
-  }
-
-  .ivu-menu-vertical .ivu-menu-submenu-title-icon {
-    color: #ffffff;
   }
 
   /** 左侧全部都是空*/
   .layout-menu-left {
     background: #009ca2;
-  }
-
-  /*字体改为白色*/
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
-    color: #ffffff;
-  }
-
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
-    background: #ffffff;
-  }
-
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu {
-    background: #16b8be !important;
-  }
-
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
-    border-right: none;
-    color: #fff;
-    background-color: #009ca2 !important;
   }
 
   .layout-header {
