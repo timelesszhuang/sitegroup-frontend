@@ -109,6 +109,7 @@
     computed: {
       tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -148,9 +149,25 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改')
+              ]);
             }
+
           }
         );
         return columns;

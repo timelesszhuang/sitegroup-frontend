@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top" style="padding-left: 10px">
-     公共代码管理:
+      公共代码管理:
       <Input v-model="name" placeholder="公共代码名称" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
@@ -14,7 +14,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator >
+                show-elevator>
           </Page>
         </div>
       </div>
@@ -28,8 +28,9 @@
   import http from '../../../assets/js/http.js';
   import codeadd from './add.vue';
   import codesave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -70,21 +71,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('code/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -99,7 +100,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -128,8 +129,8 @@
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -157,9 +158,38 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-            <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error',
+                    style: 'margin-left:5px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
             }
           }
         );

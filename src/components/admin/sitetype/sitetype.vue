@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="top"style="padding-left: 5px;padding-right: 5px">
-     站点分类管理:
+    <div class="top" style="padding-left: 5px;padding-right: 5px">
+      站点分类管理:
       <Input v-model="name" placeholder="站点分类名称" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
@@ -14,7 +14,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -27,8 +27,9 @@
   import http from '../../../assets/js/http.js';
   import sitetypeadd from './add.vue';
   import sitetypesave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -69,21 +70,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('sitetype/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -100,8 +101,8 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -134,8 +135,24 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改')
+              ]);
             }
           }
         );

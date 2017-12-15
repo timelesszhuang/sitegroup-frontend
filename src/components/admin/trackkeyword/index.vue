@@ -14,7 +14,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -27,8 +27,9 @@
   import http from '../../../assets/js/http.js';
   import keywordadd from './add.vue';
   import keywordsave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -45,8 +46,8 @@
         editinfo: {}
       }
     },
-    components: {keywordadd,keywordsave},
-    created () {
+    components: {keywordadd, keywordsave},
+    created() {
 //      this.getData();
     },
     methods: {
@@ -69,21 +70,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('admin/trackKeyword/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -97,38 +98,11 @@
           //处理错误信息
           this.$Message.error('网络异常，请稍后重试。');
         })
-      },
-//      remove(index){
-//        //需要删除确认
-//        let id = this.datas[index].id
-//        let _this = this
-//        this.$Modal.confirm({
-//          title: '确认删除',
-//          content: '您确定删除该记录?',
-//          okText: '删除',
-//          cancelText: '取消',
-//          onOk: (index) => {
-//            _this.apiDelete('admin/trackKeyword/', id).then((res) => {
-//              _this.handelResponse(res, (data, msg) => {
-//                _this.getData()
-//                _this.$Message.success(msg);
-//              }, (data, msg) => {
-//                _this.$Message.error(msg);
-//              })
-//            }, (res) => {
-//              //处理错误信息
-//              _this.$Message.error('网络异常，请稍后重试');
-//            })
-//          },
-//          onCancel: () => {
-//            return false
-//          }
-//        })
-//      }
+      }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -156,9 +130,23 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-         `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改')
+              ]);
             }
           }
         );

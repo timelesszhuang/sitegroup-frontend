@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="top">
-     企业号关键词管理:
+      企业号关键词管理:
       <Input v-model="name" placeholder="请输入关键词" style="width:300px;"></Input>
-      <Select v-model="keyword_typename"  style="width: 200px;" label-in-value filterable clearable >
+      <Select v-model="keyword_typename" style="width: 200px;" label-in-value filterable clearable>
         <Option v-for="item in wechatKeywordType" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
@@ -19,12 +19,12 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-ele vator ></Page>
+                show-ele vator></Page>
         </div>
       </div>
     </div>
-    <wechatkadd ref="add"  :types="wechatKeywordType"></wechatkadd>
-    <wechatksave ref="save"  :types="wechatKeywordType" :form="editinfo"></wechatksave>
+    <wechatkadd ref="add" :types="wechatKeywordType"></wechatkadd>
+    <wechatksave ref="save" :types="wechatKeywordType" :form="editinfo"></wechatksave>
   </div>
 </template>
 
@@ -32,8 +32,9 @@
   import http from '../../../assets/js/http.js';
   import wechatkadd from './add.vue';
   import wechatksave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -48,12 +49,12 @@
         name: '',
         datas: [],
         editinfo: {},
-        keyword_typename:'',
-        wechatKeywordType:{},
+        keyword_typename: '',
+        wechatKeywordType: {},
       }
     },
-    components: {wechatkadd,wechatksave},
-    created () {
+    components: {wechatkadd, wechatksave},
+    created() {
 //      this.getData();
       this.getTypes();
     },
@@ -61,7 +62,7 @@
       getTypes() {
         this.apiGet('admin/getKeyTypeList').then((data) => {
           this.handelResponse(data, (data, msg) => {
-            this.wechatKeywordType=data
+            this.wechatKeywordType = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })
@@ -75,7 +76,7 @@
             page: this.page,
             rows: this.rows,
             name: this.name,
-            keyword_typeid :this.keyword_typename
+            keyword_typeid: this.keyword_typename
           }
         }
         this.apiGet('scrapy/getKeyword', data).then((data) => {
@@ -89,21 +90,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('scrapy/getOneKeyword/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -120,8 +121,8 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -150,15 +151,31 @@
         columns.push({
           title: '审核状态',
           align: 'center',
-          render(row,index){
-            if(row.status==10){
-              var type = `<Icon type="checkmark-round" style="color:#2db7f5;font-size: 18px"></Icon>`;
-              return type;
-            }else{
-              var type = `<Icon type="close-round" style="color:red;font-size: 18px"></Icon>`;
-              return type;
+          render(h, params) {
+            if (params.row.status == 10) {
+              return h('div', [
+                h('Icon', {
+                  props: {
+                    type: 'checkmark-round'
+                  },
+                  attrs: {
+                    title: '启用',
+                    style: 'color:#2db7f5;font-size: 18px'
+                  },
+                })
+              ]);
             }
-
+            return h('div', [
+              h('Icon', {
+                props: {
+                  type: 'close-round',
+                },
+                attrs: {
+                  title: '禁用',
+                  style: 'color:red;font-size: 18px'
+                },
+              })
+            ]);
           },
           sortable: true
         });
@@ -169,9 +186,23 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
-         `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改')
+              ]);
             }
           }
         );

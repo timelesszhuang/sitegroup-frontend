@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <hotnews ref="save" :articletype="articletypelist" :form="editinfo" ></hotnews>
+    <hotnews ref="save" :articletype="articletypelist" :form="editinfo"></hotnews>
   </div>
 
 </template>
@@ -27,8 +27,9 @@
   import http from '../../../assets/js/http.js'
   import common from '../../../assets/js/common.js'
   import hotnews from '../article/save.vue'
+
   export default {
-    data () {
+    data() {
 
       return {
         page_show: true,
@@ -45,15 +46,15 @@
         pageSize: 10,
         title: '',
         article_type: 0,
-        keyword_type:0,
+        keyword_type: 0,
         datas: [],
         editinfo: {},
         articletypelist: [],
-        keywordtype:[]
+        keywordtype: []
       }
     },
     components: {hotnews},
-    created () {
+    created() {
       this.getArticleType((data) => {
         this.articletypelist = data
       });
@@ -79,29 +80,29 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.page = 1
         this.page_show = false
         this.getData();
         this.page_show = true
       },
-      edit(index){
+      edit(index) {
         this.getArticle(index);
         this.$refs.save.modal = true
       },
-      show(index){
+      show(index) {
         this.getArticle(index);
         this.$refs.show.modal = true
       },
-      getArticle(index){
+      getArticle(index) {
         let editid = this.datas[index].id
         this.apiGet('admin/hotnews/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -123,10 +124,9 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
-
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -143,12 +143,22 @@
         }
         columns.push({
           title: '缩略图',
-          width:'200',
+          width: '200',
           key: 'base64img',
           sortable: true,
-          render(row, index) {
-            return '<img width="150" src="' + row.base64img + '">';
+          render(h, params) {
+            if (params.row.base64img) {
+              return h('img', {
+                attrs: {
+                  src: params.row.base64img,
+                  title: params.row.title,
+                  style: 'max-width:150px;'
+                },
+              })
+            }
+            return '';
           },
+
         });
         columns.push({
           title: '标题',
@@ -158,7 +168,7 @@
         });
         columns.push({
           title: '简介',
-          width:400,
+          width: 400,
           key: 'summary',
           sortable: true
         });
@@ -175,8 +185,23 @@
             key: 'action',
             align: 'center',
 //            width:'150',
-            render (row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '转移至文章库')
+              ]);
             }
           }
         );
@@ -188,9 +213,9 @@
 
 </script>
 <style>
-  .imggg img{
-    width:150px;
-    height:100px;
+  .imggg img {
+    width: 150px;
+    height: 100px;
   }
 
 </style>

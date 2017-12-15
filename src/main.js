@@ -24,9 +24,10 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
-let domain = 'local.sitegroup.com'
 
-// let domain = 'www.sitegroupback.com'
+// let domain = 'local.sitegroup.com'
+
+let domain = 'api.salesman.cc'
 
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'

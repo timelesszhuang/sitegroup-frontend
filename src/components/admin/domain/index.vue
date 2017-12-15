@@ -2,7 +2,7 @@
   <div>
     <div class="top" style="padding-left: 5px;">
       域名管理:
-      <Input  placeholder="输入域名" style="width:300px;"></Input>
+      <Input placeholder="输入域名" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -14,7 +14,7 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
@@ -25,10 +25,11 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-    import domainadd from './add.vue';
-    import domainsave from './save.vue';
+  import domainadd from './add.vue';
+  import domainsave from './save.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -46,7 +47,7 @@
       }
     },
 
-    components: {domainadd,domainsave},
+    components: {domainadd, domainsave},
     methods: {
       init() {
         this.getData();
@@ -70,21 +71,21 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
-      add(){
+      add() {
         this.$refs.add.modal = true
       },
-      edit(index){
+      edit(index) {
         let editid = this.datas[index].id
         this.apiGet('domain/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -99,7 +100,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      remove(index){
+      remove(index) {
         //需要删除确认
         let id = this.datas[index].id
         let _this = this
@@ -128,8 +129,8 @@
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -172,9 +173,38 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="edit(${index})">修改</i-button>
- <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'error',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
             }
           }
         );

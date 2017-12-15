@@ -264,6 +264,7 @@
     computed: {
       tableColumns() {
         let columns = [];
+        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -303,12 +304,57 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">修改</i-button>
-<i-button type="error" size="small" @click="showhtml(${index})">页面预览</i-button>&nbsp;
-<i-button type="info" size="small" @click="show(${index})">查看</i-button>
-`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.showhtml(params.index)
+                    }
+                  }
+                }, '页面预览'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'default',
+                    style: 'margin-left:3px',
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.showhtml(params.index)
+                    }
+                  }
+                }, '查看'),
+
+              ]);
             }
+
+
           }
         );
         return columns;

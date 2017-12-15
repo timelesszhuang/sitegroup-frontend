@@ -22,19 +22,20 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
     </div>
-    <info ref="info" :field1="field1" :field2="field2" :field3="field3" :field4="field4" ></info>
+    <info ref="info" :field1="field1" :field2="field2" :field3="field3" :field4="field4"></info>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
   import info from './info.vue';
+
   export default {
-    data () {
+    data() {
       return {
         self: this,
         border: true,
@@ -50,18 +51,19 @@
         datas: [],
         site: [],
         site_id: "",
-        field1:'',
-        field2:'',
-        field3:'',
-        field4:'',
-        userdefine:[],
-        search:'',
-        detail:''
+        field1: '',
+        field2: '',
+        field3: '',
+        field4: '',
+        userdefine: [],
+        search: '',
+        detail: ''
       }
     },
-    components: {info
+    components: {
+      info
     },
-    created () {
+    created() {
       this.getData();
       this.getSite((data) => {
         this.site = data
@@ -72,7 +74,7 @@
       });
     },
     methods: {
-      getSite(){
+      getSite() {
         this.apiGet('Site/getSites').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.site = data
@@ -84,7 +86,7 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
-      getuserdefine(){
+      getuserdefine() {
         this.apiGet('admin/userdefine').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.userdefine = data
@@ -102,8 +104,8 @@
             page: this.page,
             rows: this.rows,
             site_id: this.site_id,
-            detail:this.detail,
-            search:this.search
+            detail: this.detail,
+            search: this.search
           }
         }
         this.apiGet('Rejection', data).then((data) => {
@@ -118,28 +120,28 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
-      queryData(){
+      queryData() {
         this.getData();
       },
       showCheck(index) {
-        this.field1=this.datas[index].field1;
-        this.field2=this.datas[index].field2;
-        this.field3=this.datas[index].field3;
-        this.field4=this.datas[index].field4;
-        this.$refs.info.modal=true;
+        this.field1 = this.datas[index].field1;
+        this.field2 = this.datas[index].field2;
+        this.field3 = this.datas[index].field3;
+        this.field4 = this.datas[index].field4;
+        this.$refs.info.modal = true;
       }
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -188,7 +190,17 @@
         columns.push({
           title: '来源页',
           key: 'referer',
-          sortable: true
+          sortable: true,
+          render(h, params) {
+            return h('div', [
+              h('a', {
+                attrs: {
+                  href: params.row.referer,
+                  target:'_blank'
+                },
+              },params.row.referer)
+            ]);
+          }
         });
         columns.push({
           title: '时间',
@@ -201,8 +213,23 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @click="showCheck(${index})">查看</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.showCheck(params.index)
+                    }
+                  }
+                }, '查看')
+              ]);
             }
           }
         );

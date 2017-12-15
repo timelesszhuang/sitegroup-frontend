@@ -13,7 +13,7 @@
         <!--<Input v-model="url" placeholder="请输入URL" style="width:200px;"></Input>-->
         <!--</Col>-->
         <Col span="5">
-        <Date-picker v-model="selectDate"   type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
+        <Date-picker v-model="selectDate" type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
         </Col>
         <Col span="2">
         <Button type="primary" @click="queryData">查询</Button>
@@ -37,6 +37,7 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -132,32 +133,44 @@
           title: '总排名',
           key: 'all_order',
           fixed: 'left',
-          width:80
+          width: 80
         });
         columns.push({
           title: '页码',
           key: 'page',
           fixed: 'left',
-          width:80
+          width: 80
         });
         columns.push({
           title: '页排名',
           key: 'page_order',
           fixed: 'left',
-          width:80
+          width: 80
         });
         columns.push({
           title: '链接',
           key: 'trueUrl',
-//          width:150,
-          render(row, column, index) {
-            return `<a href="` + row.a_href + `" target="_blank">` + row.a_text + `</i-button>`;
+          render(h, params) {
+            return h('div', [
+              h('a', {
+                props: {
+                  size: 'small'
+                },
+                attrs: {
+                  'href': params.row.a_href,
+                  'target': '_blank'
+                },
+              }, params.row.a_text)
+            ]);
           }
         });
         columns.push({
           title: '标题',
-          key: 'emtitle',
-//          width: 150,
+          render(h, params) {
+            return h('div', [
+              params.row.title
+            ]);
+          },
           sortable: true
         });
         columns.push({

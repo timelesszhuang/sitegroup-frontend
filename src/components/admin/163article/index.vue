@@ -53,8 +53,7 @@
         article_type: 0,
         keyword_type: 0,
         datas: [],
-        editinfo: {
-        },
+        editinfo: {},
         articletypelist: [],
         keywordtype: []
       }
@@ -147,6 +146,7 @@
     },
     computed: {
       tableColumns() {
+        let _this = this
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -165,9 +165,18 @@
         columns.push({
           title: '缩略图',
           key: 'imgsrc',
-          render(data) {
-            return '<img width="150" src="' + data.imgsrc + '">';
-          }
+          render(h, params) {
+            if (params.row.imgsrc) {
+              return h('img', {
+                attrs: {
+                  src: params.row.imgsrc,
+                  title: params.row.title,
+                  style: 'max-width:150px;'
+                },
+              })
+            }
+            return '';
+          },
         });
         columns.push({
           title: '标题',
@@ -202,9 +211,25 @@
             key: 'action',
             align: 'center',
             fixed: 'right',
-            render(row, column, index) {
-              return `<i-button type="success" size="small" @click="edit(${index})">添加到文章库</i-button>`;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'info'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.edit(params.index)
+                    }
+                  }
+                }, '转移至文章库')
+              ]);
             }
+
           }
         );
         return columns;
