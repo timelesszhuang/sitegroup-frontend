@@ -10,17 +10,27 @@
       </p>
       <div>
         <Form ref="add" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Row>
+          <Row :gutter="16">
             <Col span="17">
             <Form-item label="标题" prop="title">
               <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
             </Form-item>
+            </Col>
+            <Col span="5" >
+            <ColorPicker v-model="form.title_color" />
             </Col>
           </Row>
           <Row>
             <Col span="8">
             <Form-item label="简略标题" prop="shorttitle">
               <Input type="text" v-model="form.shorttitle" placeholder="请输入简略标题"></Input>
+            </Form-item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="8">
+            <Form-item label="简略标题">
+
             </Form-item>
             </Col>
           </Row>
@@ -132,6 +142,7 @@
           articletype_id: 0,
           articletype_name: '',
           content: '',
+          title_color: '',
         },
         selects: true,
         AddRule: {

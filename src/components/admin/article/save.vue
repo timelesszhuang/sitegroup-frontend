@@ -11,11 +11,14 @@
       </p>
       <div>
         <Form ref="save" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-          <Row>
+          <Row :gutter="16">
             <Col span="17">
             <Form-item label="标题" prop="title">
               <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
             </Form-item>
+            </Col>
+            <Col span="5" >
+            <ColorPicker v-model="form.title_color" />
             </Col>
           </Row>
           <Row>
@@ -226,6 +229,7 @@
               auther: this.form.auther,
               summary: this.form.summary,
               title: this.form.title,
+              title_color: this.form.title_color,
               content: this.form.content,
               come_from: this.form.come_from,
               posttime: this.form.createtime,
