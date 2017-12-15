@@ -132,6 +132,7 @@
             data.summary='';
             data.is_collection = 20
             data.readcount = 0;
+            data.title_color = '';
             this.editinfo = data
             this.editinfo.come_from = data.source
             this.editinfo.createtime = data.ptime

@@ -133,6 +133,7 @@
             data.summary = ''
             this.editinfo.shorttitle = data.short_title
             data.is_collection = 20
+            data.title_color = '';
             this.editinfo = data
             this.editinfo.come_from = data.source
             this.editinfo.thumbnails = data.thumbnail
