@@ -53,7 +53,9 @@
         article_type: 0,
         keyword_type: 0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+          title_color:""
+        },
         articletypelist: [],
         keywordtype: []
       }
@@ -129,6 +131,7 @@
         this.apiGet('wechat/getOneArticle/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             data.thumbnails = '';
+            data.title_color = '';
             data.is_collection = 20
             data.readcount = 0;
             this.editinfo.come_from = data.source

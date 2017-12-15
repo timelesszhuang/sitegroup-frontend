@@ -53,7 +53,9 @@
         article_type: 0,
         keyword_type: 0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+          title_color:""
+        },
         articletypelist: [],
         keywordtype: []
       }
@@ -131,6 +133,7 @@
           this.handelResponse(res, (data, msg) => {
             data.readcount = 0;
             data.is_collection = 20
+            data.title_color = '';
             this.editinfo = data
             this.editinfo.thumbnails = data.imgsrc
             this.editinfo.summary = data.digest
