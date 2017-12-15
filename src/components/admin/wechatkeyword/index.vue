@@ -48,7 +48,9 @@
         rows: 10,
         name: '',
         datas: [],
-        editinfo: {},
+        editinfo: {
+          title_color:""
+        },
         keyword_typename: '',
         wechatKeywordType: {},
       }

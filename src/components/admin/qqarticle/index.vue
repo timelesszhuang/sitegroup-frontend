@@ -52,7 +52,9 @@
         article_type: 0,
         keyword_type:0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+          title_color:""
+        },
         articletypelist: [],
         keywordtype:[]
       }
