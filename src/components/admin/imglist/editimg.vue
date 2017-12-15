@@ -117,6 +117,8 @@
 
 
         </div>
+        <div slot="footer">
+        </div>
       </Modal>
     </div>
   </div>

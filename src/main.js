@@ -27,7 +27,7 @@ Vue.use(ElementUI)
 
 // let domain = 'local.sitegroup.com'
 
-let domain = 'api.salesman.cc'
+let domain = 'local.sitegroup.com'
 
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'
