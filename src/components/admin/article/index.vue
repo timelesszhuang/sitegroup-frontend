@@ -66,7 +66,9 @@
         title: '',
         article_type: 0,
         datas: [],
-        editinfo: {},
+        editinfo: {
+          title_color:''
+        },
         articletypelist: [],
         showhtmldata: []
       }
@@ -137,6 +139,11 @@
         this.apiGet('article/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            // if(this.editinfo.title_color){
+            //   this.editinfo.title_color =  this.editinfo.title_color
+            // }else {
+            //   this.editinfo.title_color = ''
+            // }
           }, (data, msg) => {
             this.$Message.error(msg);
           })

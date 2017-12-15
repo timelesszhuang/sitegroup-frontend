@@ -124,6 +124,7 @@
       return {
         action: HOST + 'admin/uploadarticleimage',
         imgshow: true,
+
         editorOption: {
           modules: {
             history: {
@@ -271,6 +272,7 @@
         default: {
           readcount: 0,
           summary:String,
+          title_color:''
         }
       }
     }

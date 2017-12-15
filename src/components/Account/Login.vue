@@ -149,10 +149,7 @@
         });
       },
       refreshVerify() {
-        this.verifyUrl = ''
-        setTimeout(() => {
-          this.verifyUrl = this.verifyImg + '?v=' + moment().unix()
-        }, 300)
+        this.verifyUrl = this.verifyImg + '?v=' + moment().unix()
       },
       checkIsRememberPwd() {
         if (Cookies.get('rememberMe')) {
