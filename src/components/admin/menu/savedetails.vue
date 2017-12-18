@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal
-      v-model="modal" width="900"  :styles="{top: '20px'}">
+      v-model="modal" width="900" :styles="{top: '20px'}">
       <p slot="header">
         <span>修改详情型栏目</span>
       </p>
@@ -24,6 +24,17 @@
                 {{ item.text }}
               </Option>
             </Select>
+          </Form-item>
+          <Form-item label="上级分类" prop="p_id">
+            <Select style="text-align: left;width:200px;position: relative;z-index: 10001"
+                    label-in-value filterable @on-change="changeArticletype">
+              <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+                {{ item.text }}
+              </Option>
+            </Select>
+          </Form-item>
+          <Form-item label="详情页面的封面模板名" prop="covertemplate">
+            <Input type="text" v-model="detail.covertemplate" placeholder="请填写详情页面的封面模板名(加.html)"></Input>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
             <editor @change="updateData" :content="detail.content" :height="300" :auto-height="false"></editor>
@@ -52,7 +63,7 @@
       return {
         modal: false,
         modal_loading: false,
-        content:String,
+        content: String,
         id: 0,
         AddRule: {
           name: [
@@ -65,15 +76,18 @@
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
-            {required: true,validator: checkNavtype, trigger: 'blur'}
+            {required: true, validator: checkNavtype, trigger: 'blur'}
           ],
         }
       }
     },
     methods: {
       changeNavtype(value) {
-        this.detail.tag_name= value.label
+        this.detail.tag_name = value.label
         this.detail.tag_id = value.value
+      },
+      changeArticletype(value) {
+        this.detail.p_id = value.value
       },
       updateData(data) {
         this.detail.content = data
@@ -110,14 +124,16 @@
         default: {
           name: "",
           title: '',
-          content:String,
+          content: String,
           generate_name: ''
         }
       },
-        navtype: {
-          default: []
-
-      }
+      navtype: {
+        default: []
+      },
+      pidtype: {
+        default: []
+      },
     }
   }
 </script>

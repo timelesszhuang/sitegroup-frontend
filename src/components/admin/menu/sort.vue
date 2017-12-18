@@ -48,7 +48,7 @@
             this.modal_loading = true;
             let data = this.form;
             let id = data.id;
-            this.apiPut('menu/' + id, data).then((res) => {
+            this.apiPut('menusort/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

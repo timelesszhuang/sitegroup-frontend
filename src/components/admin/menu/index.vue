@@ -27,6 +27,7 @@
           <span title="详情" style="display:inline-block;width: 8%">{{item.title}}</span>
           <span title="栏目分类" style="display:inline-block;width: 8%">{{item.tag_name}}</span>
           <span title="英文名" style="display:inline-block;width: 8%">{{item.generate_name}}</span>
+          <span title="排序" style="display:inline-block;">{{item.sort}}</span>
           <Button style="position: absolute;right:50px;top: 10px" @click="edit(item.id)" icon="ivu-icon ivu-icon-edit"
                   size="small"></Button>
           <Button style="position: absolute;right:20px;top: 10px" @click="modify(item.id)"
@@ -34,10 +35,10 @@
           <div slot="content">
             <Collapse v-if="item.child" accordion>
               <Panel :name="childitem.name" v-for="childitem in item.child" :key="childitem.id">
+                {{childitem.name}}
                 <Icon v-if="childitem.child" title="包含子菜单" type="arrow-down-c"
                       style="color: rgba(7,208,211,0.76)"></Icon>
-                <span title="栏目名称" style="display:inline-block;width: 12%"> {{childitem.name}}</span>
-                <span title="类型" style="display:inline-block;width: 8%"> {{childitem.flag_name}}</span>
+                <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{childitem.flag_name}}</span>
                 <span title="详情" style="display:inline-block;width: 8%">{{childitem.title}}</span>
                 <span title="栏目分类" style="display:inline-block;width: 8%">{{childitem.tag_name}}</span>
                 <span title="英文名" style="display:inline-block;width: 8%">{{childitem.generate_name}}</span>
@@ -51,8 +52,9 @@
                 <div slot="content">
                   <Collapse v-if="childitem.child" accordion>
                     <Panel :name="child1item.name" v-for="child1item in childitem.child" :key="child1item.id">
-                      <span title="栏目名称" style="display:inline-block;width: 12%"> {{child1item.name}}</span>
-                      <span title="类型" style="display:inline-block;width: 8%"> {{child1item.flag_name}}</span>
+                      {{child1item.name}}
+                      <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
+                      <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}</span>
                       <span title="详情" style="display:inline-block;width: 8%">{{child1item.title}}</span>
                       <span title="栏目分类" style="display:inline-block;width: 8%">{{child1item.tag_name}}</span>
                       <span title="英文名" style="display:inline-block;width: 8%">{{child1item.generate_name}}</span>
@@ -236,6 +238,7 @@
         });
       },
       adddetails() {
+        this.getpidtype(1, 0)
         this.$refs.adddetails.modal = true
       },
       addquestion() {
@@ -284,6 +287,7 @@
             this.editinfo.type_id = ArticleAar
             this.modal = false;
             if (data.flag == 1) {
+              this.getpidtype(data.flag, editid)
               this.$refs.savedetails.modal = true
             }
             else if (data.flag == 2) {
