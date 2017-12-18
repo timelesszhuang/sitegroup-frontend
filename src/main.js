@@ -29,6 +29,7 @@ Vue.use(ElementUI)
 
 let domain = 'api.salesman.cc'
 
+
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'
 Vue.use(VueHtml5Editor, {
