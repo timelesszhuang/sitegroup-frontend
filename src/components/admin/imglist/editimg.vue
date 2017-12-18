@@ -162,7 +162,7 @@
       addotherdata: function () {
         return {
           'id': this.form.id,
-          'link':'http://'+this.addform.link,
+          'link':this.addform.link ? "http://"+ this.addform.link : '',
           'title':this.addform.title,
 
         }
