@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="top">
-      <Input v-model="search" placeholder="名称" style="width:160px;"></Input>
-      <Select v-model="detail" style="width:300px;" label-in-value filterable clearable>
+      <Input v-model="search" placeholder="内容包含查询" style="width:160px;"></Input>
+      <Select v-model="detail" style="width:300px;" label-in-value filterable clearable placeholder="请选择自定表单配置">
         <Option v-for="item in userdefine" :value="item.id" :label="item.detail" :key="item">
           {{ item.detail }}
         </Option>
       </Select>
-      <Select v-model="site_id" style="width:300px;" label-in-value filterable clearable>
+      <Select v-model="site_id" style="width:300px;" label-in-value filterable clearable placeholder="请选择站点">
         <Option v-for="item in site" :value="item.id" :label="item.text" :key="item">
           {{ item.text }}
         </Option>
