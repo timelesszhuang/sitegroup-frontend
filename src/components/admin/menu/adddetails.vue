@@ -25,8 +25,16 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="封面模板" prop="covertemplate">
-              <Input type="text" v-model="form.covertemplate" placeholder="封面模板(加.html)"></Input>
+            <Form-item label="上级分类" prop="p_id">
+              <Select  style="text-align: left;width:250px;"
+                      label-in-value  filterable @on-change="changeArticletype">
+                <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
+                  {{ item.text }}
+                </Option>
+              </Select>
+            </Form-item>
+            <Form-item label="详情页面的封面模板名" prop="covertemplate">
+              <Input type="text" v-model="form.covertemplate" placeholder="请填写详情页面的封面模板名(加.html)"></Input>
             </Form-item>
             <Form-item label="内容" prop="content" style="height:100%;">
               <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
@@ -66,6 +74,9 @@
           generate_name: '',
           content:'',
           covertemplate:'',
+          listsize:0,
+          type_id:'',
+          p_id:0,
         },
         selects:true,
         AddRule: {
@@ -88,6 +99,9 @@
       }
     },
     methods: {
+      changeArticletype(value) {
+        this.form.p_id = value.value
+      },
       changeNavtype(value) {
         console.log(value)
         this.form.tag_name= value.label
@@ -126,7 +140,10 @@
     props: {
       navtype: {
         default: []
-      }
+      },
+      pidtype: {
+        default: []
+      },
     }
   }
 </script>

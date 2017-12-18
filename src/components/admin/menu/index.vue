@@ -18,9 +18,9 @@
       <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
 
     </div>
-    <div class="menutree">
-      <Collapse accordion>
-        <Panel :name="item.name" v-for="item in data" :key="item.id">
+    <div class="menutree" >
+      <Collapse accordion >
+        <Panel :name="item.name"  v-for="item in data" :key="item.id">
           {{item.name}}
           <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
           <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{item.flag_name}}</span>
@@ -76,9 +76,9 @@
     </div>
     <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype" :ptype="ptype"></productadd>
     <productsave ref="saveproduct" :navtype="navtype" :pidtype="pidtype" :form="editinfo" :ptype="ptype"></productsave>
-    <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
+    <detailadd :form="editinfo" :navtype="navtype"  :pidtype="pidtype" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
-    <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
+    <detailssave ref="savedetails" :navtype="navtype"  :pidtype="pidtype" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
     <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"
@@ -269,6 +269,7 @@
         })
       },
       edit(params) {
+
         let editid = params
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
