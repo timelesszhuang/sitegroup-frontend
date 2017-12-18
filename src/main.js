@@ -29,6 +29,7 @@ let domain = 'local.sitegroup.com'
 
 // let domain = 'api.salesman.cc'
 
+
 var HOST = 'http://' + domain + '/index.php/'
 var ROOTHOST = 'http://' + domain + '/'
 Vue.use(VueHtml5Editor, {
