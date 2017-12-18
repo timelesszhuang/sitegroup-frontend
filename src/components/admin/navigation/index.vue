@@ -3,7 +3,6 @@
     <div class="top">
       栏目:
       <Input v-model="name" placeholder="栏目" style="width:200px;"></Input>
-
       <Select v-model="flag" style="width:200px;" placeholder="根据栏目类型查询" label-in-value filterable clearable>
         <Option v-for="item in flag_type" :value="item.value" :key="item">{{ item.label }}</Option>
       </Select>
@@ -16,15 +15,12 @@
       <Button type="success" @click="addproduct" shape="circle" size="small">添加产品型</Button>
       <Button type="success" @click="addquestion" shape="circle" size="small">添加问答型</Button>
       <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
-      <!--<Button type="success" @click="addtitle" shape="circle" size="small">添加文章段落</Button>-->
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
       </Table>
       <div style="margin: 10px;overflow: hidden">
-        <!--<Alert type="error">栏目是在建立站点的时候选择,</Alert>-->
-        <!--<Alert type="error">文章型,问答型,零散文章型是在列表中显示出来的,比如文章列表</Alert>-->
         <template>
           <Alert type="error">
             站点栏目介绍
@@ -50,7 +46,6 @@
     <productsave ref="saveproduct" :navtype="navtype" :pidtype="pidtype" :form="editinfo" :ptype="ptype"></productsave>
     <detailadd :form="editinfo" :navtype="navtype" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
-    <!--<articlesave ref="save" :form="editinfo"></articlesave>-->
     <detailssave ref="savedetails" :navtype="navtype" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
@@ -60,9 +55,7 @@
     <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
     <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
-
   </div>
-
 </template>
 
 
@@ -372,11 +365,7 @@
           key: 'title'
         });
         columns.push({
-          title: '所属分类',
-          key: 'type_name'
-        });
-        columns.push({
-          title: '分类',
+          title: '栏目分类',
           key: 'tag_name'
         });
         columns.push({
@@ -389,7 +378,8 @@
         });
         columns.push({
           title: '排序',
-          key: 'sort'
+          key: 'sort',
+          width: 50,
         });
         columns.push(
           {
