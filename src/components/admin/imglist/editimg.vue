@@ -26,10 +26,7 @@
                   <Input type="text" v-model="addform.title" placeholder="请输入当前标题"></Input>
                 </Form-item>
                 <Form-item  style="width: 700px;"label="轮播图链接">
-
                   <Input   type="text" v-model="addform.link" placeholder="请输入当前轮播图集的名称" >
-                  <span slot="prepend">http://</span>
-
                   </Input>
 
                 </Form-item>
@@ -162,7 +159,7 @@
       addotherdata: function () {
         return {
           'id': this.form.id,
-          'link':this.addform.link ? "http://"+ this.addform.link : '',
+          'link':this.addform.link,
           'title':this.addform.title,
 
         }

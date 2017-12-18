@@ -1,7 +1,7 @@
 <template>
   <Tabs value="menu" @on-click="getdata">
     <Tab-pane label="栏目管理" name="menu">
-      <Menu ref="menu"></Menu>
+      <naviga ref="menu"></naviga>
     </Tab-pane>
     <Tab-pane label="栏目管理" name="navigation">
       <navigation ref="men"></navigation>
@@ -15,10 +15,10 @@
   import http from '../../../assets/js/http.js'
   import navigation from '../navigation/index.vue'
   import Menutype from '../menutype/index.vue'
-  import Menu from '../menu/index.vue'
+  import naviga from '../menu/index.vue'
 
   export default {
-    components: {navigation, Menutype,Menu},
+    components: {navigation, Menutype,naviga},
     methods: {
       getdata(name) {
         if (name == "navigation") {
