@@ -64,7 +64,6 @@
             page: this.page,
             rows: this.rows,
             name: this.name,
-            type_id: this.type_id
           }
         }
         this.apiGet('imglist', data).then((data) => {

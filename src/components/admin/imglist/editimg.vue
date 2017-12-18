@@ -171,10 +171,8 @@
         return {
           'id': this.form.id,
           'index': this.imgIndex,
-          'link':'http://'+this.form.link,
+          'link':this.form.link,
           'title':this.form.title,
-
-
         }
       }
     },
@@ -233,10 +231,11 @@
                 if (data.length == 0) {
                   _this.is_show = false
                 }
+                _this.form.imglist = data
                 _this.form.imglist[_this.imgIndex].osssrc = ''
                 _this.form.imglist[_this.imgIndex].link = ''
                 _this.form.imglist[_this.imgIndex].title = ''
-                _this.form.imglist = data
+
                 _this.img = ''
                 _this.$refs.imgselect.clearSingleSelect()
               }, (data, msg) => {
