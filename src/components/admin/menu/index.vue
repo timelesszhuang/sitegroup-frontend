@@ -18,18 +18,16 @@
       <Button type="success" @click="addarticle" shape="circle" size="small">添加文章型</Button>
 
     </div>
-    <div class="menutree" >
-      <Collapse accordion >
-        <Panel :name="item.name"  v-for="item in data" :key="item.id">
+    <div class="menutree">
+      <Collapse accordion>
+        <Panel :name="item.name" v-for="item in data" :key="item.id">
           {{item.name}}
           <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
           <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{item.flag_name}}</span>
-          <span title="详情" style="display:inline-block;width: 8%">{{item.title}}</span>
           <span title="栏目分类" style="display:inline-block;width: 8%">{{item.tag_name}}</span>
           <span title="英文名" style="display:inline-block;width: 8%">{{item.generate_name}}</span>
-          <span title="排序" style="display:inline-block;">{{item.sort}}</span>
           <Button style="position: absolute;right:50px;top: 10px" @click="edit(item.id)" icon="ivu-icon ivu-icon-edit"
-                  size="small"></Button>
+                  size="small" type="info"></Button>
           <Button style="position: absolute;right:20px;top: 10px" @click="modify(item.id)"
                   icon="ivu-icon ivu-icon-ionic" size="small"></Button>
           <div slot="content">
@@ -39,30 +37,22 @@
                 <Icon v-if="childitem.child" title="包含子菜单" type="arrow-down-c"
                       style="color: rgba(7,208,211,0.76)"></Icon>
                 <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{childitem.flag_name}}</span>
-                <span title="详情" style="display:inline-block;width: 8%">{{childitem.title}}</span>
                 <span title="栏目分类" style="display:inline-block;width: 8%">{{childitem.tag_name}}</span>
                 <span title="英文名" style="display:inline-block;width: 8%">{{childitem.generate_name}}</span>
-                <span title="排序" style="display:inline-block;">{{childitem.sort}}</span>
-                <!--<Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>-->
                 <Button style="position: absolute;right:50px;top: 10px" @click="edit(childitem.id)"
-                        icon="ivu-icon ivu-icon-edit"
-                        size="small"></Button>
+                        icon="ivu-icon ivu-icon-edit" size="small" type="info"></Button>
                 <Button style="position: absolute;right:20px;top: 10px" @click="modify(childitem.id)"
                         icon="ivu-icon ivu-icon-ionic" size="small"></Button>
                 <div slot="content">
                   <Collapse v-if="childitem.child" accordion>
                     <Panel :name="child1item.name" v-for="child1item in childitem.child" :key="child1item.id">
                       {{child1item.name}}
-                      <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
-                      <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}</span>
-                      <span title="详情" style="display:inline-block;width: 8%">{{child1item.title}}</span>
+                      <span title="类型"
+                            style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}</span>
                       <span title="栏目分类" style="display:inline-block;width: 8%">{{child1item.tag_name}}</span>
                       <span title="英文名" style="display:inline-block;width: 8%">{{child1item.generate_name}}</span>
-                      <span title="排序" style="display:inline-block;">{{child1item.sort}}</span>
-                      <!--<Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>-->
                       <Button style="position: absolute;right:50px;top: 10px" @click="edit(child1item.id)"
-                              icon="ivu-icon ivu-icon-edit"
-                              size="small"></Button>
+                              icon="ivu-icon ivu-icon-edit" size="small" type="info"></Button>
                       <Button style="position: absolute;right:20px;top: 10px" @click="modify(child1item.id)"
                               icon="ivu-icon ivu-icon-ionic" size="small"></Button>
                       <div slot="content">
@@ -70,17 +60,19 @@
                     </Panel>
                   </Collapse>
                 </div>
+
               </Panel>
             </Collapse>
           </div>
+
         </Panel>
       </Collapse>
     </div>
     <productadd ref="addproduct" :navtype="navtype" :pidtype="pidtype" :ptype="ptype"></productadd>
     <productsave ref="saveproduct" :navtype="navtype" :pidtype="pidtype" :form="editinfo" :ptype="ptype"></productsave>
-    <detailadd :form="editinfo" :navtype="navtype"  :pidtype="pidtype" ref="adddetails"></detailadd>
+    <detailadd :form="editinfo" :navtype="navtype" :pidtype="pidtype" ref="adddetails"></detailadd>
     <questionadd ref="addquestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"></questionadd>
-    <detailssave ref="savedetails" :navtype="navtype"  :pidtype="pidtype" :detail="editinfo"></detailssave>
+    <detailssave ref="savedetails" :navtype="navtype" :pidtype="pidtype" :detail="editinfo"></detailssave>
     <questionsave ref="savequestion" :navtype="navtype" :pidtype="pidtype" :questiontype="questiontypelist"
                   :form="editinfo"></questionsave>
     <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"
@@ -351,7 +343,8 @@
   .menutree {
     margin-top: 10px;
   }
-  .ivu-collapse-content-box{
+
+  .ivu-collapse-content-box {
     padding: 0px !important;
     margin: 0px !important;
 
