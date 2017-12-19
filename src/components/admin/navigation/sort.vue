@@ -42,13 +42,14 @@
       }
     },
     methods: {
-        savetitle() {
+
+      savetitle() {
         this.$refs.title.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            let data = this.form;
+            let sort = this.form.sort;
             let id = data.id;
-            this.apiPut('menu/' + id, data).then((res) => {
+            this.apiGet('menusort/'+sort+'/' + id, data).then((res) => {
               this.handelResponse(res, (data, msg) => {
                 this.modal = false;
                 this.$parent.getData();

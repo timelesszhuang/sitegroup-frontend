@@ -95,7 +95,8 @@ import Advertorial from '../components/admin/advertorial/index.vue'
 import Yqx from '../components/admin/yiqixiu/index.vue'
 //
 import Imglist from '../components/admin/imglist/index.vue'
-
+//内容调取
+import Content from '../components/admin/content/index'
 
 Vue.use(Router)
 
@@ -178,6 +179,7 @@ export default new Router({
         {path: 'advertorial', component: Advertorial, name: 'advertorial'},
         {path: 'yqx', component: Yqx, name: 'yqx'},
         {path: 'imglist', component: Imglist, name: 'imglist'},
+        {path: 'content', component: Content, name: 'content'},
       ]
     }
   ]

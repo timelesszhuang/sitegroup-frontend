@@ -215,6 +215,12 @@
                 图片集管理
               </span>
             </Menu-item>
+            <Menu-item name="内容">
+              <span class="layout-text" @click="routerChange('/admin/content','内容管理')">
+                <Icon type="image"></Icon>
+                内容管理
+              </span>
+            </Menu-item>
             <!--<Menu-item name="文章段落管理">
               <span class="layout-text" @click="routerChange('/admin/newsmanage','文章段落管理')">
                 <Icon type="social-buffer-outline"></Icon>
