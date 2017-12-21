@@ -215,9 +215,9 @@
                 图片集管理
               </span>
             </Menu-item>
-            <Menu-item name="内容">
-              <span class="layout-text" @click="routerChange('/admin/content','内容管理')">
-                <Icon type="image"></Icon>
+            <Menu-item name="内容调取管理">
+              <span class="layout-text" @click="routerChange('/admin/content','内容调取管理')">
+                <Icon type="clipboard"></Icon>
                 内容管理
               </span>
             </Menu-item>
