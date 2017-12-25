@@ -47,7 +47,7 @@
         border: true,
         stripe: true,
         showheader: true,
-        showIndex: true,
+        showIndex: false,
         size: 'small',
         current: 1,
         total: 0,

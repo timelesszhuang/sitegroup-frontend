@@ -2,7 +2,7 @@
   <div>
     <div>
       <Modal
-        v-model="modal" width="600"  :styles="{top: '20px'}">
+        v-model="modal" width="600" :styles="{top: '20px'}">
         <p slot="header">
           <span>添加问答型栏目</span>
         </p>
@@ -26,18 +26,18 @@
               </Select>
             </Form-item>
             <Form-item label="分类" prop="tag_name">
-              <Select v-model="form.tag_id"  ref="select" :clearable="selects"style="text-align: left;width:200px;"
+              <Select v-model="form.tag_id" ref="select" :clearable="selects" style="text-align: left;width:200px;"
                       label-in-value filterable　@on-change="changeNavtype">
                 <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
-                  {{ item.text }}
+                  {{item.text}}
                 </Option>
               </Select>
             </Form-item>
             <Form-item label="上级分类" prop="p_id">
-              <Select ref="select"  filterable :clearable="selects" style="text-align: left;width:250px;"
+              <Select ref="select" filterable :clearable="selects" style="text-align: left;width:250px;"
                       label-in-value @on-change="changeArticletype">
                 <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.text }}
+                  {{item.text}}
                 </Option>
               </Select>
             </Form-item>
@@ -48,7 +48,7 @@
               <Input type="text" v-model="form.detailtemplate" placeholder="请填写详情页面的相关模板名(加.html)"></Input>
             </Form-item>
             <Form-item label="栏目列表调取的数量" prop="listsize">
-              <Input-number  :min="0" v-model="form.listsize"  placeholder="请填写当前栏目列表调取的数量"></Input-number>
+              <Input-number :min="0" v-model="form.listsize" placeholder="请填写当前栏目列表调取的数量"></Input-number>
             </Form-item>
           </Form>
         </div>
@@ -84,17 +84,17 @@
         modal: false,
         modal_loading: false,
         form: {
-          listsize:0,
-          p_id:'',
+          listsize: 0,
+          p_id: '',
           name: "",
           title: "",
-          flag:"2",
-          flag_name:"问答型",
-          type_id:[],
-          type_name:'',
-          generate_name:''
+          flag: "2",
+          flag_name: "问答型",
+          type_id: [],
+          type_name: '',
+          generate_name: ''
         },
-        selects:true,
+        selects: true,
         AddRule: {
           name: [
             {required: true, message: '请填写菜单名字', trigger: 'blur'},
@@ -102,48 +102,48 @@
           title: [
             {required: true, message: '请填写栏目的详情', trigger: 'blur'},
           ],
-          generate_name:[
+          generate_name: [
             {required: true, message: '请填写生成的文件名', trigger: 'blur'}
           ],
           tag_name: [
-            {required: true,validator: checkNavtype, trigger: 'blur'}
+            {required: true, validator: checkNavtype, trigger: 'blur'}
           ],
         }
       }
     },
     methods: {
       changeNavtype(value) {
-        this.form.tag_name= value.label
+        this.form.tag_name = value.label
         this.form.tag_id = value.value
       },
       changeArticletype(value) {
         this.form.p_id = value.value
       },
       addquestion() {
-          this.$refs.questionadd.validate((valid) => {
-              if(valid){
-                this.modal_loading = true;
-                let data = this.form;
-                this.apiPost('menu', data).then((res) => {
-                  this.handelResponse(res, (data, msg) => {
-                    this.modal = false;
-                    this.$parent.getData();
-                    this.$Message.success(msg);
-                    this.modal_loading = false;
-                    this.$refs.questionadd.resetFields();
-                    this.$refs.select.clearSingleSelect()
-                  }, (data, msg) => {
-                    this.modal_loading = false;
-                    this.$Message.error(msg);
-                  })
-                }, (res) => {
-                  //处理错误信息
-                  this.modal_loading = false;
-                  this.$Message.error('网络异常，请稍后重试。');
-                })
-              }
-          })
-        }
+        this.$refs.questionadd.validate((valid) => {
+          if (valid) {
+            this.modal_loading = true;
+            let data = this.form;
+            this.apiPost('menu', data).then((res) => {
+              this.handelResponse(res, (data, msg) => {
+                this.modal = false;
+                this.$parent.getData();
+                this.$Message.success(msg);
+                this.modal_loading = false;
+                this.$refs.questionadd.resetFields();
+                this.$refs.select.clearSingleSelect()
+              }, (data, msg) => {
+                this.modal_loading = false;
+                this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              this.modal_loading = false;
+              this.$Message.error('网络异常，请稍后重试。');
+            })
+          }
+        })
+      }
     },
     mixins: [http],
     props: {

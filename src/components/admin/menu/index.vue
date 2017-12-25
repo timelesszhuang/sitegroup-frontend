@@ -264,12 +264,13 @@
         })
       },
       edit(params) {
-
         let editid = params
         this.apiGet('menu/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            this.editinfo.content = ""
+            if (this.editinfo.content == null) {
+              this.editinfo.content = '';
+            }
             let ArticleAar = [];
             if (this.editinfo.type_id !== "") {
               this.editinfo.type_id.split(",").map(function (key) {
@@ -281,15 +282,13 @@
             if (data.flag == 1) {
               this.getpidtype(data.flag, editid)
               this.$refs.savedetails.modal = true
-            }
-            else if (data.flag == 2) {
+            } else if (data.flag == 2) {
               this.getpidtype(data.flag, editid)
               this.$refs.savequestion.modal = true
             } else if (data.flag == 3) {
               this.getpidtype(data.flag, editid)
               this.$refs.savearticle.modal = true
-            }
-            else if (data.flag == 4) {
+            } else if (data.flag == 4) {
               this.$refs.savetitle.modal = true
             } else if (data.flag == 5) {
               this.getpidtype(data.flag, editid)

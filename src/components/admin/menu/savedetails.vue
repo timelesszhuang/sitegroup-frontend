@@ -26,14 +26,14 @@
             </Select>
           </Form-item>
           <Form-item label="上级分类" prop="p_id">
-            <Select style="text-align: left;width:200px;position: relative;z-index: 10001"
+            <Select  v-model="detail.p_id"  style="text-align: left;width:200px;position: relative;z-index: 10001"
                     label-in-value filterable @on-change="changeArticletype">
               <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
               </Option>
             </Select>
           </Form-item>
-          <Form-item label="详情页面的封面模板名" prop="covertemplate">
+          <Form-item label="封面模板" prop="covertemplate">
             <Input type="text" v-model="detail.covertemplate" placeholder="请填写详情页面的封面模板名(加.html)"></Input>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
@@ -63,7 +63,7 @@
       return {
         modal: false,
         modal_loading: false,
-        content: String,
+        content: '',
         id: 0,
         AddRule: {
           name: [
@@ -124,7 +124,7 @@
         default: {
           name: "",
           title: '',
-          content: String,
+          content: '',
           generate_name: ''
         }
       },
