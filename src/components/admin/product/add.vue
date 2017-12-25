@@ -64,7 +64,7 @@
               <Input v-model="form.description" type="textarea" :rows="4" placeholder="请输入页面描述"></Input>
             </Form-item>
             <Form-item>
-            <Button @click="other_is_show = !other_is_show">显示/隐藏 其他字段</Button>
+            <Button @click="other_is_show = !other_is_show">其他字段</Button>
             </Form-item>
             <Form-item v-show="other_is_show" label="字段1" prop="field1">
               <Input v-model="form.field1" type="text" :rows="4"></Input>
@@ -78,6 +78,10 @@
             <Form-item v-show="other_is_show" label="字段4" prop="field4">
               <editor @change="updatefeild4" :content="form.field4" :height="300" :auto-height="false"></editor>
             </Form-item>
+            <Alert v-show="other_is_show" type="success" show-icon>
+              注意
+              <span slot="desc">其他字段页面中调取 使用field1、field2、field3、field4等</span>
+            </Alert>
           </Form>
         </div>
         <div slot="footer">
