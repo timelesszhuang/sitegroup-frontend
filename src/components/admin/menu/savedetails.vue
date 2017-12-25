@@ -26,7 +26,7 @@
             </Select>
           </Form-item>
           <Form-item label="上级分类" prop="p_id">
-            <Select  v-model="form.p_id"  style="text-align: left;width:200px;position: relative;z-index: 10001"
+            <Select  v-model="detail.p_id"  style="text-align: left;width:200px;position: relative;z-index: 10001"
                     label-in-value filterable @on-change="changeArticletype">
               <Option v-for="item in pidtype" :value="item.id" :label="item.name" :key="item">
                 {{ item.text }}
