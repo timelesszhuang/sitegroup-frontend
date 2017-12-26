@@ -43,7 +43,20 @@
         rows: 10,
         detail: '',
         datas: [],
-        editinfo: {}
+        editinfo: {
+          detail: '',
+          name:'',
+          html:{
+            zipcode: '',
+            fax: '',
+            telephone:'',
+            weixin:'',
+            email:'',
+            mobile:'',
+            four00:'',
+            qq:'',
+          },
+        }
       }
     },
     components: {contactwayadd, contactwaysave},

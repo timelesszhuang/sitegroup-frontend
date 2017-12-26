@@ -100,7 +100,16 @@
         default: {
           detail: '',
           name:'',
-          html:{},
+          html:{
+            zipcode: '',
+            fax: '',
+            telephone:'',
+            weixin:'',
+            email:'',
+            mobile:'',
+            four00:'',
+            qq:'',
+          },
         }
       }
     },
