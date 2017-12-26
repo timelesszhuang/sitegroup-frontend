@@ -78,7 +78,7 @@
               </Form>
               <div >
                 <Row >
-                  <Col span="22" style="padding-left:80%" >
+                  <Col span="20" style="padding-left: 75%">
                   <Upload
                     v-if="this.img"
                     type="select"
@@ -94,6 +94,9 @@
                   >
                     <Button type="ghost" icon="ios-cloud-upload-outline">替换</Button>
                   </Upload>
+                  </Col>
+                  <Col span="2">
+                  <Button v-if="this.img" @click="saveinfo()">保存</Button>
                   </Col>
                   <Col span="2">
                   <Button v-if="this.img" type="warning" @click="delimg()">删除</Button>
@@ -246,6 +249,26 @@
           onCancel: () => {
             return false
           }
+        })
+      },
+      saveinfo(){
+        let _this = this
+        let id = this.form.id;
+        let link = this.form.link;
+        let title = this.form.title;
+        _this.apiPost('saveinfo/',{id:id,index:_this.imgIndex,link:link,title:title}).then((res) => {
+          _this.handelResponse(res, (data, msg) => {
+            _this.$Message.success(msg);
+            if (data.length == 0) {
+              _this.is_show = false
+            }
+            _this.form.imglist = data
+          }, (data, msg) => {
+            _this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          _this.$Message.error('网络异常，请稍后重试。');
         })
       }
     },
