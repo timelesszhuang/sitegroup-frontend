@@ -78,9 +78,7 @@
           detail: [
             {required: true, message: '请填写描述', trigger: 'blur'},
           ],
-          mobile: [
-            {required: true, message: '请填写手机号', trigger: 'blur'},
-          ],
+
         }
       }
     },
