@@ -8,11 +8,11 @@
         </p>
         <div>
           <Form ref="contactway" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="分类名称" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入分类名称"></Input>
-            </Form-item>
             <Form-item label="配置名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入配置名称"></Input>
+            </Form-item>
+            <Form-item label="备注" prop="detail">
+              <Input type="text" v-model="form.detail" placeholder="请输入分类名称"></Input>
             </Form-item>
             <Form-item label="电话" prop="telephone">
               <Input type="text" v-model="form.html.telephone" placeholder="请输入电话"></Input>
@@ -75,8 +75,8 @@
           }
         },
         AddRule: {
-          detail: [
-            {required: true, message: '请填写描述', trigger: 'blur'},
+          name: [
+            {required: true, message: '请填写配置名称', trigger: 'blur'},
           ],
 
         }
