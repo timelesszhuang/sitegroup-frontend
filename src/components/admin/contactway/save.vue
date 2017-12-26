@@ -8,11 +8,38 @@
         </p>
         <div>
           <Form ref="contactwaysave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="描述" prop="detail">
-              <Input type="text" v-model="form.detail" placeholder="请输入名称"></Input>
+            <Form-item label="分类名称" prop="detail">
+              <Input type="text" v-model="form.detail" placeholder="请输入分类名称"></Input>
             </Form-item>
-            <Form-item label="html" prop="html" style="height:100%;">
-              <editor @change="updateData" :content="form.html"  :height="300" :auto-height="false"></editor>
+            <Form-item label="配置名称" prop="name">
+              <Input type="text" v-model="form.name" placeholder="请输入配置名称"></Input>
+            </Form-item>
+            <Form-item label="电话" prop="telephone">
+              <Input type="text" v-model="form.html.telephone" placeholder="请输入电话"></Input>
+            </Form-item>
+            <Form-item label="手机" prop="mobile">
+              <Input type="text" v-model="form.html.mobile" placeholder="请输入手机"></Input>
+            </Form-item>
+            <Form-item label="邮箱" prop="email">
+              <Input type="text" v-model="form.html.email" placeholder="请输入邮箱"></Input>
+            </Form-item>
+            <Form-item label="邮编" prop="zipcode">
+              <Input type="text" v-model="form.html.zipcode" placeholder="请输入邮编"></Input>
+            </Form-item>
+            <Form-item label="地址" prop="address">
+              <Input type="text" v-model="form.html.address" placeholder="请输入地址"></Input>
+            </Form-item>
+            <Form-item label="400电话" prop="four00">
+              <Input type="text" v-model="form.html.four00" placeholder="请输入400电话"></Input>
+            </Form-item>
+            <Form-item label="QQ" prop="qq">
+              <Input type="text" v-model="form.html.qq" placeholder="请输入QQ"></Input>
+            </Form-item>
+            <Form-item label="微信" prop="weixin">
+              <Input type="text" v-model="form.html.weixin" placeholder="请输入微信"></Input>
+            </Form-item>
+            <Form-item label="传真" prop="fax">
+              <Input type="text" v-model="form.html.fax" placeholder="请输入传真"></Input>
             </Form-item>
           </Form>
         </div>
@@ -36,17 +63,12 @@
           detail: [
             {required: true, message: '请填写描述', trigger: 'blur'},
           ],
-          html: [
-            {required: true, message: '请填写html', trigger: 'blur'},
-          ]
+
 
         }
       }
     },
     methods: {
-      updateData(data) {
-        this.form.html = data
-      },
         add() {
           this.$refs.contactwaysave.validate((valid) => {
               if(valid){
@@ -77,7 +99,8 @@
       form: {
         default: {
           detail: '',
-          html:'',
+          name:'',
+          html:{},
         }
       }
     },

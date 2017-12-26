@@ -150,6 +150,11 @@
           key: 'detail',
           sortable: true
         });
+        columns.push({
+          title: '配置',
+          key: 'name',
+          sortable: true
+        });
         columns.push(
           {
             title: '操作',
