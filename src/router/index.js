@@ -97,6 +97,9 @@ import Yqx from '../components/admin/yiqixiu/index.vue'
 import Imglist from '../components/admin/imglist/index.vue'
 //内容调取
 import Content from '../components/admin/content/index'
+//标签
+import Tag from '../components/admin/tag/index'
+
 
 Vue.use(Router)
 
@@ -180,6 +183,7 @@ export default new Router({
         {path: 'yqx', component: Yqx, name: 'yqx'},
         {path: 'imglist', component: Imglist, name: 'imglist'},
         {path: 'content', component: Content, name: 'content'},
+        {path: 'tag', component: Tag, name: 'tag'},
       ]
     }
   ]

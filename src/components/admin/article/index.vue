@@ -4,14 +4,12 @@
       标题:
       <Input v-model="title" placeholder="请输入文章标题" style="width:300px;"></Input>
       文章分类:
-      <Select v-model="article_type" style="width: 250px;" label-in-value filterable clearable>
-        <Option disabled value="">
-          分类名—标签
-        </Option>
-        <Option v-for="item in articletypelist" :value="item.id" :label="item.name" :key="item">
-          <span>{{ item.text }}</span>
-        </Option>
-      </Select>
+      <Select v-model="article_type" style="width:200px"
+                label-in-value  filterable clearable   >
+          <Option-group  v-for="(item,index) in articletypelist" :label="index" :key="item">
+            <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+          </Option-group>
+        </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
       <Button type="error" @click="importadd">csv导入</Button>
@@ -360,7 +358,7 @@
                   on: {
                     click: function () {
                       //不知道为什么这个地方不是我需要的this
-                      _this.showhtml(params.index)
+                      _this.show(params.index)
                     }
                   }
                 }, '查看'),

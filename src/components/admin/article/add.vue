@@ -64,13 +64,11 @@
           <Row>
             <Col span="12">
             <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
-                      style="position:relative;text-align: left;width:250px;z-index: 10000;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option disabled :value="0">分类名—标签</Option>
-                <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.text }}
-                </Option>
+              <Select ref="select" :clearable="selects"v-model="form.articletype_id" style="width:200px"
+                      label-in-value  filterable clearable    　@on-change="changeArticletype" >
+                <Option-group  v-for="(item,index) in articletype" :label="index" :key="item">
+                  <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+                </Option-group>
               </Select>
             </Form-item>
             </Col>
@@ -182,6 +180,7 @@
         this.editorText = data
       },
       changeArticletype(value) {
+        console.log(value)
         this.form.articletype_name = value.label
         this.form.articletype_id = value.value
       },

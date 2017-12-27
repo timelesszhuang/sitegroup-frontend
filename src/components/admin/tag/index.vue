@@ -1,16 +1,11 @@
 <template>
-  <div>
-    <div class="top">
-      分类名:
-      <Input v-model="name" placeholder="文章分类名" style="width:300px;"></Input>
+  <div style="margin-left: 10px">
+
+    <div class="top" >
+      标签:
+      <Input v-model="tag" placeholdr="标签" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
-    </div>
-    <div>
-      <br>
-      <Alert type="success">
-        注意：标签用于 在添加栏目的时候 区分分类
-      </Alert>
     </div>
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
@@ -20,43 +15,40 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator show-sizer></Page>
+                show-elevator ></Page>
         </div>
       </div>
     </div>
-    <articleadd ref="add" :tagname="tagname"></articleadd>
-    <articlesave ref="save" :tagname="tagname" :form="editinfo"></articlesave>
+    <tagadd ref="add" ></tagadd>
+    <tagsave ref="save" :form="editinfo"></tagsave>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import articleadd from './add.vue';
-  import articlesave from './save.vue';
-
+  import tagadd from './add.vue';
+  import tagsave from './save.vue';
   export default {
-    data() {
+    data () {
       return {
         self: this,
         border: true,
         stripe: true,
         showheader: true,
-        showIndex: true,
         size: 'small',
         current: 1,
         total: 0,
         page: 1,
         rows: 10,
-        name: '',
+        tag: '',
         datas: [],
         editinfo: {},
-        tagname:[],
+
       }
     },
-    components: {articleadd, articlesave},
-    created() {
-      this.getData();
-      this.gettagtype()
+    components: {tagadd, tagsave},
+    created () {
+//      this.getData();
     },
     methods: {
       getData() {
@@ -64,10 +56,10 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            tag: this.tag
           }
         }
-        this.apiGet('articletype', data).then((data) => {
+        this.apiGet('typetag', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -78,35 +70,24 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      gettagtype() {
-        this.apiGet('typetag?all=1').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.tagname = data
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        })
-      },
-      changePage(page) {
+
+      changePage(page){
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize) {
+      changePageSize(pagesize){
         this.rows = pagesize;
         this.getData();
       },
-      queryData() {
+      queryData(){
         this.getData();
       },
-      add() {
+      add(){
         this.$refs.add.modal = true
       },
-      edit(index) {
+      edit(index){
         let editid = this.datas[index].id
-        this.apiGet('articletype/' + editid).then((res) => {
+        this.apiGet('typetag/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -119,11 +100,39 @@
           this.$Message.error('网络异常，请稍后重试。');
         })
       },
+      remove(index) {
+        //需要删除确认
+        let id = this.datas[index].id
+        let _this = this
+        this.$Modal.confirm({
+          title: '确认删除',
+          content: '您确定删除该记录?',
+          okText: '删除',
+          cancelText: '取消',
+          onOk: (index) => {
+            _this.apiDelete('typetag/', id).then((res) => {
+              _this.handelResponse(res, (data, msg) => {
+                _this.getData()
+                _this.$Message.success(msg);
+              }, (data, msg) => {
+                _this.$Message.error(msg);
+              })
+            }, (res) => {
+              //处理错误信息
+              _this.$Message.error('网络异常，请稍后重试');
+            })
+          },
+          onCancel: () => {
+            return false
+          }
+        })
+      }
     },
     computed: {
-      tableColumns() {
+      tableColumns()
+      {
+        let _this = this;
         let columns = [];
-        let _this = this
         if (this.showCheckbox) {
           columns.push({
             type: 'selection',
@@ -139,28 +148,20 @@
           })
         }
         columns.push({
-          title: '分类名',
-          key: 'name',
-          sortable: true
-        });
-        columns.push({
-          title: '英文名',
-          key: 'alias',
-          sortable: true
-        });
-        columns.push({
-          title: '描述',
-          key: 'detail'
-        });
-        columns.push({
           title: '标签',
-          key: 'tag'
+          key: 'tag',
+          sortable: true
+        });
+        columns.push({
+          title: '创建时间',
+          key: 'create_time',
+          sortable: true
         });
         columns.push(
           {
             title: '操作',
             key: 'action',
-            width: 150,
+            width: 200,
             align: 'center',
             fixed: 'right',
             render(h, params) {
@@ -168,6 +169,9 @@
                 h('Button', {
                   props: {
                     size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
                   },
                   attrs: {
                     type: 'primary'
@@ -178,10 +182,26 @@
                       _this.edit(params.index)
                     }
                   }
-                }, '修改')
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  attrs: {
+                    type: 'error'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.remove(params.index)
+                    }
+                  }
+                }, '删除'),
               ]);
-            }
-
+            },
           }
         );
         return columns;
