@@ -15,11 +15,11 @@
               <Input type="text" v-model="form.question" placeholder="请填写问题"></Input>
             </Form-item>
             <Form-item label="问答分类" prop="articletype_id">
-              <Select   ref="select" :clearable="selects" v-model="form.type_id" style="position:relative;z-index:10000;text-align: left;width:200px;"
-                      label-in-value filterable　@on-change="changeArticletype">
-                <Option v-for="item in questiontype" :value="item.id" :label="item.name" :key="item">
-                  {{ item.name }}
-                </Option>
+              <Select v-model="form.type_id"  ref="select" :clearable="selects" style="width:200px;position: relative;z-index: 10000;"
+                      label-in-value  filterable clearable  placeholder="根据分类查询" @on-change="changeArticletype"  >
+                <Option-group  v-for="(item,index) in questiontype" :label="index" :key="item">
+                  <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+                </Option-group>
               </Select>
             </Form-item>
             <Form-item label="答案" prop="content_paragraph">

@@ -14,6 +14,28 @@
             <Form-item label="英文名" prop="alias">
               <Input type="text"  v-model="form.alias" placeholder="请输入英文名"></Input>
             </Form-item>
+            <Row>
+              <Col span="21">
+              <Form-item v-if="tag_name" label="分类标签" prop="tag_id">
+                <Select ref="select" :clearable="selects" v-model="form.tag_id"
+                        style="position:relative;text-align: left;width:250px;z-index: 10000;"
+                        label-in-value filterable　@on-change="changeTagtype">
+                  <Option v-for="item in tagname" :value="item.id" :label="item.tag" :key="item">
+                    {{ item.tag }}
+                  </Option>
+                </Select>
+              </Form-item>
+              <Form-item label="分类标签" v-if="!tag_name" prop="tag_id">
+                <Input type="text" v-model="form.tag_name" placeholder="请输入标签区分分类"></Input>
+              </Form-item>
+              </Col>
+              <Col span="3">
+              <i-switch  size="large" v-model="switch1" @on-change="change">
+                <span slot="open">选择</span>
+                <span slot="close">填写</span>
+              </i-switch>
+              </Col>
+            </Row>
           </Form>
         </div>
         <div slot="footer">
@@ -30,11 +52,17 @@
   export default {
     data() {
       return {
+        switch1: true,
+        tag_name: true,
+        selects: true,
         modal: false,
         modal_loading: false,
         form: {
           name: "",
-          alias:''
+          tag_id: '',
+          alias: '',
+          tag_name:'',
+
         },
         AddRule: {
           alias: [
@@ -47,6 +75,20 @@
       }
     },
     methods: {
+      change(status) {
+        if (status) {
+          this.tag_name = true
+          this.$Message.info('切换到下拉选择');
+        } else {
+          this.tag_name = false
+          this.$Message.info('切换到添加标签');
+        }
+
+      },
+      changeTagtype(value) {
+        this.form.tag_id = value.value
+      },
+
       add() {
         this.$refs.articleadd.validate((valid) => {
           if(valid){
@@ -59,6 +101,7 @@
                 this.$Message.success(msg);
                 this.modal_loading = false;
                 this.$refs.articleadd.resetFields();
+                this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;
                 this.$Message.error(msg);
@@ -72,6 +115,11 @@
         })
       }
     },
-    mixins: [http]
+    mixins: [http],
+    props: {
+      tagname: {
+        default: []
+      }
+    }
   }
 </script>

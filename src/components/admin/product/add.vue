@@ -38,11 +38,17 @@
               <Input type="text" v-model="form.sn" placeholder="请输入产品编号 （或其他编号）"></Input>
             </Form-item>
             <Form-item label="产品分类" prop="type_name">
-              <Select v-model="type_name" ref="select" :clearable="selects" style="width:200px;"
-                      placeholder="所属产品分类（或其他分类）" label-in-value filterable
-                      clearable @on-change="changePtype">
-                <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
+              <Select ref="select" v-model="type_name" style="width:200px"
+                      label-in-value  filterable clearable    　@on-change="changePtype" >
+                <Option-group  v-for="(item,index) in ptype" :label="index" :key="item">
+                  <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+                </Option-group>
               </Select>
+              <!--<Select v-model="type_name" ref="select" :clearable="selects" style="width:200px;"-->
+                      <!--placeholder="所属产品分类（或其他分类）" label-in-value filterable-->
+                      <!--clearable @on-change="changePtype">-->
+                <!--<Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>-->
+              <!--</Select>-->
             </Form-item>
             <Form-item label="收费方式" prop="payway">
               <Input type="text" v-model="form.payway" placeholder="请输入收费方式（比如××元/户/年）"></Input>

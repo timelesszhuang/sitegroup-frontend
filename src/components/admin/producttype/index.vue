@@ -3,6 +3,13 @@
     <div class="top">
       分类名:
       <Input v-model="name" placeholder="产品分类名" style="width:300px;"></Input>
+      <Select ref="select" v-model="tag_id"  filterable clearable  placeholder="标签名"
+              style="position:relative;text-align: left;width:250px;z-index: 10000;"
+              label-in-value filterable　>
+        <Option v-for="item in tagname" :value="item.id" :label="item.tag" :key="item">
+          {{ item.tag }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -20,8 +27,8 @@
         </div>
       </div>
     </div>
-    <ptypeadd ref="add" ></ptypeadd>
-    <ptypesave ref="save" :form="editinfo"></ptypesave>
+    <ptypeadd ref="add" :tagname="tagname"></ptypeadd>
+    <ptypesave ref="save" :form="editinfo" :tagname="tagname" ></ptypesave>
   </div>
 </template>
 
@@ -46,12 +53,15 @@
         name: '',
         datas: [],
         editinfo: {},
+        tagname:[],
+        tag_id:0,
       }
     },
 
     components: {ptypeadd,ptypesave},
     created() {
 //      this.getData();
+      this.gettagtype()
     },
     methods: {
       getData() {
@@ -59,7 +69,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            name: this.name,
+            tag_id:this.tag_id
           }
         }
         this.apiGet('admin/productType', data).then((data) => {
@@ -71,6 +82,18 @@
           })
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
+        })
+      },
+      gettagtype() {
+        this.apiGet('typetag?all=1').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.tagname = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
         })
       },
       changePage(page) {

@@ -3,6 +3,13 @@
     <div class="top">
       分类名:
       <Input v-model="name" placeholder="文章分类名" style="width:300px;"></Input>
+      <Select ref="select" v-model="tag_id"  filterable clearable  placeholder="标签名"
+              style="position:relative;text-align: left;width:250px;z-index: 10000;"
+              label-in-value filterable　>
+        <Option v-for="item in tagname" :value="item.id" :label="item.tag" :key="item">
+          {{ item.tag }}
+        </Option>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -51,6 +58,7 @@
         datas: [],
         editinfo: {},
         tagname:[],
+        tag_id:0,
       }
     },
     components: {articleadd, articlesave},
@@ -64,7 +72,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            name: this.name
+            name: this.name,
+            tag_id:this.tag_id
           }
         }
         this.apiGet('articletype', data).then((data) => {

@@ -3,8 +3,11 @@
     <div class="top">
       分类名:
       <Input v-model="name" placeholder="产品名" style="width:300px;"></Input>
-      <Select v-model="type_id" style="width:200px;" placeholder="根据分类查询" label-in-value filterable clearable>
-        <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
+      <Select v-model="type_id" style="width:200px"
+              label-in-value  filterable clearable  placeholder="根据分类查询"  >
+        <Option-group  v-for="(item,index) in ptype" :label="index" :key="item">
+          <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+        </Option-group>
       </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
