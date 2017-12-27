@@ -43,7 +43,20 @@
         rows: 10,
         detail: '',
         datas: [],
-        editinfo: {}
+        editinfo: {
+          detail: '',
+          name:'',
+          html:{
+            zipcode: '',
+            fax: '',
+            telephone:'',
+            weixin:'',
+            email:'',
+            mobile:'',
+            four00:'',
+            qq:'',
+          },
+        }
       }
     },
     components: {contactwayadd, contactwaysave},
@@ -148,6 +161,11 @@
         columns.push({
           title: '描述',
           key: 'detail',
+          sortable: true
+        });
+        columns.push({
+          title: '配置',
+          key: 'name',
           sortable: true
         });
         columns.push(

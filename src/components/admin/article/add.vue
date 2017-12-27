@@ -28,13 +28,6 @@
             </Col>
           </Row>
           <Row>
-            <Col span="8">
-            <Form-item label="简略标题">
-
-            </Form-item>
-            </Col>
-          </Row>
-          <Row>
             <Col span="12">
             <Form-item label="来源" prop="come_from">
               <Input type="text" v-model="form.come_from" placeholder="请输入来源" style="width: 200px;"></Input>

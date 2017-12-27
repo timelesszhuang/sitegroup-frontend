@@ -227,9 +227,6 @@
           template_id: [
             {required: true, validator: checktemptype, trigger: 'blur'},
           ],
-          support_hotline: [
-            {required: true, validator: checkhotlinetype, trigger: 'blur'},
-          ],
           site_type: [
             {required: true, validator: checksitetype, trigger: 'blur'},
           ],
