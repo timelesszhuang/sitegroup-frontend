@@ -279,12 +279,12 @@
             align: 'center'
           })
         }
-        columns.push({
-          title: 'ID',
-          key: 'id',
-          width: 60,
-          align: 'center'
-        })
+        // columns.push({
+        //   title: 'ID',
+        //   key: 'id',
+        //   width: 60,
+        //   align: 'center'
+        // })
         columns.push({
           title: '标题',
           sortable: true,
