@@ -14,7 +14,7 @@
         <el-table-column
           prop="name"
           label="文件名称"
-          width="180">
+          width="250">
         </el-table-column>
         <el-table-column
           prop="size"
