@@ -18,10 +18,11 @@
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="文章分类" prop="type_id">
-            <Select  v-model="form.type_id"  style="text-align: left;width:250px;" multiple>
-              <Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">
-                {{ item.text }}
-              </Option>
+            <Select ref="select" :clearable="selects"v-model="form.type_id" style="width:200px"
+                    multiple    >
+              <Option-group  v-for="(item,index) in articletype" :label="index" :key="item">
+                <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+              </Option-group>
             </Select>
           </Form-item>
           <Form-item label="分类" prop="tag_name">

@@ -20,7 +20,7 @@
     </div>
     <div class="menutree">
       <Collapse accordion>
-        <Panel :name="item.name" v-for="item in data" :key="item.id">
+        <Panel :name="item.generate_name" v-for="item in data" :key="item.id">
           {{item.name}}
           <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
           <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{item.flag_name}}</span>
@@ -32,7 +32,7 @@
                   icon="ivu-icon ivu-icon-ionic" size="small"></Button>
           <div slot="content">
             <Collapse v-if="item.child" accordion>
-              <Panel :name="childitem.name" v-for="childitem in item.child" :key="childitem.id">
+              <Panel :name="childitem.generate_name" v-for="childitem in item.child" :key="childitem.id">
                 {{childitem.name}}
                 <Icon v-if="childitem.child" title="包含子菜单" type="arrow-down-c"
                       style="color: rgba(7,208,211,0.76)"></Icon>
@@ -45,7 +45,7 @@
                         icon="ivu-icon ivu-icon-ionic" size="small"></Button>
                 <div slot="content">
                   <Collapse v-if="childitem.child" accordion>
-                    <Panel :name="child1item.name" v-for="child1item in childitem.child" :key="child1item.id">
+                    <Panel :name="child1item.generate_name" v-for="child1item in childitem.child" :key="child1item.id">
                       {{child1item.name}}
                       <span title="类型"
                             style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}</span>
@@ -78,8 +78,6 @@
     <articlesave ref="savearticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"
                  :form="editinfo"></articlesave>
     <articleadd ref="addarticle" :navtype="navtype" :pidtype="pidtype" :articletype="articletypelist"></articleadd>
-    <titleadd ref="addtitle" :navtype="navtype" :articletype="articletypelist"></titleadd>
-    <titlesave ref="savetitle" :navtype="navtype" :articletype="articletypelist" :form="editinfo"></titlesave>
     <sort ref="sort" :form="info"></sort>
   </div>
 </template>
@@ -89,11 +87,9 @@
   import detailadd from './adddetails.vue';
   import questionadd from './addquestion.vue';
   import articleadd from './addarticle.vue';
-  import titleadd from './addtitle.vue';
   import detailssave from './savedetails.vue';
   import questionsave from './savequestion.vue';
   import articlesave from './savearticle.vue';
-  import titlesave from './savetitle.vue';
   import productadd from './addproduct.vue';
   import productsave from './saveproduct.vue';
   import sort from './sort.vue';
@@ -145,11 +141,9 @@
       detailadd,
       questionadd,
       articleadd,
-      titleadd,
       detailssave,
       questionsave,
       articlesave,
-      titlesave,
       sort,
     },
     created() {
