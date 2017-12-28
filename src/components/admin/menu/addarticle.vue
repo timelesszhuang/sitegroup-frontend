@@ -19,7 +19,7 @@
             </Form-item>
             <Form-item label="文章分类" prop="type_id">
 
-              <Select ref="select" :clearable="selects"v-model="form.type_id" style="width:200px"
+              <Select ref="select" :clearable="selects"v-model="form.type_id" style="width:200px;position: relative;z-index: 10000"
                       multiple    >
                 <Option-group  v-for="(item,index) in articletype" :label="index" :key="item">
                   <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>

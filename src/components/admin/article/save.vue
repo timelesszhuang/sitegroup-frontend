@@ -67,7 +67,7 @@
             <Col span="12">
 
             <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select" :clearable="selects"v-model="form.articletype_id" style="width:200px"
+              <Select ref="select" :clearable="selects"v-model="form.articletype_id" style="width:200px;position: relative;z-index: 10000"
                       label-in-value    filterable clearable   　@on-change="changeArticletype" >
                 <Option-group  v-for="(item,index) in articletype" :label="index" :key="item">
                   <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
