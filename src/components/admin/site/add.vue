@@ -46,7 +46,7 @@
               </Radio-group>
             </Form-item>
             <Form-item label="手机网站" prop="m_site_id">
-              <Select  clearable v-model="form.m_site_id" style="text-align: left;width:200px;"
+              <Select clearable v-model="form.m_site_id" style="text-align: left;width:200px;"
                       label-in-value filterable>
                 <Option v-for="item in mobileSite" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
@@ -90,7 +90,7 @@
             </Form-item>
             <Form-item label="网站分类" prop="site_type">
               <Select v-model="form.site_type" style="text-align: left;width:200px;"
-                      label-in-value filterable on-blur=""　@on-change="changeSitetype">
+                      label-in-value filterable on-blur="" 　@on-change="changeSitetype">
                 <Option v-for="item in sitetype" :value="item.id" :label="item.text" :key="item">
                   {{ item.text }}
                 </Option>
@@ -112,7 +112,7 @@
               </Select>
             </Form-item>
             <Form-item label="url" prop="url">
-                <Input v-model="form.url" placeholder="请输入url"></Input>
+              <Input v-model="form.url" placeholder="请输入url"></Input>
             </Form-item>
             <Form-item label="公共代码" prop="public_code">
               <Select v-model="form.public_code" multiple style="text-align: left;width:200px;">
@@ -148,21 +148,22 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       const checkmenutype = (rule, value, callback) => {
-        if (value=="") {
+        if (value == "") {
           callback(new Error('请选择栏目分类'));
         } else {
           callback();
         }
       };
       const checkkeyword = (rule, value, callback) => {
-        if (value=="") {
+        if (value == "") {
           callback(new Error('请选择关键词'));
-        } else if(value.length>5){
+        } else if (value.length > 5) {
           callback(new Error('关键词不能超过5个'));
-        }else {
+        } else {
           callback();
         }
       };
@@ -207,24 +208,24 @@
         modal: false,
         modal_loading: false,
         form: {
-          com_name:"",
+          com_name: "",
           site_name: "",
           menu: [],
-          template_id:"",
-          support_hotline:"",
-          site_type:"",
-          domain_id:"",
-          before_header_jscode:"",
-          other_jscode:"",
-          keyword_ids:[],
-          link_id:[],
-          public_code:[],
-          user_id:"",
-          url:'',
-          is_mobile:10,
-          m_site_id:0,
-          walterString:'',
-          sitelogo_id:0
+          template_id: "",
+          support_hotline: "",
+          site_type: "",
+          domain_id: "",
+          before_header_jscode: "",
+          other_jscode: "",
+          keyword_ids: [],
+          link_id: [],
+          public_code: [],
+          user_id: "",
+          url: '',
+          is_mobile: 10,
+          m_site_id: 0,
+          walterString: '',
+          sitelogo_id: 0
         },
         AddRule: {
           site_name: [
@@ -234,24 +235,24 @@
             {required: true, message: '请输入公司名', trigger: 'blur'},
           ],
           menu: [
-            {required: true,validator: checkmenutype, trigger: 'blur'},
+            {required: true, validator: checkmenutype, trigger: 'blur'},
           ],
           template_id: [
-            {required: true,validator: checktemptype, trigger: 'blur'},
+            {required: true, validator: checktemptype, trigger: 'blur'},
           ],
           site_type: [
-            {required: true,validator: checksitetype, trigger: 'blur'},
+            {required: true, validator: checksitetype, trigger: 'blur'},
           ],
           domain_id: [
-            {required: true,validator: checkdomain, trigger: 'blur'},
+            {required: true, validator: checkdomain, trigger: 'blur'},
           ],
           user_id: [
-            {required: true,validator: checkuser, trigger: 'blur'},
+            {required: true, validator: checkuser, trigger: 'blur'},
           ],
-          keyword_ids:[
-            {required: true,validator: checkkeyword, trigger: 'blur'},
+          keyword_ids: [
+            {required: true, validator: checkkeyword, trigger: 'blur'},
           ],
-          url:[
+          url: [
             {required: true, message: '请输入url', trigger: 'blue'}
           ]
         }
@@ -263,13 +264,13 @@
           return this.$refs.myTextEditor.quillEditor
         }
       },
-      changeLink(){
+      changeLink() {
 
       },
-      changeLogo(value){
+      changeLogo(value) {
         this.form.sitelogo_id = value.value
       },
-      changeUser(value){
+      changeUser(value) {
         this.form.user_name = value.label
         this.form.user_id = value.value
       },
@@ -291,8 +292,8 @@
         this.$refs.site.validate((valid) => {
           if (valid) {
             this.modal_loading = true;
-            if(!this.form.walterString){
-              this.form.walterString=this.form.site_name
+            if (!this.form.walterString) {
+              this.form.walterString = ''
             }
             let data = this.form;
             this.apiPost('site', data).then((res) => {
@@ -304,7 +305,7 @@
                 this.$refs.site.resetFields();
               }, (data, msg) => {
                 this.modal_loading = false;
-                this.$Message.error(msg,5);
+                this.$Message.error(msg, 5);
               })
             }, (res) => {
               //处理错误信息
@@ -314,57 +315,56 @@
           }
         })
       }
-  }
-  ,
-  mixins: [http],
-    props
-  :
-  {
-    code: {
-      default:[]
-    },
-    menutype: {
-    default:
-      []
     }
-  ,
-    temptype: {
-    default:
-      []
-    }
-  ,
-    sitetype: {
-    default:
-      []
-    }
-  ,
-    hotline: {
-    default:
-      []
-    }
-  ,
-    domainlist:{
-    default:
-      []
-    },
-    userlist:{
-      default:
-        []
-    },
-    keyword:{
-      default:
-        []
-    },
-    link:{
-      default:
-        []
-    },
-    logodata:{
-      default:
-        []
-    },
-    mobileSite:
-      {}
-   }
+    ,
+    mixins: [http],
+    props:
+      {
+        code: {
+          default: []
+        },
+        menutype: {
+          default:
+            []
+        }
+        ,
+        temptype: {
+          default:
+            []
+        }
+        ,
+        sitetype: {
+          default:
+            []
+        }
+        ,
+        hotline: {
+          default:
+            []
+        }
+        ,
+        domainlist: {
+          default:
+            []
+        },
+        userlist: {
+          default:
+            []
+        },
+        keyword: {
+          default:
+            []
+        },
+        link: {
+          default:
+            []
+        },
+        logodata: {
+          default:
+            []
+        },
+        mobileSite:
+          {}
+      }
   }
 </script>
