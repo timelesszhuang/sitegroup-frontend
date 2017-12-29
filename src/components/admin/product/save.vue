@@ -42,7 +42,7 @@
                       <!--clearable @on-change="changePtype">-->
                 <!--<Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>-->
               <!--</Select>-->
-              <Select ref="select" v-model="form.type_id" style="width:200px"
+              <Select ref="select" v-model="form.type_id" style="width:200px;position: relative;z-index: 10000"
                       label-in-value  filterable clearable    　@on-change="changePtype" >
                 <Option-group  v-for="(item,index) in ptype" :label="index" :key="item">
                   <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>

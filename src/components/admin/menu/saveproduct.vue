@@ -18,8 +18,11 @@
             <Input type="text" v-model="form.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="产品分类" prop="type_id">
-            <Select v-model="form.type_id" style="width:200px;" placeholder="根据分类查询" multiple>
-              <Option v-for="item in ptype" :value="item.id" :key="item">{{ item.text }}</Option>
+            <Select ref="select" v-model="form.type_id" style="width:200px"
+                    multiple   >
+              <Option-group  v-for="(item,index) in ptype" :label="index" :key="item">
+                <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+              </Option-group>
             </Select>
           </Form-item>
           <Form-item label="分类" prop="tag_name">

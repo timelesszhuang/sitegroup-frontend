@@ -18,7 +18,7 @@
             <Input type="text" v-model="detail.title" placeholder="请填写栏目的详情"></Input>
           </Form-item>
           <Form-item label="分类" prop="tag_name">
-            <Select v-model="detail.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10000"
+            <Select v-model="detail.tag_id" style="text-align: left;width:200px;position: relative;z-index: 10002"
                     label-in-value 　@on-change="changeNavtype">
               <Option v-for="item in navtype" :value="item.id" :label="item.text" :key="item">
                 {{ item.text }}

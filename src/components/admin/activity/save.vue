@@ -34,6 +34,29 @@
                 </div>
               </div>
             </Form-item>
+            <Form-item label="小活动图" prop="smalloss_img_src">
+              <Upload
+                type="select"
+                ref="upImage"
+                with-credentials
+                name="file"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getRes"
+                :on-error="getError"
+                :on-format-error="formatErr"
+                :action="action"
+                style="text-align:left;">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传活动图</Button>
+              </Upload>
+              <div v-if="imgshowimage" style="display: inline-block;width: 100%">
+                <div style="margin:0px auto;width: 300px">
+                  <img style="max-width: 300px;" :src=path() alt="小图">
+                </div>
+              </div>
+            </Form-item>
+            <Form-item label="英文名" prop="en_name">
+              <Input type="text" v-model="form.en_name" placeholder="请输入英文名"></Input>
+            </Form-item>
             <Form-item label="活动描述" prop="activity_summary">
               <editor @change="updateData2" :content="form.activity_summary" :height="100" :auto-height="false"></editor>
             </Form-item>
@@ -86,11 +109,20 @@
           return true;
         }
         return false;
+      } ,
+      imgshowimage: function () {
+        if (this.form.smalloss_img_src) {
+          return true;
+        }
+        return false;
       }
     },
     methods: {
       imgpath() {
         return this.form.oss_img_src;
+      },
+      path() {
+        return this.form.smalloss_img_src;
       },
       updateData(data) {
         this.form.content = data
@@ -101,7 +133,6 @@
       updateData3(data) {
         this.form.rule = data
       },
-
 
       //缩略图上传回调
       getResponse(response, file, filelist) {
@@ -120,6 +151,25 @@
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
+      formatErr() {
+        this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
+      },
+      getRes(response, file, filelist) {
+        this.form.smalloss_img_src = response.url;
+        if (response.status) {
+          this.$Message.success(response.msg);
+          this.path();
+          this.imgshowimage = true
+          this.$refs.upImage.clearFiles();
+        } else {
+          this.$Message.error(response.msg);
+        }
+        this.$refs.upImage.clearFiles()
+      },
+      getError(error, file, filelist) {
+        this.$Message.error(error);
+      },
+
 
       save() {
         this.$refs.psave.validate((valid) => {
