@@ -135,6 +135,24 @@
               </span>
             </Menu-item>
           </Submenu>
+          <Submenu name="1">
+            <template slot="title">
+              <Icon type="ios-navigate"></Icon>
+              <span class="parent-menu-title">站点关键词</span>
+            </template>
+            <Menu-item name="关键词管理">
+              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">
+                <Icon type="key"></Icon>
+                关键词管理
+              </span>
+            </Menu-item>
+            <Menu-item name="关键词推荐与追踪">
+              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
+                <Icon type="ios-list-outline"></Icon>
+                关键词推荐与追踪
+              </span>
+            </Menu-item>
+          </Submenu>
           <Submenu name="5">
             <template slot="title">
               <span class="parent-menu-title">
@@ -165,24 +183,6 @@
               <span class="layout-text" @click="routerChange('/admin/siteuser','用户管理')">
                 <Icon type="person"></Icon>
                 用户管理
-              </span>
-            </Menu-item>
-          </Submenu>
-          <Submenu name="1">
-            <template slot="title">
-              <Icon type="ios-navigate"></Icon>
-              <span class="parent-menu-title">站点关键词</span>
-            </template>
-            <Menu-item name="关键词管理">
-              <span class="layout-text" @click="routerChange('/admin/keyword','关键词管理')">
-                <Icon type="key"></Icon>
-                关键词管理
-              </span>
-            </Menu-item>
-            <Menu-item name="关键词推荐与追踪">
-              <span class="layout-text" @click="routerChange('/admin/trackrecommendkeyword','关键词推荐与追踪')">
-                <Icon type="ios-list-outline"></Icon>
-                关键词推荐与追踪
               </span>
             </Menu-item>
           </Submenu>
