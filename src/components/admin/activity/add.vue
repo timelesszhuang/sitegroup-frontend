@@ -14,7 +14,7 @@
             <Form-item label="标题" prop="title">
               <Input type="text" v-model="form.title" placeholder="请输入活动标题"></Input>
             </Form-item>
-            <Form-item label="活动图" prop="oss_img_src">
+            <Form-item label="大活动图" prop="oss_img_src">
               <Upload
                 type="select"
                 ref="upImg"
@@ -33,6 +33,29 @@
                   <img style="max-width: 300px;" :src=imgpath() alt="">
                 </div>
               </div>
+            </Form-item>
+            <Form-item label="小活动图" prop="smalloss_img_src">
+              <Upload
+                type="select"
+                ref="upImage"
+                with-credentials
+                name="file"
+                :format="['jpg','jpeg','png','gif']"
+                :on-success="getRes"
+                :on-error="getError"
+                :on-format-error="formatErr"
+                :action="action"
+                style="text-align:left;">
+                <Button type="ghost" icon="ios-cloud-upload-outline">上传活动图</Button>
+              </Upload>
+              <div v-if="imgshowimage" style="display: inline-block;width: 100%">
+                <div style="margin:0px auto;width: 300px">
+                  <img style="max-width: 300px;" :src=path() alt="">
+                </div>
+              </div>
+            </Form-item>
+            <Form-item label="英文名" prop="en_name">
+              <Input type="text" v-model="form.en_name" placeholder="请输入英文名"></Input>
             </Form-item>
             <Form-item label="活动描述" prop="activity_summary">
               <editor @change="updateData2" :content="form.activity_summary" :height="100"
@@ -75,6 +98,7 @@
         modal_loading: false,
         action: HOST + 'admin/uploadactivity',
         imgshow: false,
+        imgshowimage: false,
         value1: 0,
         selects: true,
         form: {
@@ -84,7 +108,9 @@
           title: '',
           content: '',
           rule: "",
-          activity_summary: ''
+          en_name:'',
+          activity_summary: '',
+          smalloss_img_src:''
         },
         AddRule: {
           title: [
@@ -96,12 +122,18 @@
           content: [
             {required: true, message: '请输入活动详情', trigger: 'blur'},
           ],
+          en_name:[
+            {required: true, message: '请输入英文名', trigger: 'blur'},
+          ],
         }
       }
     },
     methods: {
       imgpath() {
         return this.form.oss_img_src;
+      },
+      path() {
+        return this.form.smalloss_img_src;
       },
       updateData(data) {
         this.form.content = data
@@ -126,6 +158,24 @@
         this.$refs.upImg.clearFiles()
       },
       getErrorInfo(error, file, filelist) {
+        this.$Message.error(error);
+      },
+      formatErr() {
+        this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
+      },
+      getRes(response, file, filelist) {
+        this.form.smalloss_img_src = response.url;
+        if (response.status) {
+          this.$Message.success(response.msg);
+          this.path();
+          this.imgshowimage = true
+          this.$refs.upImage.clearFiles();
+        } else {
+          this.$Message.error(response.msg);
+        }
+        this.$refs.upImage.clearFiles()
+      },
+      getError(error, file, filelist) {
         this.$Message.error(error);
       },
       formatError() {
