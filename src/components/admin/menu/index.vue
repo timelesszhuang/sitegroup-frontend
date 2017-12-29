@@ -47,8 +47,8 @@
                   <Collapse v-if="childitem.child" accordion>
                     <Panel :name="child1item.generate_name" v-for="child1item in childitem.child" :key="child1item.id">
                       {{child1item.name}}
-                      <span title="类型"
-                            style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}</span>
+                      <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}
+                      </span>
                       <span title="栏目分类" style="display:inline-block;width: 8%">{{child1item.tag_name}}</span>
                       <span title="英文名" style="display:inline-block;width: 8%">{{child1item.generate_name}}</span>
                       <Button style="position: absolute;right:50px;top: 10px" @click="edit(child1item.id)"

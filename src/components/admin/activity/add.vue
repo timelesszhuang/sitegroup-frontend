@@ -72,7 +72,8 @@
             </Form-item>
             <Form-item label="页面描述" prop="summary">
               <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.summary"
-                     placeholder="请输入页面描述"></Input>
+                     placeholder="请输入页面描述">
+              </Input>
             </Form-item>
           </Form>
           <Alert type="success" show-icon>
@@ -108,9 +109,9 @@
           title: '',
           content: '',
           rule: "",
-          en_name:'',
+          en_name: '',
           activity_summary: '',
-          smalloss_img_src:''
+          smalloss_img_src: ''
         },
         AddRule: {
           title: [
@@ -122,8 +123,14 @@
           content: [
             {required: true, message: '请输入活动详情', trigger: 'blur'},
           ],
-          en_name:[
+          en_name: [
             {required: true, message: '请输入英文名', trigger: 'blur'},
+          ],
+          keywords: [
+            {required: true, message: '请输入页面关键词', trigger: 'blur'},
+          ],
+          summary: [
+            {required: true, message: '请输入页面描述', trigger: 'blur'},
           ],
         }
       }
