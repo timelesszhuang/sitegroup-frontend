@@ -16,8 +16,8 @@
               <Input type="text" v-model="form.title" placeholder="请输入标题"></Input>
             </Form-item>
             </Col>
-            <Col span="5" >
-            <ColorPicker v-model="form.title_color" />
+            <Col span="5">
+            <ColorPicker v-model="form.title_color"/>
             </Col>
           </Row>
           <Row>
@@ -64,10 +64,12 @@
           <Row>
             <Col span="12">
             <Form-item label="文章分类" prop="articletype_id">
-              <Select ref="select" :clearable="selects"v-model="form.articletype_id" style="width:200px;position: relative;z-index: 10000"
-                      label-in-value  filterable clearable    　@on-change="changeArticletype" >
-                <Option-group  v-for="(item,index) in articletype" :label="index" :key="item">
-                  <Option v-for="items in item"  :value="items.id" :label="items.name" :key="index">{{ items.name }}</Option>
+              <Select ref="select" :clearable="selects" v-model="form.articletype_id"
+                      style="width:200px;position: relative;z-index: 10000"
+                      label-in-value filterable clearable 　@on-change="changeArticletype">
+                <Option-group v-for="(item,index) in articletype" :label="index" :key="item">
+                  <Option v-for="items in item" :value="items.id" :label="items.name" :key="index">{{ items.name }}
+                  </Option>
                 </Option-group>
               </Select>
             </Form-item>
@@ -89,6 +91,30 @@
             <Form-item label="页面关键词" prop="keywords">
               <Input type="text" v-model="form.keywords" placeholder="请输入页面关键词(请用英文符号,分割)"></Input>
             </Form-item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="21">
+            <Form-item v-if="tag_name" label="分类标签" prop="tag_id">
+              <Select ref="select" :clearable="selects" v-model="tag_id"
+                      style="position:relative;text-align: left;width:350px;z-index: 10000;"
+                      label-in-value multiple　>
+                <Option v-for="(item,index) in tagname" :value="index" :label="item" :key="index">
+           {{item}}
+                </Option>
+
+              </Select>
+            </Form-item>
+            <Form-item label="分类标签" v-if="!tag_name" prop="tag_id">
+              <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
+              <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
+            </Form-item>
+            </Col>
+            <Col span="3">
+            <i-switch size="large" v-model="switch1" @on-change="change">
+              <span slot="open">选择</span>
+              <span slot="close">填写</span>
+            </i-switch>
             </Col>
           </Row>
         </Form>
@@ -116,11 +142,14 @@
         }
       };
       return {
+        tag_id:[],
+        switch1: true,
         action: HOST + 'admin/uploadarticleimage',
         modal: false,
         imgshow: true,
         modal_loading: false,
         editor_id: '',
+        tag_name: true,
         form: {
           summary: '',
           thumbnails: '',
@@ -134,6 +163,8 @@
           articletype_name: '',
           content: '',
           title_color: '',
+          tag_id: [],
+          tags: ''
         },
         selects: true,
         AddRule: {
@@ -153,8 +184,43 @@
       }
     },
     methods: {
+      change(status) {
+        if (status) {
+          this.tag_name = true
+          this.$Message.info('切换到下拉选择');
+        } else {
+          this.tag_name = false
+          this.$Message.info('切换到添加标签');
+        }
+
+      },
+      changeTagtype(value) {
+        this.form.tag_id = value.value
+      },
       imgpath() {
         return this.form.thumbnails;
+      },
+      addtags() {
+        let data = {
+          type: "article",
+          name:this.form.tags
+        }
+        this.apiPost('admin/tags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            let tempN = [];
+            tempN.push(data.id)
+            this.tag_id = tempN
+            console.log(tempN)
+            this.$parent.gettag();
+            this.$Message.success(msg);
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       //缩略图上传回调
       getResponse(response, file, filelist) {
@@ -172,6 +238,7 @@
       getErrorInfo(error, file, filelist) {
         this.$Message.error(error);
       },
+
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
@@ -216,6 +283,9 @@
     props: {
       articletype: {
         default: []
+      },
+      tagname: {
+        default: {}
       }
     }
   }
