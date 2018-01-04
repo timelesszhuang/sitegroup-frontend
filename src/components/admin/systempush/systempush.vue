@@ -8,25 +8,26 @@
         <div style="float: right;">
           <Page :total="total" :current="current" @on-change="changePage" @on-page-size-change="changePageSize"
                 show-total
-                show-elevator ></Page>
+                show-elevator></Page>
         </div>
       </div>
       <Alert type="error">点击查看信息</Alert>
     </div>
-    <Modal  v-model="systemMessage" width="900" title="信息">
+    <Modal v-model="systemMessage" width="900" title="信息">
       <div style="width:auto;margin: 0 auto;font-size: 20px;text-align: center"> {{title}}</div>
-      <div v-html="content"style="font-size: 20px;padding:10px;min-height: 300px">
+      <div v-html="content" style="font-size: 20px;padding:10px;min-height: 300px">
 
 
       </div>
 
     </Modal>
-</div>
+  </div>
 
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+
   export default {
     data() {
       return {
@@ -51,14 +52,14 @@
       this.getData();
     },
     methods: {
-      showMessage(row){
+      showMessage(row) {
         this.systemMessage = true
         this.title = row.title;
         this.content = row.content
         this.changeSta(row.id)
       },
-      changeSta(id){
-        this.apiGet('admin/systemNotice/'+id).then((data) => {
+      changeSta(id) {
+        this.apiGet('admin/systemNotice/' + id).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.getData();
           }, (data, msg) => {
@@ -68,11 +69,11 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
-      changePage(page){
+      changePage(page) {
         this.page = page;
         this.getData();
       },
-      changePageSize(pagesize){
+      changePageSize(pagesize) {
         this.rows = pagesize;
         this.getData();
       },
@@ -96,8 +97,7 @@
       },
     },
     computed: {
-      tableColumns()
-      {
+      tableColumns() {
         let columns = [];
         if (this.showCheckbox) {
           columns.push({
@@ -121,11 +121,11 @@
         columns.push({
           title: '状态',
           align: 'center',
-          render(row,index){
-            if(!row.readid){
+          render(row, index) {
+            if (!row.readid) {
               var type = "未查看";
               return type;
-            }else{
+            } else {
               var type = "已查看";
               return type;
             }
@@ -145,9 +145,23 @@
             width: 150,
             align: 'center',
             fixed: 'right',
-            render (row, column, index) {
-              return `<i-button type="primary" size="small" @on-row-click="showMessage">查看</i-button>
-         `;
+            render(h, params) {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    size: 'small'
+                  },
+                  attrs: {
+                    type: 'default'
+                  },
+                  on: {
+                    click: function () {
+                      //不知道为什么这个地方不是我需要的this
+                      _this.showMessage(params.row)
+                    }
+                  }
+                }, '查看')
+              ]);
             }
           }
         );
