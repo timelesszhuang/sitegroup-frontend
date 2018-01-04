@@ -244,7 +244,7 @@
       }
     },
     methods: {
-      changeLogo(value){
+      changeLogo(value) {
         this.form.sitelogo_id = value.value
       },
       changeMenutype(value) {
@@ -277,7 +277,7 @@
           if (valid) {
             this.modal_loading = true;
             if (!this.form.walterString) {
-              this.form.walterString = this.form.site_name
+              this.form.walterString = ''
             }
             let data = this.form;
             let id = data.id;
@@ -336,7 +336,7 @@
         default:
           []
       },
-      logodata:{
+      logodata: {
         default:
           []
       },

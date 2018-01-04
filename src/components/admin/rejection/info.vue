@@ -4,12 +4,20 @@
       <Icon type="flag"></Icon>
       <span>线索信息</span>
     </p>
-    <div class="content">
-      <div class="column">{{field1}}</div>
-      <div class="column">{{field2}}</div>
-      <div class="column">{{field3}}</div>
-      <div class="column">{{field4}}</div>
-    </div>
+    <table style="text-align: left; margin: 0 auto">
+      <tr>
+        <td>{{field1}}</td>
+      </tr>
+      <tr>
+        <td>{{field2}}</td>
+      </tr>
+      <tr>
+        <td>{{field3}}</td>
+      </tr>
+      <tr>
+        <td>{{field4}}</td>
+      </tr>
+    </table>
     <div slot="footer">
     </div>
   </Modal>

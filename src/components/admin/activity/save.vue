@@ -58,7 +58,8 @@
               <Input type="text" v-model="form.en_name" placeholder="请输入英文名"></Input>
             </Form-item>
             <Form-item label="活动描述" prop="activity_summary">
-              <editor @change="updateData2" :content="form.activity_summary" :height="100" :auto-height="false"></editor>
+              <editor @change="updateData2" :content="form.activity_summary" :height="100"
+                      :auto-height="false"></editor>
             </Form-item>
             <Form-item label="活动规则" prop="rule">
               <editor @change="updateData3" :content="form.rule" :height="100" :auto-height="false"></editor>
@@ -96,7 +97,24 @@
         action: HOST + 'admin/uploadactivity',
         value1: 0,
         AddRule: {
-
+          title: [
+            {required: true, message: '请输入活动名称', trigger: 'blur'},
+          ],
+          oss_img_src: [
+            {required: true, message: '请上传活动图', trigger: 'blur'},
+          ],
+          content: [
+            {required: true, message: '请输入活动详情', trigger: 'blur'},
+          ],
+          en_name: [
+            {required: true, message: '请输入英文名', trigger: 'blur'},
+          ],
+          keywords: [
+            {required: true, message: '请输入页面关键词', trigger: 'blur'},
+          ],
+          summary: [
+            {required: true, message: '请输入页面描述', trigger: 'blur'},
+          ],
         }
       }
     },
@@ -109,7 +127,7 @@
           return true;
         }
         return false;
-      } ,
+      },
       imgshowimage: function () {
         if (this.form.smalloss_img_src) {
           return true;
@@ -199,9 +217,7 @@
     },
     props: {
       form: {
-        default: {
-
-        }
+        default: {}
       },
     },
     mixins: [http],
