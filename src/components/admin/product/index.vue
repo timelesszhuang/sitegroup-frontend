@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <padd ref="add" :ptype="ptype"></padd>
-    <psave ref="save" :ptype="ptype" :form="editinfo"></psave>
+    <padd ref="add"  :tagname="tagname" :ptype="ptype"></padd>
+    <psave ref="save"  :tagname="tagname" :ptype="ptype" :form="editinfo"></psave>
     <editimg ref="editimg" :form="imginfo"></editimg>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
@@ -62,13 +62,15 @@
         imginfo: {},
         ptype: [],
         type_id: '',
-        showhtmldata: []
+        showhtmldata: [],
+        tagname:{},
       }
     },
     components: {padd, psave, editimg, showhtml},
     created() {
       this.getData();
-      this.getproducttype()
+      this.getproducttype();
+      this.gettag();
     },
     methods: {
       getData() {
@@ -89,6 +91,24 @@
           })
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
+        })
+      },
+      gettag() {
+        let data = {
+          type: "product",
+        }
+        this.apiPost('admin/gettags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.tagname = data
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
         })
       },
       changePage(page) {
@@ -143,6 +163,14 @@
         this.apiGet('admin/product/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
+            let tempNUmber = [];
+            if (this.editinfo.tags !== "") {
+              this.editinfo.tags.split(",").map(function (key) {
+                tempNUmber.push(key)
+              })
+            }
+            this.editinfo.tag_id = tempNUmber
+            this.editinfo.tags = ''
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {

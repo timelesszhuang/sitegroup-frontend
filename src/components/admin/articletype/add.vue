@@ -98,6 +98,7 @@
 
       },
       changeTagtype(value) {
+        console.log(value)
         this.form.tag_id = value.value
       },
 

@@ -26,8 +26,8 @@
         </div>
       </div>
     </div>
-    <questionadd ref="add" :questiontype="questiontypelist"></questionadd>
-    <questionsave ref="save" :form="editinfo" :questiontype="questiontypelist"></questionsave>
+    <questionadd ref="add"  :tagname="tagname" :questiontype="questiontypelist"></questionadd>
+    <questionsave ref="save"  :tagname="tagname" :form="editinfo" :questiontype="questiontypelist"></questionsave>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
   </div>
 
@@ -58,7 +58,8 @@
         datas: [],
         editinfo: {},
         questiontypelist: [],
-        showhtmldata: []
+        showhtmldata: [],
+        tagname:{},
       }
     },
     components: {questionadd, questionsave, showhtml},
@@ -68,10 +69,29 @@
         this.questiontypelist = data
       });
       this.getData();
+      this.gettag();
     },
     methods: {
       setQuestionTypelist(data) {
         this.questiontypelist = data
+      },
+      gettag() {
+        let data = {
+          type: "product",
+        }
+        this.apiPost('admin/gettags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.tagname = data
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
+        })
       },
       getData() {
         let data = {
@@ -120,6 +140,15 @@
             delete  data.create_time;
             delete  data.update_time;
             this.editinfo = data
+            this.editinfo = data
+            let tempNUmber = [];
+            if (this.editinfo.tags !== "") {
+              this.editinfo.tags.split(",").map(function (key) {
+                tempNUmber.push(key)
+              })
+            }
+            this.editinfo.tag_id = tempNUmber
+            this.editinfo.tags = ''
             this.modal = false;
             this.$refs.save.clearQuestionType
             this.$refs.save.modal = true

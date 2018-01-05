@@ -32,7 +32,32 @@
             <Form-item label="页面描述" prop="description">
               <Input v-model="form.description" :rows="3" type="textarea" placeholder="请输入页面描述"></Input>
             </Form-item>
+            <Row>
+              <Col span="21">
+              <Form-item v-if="tag_name" label="分类标签" prop="tags">
+                <Select ref="select" :clearable="selects" v-model="form.tag_id"
+                        style="position:relative;text-align: left;width:350px;z-index: 10000;"
+                        label-in-value multiple　>
+                  <Option v-for="(item,index) in tagname" :value="index" :label="item" :key="index">
+                    {{item}}
+                  </Option>
+
+                </Select>
+              </Form-item>
+              <Form-item label="分类标签" v-if="!tag_name" prop="tag_id">
+                <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
+                <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
+              </Form-item>
+              </Col>
+              <Col span="3">
+              <i-switch size="large" v-model="switch1" @on-change="change">
+                <span slot="open">选择</span>
+                <span slot="close">填写</span>
+              </i-switch>
+              </Col>
+            </Row>
           </Form>
+
         </div>
         <div slot="footer">
           <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
@@ -54,6 +79,8 @@
         }
       };
       return {
+        switch1: true,
+        tag_name: true,
         modal: false,
         selects:true,
         modal_loading: false,
@@ -71,11 +98,46 @@
       }
     },
     methods: {
+      change(status) {
+        if (status) {
+          this.tag_name = true
+          this.$Message.info('切换到下拉选择');
+        } else {
+          this.tag_name = false
+          this.$Message.info('切换到添加标签');
+        }
+
+      },
+      changeTagtype(value) {
+        this.form.tag_id = value.value
+      },
       updateData(data) {
         this.form.content_paragraph = data
       },
       changeArticletype(type) {
         this.form.type_name = type.label;
+      },
+      addtags() {
+        let data = {
+          type: "question",
+          name:this.form.tags
+        }
+        this.apiPost('admin/tags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            let tempN = this.form.tag_id
+            let tagId = data.id
+            let tagnum = tagId.toString()
+            tempN.push(tagnum)
+            this.$parent.gettag();
+            this.$Message.success(msg);
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       clearQuestionType(){
         this.$refs.select.clearSingleSelect()
@@ -116,6 +178,9 @@
       },
       questiontype: {
         default: []
+      },
+      tagname: {
+        default: {}
       }
     },
     mixins: [http]

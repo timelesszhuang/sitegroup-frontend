@@ -29,7 +29,7 @@
       </div>
     </div>
     <articleadd ref="add" :tagname="tagname" :articletype="articletypelist"></articleadd>
-    <articlesave ref="save" :form="editinfo" :articletype="articletypelist"></articlesave>
+    <articlesave ref="save"   :tagname="tagname" :form="editinfo" :articletype="articletypelist"></articlesave>
     <articleshow ref="show" :form="editinfo"></articleshow>
     <articlecsv ref="csvimport" :articletype="articletypelist"></articlecsv>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
@@ -158,11 +158,14 @@
         this.apiGet('article/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
-            // if(this.editinfo.title_color){
-            //   this.editinfo.title_color =  this.editinfo.title_color
-            // }else {
-            //   this.editinfo.title_color = ''
-            // }
+            let tempNUmber = [];
+            if (this.editinfo.tags !== "") {
+              this.editinfo.tags.split(",").map(function (key) {
+                tempNUmber.push(key)
+              })
+            }
+            this.editinfo.tag_id = tempNUmber
+            this.editinfo.tags = ''
           }, (data, msg) => {
             this.$Message.error(msg);
           })
