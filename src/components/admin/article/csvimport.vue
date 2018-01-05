@@ -28,17 +28,6 @@
           <Form-item label="下载模板">
             <a v-bind:href=this.csvpath target="_blank">点击下载模板</a>
           </Form-item>
-          <!--<Form-item label="文章分类" prop="articletype_id">-->
-            <!--<Select ref="select" :clearable="selects" v-model="form.articletype_id"-->
-                    <!--style="position:relative;text-align: left;width:250px;z-index: 10000;"-->
-                    <!--label-in-value filterable　@on-change="changeArticletype">-->
-              <!--<Option disabled :value="0">分类名—标签</Option>-->
-              <!--<Option v-for="item in articletype" :value="item.id" :label="item.name" :key="item">-->
-                <!--{{ item.text }}-->
-              <!--</Option>-->
-            <!--</Select>-->
-          <!--</Form-item>-->
-
           <Form-item label="文章分类" prop="articletype_id">
             <Select ref="select" :clearable="selects"v-model="form.articletype_id" style="width:200px"
                     label-in-value    filterable clearable  　@on-change="changeArticletype" >
@@ -81,7 +70,7 @@
         action: HOST + 'article/csvupload',
         modal: false,
         dataerror:[],
-        csvpath:'https://lexiaoyi.oss-cn-beijing.aliyuncs.com/article/csv/20171213/cb374588b7e0fb2082460ad05a46bf22.csv',
+        csvpath:'http://lexiaoyi.oss-cn-beijing.aliyuncs.com/importarticlecsv/importdemo.csv',
         importcsv: true,
         modal_loading: false,
         errorinfo: "",
