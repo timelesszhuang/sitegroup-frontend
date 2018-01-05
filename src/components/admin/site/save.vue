@@ -54,7 +54,7 @@
               </Select>
             </Form-item>
             <Form-item label="关键词" prop="keyword_ids">
-              <Select v-model="form.keyword_ids" multiple style="text-align: left;width:200px;"
+              <Select v-model="form.keyword_ids" multiple filterable style="text-align: left;width:200px;"
                       　@on-change="changekeyword">
                 <Option v-for="item in keyword" :value="item.id" :label="item.label" :key="item">
                   {{ item.label }}
