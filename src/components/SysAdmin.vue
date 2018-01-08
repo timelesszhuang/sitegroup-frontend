@@ -52,16 +52,22 @@
   }
 
   .layout-header {
-    height: 60px;
+    width: 84%;
+    float: right;
+    z-index: 999;
+    position: fixed;
+    left: 16.7%;
+    height: 50px;
     background: #fff;
   }
 
   .layout-logo-left {
-    height: 65px;
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 15px auto;
-    padding-bottom: 30px;
+    width: 100%;
+    background-color: #ffffff;
+    height: 50px;
+    position: fixed;
+    top: 0px;
+    z-index: 999;
   }
 
   .layout-ceiling-main a {
@@ -81,9 +87,11 @@
   }
 
   .layout-content {
-    /*height: 85%;*/
-    height: auto;
     min-height: 63%;
+    margin: 15px;
+    background: #fff;
+    border-radius: 4px;
+    flex: 1;
   }
 
   .layout-ceiling {
@@ -205,7 +213,7 @@
           </Row>
         </div>
         <div class="layout-breadcrumb">
-          <Breadcrumb>
+          <Breadcrumb style="padding-top:58px;">
             <Breadcrumb-item>{{activeName}}</Breadcrumb-item>
           </Breadcrumb>
         </div>

@@ -158,7 +158,6 @@
         switch1: true,
         action: HOST + 'admin/uploadarticleimage',
         imgshow: true,
-
         editorOption: {
           modules: {
             history: {

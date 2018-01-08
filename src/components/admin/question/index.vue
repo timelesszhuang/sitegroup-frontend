@@ -77,7 +77,7 @@
       },
       gettag() {
         let data = {
-          type: "product",
+          type: "question",
         }
         this.apiPost('admin/gettags', data).then((res) => {
           this.handelResponse(res, (data, msg) => {

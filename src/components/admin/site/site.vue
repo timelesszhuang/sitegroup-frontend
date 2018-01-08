@@ -298,6 +298,7 @@
             this.editinfo.keyword_ids = keyAar
             this.editinfo.link_id = link_id
             this.editinfo.public_code = code
+            console.log(this.editinfo)
             this.modal = false;
             this.$refs.save.modal = true
           }, (data, msg) => {
