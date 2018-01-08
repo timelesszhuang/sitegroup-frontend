@@ -95,17 +95,16 @@
           </Row>
           <Row>
             <Col span="21">
-            <Form-item v-if="tag_name" label="分类标签" prop="tag_id">
-              <Select ref="select" :clearable="selects" v-model="tag_id"
+            <Form-item v-if="tag_name" label="分类标签" prop="tags">
+              <Select ref="select" :clearable="selects" v-model="form.tag_id"
                       style="position:relative;text-align: left;width:350px;z-index: 10000;"
-                      label-in-value multiple　>
+                      label-in-value multiple filterable　>
                 <Option v-for="(item,index) in tagname" :value="index" :label="item" :key="index">
-           {{item}}
+                {{item}}
                 </Option>
-
               </Select>
             </Form-item>
-            <Form-item label="分类标签" v-if="!tag_name" prop="tag_id">
+            <Form-item label="分类标签"  v-if="!tag_name" prop="tag_id">
               <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
               <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
             </Form-item>
@@ -142,14 +141,13 @@
         }
       };
       return {
-        tag_id:[],
         switch1: true,
+        tag_name: true,
         action: HOST + 'admin/uploadarticleimage',
         modal: false,
         imgshow: true,
         modal_loading: false,
         editor_id: '',
-        tag_name: true,
         form: {
           summary: '',
           thumbnails: '',
@@ -207,10 +205,11 @@
         }
         this.apiPost('admin/tags', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
-            let tempN = [];
-            tempN.push(data.id)
-            this.tag_id = tempN
-            console.log(tempN)
+            let tempN = this.form.tag_id
+            let tagId = data.id
+            let tagnum = tagId.toString()
+            tempN.push(tagnum)
+            this.form.tags=''
             this.$parent.gettag();
             this.$Message.success(msg);
           }, (data, msg) => {
@@ -247,7 +246,6 @@
         this.editorText = data
       },
       changeArticletype(value) {
-        console.log(value)
         this.form.articletype_name = value.label
         this.form.articletype_id = value.value
       },
@@ -265,6 +263,7 @@
                 this.imgshow = false
                 this.form.thumbnails = '';
                 this.$refs.add.resetFields();
+
                 this.$refs.select.clearSingleSelect()
               }, (data, msg) => {
                 this.modal_loading = false;

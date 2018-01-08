@@ -64,7 +64,7 @@
     components: {articleadd, articlesave},
     created() {
       this.getData();
-      this.gettagtype()
+      this.gettagtype();
     },
     methods: {
       getData() {
