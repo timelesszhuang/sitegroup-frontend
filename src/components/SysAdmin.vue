@@ -15,28 +15,36 @@
 
   .layout-content {
     min-height: 200px;
-    margin:15px 15px 50px 15px;
+    margin: 15px 15px 50px 15px;
     background: #fff;
     border-radius: 4px;
+  }
+
+  .logo {
+    width: 150px;
+    display: block;
+    padding: 10px;
+    margin-left: 20px;
   }
 
   .layout-content-main {
     padding: 10px;
   }
-  .layout-copy{
+
+  .layout-copy {
     text-align: center;
-    display:block;
-    width:100%;
+    display: block;
+    width: 100%;
   }
 
-  .layout-copy span{
+  .layout-copy span {
     color: #9ea7b4;
-    position:fixed;
-    bottom:0;
-    display:block;
-    background-color:#fff;
-    padding:10px 0;
-    width:100%;
+    position: fixed;
+    bottom: 0;
+    display: block;
+    background-color: #fff;
+    padding: 10px 0;
+    width: 100%;
   }
 
   .layout-menu-left {
@@ -96,7 +104,6 @@
     padding: 10px 15px 0;
   }
 
-
   .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
     color: #fff;
   }
@@ -110,50 +117,69 @@
     <Row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
         <Menu active-name="activeName" :theme="theme" width="auto">
+
           <div class="layout-logo-left" @click="routerChange('/sysadmin/')">
-            <img style="width:205px;display: block;margin: 0 auto" src="../../src/assets/img/logo.png" alt="">
+            <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
           </div>
-          <Menu-item name="公众号文章管理">
-            <Icon type="chatbubbles"></Icon>
-            <span class="layout-text"
-                  @click="routerChange('/sysadmin/sysarticlemanage','公众号文章管理')">公众号文章管理</span>
-          </Menu-item>
-          <Menu-item name="新闻类文章管理">
-            <Icon type="ios-copy" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
-          </Menu-item>
-          <Menu-item name="公共模板">
-            <Icon type="ios-upload" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/systemplate','公共模板')">公共模板</span>
-          </Menu-item>
-          <Menu-item name="营销模式">
-            <Icon type="flag" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/marketmodel','营销模式')">营销模式</span>
-          </Menu-item>
-          <Menu-item name="事件营销">
-            <Icon type="alert" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/eventmarketingholiday','事件营销')">事件营销</span>
-          </Menu-item>
-          <Menu-item name="案例中心">
-            <Icon type="briefcase"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>
-          </Menu-item>
+
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="ios-bookmarks-outline"></Icon>
+              <span class="parent-menu-title">内容管理</span>
+            </template>
+            <Menu-item name="公众号文章管理">
+              <Icon type="chatbubbles"></Icon>
+              <span class="layout-text"
+                    @click="routerChange('/sysadmin/sysarticlemanage','公众号文章管理')">公众号文章管理</span>
+            </Menu-item>
+            <Menu-item name="新闻类文章管理">
+              <Icon type="ios-copy" :size="iconSize"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/news','新闻类文章管理')">新闻类文章管理</span>
+            </Menu-item>
+          </Submenu>
+
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="ios-analytics"></Icon>
+              <span class="parent-menu-title">信息发布</span>
+            </template>
+            <Menu-item name="营销模式">
+              <Icon type="flag" :size="iconSize"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/marketmodel','营销模式')">营销模式</span>
+            </Menu-item>
+            <Menu-item name="案例中心">
+              <Icon type="briefcase"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/case','案例中心')">案例中心</span>
+            </Menu-item>
+            <Menu-item name="系统推送">
+              <Icon type="ios-navigate" :size="iconSize"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/systempush','系统推送')">系统推送</span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="8">
+            <template slot="title">
+              <Icon type="person-stalker"></Icon>
+              <span class="parent-menu-title">节点/用户管理</span>
+            </template>
+            <Menu-item name="用户管理">
+              <Icon type="person"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
+            </Menu-item>
+            <Menu-item name="节点管理">
+              <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
+              <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
+            </Menu-item>
+          </Submenu>
           <Menu-item name="软文管理">
             <Icon type="briefcase"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/advertorialmanage','软文管理')">软文管理</span>
           </Menu-item>
-          <Menu-item name="系统推送">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/systempush','系统推送')">系统推送</span>
+
+          <Menu-item name="网站公共模板">
+            <Icon type="ios-upload" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/systemplate','公共模板')">网站公共模板</span>
           </Menu-item>
-          <Menu-item name="用户管理">
-            <Icon type="person"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/user','用户管理')">用户管理</span>
-          </Menu-item>
-          <Menu-item name="节点管理">
-            <Icon type="ios-cloud-outline" :size="iconSize"></Icon>
-            <span class="layout-text" @click="routerChange('/sysadmin/node','节点管理')">节点管理</span>
-          </Menu-item>
+
           <Menu-item name="友商库">
             <Icon type="android-apps" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
@@ -210,7 +236,7 @@
         theme: 'dark',
         containerTitle: '',
         showChangepwdModal: false,
-        copytime:''
+        copytime: ''
       }
     },
     components: {
@@ -246,7 +272,7 @@
     //created 是函数
     created() {
       let date = new Date;
-      this.copytime =  date.getFullYear()
+      this.copytime = date.getFullYear()
       let rememberKey = Lockr.get('rememberKey')
 //      let user_id = Lockr.get('user_id')
       let type = Lockr.get('type');

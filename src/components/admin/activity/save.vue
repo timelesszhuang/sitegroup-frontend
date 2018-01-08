@@ -187,8 +187,6 @@
       getError(error, file, filelist) {
         this.$Message.error(error);
       },
-
-
       save() {
         this.$refs.psave.validate((valid) => {
           if (valid) {

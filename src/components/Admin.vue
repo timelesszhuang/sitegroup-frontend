@@ -96,6 +96,7 @@
         <div class="layout-logo-left" @click="routerChange('/admin/index')">
           <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
         </div>
+
         <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom:80px;;margin-top: 50px"
               width="auto"
               :open-names="opennames" accordion>
