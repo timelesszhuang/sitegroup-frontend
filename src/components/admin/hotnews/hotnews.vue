@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <hotnews ref="save" :articletype="articletypelist" :form="editinfo"></hotnews>
+    <hotnews ref="save" :articletype="articletypelist" :tagname="tagname" :form="editinfo"></hotnews>
   </div>
 
 </template>
@@ -52,14 +52,15 @@
           title_color:""
         },
         articletypelist: [],
-        keywordtype: []
+        keywordtype: [],
+        tagname:{},
       }
     },
     components: {hotnews},
     created() {
       this.getArticleType((data) => {
         this.articletypelist = data
-      });
+      }); this.gettag();
     },
     methods: {
       getData() {
@@ -80,6 +81,24 @@
           })
         }, (data) => {
           this.$Message.error('网络异常，请稍后重试');
+        })
+      },
+      gettag() {
+        let data = {
+          type: "article",
+        }
+        this.apiPost('user/gettags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.tagname = data
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
         })
       },
       changePage(page) {
@@ -117,6 +136,8 @@
             this.editinfo.come_from = data.source
             this.editinfo.createtime = data.ptime
             this.editinfo.thumbnails = data.base64img
+            let tempNUmber = [];
+            this.editinfo.tag_id = tempNUmber
           }, (data, msg) => {
             this.$Message.error(msg);
           })

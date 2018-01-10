@@ -115,7 +115,7 @@
 
               </Select>
             </Form-item>
-            <Form-item label="分类标签" v-if="!tag_name" prop="tag_id">
+            <Form-item label="分类标签" v-if="!tag_name" prop="tags">
               <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
               <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
             </Form-item>
@@ -153,6 +153,13 @@
           callback();
         }
       };
+      const checktag = (rule, value, callback) => {
+        if (value=='') {
+          callback(new Error('请选择标签或添加标签'));
+        } else {
+          callback();
+        }
+      };
       return {
         tag_name: true,
         switch1: true,
@@ -183,6 +190,9 @@
           ],
           articletype_id: [
             {validator: checkarticletype, trigger: 'blur'}
+          ],
+          tag_id: [
+            {required: true, validator: checktag, trigger: 'blur'}
           ]
         }
       }
@@ -307,7 +317,8 @@
               readcount: this.form.readcount,
               keywords: this.form.keywords,
               shorttitle: this.form.shorttitle,
-              is_collection: this.form.is_collection
+              is_collection: this.form.is_collection,
+              tag_id:this.form.tag_id
             }
 //            let data = this.form;
             this.apiPost('article', data).then((res) => {

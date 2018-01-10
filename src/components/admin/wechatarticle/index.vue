@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <wechatarticlesave ref="save" :articletype="articletypelist" :form="editinfo"></wechatarticlesave>
+    <wechatarticlesave ref="save" :articletype="articletypelist" :tagname="tagname" :form="editinfo"></wechatarticlesave>
   </div>
 
 </template>
@@ -57,7 +57,8 @@
           title_color:""
         },
         articletypelist: [],
-        keywordtype: []
+        keywordtype: [],
+        tagname:{},
       }
     },
     components: {wechatarticlesave},
@@ -68,7 +69,7 @@
       });
       this.getKeyword((data) => {
         this.keywordtype = data
-      });
+      }); this.gettag();
     },
     methods: {
       getKeyword(func) {
@@ -104,6 +105,24 @@
           this.$Message.error('网络异常，请稍后重试');
         })
       },
+      gettag() {
+        let data = {
+          type: "article",
+        }
+        this.apiPost('user/gettags', data).then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.tagname = data
+            this.modal = false;
+          }, (data, msg) => {
+            this.modal_loading = false;
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.modal_loading = false;
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+      },
       changePage(page) {
         this.page = page;
         this.getData();
@@ -135,7 +154,10 @@
             data.is_collection = 20
             data.readcount = 0;
             this.editinfo.come_from = data.source
+            let tempNUmber = [];
+            this.editinfo.tag_id = tempNUmber
             this.editinfo = data
+
           }, (data, msg) => {
             this.$Message.error(msg);
           })

@@ -95,7 +95,7 @@
           </Row>
           <Row>
             <Col span="21">
-            <Form-item v-if="tag_name" label="分类标签" prop="tags">
+            <Form-item v-if="tag_name" label="分类标签" prop="tag_id">
               <Select ref="select" :clearable="selects" v-model="form.tag_id"
                       style="position:relative;text-align: left;width:350px;z-index: 10000;"
                       label-in-value multiple filterable　>
@@ -104,7 +104,7 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="分类标签"  v-if="!tag_name" prop="tag_id">
+            <Form-item label="分类标签"  v-if="!tag_name" prop="tags">
               <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
               <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
             </Form-item>
@@ -140,6 +140,14 @@
           callback();
         }
       };
+      const checktag = (rule, value, callback) => {
+        if (value=='') {
+          callback(new Error('请选择标签或添加标签'));
+        } else {
+          callback();
+        }
+      };
+
       return {
         switch1: true,
         tag_name: true,
@@ -177,6 +185,9 @@
           ],
           articletype_id: [
             {required: true, validator: checkarticletype, trigger: 'blur'}
+          ],
+          tag_id: [
+            {required: true, validator: checktag, trigger: 'blur'}
           ]
         }
       }
