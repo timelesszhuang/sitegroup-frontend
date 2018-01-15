@@ -22,6 +22,9 @@
         <TabPane label="站点LOGO管理" name="sitelogo">
           <sitelogo ref="sitelogo"></sitelogo>
         </TabPane>
+        <TabPane label="站点ICON设置" name="siteicon">
+          <siteicon ref="siteicon"></siteicon>
+        </TabPane>
       </Tabs>
     </div>
 </template>
@@ -34,6 +37,7 @@
   import templates from '../template/template.vue'
   import customer from '../customeform/index.vue'
   import sitelogo from '../sitelogo/index.vue'
+  import siteicon from '../siteicon/index.vue'
   export default {
     data() {
       return {
@@ -41,7 +45,7 @@
       }
     },
     components:{
-      links,domain,codes,contactway,templates,customer,sitelogo
+      links,domain,codes,contactway,templates,customer,sitelogo,siteicon
     },
     methods: {
       tabClick(name) {

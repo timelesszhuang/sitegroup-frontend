@@ -25,6 +25,14 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="ICON选择" prop="siteicon_id">
+              <Select v-model="form.siteicon_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeIcon">
+                <Option v-for="item in icondata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.oss_icon_path>
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="LOGO选择" prop="sitelogo_id">
               <Select v-model="form.sitelogo_id" style="text-align: left;width:400px;"
                       label-in-value filterable　@on-change="changeLogo">
@@ -192,6 +200,7 @@
           callback();
 
         }
+
       };
       const checkdomain = (rule, value, callback) => {
         if (!value) {
@@ -337,6 +346,10 @@
           []
       },
       logodata: {
+        default:
+          []
+      },
+      icondata: {
         default:
           []
       },

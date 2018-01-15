@@ -37,10 +37,10 @@
       </div>
       <br>
     </div>
-    <siteadd ref="add" :code="code" :logodata="logodata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <siteadd ref="add" :code="code" :logodata="logodata" :icondata="icondata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
              :sitetype="sitetype"  :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :code="code" :logodata="logodata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <sitesave ref="save" :code="code" :logodata="logodata" :icondata="icondata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
               :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"
               :mobileSite="mobileSite"></sitesave>
@@ -100,6 +100,7 @@
         activity_data: [],
         site_type_id: '',
         logodata:[],
+        icondata:[],
         url: '',
         ping:{},
         ping_id :0,
@@ -110,7 +111,10 @@
     created() {
       this.getData();
       this.getCommontype();
-      this.getLogo()
+      this.getLogo();
+      this.getIcon();
+
+
     },
     methods: {
       formatter_title(str) {
@@ -123,6 +127,7 @@
       },
       init() {
         this.getData();
+
       },
       sendActivity(id) {
         this.site_id = id
@@ -166,6 +171,19 @@
         this.apiGet('admin/getsitelogolist').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.logodata = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
+      },
+      getIcon(){
+        this.apiGet('admin/getsiteiconlist').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.icondata = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })
