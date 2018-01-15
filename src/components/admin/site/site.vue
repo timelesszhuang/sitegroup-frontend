@@ -37,10 +37,10 @@
       </div>
       <br>
     </div>
-    <siteadd ref="add" :code="code" :logodata="logodata" :icondata="icondata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <siteadd ref="add" :code="code" :logodata="logodata" :icodata="icodata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
              :sitetype="sitetype"  :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :code="code" :logodata="logodata" :icondata="icondata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <sitesave ref="save" :code="code" :logodata="logodata" :icodata="icodata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
               :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"
               :mobileSite="mobileSite"></sitesave>
@@ -100,7 +100,7 @@
         activity_data: [],
         site_type_id: '',
         logodata:[],
-        icondata:[],
+        icodata:[],
         url: '',
         ping:{},
         ping_id :0,
@@ -112,7 +112,7 @@
       this.getData();
       this.getCommontype();
       this.getLogo();
-      this.getIcon();
+      this.getIco();
 
 
     },
@@ -180,10 +180,10 @@
         })
 
       },
-      getIcon(){
-        this.apiGet('admin/getsiteiconlist').then((res) => {
+      getIco(){
+        this.apiGet('admin/getsiteicolist').then((res) => {
           this.handelResponse(res, (data, msg) => {
-            this.icondata = data
+            this.icodata = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })

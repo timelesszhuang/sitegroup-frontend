@@ -25,11 +25,11 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="ICON选择" prop="siteicon_id">
-              <Select v-model="form.siteicon_id" style="text-align: left;width:400px;"
-                      label-in-value filterable　@on-change="changeIcon">
-                <Option v-for="item in icondata" :value="item.id" :label="item.name" :key="item">
-                  <img style="height:60px; " :src=item.oss_icon_path>
+            <Form-item label="ICO选择" prop="siteico_id">
+              <Select v-model="form.siteico_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeIco">
+                <Option v-for="item in icodata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.oss_ico_path>
                 </Option>
               </Select>
             </Form-item>
@@ -262,6 +262,9 @@
       changeHotline(value) {
         this.form.support_hotline = value.value
       },
+      changeIco(value) {
+        this.form.siteico_id = value.value
+      },
       changeSitetype(value) {
         this.form.site_type = value.value
         this.form.site_type_name = value.label
@@ -349,7 +352,7 @@
         default:
           []
       },
-      icondata: {
+      icodata: {
         default:
           []
       },

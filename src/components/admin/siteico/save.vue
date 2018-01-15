@@ -4,14 +4,14 @@
       <Modal
         v-model="modal" width="600">
         <p slot="header">
-          <span>添加</span>
+          <span>修改</span>
         </p>
         <div>
-          <Form ref="iconadd" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="ICON名称" prop="name">
+          <Form ref="icosave" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
+            <Form-item label="ICO名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="ICON" prop="oss_icon_path">
+            <Form-item label="ICO" prop="name">
               <Upload
                 type="select"
                 ref="upImg"
@@ -23,7 +23,7 @@
                 :on-format-error="formatError"
                 :action="action"
                 style="text-align:left;">
-                <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
+                <Button type="ghost" ico="ios-cloud-upload-outline">上传缩略图</Button>
               </Upload>
               <div v-if="imgshow" style="display: inline-block;width: 100%">
                 <div style="margin:0px auto;width: 300px">
@@ -31,11 +31,10 @@
                 </div>
               </div>
             </Form-item>
-            <Form-item label="ICON相关信息" prop="detail">
+            <Form-item label="ICO相关信息" prop="detail">
               <Input type="textarea" :autosize="{minRows: 3,maxRows: 10}" v-model="form.detail"
-                     placeholder="请输入ICON相关信息"></Input>
+                     placeholder="请输入ICO相关信息"></Input>
             </Form-item>
-
           </Form>
         </div>
         <div slot="footer">
@@ -49,37 +48,38 @@
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-
   export default {
     data() {
       return {
         modal: false,
         modal_loading: false,
-        imgshow: false,
-        action: HOST + 'admin/siteiconup',
-        form: {
-          name:'',
-          detail:'',
-          oss_icon_path:''
-        },
+        action: HOST + 'admin/siteicoup',
         AddRule: {
           name: [
-            {required: true, message: '请填写ICON名字', trigger: 'blur'},
+            {required: true, message: '请填写ICO名字', trigger: 'blur'},
           ],
 
-          oss_icon_path: [
-            {required: true, message: '请上传ICON', trigger: 'blur'}
+          oss_ico_path: [
+            {required: true, message: '请上传ICO', trigger: 'blur'}
           ]
         }
       }
     },
+    computed: {
+      imgshow: function () {
+        if (this.form.oss_ico_path) {
+          return true;
+        }
+        return false;
+      }
+    },
     methods: {
       imgpath() {
-        return this.form.oss_icon_path;
+        return this.form.oss_ico_path;
       },
       //缩略图上传回调
       getResponse(response, file, filelist) {
-        this.form.oss_icon_path = response.url;
+        this.form.oss_ico_path = response.url;
         if (response.status) {
           this.$Message.success(response.msg);
           this.imgpath();
@@ -96,29 +96,37 @@
       formatError() {
         this.$Message.error('文件格式只支持 jpg,jpeg,png三种格式。');
       },
-      add() {
-        this.$refs.iconadd.validate((valid) => {
-          if (valid) {
-            this.modal_loading = true;
-            let data = this.form;
-            this.apiPost('admin/siteIcon', data).then((res) => {
-              this.handelResponse(res, (data, msg) => {
-                this.modal = false;
-                this.$parent.getData();
-                this.$Message.success(msg);
-                this.modal_loading = false;
-                this.$refs.iconadd.resetFields();
-              }, (data, msg) => {
-                this.modal_loading = false;
-                this.$Message.error(msg);
-              })
-            }, (res) => {
-              //处理错误信息
-              this.modal_loading = false;
-              this.$Message.error('网络异常，请稍后重试。');
-            })
-          }
-        })
+        add() {
+          this.$refs.icosave.validate((valid) => {
+              if(valid){
+                this.modal_loading = true;
+                let data = this.form;
+                let id = data.id;
+                this.apiPut('admin/siteIco/'+ id, data).then((res) => {
+                  this.handelResponse(res, (data, msg) => {
+                    this.modal = false;
+                    this.$parent.getData();
+                    this.$Message.success(msg);
+                    this.modal_loading = false;
+                    this.$refs.icosave.resetFields();
+                  }, (data, msg) => {
+                    this.modal_loading = false;
+                    this.$Message.error(msg);
+                  })
+                }, (res) => {
+                  //处理错误信息
+                  this.modal_loading = false;
+                  this.$Message.error('网络异常，请稍后重试。');
+                })
+              }
+          })
+        }
+    },
+    props: {
+      form: {
+        default: {
+
+        }
       }
     },
     mixins: [http]

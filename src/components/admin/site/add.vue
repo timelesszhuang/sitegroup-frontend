@@ -25,11 +25,11 @@
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="ICON选择" prop="siteicon_id">
-              <Select v-model="form.siteicon_id" style="text-align: left;width:400px;"
-                      label-in-value filterable　@on-change="changeIcon">
-                <Option v-for="item in icondata" :value="item.id" :label="item.name" :key="item">
-                  <img style="height:60px; " :src=item.oss_icon_path>
+            <Form-item label="ICO选择" prop="siteico_id">
+              <Select v-model="form.siteico_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeIco">
+                <Option v-for="item in icodata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.oss_ico_path>
                 </Option>
               </Select>
             </Form-item>
@@ -234,7 +234,7 @@
           m_site_id: 0,
           walterString: '',
           sitelogo_id: 0,
-          siteicon_id: 0,
+          siteico_id: 0,
         },
         AddRule: {
           site_name: [
@@ -279,8 +279,8 @@
       changeLogo(value) {
         this.form.sitelogo_id = value.value
       },
-      changeIcon(value) {
-        this.form.siteicon_id = value.value
+      changeIco(value) {
+        this.form.siteico_id = value.value
       },
       changeUser(value) {
         this.form.user_name = value.label
@@ -375,7 +375,7 @@
           default:
             []
         },
-        icondata: {
+        icodata: {
           default:
             []
         },

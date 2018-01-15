@@ -16,15 +16,15 @@
         </div>
       </div>
     </div>
-    <iconadd ref="add"></iconadd>
-    <iconsave ref="save" :form="editinfo"></iconsave>
+    <icoadd ref="add"></icoadd>
+    <icosave ref="save" :form="editinfo"></icosave>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-  import iconadd from './add.vue';
-  import iconsave from './save.vue';
+  import icoadd from './add.vue';
+  import icosave from './save.vue';
   export default {
     data () {
       return {
@@ -43,7 +43,7 @@
         editinfo: {}
       }
     },
-    components: {iconadd, iconsave},
+    components: {icoadd, icosave},
     methods: {
       init() {
         this.getData();
@@ -56,7 +56,7 @@
             name: this.name
           }
         }
-        this.apiGet('admin/siteIcon', data).then((data) => {
+        this.apiGet('admin/siteIco', data).then((data) => {
           this.handelResponse(data, (data, msg) => {
             this.datas = data.rows
             this.total = data.total;
@@ -83,7 +83,7 @@
       },
       edit(index){
         let editid = this.datas[index].id
-        this.apiGet('admin/siteIcon/' + editid).then((res) => {
+        this.apiGet('admin/siteIco/' + editid).then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.editinfo = data
             this.modal = false;
@@ -118,12 +118,12 @@
         }
 
         columns.push({
-          title: 'ICON',
+          title: 'ICO',
           sortable: true,
           render(h, params) {
             return h('img', {
               attrs: {
-                src: params.row.oss_icon_path,
+                src: params.row.oss_ico_path,
                 title: params.row.detail,
                 style: 'max-height: 250px'
               },
@@ -132,7 +132,7 @@
         });
         columns.push({
           width:'200',
-          title: 'ICON信息',
+          title: 'ICO信息',
           key: 'detail',
           sortable: true
         });
