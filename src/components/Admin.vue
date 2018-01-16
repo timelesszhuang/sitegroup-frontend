@@ -100,7 +100,7 @@
         <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom:80px;;margin-top: 50px"
               width="auto"
               :open-names="opennames" accordion>
-          <Submenu name="8">
+          <Submenu name="1">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
               <span class="parent-menu-title">营销计划</span>
@@ -136,7 +136,7 @@
               </span>
             </Menu-item>
           </Submenu>
-          <Submenu name="1">
+          <Submenu name="2">
             <template slot="title">
               <Icon type="ios-navigate"></Icon>
               <span class="parent-menu-title">站点关键词</span>
@@ -154,7 +154,7 @@
               </span>
             </Menu-item>
           </Submenu>
-          <Submenu name="5">
+          <Submenu name="3">
             <template slot="title">
               <span class="parent-menu-title">
                 <Icon type="briefcase"></Icon>
@@ -187,7 +187,7 @@
               </span>
             </Menu-item>
           </Submenu>
-          <Submenu name="3">
+          <Submenu name="4">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               <span class="parent-menu-title">分站内容管理</span>
@@ -229,7 +229,7 @@
               </span>
             </Menu-item>-->
           </Submenu>
-          <Submenu name="8">
+          <Submenu name="5">
             <template slot="title">
               <Icon type="ios-box"></Icon>
               <span class="parent-menu-title">文章资源聚合</span>
@@ -256,6 +256,20 @@
               <span class="layout-text" @click="ruanwenClick">
                 <Icon type="videocamera"></Icon>
                 视频资源
+              </span>
+            </Menu-item>
+          </Submenu>
+          <Submenu name="6">
+            <template slot="title">
+              <span class="parent-menu-title">
+                <Icon type="ios-analytics"></Icon>
+                素材库
+              </span>
+            </template>
+            <Menu-item name="公共文章">
+              <span class="layout-text" @click="routerChange('/admin/publicarticle','公共文章')">
+                <Icon type="android-archive"></Icon>
+                公共文章
               </span>
             </Menu-item>
           </Submenu>
