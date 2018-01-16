@@ -127,7 +127,7 @@
             this.editinfo.url = data.preurl
             this.editinfo.summary = data.summary
             this.editinfo.come_from = data.comefrom
-            this.editinfo.auther = data.comefrom
+            this.editinfo.auther = data.author
             let tempNUmber = [];
             this.editinfo.tag_id = tempNUmber
           }, (data, msg) => {
