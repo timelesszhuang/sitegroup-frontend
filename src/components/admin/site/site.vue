@@ -290,7 +290,7 @@
             let keyAar = [];
             let link_id = [];
             let code = [];
-            console.log(this.editinfo.menu)
+            //console.log(this.editinfo.menu)
             if (this.editinfo.menu !== "") {
               this.editinfo.menu.split(",").map(function (key) {
                 tempNUmber.push(Number(key))
