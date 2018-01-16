@@ -25,6 +25,9 @@
         <TabPane label="站点ICO设置" name="siteico">
           <siteico ref="siteico"></siteico>
         </TabPane>
+        <TabPane label="图片水印设置" name="imgwatermark">
+          <imgwatermark ref="imgwatermark"></imgwatermark>
+        </TabPane>
       </Tabs>
     </div>
 </template>
@@ -38,6 +41,7 @@
   import customer from '../customeform/index.vue'
   import sitelogo from '../sitelogo/index.vue'
   import siteico from '../siteico/index.vue'
+  import imgwatermark from '../imgwatermark/index.vue'
   export default {
     data() {
       return {
@@ -46,7 +50,7 @@
       }
     },
     components:{
-      links,domain,codes,contactway,templates,customer,sitelogo,siteico
+      links,domain,codes,contactway,templates,customer,sitelogo,siteico,imgwatermark
     },
     methods: {
       tabClick(name) {

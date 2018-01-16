@@ -97,6 +97,8 @@ import Imglist from '../components/admin/imglist/index.vue'
 import Content from '../components/admin/content/index'
 //标签
 import Tag from '../components/admin/tag/index'
+//图片水印
+import Imgwatermark from '../components/admin/imgwatermark/index'
 
 
 Vue.use(Router)
@@ -180,6 +182,7 @@ export default new Router({
         {path: 'imglist', component: Imglist, name: 'imglist'},
         {path: 'content', component: Content, name: 'content'},
         {path: 'tag', component: Tag, name: 'tag'},
+        {path: 'imgwatermark', component: Imgwatermark, name: 'imgwatermark'},
       ]
     }
   ]
