@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="top">
-      分类名:
       <Input v-model="title" @on-change="changeTitle" placeholder="标题查询" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
@@ -128,7 +127,7 @@
             this.editinfo.url = data.preurl
             this.editinfo.summary = data.summary
             this.editinfo.come_from = data.comefrom
-            this.editinfo.auther = data.comefrom
+            this.editinfo.auther = data.author
             let tempNUmber = [];
             this.editinfo.tag_id = tempNUmber
           }, (data, msg) => {
