@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="top">
-      分类名:
       <Input v-model="title" @on-change="changeTitle" placeholder="标题查询" style="width:300px;"></Input>
       <Button type="primary" @click="queryData">查询</Button>
     </div>
