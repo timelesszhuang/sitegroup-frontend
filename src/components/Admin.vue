@@ -262,7 +262,7 @@
           <Submenu name="6">
             <template slot="title">
               <span class="parent-menu-title">
-                <Icon type="ios-analytics"></Icon>
+                <Icon type="social-github"></Icon>
                 素材库
               </span>
             </template>
