@@ -5,13 +5,16 @@ import App from './App'
 import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+import '../my-theme/common.css'
 import '../my-theme/index.less'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
 import Highcharts from 'highcharts'
+
 Drilldown(Highcharts);
 import VueQriously from 'vue-qriously'
+
 Vue.use(VueQriously)
 import axios from 'axios'
 import Lockr from 'lockr'
@@ -20,6 +23,7 @@ import Cookies from 'js-cookie'
 
 import VueHtml5Editor from 'vue-html5-editor'
 import Store from './vuex/store.js'
+
 Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
@@ -66,7 +70,7 @@ Vue.use(VueHtml5Editor, {
     // 上传参数,默认把图片转为base64而不上传
     // upload config,default null and convert image to base64
     upload: {
-      url: HOST+'uploadimg',
+      url: HOST + 'uploadimg',
       headers: {},
       params: {},
       fieldName: 'img'
@@ -81,7 +85,7 @@ Vue.use(VueHtml5Editor, {
     },
     // 响应数据处理,最终返回图片链接
     // handle response data，return image url
-    uploadHandler(responseText){
+    uploadHandler(responseText) {
       //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"}
       var json = JSON.parse(responseText)
       if (!json.status) {
@@ -166,7 +170,6 @@ Vue.use(VueHtml5Editor, {
     //omit,reference to source code of build-in modules
   }
 })
-
 
 
 axios.defaults.baseURL = HOST
