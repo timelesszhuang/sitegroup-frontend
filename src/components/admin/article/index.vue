@@ -14,6 +14,7 @@
       <Button type="success" @click="add">添加</Button>
       <Button type="error" @click="importadd">csv导入</Button>
     </div>
+
     <div class="content" style="margin-top:10px;">
       <Table :context="self" :border="border" :stripe="stripe" :show-header="showheader"
              :size="size" :data="datas" :columns="tableColumns" style="width: 100%">
@@ -33,6 +34,7 @@
     <articleshow ref="show" :form="editinfo"></articleshow>
     <articlecsv ref="csvimport" :articletype="articletypelist"></articlecsv>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
+    <materialimg ref="addmaterial" :imgdata="imgdata" ></materialimg>
   </div>
 
 </template>
@@ -45,7 +47,7 @@
   import articleshow from './show.vue'
   import articlecsv from './csvimport.vue'
   import showhtml from './showhtml.vue'
-
+  import materialimg from './materialimg.vue';
   export default {
     data() {
       return {
@@ -70,9 +72,12 @@
         articletypelist: [],
         showhtmldata: [],
         tagname:{},
+        imgdata:{},
       }
     },
-    components: {articleadd, articlesave, articleshow, showhtml, articlecsv},
+
+    components: {articleadd, articlesave, articleshow, showhtml, articlecsv,materialimg,
+    },
     created() {
       this.getData();
       this.getArticleType((data) => {
@@ -84,6 +89,21 @@
     methods: {
       setArticleType(data) {
         this.articletypelist = data
+      },
+      material(){
+        this.apiGet('admin/libraryimgset/').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.imgdata =   data.rows
+            console.log(this.imgdata)
+            this.$refs.addmaterial.modal = true
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
       },
       getData() {
         let data = {

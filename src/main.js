@@ -11,7 +11,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
 import Highcharts from 'highcharts'
-
+import Waterfall from 'vue-waterfall/lib/waterfall'
+import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 Drilldown(Highcharts);
 import VueQriously from 'vue-qriously'
 
@@ -28,10 +29,12 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
+Vue.use(Waterfall);
+Vue.use(WaterfallSlot)
 
-// let domain = 'local.sitegroup.com'
+let domain = 'local.sitegroup.com'
 
-let domain = 'api.salesman.cc'
+// let domain = 'api.salesman.cc'
 
 
 var HOST = 'http://' + domain + '/index.php/'
