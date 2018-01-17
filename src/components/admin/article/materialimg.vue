@@ -40,10 +40,6 @@
       return {
         modal: false,
         modal_loading: false,
-        data: {
-
-          'https://lexiaoyi.oss-cn-beijing.aliyuncs.com/libraryimgset/20180117/f338a62fe5cfe51ebf19331866ba9b70.jpg'
-        }
       }
     },
 
