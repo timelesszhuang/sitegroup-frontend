@@ -8,14 +8,17 @@
         </p>
         <div>
           <Form ref="siteuser" :model="form" :label-width="90" :rules="AddRule" class="node-add-form">
-            <Form-item label="昵称" prop="name">
-              <Input type="text" v-model="form.name" placeholder="请输入昵称"></Input>
+            <Form-item label="姓名" prop="name">
+              <Input type="text" v-model="form.name" placeholder="请输入姓名"></Input>
             </Form-item>
             <Form-item label="账号" prop="account">
               <Input type="text" v-model="form.account" placeholder="请输入账号"></Input>
             </Form-item>
             <Form-item label="邮箱" prop="email">
               <Input type="text" v-model="form.email" placeholder="请输入邮箱"></Input>
+            </Form-item>
+            <Form-item label="手机" prop="mobile">
+              <Input type="text" v-model="form.mobile" placeholder="请输入手机"></Input>
             </Form-item>
             <Form-item label="密码" prop="pwd">
               <Input type="password" v-model="form.pwd" placeholder="请输入密码"></Input>
@@ -47,20 +50,21 @@
           account:"",
           pwd: "",
           email:'',
-          confirmPwd:''
+          confirmPwd:'',
+          mobile:''
         },
         AddRule: {
           name: [
             {required: true, message: '请输入名称', trigger: 'blur'},
           ],
           account: [
-            {required: true, message: '请输入昵称', trigger: 'blur'},
+            {required: true, message: '请输入姓名', trigger: 'blur'},
           ],
           pwd: [
             {required: true, message: '请输入密码', trigger: 'blur'},
           ],
-          email: [
-            {required:true,message:'请输入邮箱',trigger:'blur'}
+          mobile: [
+            {required:true,message:'请输入手机号',trigger:'blur'}
           ],
           confirmPwd: [
             {required:true,message:'请输入确认密码',trigger:'blur'}

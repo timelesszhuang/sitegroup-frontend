@@ -188,7 +188,7 @@
           sortable: true
         });
         columns.push({
-          title: '昵称',
+          title: '姓名',
           key: 'name',
           sortable: true
         });
