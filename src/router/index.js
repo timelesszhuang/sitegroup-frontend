@@ -97,6 +97,8 @@ import Imglist from '../components/admin/imglist/index.vue'
 import Content from '../components/admin/content/index'
 //标签
 import Tag from '../components/admin/tag/index'
+//图片水印
+import Imgwatermark from '../components/admin/imgwatermark/index'
 //公共文章
 import Publicarticle from '../components/admin/publicarticle/index'
 
@@ -183,6 +185,7 @@ export default new Router({
         {path: 'content', component: Content, name: 'content'},
         {path: 'tag', component: Tag, name: 'tag'},
         {path: 'publicarticle', component: Publicarticle, name: 'publicarticle'},
+        {path: 'imgwatermark', component: Imgwatermark, name: 'imgwatermark'},
       ]
     }
   ]
