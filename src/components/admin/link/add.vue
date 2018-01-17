@@ -11,8 +11,10 @@
             <Form-item label="名称" prop="name">
               <Input type="text" v-model="form.name" placeholder="请输入名称"></Input>
             </Form-item>
-            <Form-item label="url" prop="domain">
-              <Input type="text" v-model="form.domain" placeholder="请输入域名"></Input>
+            <Form-item label="链接" prop="domain">
+              <Input type="text" v-model="form.domain" placeholder="请输入链接">
+              <span slot="prepend">http://</span>
+              </Input>
             </Form-item>
             <Form-item label="详情" prop="detail">
               <Input v-model="form.detail" type="textarea" :autosize="{minRows: 2,maxRows: 20}"
@@ -39,7 +41,7 @@
         modal_loading: false,
         form: {
           name: "",
-          domain: "",
+          domain:"",
           detail:""
         },
         AddRule: {
@@ -47,7 +49,7 @@
             {required: true, message: '请输入名称', trigger: 'blur'},
           ],
           domain: [
-            {required: true, message: '请输入域名', trigger: 'blur'},
+            {required: true, message: '请输入链接', trigger: 'blur'},
           ],
           detail: [
             {required: true, message: '请输入详情', trigger: 'blur'},

@@ -195,16 +195,19 @@
         });
         columns.push({
           title: '分类',
+          width: 150,
           key: 'type_name',
           sortable: true
         });
         columns.push({
           title: '来源',
+          width: 150,
           key: 'source',
           sortable: true
         });
         columns.push({
           title: '发布时间',
+          width: 150,
           key: 'create_time',
           sortable: true
         });
@@ -213,7 +216,7 @@
             title: '操作',
             key: 'action',
             align: 'center',
-            fixed: 'right',
+            width: 200,
             render(h, params) {
               return h('div', [
                 h('Button', {
