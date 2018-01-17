@@ -32,9 +32,9 @@ Vue.use(ElementUI)
 Vue.use(Waterfall);
 Vue.use(WaterfallSlot)
 
-let domain = 'local.sitegroup.com'
+// let domain = 'local.sitegroup.com'
 
-// let domain = 'api.salesman.cc'
+let domain = 'api.salesman.cc'
 
 
 var HOST = 'http://' + domain + '/index.php/'
