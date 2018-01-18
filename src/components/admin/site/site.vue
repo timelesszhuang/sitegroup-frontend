@@ -37,10 +37,10 @@
       </div>
       <br>
     </div>
-    <siteadd ref="add" :code="code" :logodata="logodata" :icodata="icodata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <siteadd ref="add" :code="code" :logodata="logodata" :waterdata="waterdata" :icodata="icodata" :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
              :hotline="hotline"
              :sitetype="sitetype"  :temptype="temptype" :menutype="menutype" :mobileSite="mobileSite"></siteadd>
-    <sitesave ref="save" :code="code" :logodata="logodata" :icodata="icodata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
+    <sitesave ref="save" :code="code" :logodata="logodata"  :waterdata="waterdata" :icodata="icodata"  :link="link" :domainlist="domainlist" :keyword="keyword" :userlist="userlist"
               :hotline="hotline"
               :sitetype="sitetype" :temptype="temptype" :menutype="menutype" :form="editinfo"
               :mobileSite="mobileSite"></sitesave>
@@ -104,6 +104,7 @@
         url: '',
         ping:{},
         ping_id :0,
+        waterdata:[],
 
       }
     },
@@ -113,6 +114,7 @@
       this.getCommontype();
       this.getLogo();
       this.getIco();
+      this.getWater();
 
 
     },
@@ -184,6 +186,19 @@
         this.apiGet('admin/getsiteicolist').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.icodata = data
+          }, (data, msg) => {
+            this.$Message.error(msg);
+          })
+        }, (res) => {
+          //处理错误信息
+          this.$Message.error('网络异常，请稍后重试。');
+        })
+
+      },
+      getWater(){
+        this.apiGet('admin/getsitewaterimagelist').then((res) => {
+          this.handelResponse(res, (data, msg) => {
+            this.waterdata = data
           }, (data, msg) => {
             this.$Message.error(msg);
           })

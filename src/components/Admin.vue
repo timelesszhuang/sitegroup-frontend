@@ -96,10 +96,9 @@
         <div class="layout-logo-left" @click="routerChange('/admin/index')">
           <img class="logo" src="../../src/assets/img/logo.png" alt="乐销易创意发布平台">
         </div>
-
         <Menu active-name="activename" theme="dark" style="overflow-x:visible;padding-bottom:80px;;margin-top: 50px"
               width="auto"
-              :open-names="opennames" accordion>
+              :open-names="opennames" accordion class="box">
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-bookmarks-outline"></Icon>
@@ -307,7 +306,8 @@
           </Submenu>
         </Menu>
         <div
-          style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100">
+          style="position:fixed;bottom:0px;padding:10px 15px;color: #ffffff;font-size:12px;background-color:#16b8be;width:inherit;z-index:100"
+          class="box">
           <Row style="margin-top: 5px">
             <Col span="24">
             <span v-if="this.is_checked !=3" class="layout-text" @click="company()" style="cursor:pointer">
@@ -331,7 +331,7 @@
         </div>
       </i-col>
       <i-col :span="spanRight" style="overflow-y:scroll;padding-bottom:50px">
-        <div class="layout-header">
+        <div class="layout-header box">
           <Row type="flex" justify="space-around" align="middle" class="code-row-bg">
             <Col span="2" style="cursor: pointer;padding-left: 10px">
             <span class="layout-text" @click="routerChange('/admin/index')">
@@ -376,12 +376,12 @@
           </Breadcrumb>
         </div>
         <div>
-          <div class="layout-content">
+          <div class="layout-content box">
             <div class="layout-content-main">
               <router-view></router-view>
             </div>
           </div>
-          <div class="layout-copy">
+          <div class="layout-copy box">
             2015-{{copytime}} &copy; 北京易至信科技有限公司
             <div>京ICP12019481号</div>
           </div>

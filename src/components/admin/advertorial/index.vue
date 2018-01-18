@@ -165,16 +165,19 @@
         columns.push({
           title: '标题',
           key: 'title',
+          width: '280',
           sortable: true
         });
         columns.push({
           title: '媒体',
           key: 'media_name',
+          width: '180',
           sortable: true
         });
         columns.push({
           title: '审核状态',
           align: 'center',
+          width: '120',
           render(h, params) {
             if (params.row.is_check == 2) {
               return h('div', [

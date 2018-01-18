@@ -151,7 +151,7 @@
           sortable: true
         });
         columns.push({
-          title: '域名',
+          title: '链接',
           key: 'domain',
           sortable: true
         });

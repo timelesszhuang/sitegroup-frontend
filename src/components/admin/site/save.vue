@@ -41,6 +41,14 @@
                 </Option>
               </Select>
             </Form-item>
+            <Form-item label="图片水印设置" prop="site_water_image_id">
+              <Select v-model="form.site_water_image_id" style="text-align: left;width:400px;"
+                      label-in-value filterable　@on-change="changeWater">
+                <Option v-for="item in waterdata" :value="item.id" :label="item.name" :key="item">
+                  <img style="height:60px; " :src=item.site_water_image_id>
+                </Option>
+              </Select>
+            </Form-item>
             <Form-item label="网站应用" prop="is_mobile">
               <Radio-group v-model="form.is_mobile">
                 <Radio label=10>
@@ -265,6 +273,9 @@
       changeIco(value) {
         this.form.siteico_id = value.value
       },
+      changeWater(value) {
+        this.form.site_water_image_id = value.value
+      },
       changeSitetype(value) {
         this.form.site_type = value.value
         this.form.site_type_name = value.label
@@ -353,6 +364,10 @@
           []
       },
       icodata: {
+        default:
+          []
+      },
+      waterdata: {
         default:
           []
       },

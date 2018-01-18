@@ -1,8 +1,10 @@
 <template>
   <div class="homemain">
     <div>
-      <Row style="background-color: white;margin:19px;margin-top:-10px;" :gutter="10" type="flex"
-           justify="center" class="code-row-bg rowmain">
+      <Row
+        style="background-color: white;margin:19px;margin-top:-10px;box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.08), 0 1px 5px 0 rgba(0,0,0,.08);-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.08), 0 1px 5px 0 rgba(0,0,0,.08);-moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.08), 0 1px 5px 0 rgba(0,0,0,.08);"
+        :gutter="10" type="flex"
+        justify="center" class="code-row-bg rowmain">
         <Col span="4">
         <div class="homehead">
           <div style="padding-bottom: 10px">
@@ -66,7 +68,7 @@
     </div>
     <div>
       <Row :gutter="60" style="margin:10px -15px -20px 10px">
-        <Col span="11" class="eventcss">
+        <Col span="11" class="eventcss box" style="padding-top:20px">
         <h2>
           <Icon type="ios-calendar-outline"></Icon>&nbsp;&nbsp;营销模式
         </h2>
@@ -79,7 +81,7 @@
           </CarouselItem>
         </Carousel>
         </Col>
-        <Col span="12" class="companycss">
+        <Col span="12" class="companycss box">
         <div style="padding: 30px">
           <div style="padding: 6px"><h1>乐销易技术服务中心</h1></div>
           <div style="padding: 6px"><span style="font-size: 15px"><Icon type="paper-airplane"></Icon>&nbsp;&nbsp;北京易至信科技有限公司</span>
@@ -187,6 +189,7 @@
     mixins: [http]
   };
 </script>
+
 <style>
   .homemain {
     background-color: #f5f7f9;
@@ -224,7 +227,7 @@
   .eventcss {
     background-color: white;
     margin: 10px;
-    height: 250px
+    height: 300px
   }
 
   .eventmouse {
@@ -243,6 +246,6 @@
   .companycss {
     background-color: white;
     margin: 10px 0px 10px 10px;
-    height: 250px
+    height: 300px
   }
 </style>

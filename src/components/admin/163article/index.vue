@@ -190,6 +190,7 @@
         columns.push({
           title: '缩略图',
           key: 'imgsrc',
+          width:150,
           render(h, params) {
             if (params.row.imgsrc) {
               return h('img', {
@@ -210,23 +211,19 @@
         });
         columns.push({
           title: '分类',
+          width: 150,
           key: 'type_name',
-          sortable: true
-        });
-        columns.push({
-          title: '简介',
-          width: '300px',
-          key: 'digest',
           sortable: true
         });
         columns.push({
           title: '来源',
           key: 'source',
-          width: '300px',
+          width: 150,
           sortable: true
         });
         columns.push({
           title: '发布时间',
+          width: 150,
           key: 'createtime',
           sortable: true
         });
@@ -235,7 +232,7 @@
             title: '操作',
             key: 'action',
             align: 'center',
-            fixed: 'right',
+            width: 200,
             render(h, params) {
               return h('div', [
                 h('Button', {

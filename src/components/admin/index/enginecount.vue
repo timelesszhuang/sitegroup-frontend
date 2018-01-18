@@ -1,5 +1,5 @@
 <template>
-  <div class="echarts">
+  <div class="echarts box">
     <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
   </div>
 </template>
