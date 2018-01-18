@@ -1,7 +1,21 @@
 <template>
   <div>
     <div class="top">
-      <Input v-model="title" @on-change="changeTitle" placeholder="标题查询" style="width:300px;"></Input>
+      分类:
+      <Select v-model="type" style="width:200px"
+              label-in-value  filterable clearable   >
+          <Option value="article">文章</Option>
+          <Option value="product">产品</Option>
+          <Option value="question">问答</Option>
+          <Option value="selfadd">添加</Option>
+      </Select>
+      标签:
+      <Select v-model="tag_id" style="width:200px"
+              label-in-value  filterable clearable   >
+        <Option-group  v-for="(item,index) in tagname" :label="index" :key="item">
+          <Option v-for="(items,indexs) in item"  :value="indexs" :label="items" :key="index">{{ items }}</Option>
+        </Option-group>
+      </Select>
       <Button type="primary" @click="queryData">查询</Button>
       <Button type="success" @click="add">添加</Button>
     </div>
@@ -45,7 +59,7 @@
         total: 0,
         page: 1,
         rows: 10,
-        title: '',
+        type: '',
         datas: [],
         editinfo: {
           title_color:""
@@ -59,6 +73,7 @@
     components: {publicarticlesave,add},
     created() {
       this.getData();
+      this.gettag();
       this.getArticleType((data) => {
         this.articletypelist = data
       });
@@ -86,7 +101,8 @@
           params: {
             page: this.page,
             rows: this.rows,
-            title:this.title
+            type:this.type,
+            tag_id:this.tag_id
           }
         }
         this.apiGet('admin/libraryimgset', data).then((data) => {
@@ -146,7 +162,6 @@
       },
       gettag() {
         let data = {
-          type: "article",
         }
         this.apiPost('admin/gettags', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
