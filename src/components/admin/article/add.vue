@@ -56,6 +56,7 @@
               </Upload>
             </Form-item>
             </Col>
+            <Button type="success" size="small" :loading="modal_loading" @click="addimg()">选择图片</Button>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
               <img style="max-width: 200px;" :src=imgpath() alt=""></div>
@@ -125,6 +126,7 @@
         <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
       </div>
     </Modal>
+
   </div>
 </template>
 
@@ -172,6 +174,7 @@
           tag_id: [],
           tags: ''
         },
+        components: {},
         selects: true,
         AddRule: {
           title: [
@@ -209,6 +212,11 @@
       imgpath() {
         return this.form.thumbnails;
       },
+      addimg(){
+        this.$parent.material()
+
+      },
+
       addtags() {
         let data = {
           type: "article",

@@ -277,6 +277,12 @@
                 标题库
               </span>
             </Menu-item>
+            <Menu-item name="公共图片">
+              <span class="layout-text" @click="routerChange('/admin/publicimage','公共图片')">
+                <Icon type="android-archive"></Icon>
+                公共图片
+              </span>
+            </Menu-item>
           </Submenu>
           <Submenu name="7">
             <template slot="title">
