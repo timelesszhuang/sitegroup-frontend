@@ -65,6 +65,7 @@ Vue.use(VueHtml5Editor, {
     undo: "custom-icon undo",
     "full-screen": "custom-icon full-screen",
     info: "custom-icon info ",
+    date: "custom-icon info ",
   },
   // 配置图片模块
   // config image module
@@ -144,8 +145,17 @@ Vue.use(VueHtml5Editor, {
       "please wait": "请稍等",
       "error": "错误",
       "abort": "中断",
-      "reset": "重置"
+      "reset": "重置",
+      'date': "insert current time",
+      'emoji': "emoji"
+    },
+    "en-us": {
+      date: "insert current time",
+      emoji: "emoji"
     }
+  },
+  date: {
+    format: "YYYY-MM-DD"
   },
   // 隐藏不想要显示出来的模块
   // the modules you don't want
@@ -167,12 +177,27 @@ Vue.use(VueHtml5Editor, {
     "eraser",
     "undo",
     "full-screen",
+    "date",
   ],
   // 扩展模块，具体可以参考examples或查看源码
   // extended modules
-  modules: {
-    //omit,reference to source code of build-in modules
-  }
+  modules: [
+    {
+      name: "date",
+      icon: "fa fa-calendar",
+      i18n: "time",
+      show: true,
+      init: function (editor) {
+        alert("time module init, config is \r\n" + JSON.stringify(this.config))
+      },
+      handler: function (editor) {
+        editor.execCommand("insertHTML", moment().format(this.config.format || "YYYY-MM-DD HH:mm"))
+      },
+      destroyed: function (editor) {
+        alert("time module destroyed")
+      }
+    }
+  ]
 })
 
 
