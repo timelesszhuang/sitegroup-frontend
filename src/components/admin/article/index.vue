@@ -94,7 +94,6 @@
         this.apiGet('admin/libraryimgset/').then((res) => {
           this.handelResponse(res, (data, msg) => {
             this.imgdata =   data.rows
-            console.log(this.imgdata)
             this.$refs.addmaterial.modal = true
           }, (data, msg) => {
             this.$Message.error(msg);
