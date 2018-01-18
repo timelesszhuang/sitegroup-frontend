@@ -53,6 +53,7 @@
         articletypelist: [],
         tagname:[],
         tag_id:0,
+        clickTimeId:0,
       }
     },
     components: {publicarticlesave,add},
@@ -64,6 +65,17 @@
       this.gettag();
     },
     methods: {
+      //@click="dan" @dblclick="shuang"
+      dan:function(){
+        clearTimeout(this.clickTimeId);
+        this.clickTimeId = setTimeout(function() {
+          console.log("鼠标单击");
+        }, 250);
+      },
+      shuang:function(){
+        clearTimeout(this.clickTimeId);
+        console.log("鼠标双击");
+      },
       doCopy: function (index) {
         this.$copyText(this.datas[index].imgsrc).then(function (e) {
         }, function (e) {
