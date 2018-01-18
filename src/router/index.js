@@ -101,6 +101,7 @@ import Tag from '../components/admin/tag/index'
 import Imgwatermark from '../components/admin/imgwatermark/index'
 //公共文章
 import Publicarticle from '../components/admin/publicarticle/index'
+import Publicimage from '../components/admin/publicimage/index'
 
 
 Vue.use(Router)
@@ -185,6 +186,7 @@ export default new Router({
         {path: 'content', component: Content, name: 'content'},
         {path: 'tag', component: Tag, name: 'tag'},
         {path: 'publicarticle', component: Publicarticle, name: 'publicarticle'},
+        {path: 'publicimage', component: Publicimage, name: 'publicimage'},
         {path: 'imgwatermark', component: Imgwatermark, name: 'imgwatermark'},
       ]
     }
