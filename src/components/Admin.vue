@@ -265,10 +265,16 @@
                 素材库
               </span>
             </template>
-            <Menu-item name="公共文章">
-              <span class="layout-text" @click="routerChange('/admin/publicarticle','公共文章')">
+            <Menu-item name="专属文章">
+              <span class="layout-text" @click="routerChange('/admin/publicarticle','专属文章')">
                 <Icon type="android-archive"></Icon>
-                公共文章
+                专属文章
+              </span>
+            </Menu-item>
+            <Menu-item name="标题库">
+              <span class="layout-text" @click="routerChange('/admin/publicarticle','标题库')">
+                <Icon type="android-archive"></Icon>
+                标题库
               </span>
             </Menu-item>
           </Submenu>
