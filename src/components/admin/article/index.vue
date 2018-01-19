@@ -29,13 +29,14 @@
         </div>
       </div>
     </div>
-    <articleadd ref="add" :tagname="tagname" :articletype="articletypelist"></articleadd>
+    <articleadd ref="add" :imgsrc="imgsrc" :tagname="tagname" :articletype="articletypelist"></articleadd>
     <articlesave ref="save"   :tagname="tagname" :form="editinfo" :articletype="articletypelist"></articlesave>
     <articleshow ref="show" :form="editinfo"></articleshow>
     <articlecsv ref="csvimport" :articletype="articletypelist"></articlecsv>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
-    <materialimg ref="addmaterial" :imgdata="imgdata" ></materialimg>
+    <materialimg ref="addmaterial" ></materialimg>
   </div>
+
 
 </template>
 
@@ -49,6 +50,7 @@
   import showhtml from './showhtml.vue'
   import materialimg from './materialimg.vue';
   export default {
+
     data() {
       return {
         page_show: true,
@@ -73,11 +75,11 @@
         showhtmldata: [],
         tagname:{},
         imgdata:{},
+        imgsrc:'',
       }
     },
 
-    components: {articleadd, articlesave, articleshow, showhtml, articlecsv,materialimg,
-    },
+    components: {articleadd, articlesave, articleshow, showhtml, articlecsv,materialimg,},
     created() {
       this.getData();
       this.getArticleType((data) => {
@@ -90,19 +92,9 @@
       setArticleType(data) {
         this.articletypelist = data
       },
-      material(){
-        this.apiGet('admin/libraryimgset/').then((res) => {
-          this.handelResponse(res, (data, msg) => {
-            this.imgdata =   data.rows
-            this.$refs.addmaterial.modal = true
-          }, (data, msg) => {
-            this.$Message.error(msg);
-          })
-        }, (res) => {
-          //处理错误信息
-          this.$Message.error('网络异常，请稍后重试。');
-        })
-
+      material(img){
+        this.$refs.addmaterial.getData(img)
+        this.$refs.addmaterial.modal = true
       },
       getData() {
         let data = {
@@ -159,6 +151,11 @@
       },
       add() {
         this.$refs.add.modal = true
+
+      },
+      getsrc(src){
+        //console.log(src)
+        this.$refs.add.imgpath(src)
       },
       importadd() {
         this.$refs.csvimport.modal = true

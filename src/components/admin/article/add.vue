@@ -43,6 +43,7 @@
             <Col span="12">
             <Form-item label="缩略图上传">
               <Upload
+                style="display: inline-block"
                 type="select"
                 ref="upImg"
                 with-credentials
@@ -54,9 +55,11 @@
                 :action="action">
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
               </Upload>
+              <Button type="success"  style="display: inline-block" :loading="modal_loading" @click="addimg('suolue')">素材库图片</Button>
             </Form-item>
+
             </Col>
-            <Button type="success" size="small" :loading="modal_loading" @click="addimg()">选择图片</Button>
+
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
               <img style="max-width: 200px;" :src=imgpath() alt=""></div>
@@ -85,7 +88,11 @@
             <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
           </Form-item>
           <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
+            <Button type="success"  style="display: inline-block" :loading="modal_loading" @click="addimg('content')">素材库图片</Button>
+
+            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false">
+            </editor>
+
           </Form-item>
           <Row>
             <Col span="12">
@@ -158,6 +165,7 @@
         imgshow: true,
         modal_loading: false,
         editor_id: '',
+        img:'',
         form: {
           summary: '',
           thumbnails: '',
@@ -172,7 +180,7 @@
           content: '',
           title_color: '',
           tag_id: [],
-          tags: ''
+          tags: '',
         },
         components: {},
         selects: true,
@@ -209,14 +217,23 @@
       changeTagtype(value) {
         this.form.tag_id = value.value
       },
-      imgpath() {
+      imgpath(src) {
+        if(src){
+          if(this.img=='content'){
+            let imgsrc = "<img src="+src+">";
+            this.form.content += imgsrc;
+            return src;
+          }else if(this.img=='suolue'){}
+          this.form.thumbnails = src
+          return src;
+        }
         return this.form.thumbnails;
-      },
-      addimg(){
-        this.$parent.material()
 
       },
-
+      addimg(img){
+        this.img = img
+        this.$parent.material(img)
+      },
       addtags() {
         let data = {
           type: "article",
@@ -304,6 +321,8 @@
       },
       tagname: {
         default: {}
+      },imgsrc: {
+
       }
     }
   }
