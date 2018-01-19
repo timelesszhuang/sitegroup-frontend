@@ -29,12 +29,12 @@
         </div>
       </div>
     </div>
-    <articleadd ref="add" :imgsrc="imgsrc" :tagname="tagname" :articletype="articletypelist"></articleadd>
+    <articleadd ref="add"  :tagname="tagname" :articletype="articletypelist"></articleadd>
     <articlesave ref="save"   :tagname="tagname" :form="editinfo" :articletype="articletypelist"></articlesave>
     <articleshow ref="show" :form="editinfo"></articleshow>
     <articlecsv ref="csvimport" :articletype="articletypelist"></articlecsv>
     <showhtml ref="showhtml" :form="showhtmldata"></showhtml>
-    <materialimg ref="addmaterial" ></materialimg>
+
   </div>
 
 
@@ -48,7 +48,7 @@
   import articleshow from './show.vue'
   import articlecsv from './csvimport.vue'
   import showhtml from './showhtml.vue'
-  import materialimg from './materialimg.vue';
+
   export default {
 
     data() {
@@ -74,12 +74,10 @@
         articletypelist: [],
         showhtmldata: [],
         tagname:{},
-        imgdata:{},
-        imgsrc:'',
       }
     },
 
-    components: {articleadd, articlesave, articleshow, showhtml, articlecsv,materialimg,},
+    components: {articleadd, articlesave, articleshow, showhtml, articlecsv},
     created() {
       this.getData();
       this.getArticleType((data) => {
@@ -92,10 +90,7 @@
       setArticleType(data) {
         this.articletypelist = data
       },
-      material(img){
-        this.$refs.addmaterial.getData(img)
-        this.$refs.addmaterial.modal = true
-      },
+
       getData() {
         let data = {
           params: {
@@ -153,10 +148,7 @@
         this.$refs.add.modal = true
 
       },
-      getsrc(src){
-        //console.log(src)
-        this.$refs.add.imgpath(src)
-      },
+
       importadd() {
         this.$refs.csvimport.modal = true
         this.$refs.csvimport.csvclose()

@@ -69,7 +69,7 @@
         tagname:[],
         tag_id:0,
         clickTimeId:0,
-        img:''
+
 
       }
     },
@@ -100,8 +100,7 @@
         }, function (e) {
         })
       },
-      getData(img) {
-        this.img = img
+      getData() {
         //console.log(img)
         let data = {
           params: {
