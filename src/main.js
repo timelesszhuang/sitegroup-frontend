@@ -11,12 +11,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
 import Highcharts from 'highcharts'
-import Waterfall from 'vue-waterfall/lib/waterfall'
-import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 Drilldown(Highcharts);
 import VueQriously from 'vue-qriously'
 
+
 Vue.use(VueQriously)
+
 import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
@@ -30,8 +30,6 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
-Vue.use(Waterfall);
-Vue.use(WaterfallSlot)
 
 // let domain = 'local.sitegroup.com'
 
@@ -65,7 +63,6 @@ Vue.use(VueHtml5Editor, {
     undo: "custom-icon undo",
     "full-screen": "custom-icon full-screen",
     info: "custom-icon info ",
-    date: "custom-icon info ",
   },
   // 配置图片模块
   // config image module
@@ -145,17 +142,8 @@ Vue.use(VueHtml5Editor, {
       "please wait": "请稍等",
       "error": "错误",
       "abort": "中断",
-      "reset": "重置",
-      'date': "insert current time",
-      'emoji': "emoji"
-    },
-    "en-us": {
-      date: "insert current time",
-      emoji: "emoji"
+      "reset": "重置"
     }
-  },
-  date: {
-    format: "YYYY-MM-DD"
   },
   // 隐藏不想要显示出来的模块
   // the modules you don't want
@@ -177,27 +165,12 @@ Vue.use(VueHtml5Editor, {
     "eraser",
     "undo",
     "full-screen",
-    "date",
   ],
   // 扩展模块，具体可以参考examples或查看源码
   // extended modules
-  modules: [
-    {
-      name: "date",
-      icon: "fa fa-calendar",
-      i18n: "time",
-      show: true,
-      init: function (editor) {
-        alert("time module init, config is \r\n" + JSON.stringify(this.config))
-      },
-      handler: function (editor) {
-        editor.execCommand("insertHTML", moment().format(this.config.format || "YYYY-MM-DD HH:mm"))
-      },
-      destroyed: function (editor) {
-        alert("time module destroyed")
-      }
-    }
-  ]
+  modules: {
+    //omit,reference to source code of build-in modules
+  }
 })
 
 
