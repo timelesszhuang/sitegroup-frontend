@@ -159,13 +159,7 @@
         }
 
       };
-      const checktag = (rule, value, callback) => {
-        if (value == '') {
-          callback(new Error('请选择标签或添加标签'));
-        } else {
-          callback();
-        }
-      };
+
 
       return {
         switch1: true,
@@ -206,9 +200,7 @@
           articletype_id: [
             {required: true, validator: checkarticletype, trigger: 'blur'}
           ],
-          tag_id: [
-            {required: true, validator: checktag, trigger: 'blur'}
-          ]
+
         }
       }
     },

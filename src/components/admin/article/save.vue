@@ -159,13 +159,7 @@
           callback();
         }
       };
-      const checktag = (rule, value, callback) => {
-        if (value=='') {
-          callback(new Error('请选择标签或添加标签'));
-        } else {
-          callback();
-        }
-      };
+
       return {
         tag_name: true,
         switch1: true,
