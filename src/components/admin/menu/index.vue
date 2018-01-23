@@ -24,7 +24,7 @@
           {{item.name}}
           <Icon v-if="item.child" title="包含子菜单" type="arrow-down-c" style="color: rgba(7,208,211,0.76)"></Icon>
           <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{item.flag_name}}</span>
-          <span title="栏目分类" style="display:inline-block;width: 8%">{{item.tag_name}}</span>
+          <span title="栏目分类" style="display:inline-block;width: 20%">{{item.tag_name}}</span>
           <span title="英文名" style="display:inline-block;width: 8%">{{item.generate_name}}</span>
           <Button style="position: absolute;right:50px;top: 10px" @click="edit(item.id)" icon="ivu-icon ivu-icon-edit"
                   size="small" type="info"></Button>
@@ -37,7 +37,7 @@
                 <Icon v-if="childitem.child" title="包含子菜单" type="arrow-down-c"
                       style="color: rgba(7,208,211,0.76)"></Icon>
                 <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{childitem.flag_name}}</span>
-                <span title="栏目分类" style="display:inline-block;width: 8%">{{childitem.tag_name}}</span>
+                <span title="栏目分类" style="display:inline-block;width: 20%">{{childitem.tag_name}}</span>
                 <span title="英文名" style="display:inline-block;width: 8%">{{childitem.generate_name}}</span>
                 <Button style="position: absolute;right:50px;top: 10px" @click="edit(childitem.id)"
                         icon="ivu-icon ivu-icon-edit" size="small" type="info"></Button>
@@ -49,7 +49,7 @@
                       {{child1item.name}}
                       <span title="类型" style="display:inline-block;padding-left:3%;width:10%"> {{child1item.flag_name}}
                       </span>
-                      <span title="栏目分类" style="display:inline-block;width: 8%">{{child1item.tag_name}}</span>
+                      <span title="栏目分类" style="display:inline-block;width: 20%">{{child1item.tag_name}}</span>
                       <span title="英文名" style="display:inline-block;width: 8%">{{child1item.generate_name}}</span>
                       <Button style="position: absolute;right:50px;top: 10px" @click="edit(child1item.id)"
                               icon="ivu-icon ivu-icon-edit" size="small" type="info"></Button>
