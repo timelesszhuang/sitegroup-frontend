@@ -150,6 +150,29 @@
           },
         });
         columns.push({
+          title: '打出/打进',
+          key: 'type',
+          align: 'center',
+          width: 90,
+          render(h, params) {
+            let inou = h('span', {
+              attrs: {
+
+              },
+            }, '打进');
+            if (params.row.type == 'OU') {
+              inou = h('span', {
+                attrs: {
+
+                },
+              }, '打出');
+            }
+            return h('div', [
+              inou
+            ]);
+          }
+        });
+        columns.push({
           title: '电话开始时间',
           key: 'timestart',
           align: 'center',
