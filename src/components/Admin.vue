@@ -303,6 +303,12 @@
                 流量分析
               </span>
             </Menu-item>
+            <Menu-item name="录音">
+              <span class="layout-text" @click="routerChange('/admin/video','录音')">
+               <Icon type="android-microphone"></Icon>
+                录音分析
+              </span>
+            </Menu-item>
           </Submenu>
         </Menu>
         <div

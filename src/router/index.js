@@ -18,6 +18,8 @@ import Mediatype from '../components/sysadmin/mediatype/index.vue'
 import Advertorialmanage from '../components/sysadmin/advertorial/tab.vue'
 import SysarticleManage from '../components/sysadmin/articleManage/index.vue'
 import Systemplate from '../components/sysadmin/template/template.vue'
+import Sysvideo from '../components/sysadmin/video/index'
+
 
 
 import Keyword from '../components/admin/keyword/keyword.vue'
@@ -102,7 +104,7 @@ import Imgwatermark from '../components/admin/imgwatermark/index'
 //公共文章
 import Publicarticle from '../components/admin/publicarticle/index'
 import Publicimage from '../components/admin/publicimage/index'
-
+import Video from '../components/admin/video/index'
 
 Vue.use(Router)
 
@@ -132,6 +134,7 @@ export default new Router({
         {path: 'advertorialmanage', component: Advertorialmanage, name: 'advertorialmanage'},
         {path: 'sysarticlemanage', component: SysarticleManage, name: 'sysarticlemanage'},
         {path: 'systemplate', component: Systemplate, name: 'systemplate'},
+        {path: 'sysvideo', component: Sysvideo, name: 'sysvideo'},
       ]
     },
     {
@@ -188,6 +191,7 @@ export default new Router({
         {path: 'publicarticle', component: Publicarticle, name: 'publicarticle'},
         {path: 'publicimage', component: Publicimage, name: 'publicimage'},
         {path: 'imgwatermark', component: Imgwatermark, name: 'imgwatermark'},
+        {path: 'video', component: Video, name: 'video'},
       ]
     }
   ]

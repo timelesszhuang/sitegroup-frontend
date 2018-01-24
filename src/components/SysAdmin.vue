@@ -192,6 +192,10 @@
             <Icon type="android-apps" :size="iconSize"></Icon>
             <span class="layout-text" @click="routerChange('/sysadmin/company','友商库')">友商库</span>
           </Menu-item>
+          <Menu-item name="录音分析">
+            <Icon type="android-apps" :size="iconSize"></Icon>
+            <span class="layout-text" @click="routerChange('/sysadmin/sysvideo','录音分析')">录音分析</span>
+          </Menu-item>
         </Menu>
       </i-col>
       <i-col :span="spanRight" style="overflow: auto">
