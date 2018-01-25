@@ -11,8 +11,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Drilldown from '../node_modules/highcharts/modules/drilldown.js'
 import Highcharts from 'highcharts'
-import Waterfall from 'vue-waterfall/lib/waterfall'
-import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 Drilldown(Highcharts);
 import VueQriously from 'vue-qriously'
 
