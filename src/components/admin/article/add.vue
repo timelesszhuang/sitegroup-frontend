@@ -43,6 +43,7 @@
             <Col span="12">
             <Form-item label="缩略图上传">
               <Upload
+                style="display: inline-block"
                 type="select"
                 ref="upImg"
                 with-credentials
@@ -54,9 +55,13 @@
                 :action="action">
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
               </Upload>
+              <Button type="success" style="display: inline-block" :loading="modal_loading" @click="addimg('suolue')">
+                素材库图片
+              </Button>
             </Form-item>
+
             </Col>
-            <Button type="success" size="small" :loading="modal_loading" @click="addimg()">选择图片</Button>
+
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
               <img style="max-width: 200px;" :src=imgpath() alt=""></div>
@@ -84,8 +89,16 @@
           <Form-item label="文章描述" prop="summary">
             <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
           </Form-item>
-          <Form-item label="内容" prop="content" style="height:100%;">
-            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
+          <Form-item label="内容" type="image"  prop="content"  style="height:100%;">
+           <span  @click="addimg('content')"  title="素材图图片插入" ><Icon type="image" ></Icon></span>
+
+            <!--<Button type="success" size="small" style="display: inline-block" :loading="modal_loading" @click="addimg('content')">-->
+              <!--素材库图片-->
+            <!--</Button>-->
+
+            <editor @change="updateData" :content="form.content" :height="300" :auto-height="false">
+            </editor>
+
           </Form-item>
           <Row>
             <Col span="12">
@@ -101,11 +114,11 @@
                       style="position:relative;text-align: left;width:350px;z-index: 10000;"
                       label-in-value multiple filterable　>
                 <Option v-for="(item,index) in tagname" :value="index" :label="item" :key="index">
-                {{item}}
+                  {{item}}
                 </Option>
               </Select>
             </Form-item>
-            <Form-item label="分类标签"  v-if="!tag_name" prop="tags">
+            <Form-item label="分类标签" v-if="!tag_name" prop="tags">
               <Input type="text" style="width:350px;" v-model="form.tags" placeholder="请输入标签区分分类"></Input>
               <Button type="success" size="small" :loading="modal_loading" @click="addtags">添加标签</Button>
             </Form-item>
@@ -125,13 +138,16 @@
       <div slot="footer">
         <Button type="success" size="large" :loading="modal_loading" @click="add">保存</Button>
       </div>
-    </Modal>
 
+    </Modal>
+    <materialimg ref="addmaterial"></materialimg>
   </div>
 </template>
 
+
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
+  import materialimg from './materialimg.vue';
 
   export default {
     data() {
@@ -141,14 +157,9 @@
         } else {
           callback();
         }
+
       };
-      const checktag = (rule, value, callback) => {
-        if (value=='') {
-          callback(new Error('请选择标签或添加标签'));
-        } else {
-          callback();
-        }
-      };
+
 
       return {
         switch1: true,
@@ -158,6 +169,7 @@
         imgshow: true,
         modal_loading: false,
         editor_id: '',
+        img: '',
         form: {
           summary: '',
           thumbnails: '',
@@ -172,9 +184,8 @@
           content: '',
           title_color: '',
           tag_id: [],
-          tags: ''
+          tags: '',
         },
-        components: {},
         selects: true,
         AddRule: {
           title: [
@@ -189,12 +200,11 @@
           articletype_id: [
             {required: true, validator: checkarticletype, trigger: 'blur'}
           ],
-          tag_id: [
-            {required: true, validator: checktag, trigger: 'blur'}
-          ]
+
         }
       }
     },
+    components: {materialimg},
     methods: {
       change(status) {
         if (status) {
@@ -209,18 +219,32 @@
       changeTagtype(value) {
         this.form.tag_id = value.value
       },
-      imgpath() {
+      getsrc(src){
+        this.imgpath(src)
+      },
+      addimg(img) {
+        this.img =img
+        this.$refs.addmaterial.getData()
+        this.$refs.addmaterial.modal = true
+      },
+      imgpath(src) {
+        if (src) {
+          if (this.img == 'content') {
+            let imgsrc = "<img src=" + src + ">";
+            this.form.content += imgsrc;
+            return src;
+          } else if (this.img == 'suolue') {
+          }
+          this.form.thumbnails = src
+          return src;
+        }
         return this.form.thumbnails;
-      },
-      addimg(){
-        this.$parent.material()
 
       },
-
       addtags() {
         let data = {
           type: "article",
-          name:this.form.tags
+          name: this.form.tags
         }
         this.apiPost('admin/tags', data).then((res) => {
           this.handelResponse(res, (data, msg) => {
@@ -228,7 +252,7 @@
             let tagId = data.id
             let tagnum = tagId.toString()
             tempN.push(tagnum)
-            this.form.tags=''
+            this.form.tags = ''
             this.$parent.gettag();
             this.$Message.success(msg);
           }, (data, msg) => {
@@ -304,7 +328,7 @@
       },
       tagname: {
         default: {}
-      }
+      }, imgsrc: {}
     }
   }
 </script>

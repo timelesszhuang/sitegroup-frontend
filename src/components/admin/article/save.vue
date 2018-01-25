@@ -44,6 +44,7 @@
             <Col span="12">
             <Form-item label="缩略图上传">
               <Upload
+                style="display: inline-block"
                 type="select"
                 ref="upImg"
                 with-credentials
@@ -55,11 +56,14 @@
                 :action="action">
                 <Button type="ghost" icon="ios-cloud-upload-outline">上传缩略图</Button>
               </Upload>
+              <Button type="success" style="display: inline-block" :loading="modal_loading" @click="addimg('suolue')">
+                素材库图片
+              </Button>
             </Form-item>
             </Col>
             <Col span="12">
             <div v-if="imgshow" style="margin:0 auto;max-width: 200px;margin-right: 300px">
-              <img style="max-width: 200px;max-height: 200px; width:100px" :src=imgpath() alt=""></div>
+              <img style="max-width: 200px;" :src=imgpath() alt=""></div>
             </Col>
           </Row>
           <Row>
@@ -94,6 +98,7 @@
             <Input v-model="form.summary" :rows="3" type="textarea" placeholder="请输入文章描述"></Input>
           </Form-item>
           <Form-item label="内容" prop="content">
+            <span  @click="addimg('content')"  title="素材图图片插入" ><Icon type="image" ></Icon></span>
             <editor @change="updateData" :content="form.content" :height="300" :auto-height="false"></editor>
           </Form-item>
           <Row>
@@ -138,12 +143,13 @@
         </Button>
       </div>
     </Modal>
+    <materialimg ref="addmaterial"></materialimg>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import http from '../../../assets/js/http.js';
-
+  import materialimg from './materialimg.vue';
   export default {
     data() {
       const checkarticletype = (rule, value, callback) => {
@@ -153,13 +159,7 @@
           callback();
         }
       };
-      const checktag = (rule, value, callback) => {
-        if (value=='') {
-          callback(new Error('请选择标签或添加标签'));
-        } else {
-          callback();
-        }
-      };
+
       return {
         tag_name: true,
         switch1: true,
@@ -203,6 +203,7 @@
       },
 
     },
+    components: {materialimg},
     methods: {
       change(status) {
         if (status) {
@@ -217,13 +218,34 @@
       changeTagtype(value) {
         this.form.tag_id = value.value
       },
-      imgpath() {
+      getsrc(src){
+        this.imgpath(src)
+      },
+      addimg(img) {
+        this.img =img
+        this.$refs.addmaterial.getData()
+        this.$refs.addmaterial.modal = true
+      },
+      imgpath(src) {
+        if (src) {
+          if (this.img == 'content') {
+            let imgsrc = "<img src=" + src + ">";
+            this.form.content += imgsrc;
+            return src;
+          } else if (this.img == 'suolue') {
+          }
+          this.form.thumbnails = src
+          return src;
+        }
         if (this.form.thumbnails) {
           return this.form.thumbnails;
         }
 
         return '';
+
       },
+
+
       addtags() {
         let data = {
           type: "article",

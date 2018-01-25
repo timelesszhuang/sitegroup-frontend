@@ -14,7 +14,9 @@ import Highcharts from 'highcharts'
 Drilldown(Highcharts);
 import VueQriously from 'vue-qriously'
 
+
 Vue.use(VueQriously)
+
 import axios from 'axios'
 import Lockr from 'lockr'
 import moment from 'moment'
@@ -28,8 +30,6 @@ Vue.config.productionTip = false
 Vue.use(iView);
 Vue.use(router);
 Vue.use(ElementUI)
-Vue.use(Waterfall);
-Vue.use(WaterfallSlot)
 
 // let domain = 'local.sitegroup.com'
 
