@@ -50,6 +50,16 @@
             <Form-item label="地址" prop="content_address">
               <Input type="text" v-model="form.content_address" placeholder="请输入地址"></Input>
             </Form-item>
+            <Form-item label="语言" prop="lang">
+              <Radio-group v-model="form.lang">
+                <Radio label="en">
+                  <span>英文</span>
+                </Radio>
+                <Radio label="zh">
+                  <span>中文</span>
+                </Radio>
+              </Radio-group>
+            </Form-item>
           </Form>
         </div>
         <div slot="footer">
@@ -86,6 +96,7 @@
           content_four00: '',
           content_qq: '',
           content_address: '',
+          lang:'',
         },
         AddRule: {
           yuming: [
