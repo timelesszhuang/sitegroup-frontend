@@ -105,6 +105,7 @@ import Imgwatermark from '../components/admin/imgwatermark/index'
 import Publicarticle from '../components/admin/publicarticle/index'
 import Publicimage from '../components/admin/publicimage/index'
 import Video from '../components/admin/video/index'
+import Quick from '../components/admin/quick/index'
 
 Vue.use(Router)
 
@@ -192,6 +193,7 @@ export default new Router({
         {path: 'publicimage', component: Publicimage, name: 'publicimage'},
         {path: 'imgwatermark', component: Imgwatermark, name: 'imgwatermark'},
         {path: 'video', component: Video, name: 'video'},
+        {path: 'quick', component: Quick, name: 'quick'},
       ]
     }
   ]
